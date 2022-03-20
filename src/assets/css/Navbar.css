@@ -1,0 +1,70 @@
+.nav-header {
+  padding: 0px 5%;
+  background: black;
+  z-index: 9999;
+}
+.nav-bar {
+  padding: 5px 0;
+}
+
+
+.menu {
+  text-transform: uppercase;
+  font-family: "Archivo Narrow";
+  font-weight: bold;
+  margin-top: 30px;
+  list-style: none;
+}
+.menu-item {
+  display: inline-block;
+  padding: 10px 30px;
+}
+.nav-link {
+  font-family: "Archivo Narrow";
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: #72ab00;
+}
+
+.menu-icon {
+  /* margin-left: -55px; */
+  display: none;
+}
+.menu-icon img {
+  width: 30px;
+  height: 25px;
+}
+.mobile-menu {
+  display: none;
+  list-style: none;
+}
+.mobile-menu-item {
+  padding: 12px 0px;
+}
+
+@media only screen and (max-width: 1075px) {
+  .mobile-menu {
+    margin-left: -28px;
+    display: block;
+    list-style: none;
+  }
+  .menu-icon {
+    display: block;
+  }
+  .sub-menu {
+    width: 0px;
+    position: relative;
+    padding-top: 0;
+    margin-left: 0px;
+    list-style: none;
+  }
+  .menu {
+    display: none;
+    margin-top: 5px;
+    margin-left: -45vw;
+    text-align: left;
+  }
+}

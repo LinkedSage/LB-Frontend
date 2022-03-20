@@ -1,0 +1,113 @@
+.txt-lg{
+  font-size: 24px;
+}
+.txt-sm{
+  font-size: 14px;
+}
+a{
+  text-decoration: none;
+}
+
+
+/* notification component css  */
+.notification{
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 999;
+  background: #3f5840;
+  padding: 10px 30px;
+  color: #fff;
+}
+
+.content table {
+  border-collapse: collapse;
+  width: 100%;
+  width: 80vw;
+}
+
+.content td, .content th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.content td{
+  cursor: pointer;
+}
+
+.content tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.content table img{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+
+/* details page  */
+.details-page{
+  display: flex;
+  justify-content: center;
+}
+.details-page{
+  padding: 30px 0;
+}
+.details-page .row{
+  display: flex;
+  width: 1200px;
+  
+}
+.details-page .row .left,
+.details-page .row .right{
+  flex-basis: 50%;
+}
+.details-page img{
+  width: 400px;
+  height: auto;
+}
+
+
+.country{
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+.show-btn{
+  display: block;
+  margin: 20px 0;
+  position: relative;
+}
+.d-block{
+  
+  display: flex;
+  justify-content: center;
+}
+.dropdown{
+  width: 300px;
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+}
+.dropdown button,
+.show-btn button{
+  width: 300px;
+  cursor: pointer;
+  border: none;
+  padding: 5px 0;
+}
+.pagination{
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.data-analysis{
+  display: flex;
+  justify-content: center;
+}
+.data-analysis .row{
+  width: 400px;
+}

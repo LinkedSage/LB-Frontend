@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "./Components/Layout";
+import "./assets/css/bootstrap.min.css";
 import './assets/css/page.css'
 import './assets/css/Responsive.css'
 // ..

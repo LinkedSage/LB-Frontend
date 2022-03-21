@@ -1,6 +1,5 @@
 
 import React,{useEffect, useState} from "react";
-import "../assets/css/login.css";
 import { useHistory } from "react-router-dom";
 export default function Login(data) {
 

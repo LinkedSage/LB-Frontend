@@ -1,0 +1,53 @@
+
+/*-----------------
+	5. Footer
+-----------------------*/
+#footer{
+	font-size: 15px;
+    background-color: #444444;
+	padding: 10px 0;
+}
+#footer .logo{
+	height: 60px;
+	margin-bottom: 20px;
+}
+#footer ul{
+	padding: 0 !important;
+}
+#footer ul li{
+	margin-bottom: 10px;
+}
+#footer ul li .icon{
+	height: 22px;
+	margin-right: 5px;
+}
+#footer ul li a{
+	color: var(--white);
+	transition: .4s ease-in-out;
+}
+#footer p{
+	color: rgb(160, 160, 160);
+	margin-top: 2.5rem;
+	margin-bottom: 20px;
+}
+#footer ul li a:hover{
+	letter-spacing: 1px;
+}
+
+#footer ul li .social-icon{
+	height: 36px;
+}
+#copy-right{
+	background: var(--primary);
+}
+
+#copy-right p,
+#copy-right p a {
+	color: var(--white);
+}
+#copy-right p a{
+	font-weight: 500;
+}
+#copy-right p img{
+	height: 18px;
+}

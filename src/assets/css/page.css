@@ -9,7 +9,8 @@
 1. General
 2. Table
 3. Helper Class
-4. Navbar
+4. /Components/CSS/Navbar.css
+5. /Components/CSS/Footer.css
 
 
 
@@ -18,10 +19,18 @@
 -----------------------*/
 
 :root {
+<<<<<<< HEAD
   --primary: #0b4376;
   --hover: yellow;
   --white: #eee;
 }
+=======
+    --primary: #0b4376;
+    --hover: yellow;
+    --white: #eee;
+	--black:#333333;
+  }
+>>>>>>> a144e8ebc9894f84f3ca4be5163a9b65e317b822
 
 @import url("https://fonts.googleapis.com/css?family=Rubik:400,500,700");
 html {
@@ -158,7 +167,28 @@ textarea.form-control {
   transition: all 0.5s cubic-bezier(0, 0, 0.23, 1);
   background-position: 0%;
 }
+.hover-effect-black{
+	color: #777;
+    transition: .5s ease-in-out;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(
+    	to right,
+	    var(--primary),
+	    var(--primary) 50%,
+	    #777 50%);
+    background-size: 200% 100%;
+    background-position: 100%;
+}
 
+<<<<<<< HEAD
+=======
+.hover-effect-black:hover{
+    transition: all .5s cubic-bezier(0.000, 0.000, 0.230, 1);
+    background-position: 0%;      
+}
+
+>>>>>>> a144e8ebc9894f84f3ca4be5163a9b65e317b822
 /*-----------------
 	3. Helper Class
 -----------------------*/
@@ -197,6 +227,7 @@ textarea.form-control {
   margin-bottom: 30px !important;
 }
 
+<<<<<<< HEAD
 /*-----------------
 	4. Navbar
 -----------------------*/
@@ -267,3 +298,9 @@ textarea.form-control {
   font-size: 16px;
   font-weight: 400;
 }
+=======
+
+#homePage{
+	min-height: calc(100vh - 338.3px);
+}
+>>>>>>> a144e8ebc9894f84f3ca4be5163a9b65e317b822

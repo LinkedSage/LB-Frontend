@@ -12,6 +12,7 @@
 3. Helper Class
 4. /Components/CSS/Navbar.css
 5. /Components/CSS/Footer.css
+6. /Components/CSS/SignInUp.css
 
 
 
@@ -217,8 +218,6 @@ textarea.form-control {
 .m-b-30 {
 	margin-bottom: 30px !important;
 }
-
-
 #homePage{
 	min-height: calc(100vh - 338.3px);
 }

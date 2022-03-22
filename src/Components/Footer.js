@@ -24,8 +24,8 @@ export default function Footer() {
             <ul>
               
               <li><Link to = "/"><img src={location} className="icon" alt="location" /> House-5A Rd 137, Dhaka 1212</Link></li>
-              <li><Link to = "/"><img src={phone} className="icon" alt="phone" /> +880 199 776 1111</Link></li>
-              <li><Link to = "/"><img src={email} className="icon" alt="email" /> info@linkedsage.com</Link></li>
+              <li><a href="tel:8801997766489"><img src={phone} className="icon" alt="phone" /> +880 199 776 1111</a></li>
+              <li><a href="mailto:webmaster@example.com"><img src={email} className="icon" alt="email" /> info@linkedsage.com</a></li>
             </ul>
           </div>
           

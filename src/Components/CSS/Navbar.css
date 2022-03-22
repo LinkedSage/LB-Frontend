@@ -74,7 +74,7 @@
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	left: 0%;
+	left: 0;
 	right: 0;
 	display: flex;
 	justify-content: end;
@@ -86,7 +86,6 @@
 }
 .right-nav .close-nav-sec{
 	position: relative;
-	background: rgba(0, 0, 0, 0.438);
 	width: 100%;
 }
 .nav-menu-sec .nav-menu{
@@ -107,8 +106,8 @@
 
 .nav-menu-sec  .nav-link-show {
 	right: 0 !important;
-	/* animation: mymove 2s;
-  transform: translateX(0); */
+	animation: mymove 1s;
+  transform: translateX(0);
 	
 }
 @keyframes mymove {
@@ -117,12 +116,12 @@
   }
 .nav-menu-sec  .nav-link-hide {
 	right: -100%;
-	/* transform: translateX(100%);
-	animation: mymove1 2s; */
+	animation: mymove1 1s;
+	transform: translateX(100%);
 }
 @keyframes mymove1 {
 	0% { transform: translateX(0); }
-	  100% { transform: translateX(-100%); }
+	  100% { transform: translateX(100%); }
   }
 .right-nav .nav-menu p{
 	color: #555 !important;
@@ -137,11 +136,11 @@
 .nav-menu-sec .close-btn{
 	position: absolute;
     top: -2px;
-    right: 247px;
+    right: 258px;
 }
 .nav-menu-sec .close-btn button{
 	padding: 5px 15px;
-	background: #fff;
+	background: #fff;	
 	border: none;
 	font-weight: 500;
 	font-size: 16px;

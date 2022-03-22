@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar";
 import ProtectedRoute from "../Components/ProtectedRoute";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import SignInUp from "../pages/SignInUp";
 
 
 
@@ -13,6 +14,7 @@ export default function Section() {
       <Route path="/login" component={Login} />
      
       <Route exact path = "/" component={Home} />
+      <Route exact path = "/signin" component={SignInUp} />
 
       
       {/* <ProtectedRoute exact path = "/top-user-by-country" component={topUserByCountry} /> */}

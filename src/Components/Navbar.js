@@ -64,7 +64,7 @@ export default function Navbar() {
                 <ul className="dropdown d-flex flex-column">
                   <li><Link className="hover-effect" to='/dashboard'>Dashboard</Link></li>
                   <li><Link className="hover-effect" to='/profile'>Profile</Link></li>
-                  <li><Link className="hover-effect" to='/'>Singout</Link></li>
+                  <li><Link className="hover-effect" to='/signin'>Signin</Link></li>
                 </ul>
               </Link></li>
               <li><Link className="hover-effect nav-item" to='' onClick={showNavMenu}><img src={menu} alt="menu" />Menu</Link></li>
@@ -72,9 +72,7 @@ export default function Navbar() {
             <div id="open-nav" className="nav-menu-sec" >
               <div className="close-nav-sec" onClick={hideNavMenu}>             
               </div>
-              <div className="close-btn">
-                <button onClick={hideNavMenu}>X</button>
-              </div>
+              
               <div id="open-nav-item" className="nav-menu d-flex flex-column">
                 <ul>
                   <p className="h4">LOAN</p>
@@ -90,6 +88,9 @@ export default function Navbar() {
                   <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>BRACK Credit Card</Link></li>
                   <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>DBBL Credit Card</Link></li>
                 </ul>
+                <div className="close-btn">
+                <button onClick={hideNavMenu}>X</button>
+              </div>
               </div>
 
 

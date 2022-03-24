@@ -4,7 +4,10 @@ import log from '../assets/images/log.svg'
 import register from '../assets/images/register.svg'
 import phone from '../assets/images/icons/phone-solid-1.png'
 import lock from '../assets/images/icons/lock-solid.svg'
-import { Notification } from "../Components/Notification";
+import { onSubmitLogin } from "../helpers/API/Auth";
+import { ToastContainer } from 'react-toastify';
+import { notification } from "../helpers/Confirm/ConfirmAction";
+
 
 
 export default function SignInUp() {
@@ -29,13 +32,38 @@ export default function SignInUp() {
 
     }, [])
 
-    function submitLoginForm(){
-        Notification('Hello Jiiiiiiiii','success')
-    }
+        const submitLoginForm =  () => {
+            let values = {
+                phone:phoneNo,
+                password: password,
+                name: 'Bappy',
+                email:"hrbappy@linkedsage.com"
+            }
+            console.log("aaa", values)
+            // login form submitting
+            onSubmitLogin(values)
+            .then((res)=>{
+                if(res.status === 200){
+                    notification('success', 'Login Successfully. Redirecting.. ')
+                    setTimeout(()=>{
+                        window.location.href = '/'    
+                    }, 1000)
+                }else{
+                    console.log("xxxxxx")
+                    notification('fail', res.msg)
+                }
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        }
 function submitSigupForm(){
     console.log("xxxxxxxxxxxxxx.com",phoneNo,password,confirmPassword)
 }
     return (
+        <>
+        <ToastContainer></ToastContainer>
+   
         <section id="sign-in-up">
             <div class="_container">
                 <div class="forms-container">
@@ -131,5 +159,6 @@ function submitSigupForm(){
                 </div>
             </div>
         </section>
+        </>
     )
 }

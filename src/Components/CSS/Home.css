@@ -1,0 +1,80 @@
+
+/* Hero area css start  */
+#homePage .hero-area{
+    background: rgb(238, 238, 238);
+}
+#homePage .btn-grp button{
+    padding: 8px 0;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 120px;
+    border: 1px solid #eee;
+    background: #fff;
+    box-shadow: 0 0 10px rgb(11 67 118 / 40%);
+    transition: .3s ease-in-out;
+}
+#homePage .btn-grp button:hover{
+    box-shadow: none;    
+}
+/* Hero area css end  */
+
+/* Trending  product css start  */
+.trending-product-area .product-group{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.trending-product-area .product-group .single-product{
+    width: 225px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 15px 10px;
+}
+.single-product .txt-lg{
+    font-size: 1.1rem;
+}
+.trending-product-area .product-group .single-product p{
+    margin-bottom: 0 !important;
+} 
+.trending-product-area .product-group a{
+    color: var(--primary);
+    border-right: 1px solid rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(238, 238, 238);    
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(11 67 118 / 40%);
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+    margin: 20px;
+}
+.trending-product-area .product-group svg{
+    height: 35px;
+    fill: var(--primary);
+}
+.trending-product-area .product-group a:hover {
+    background: var(--primary);
+    color: #fff;
+}
+.trending-product-area .product-group a:hover{
+    border-radius: 10px;
+}
+.trending-product-area .product-group a:hover .single-product svg{
+    fill: #fff;
+}
+/* Trending  product css end  */
+
+/* Statistics area css start */
+.statistics-area{
+    background: #0b4276;
+}
+.statistics-area ._image{
+    width: 80px;
+}
+.statistics-area ._image svg{
+    fill: var(--white);
+}
+.statistics-area .col-md-8 p{
+    color: var(--white);
+}
+/* Statistics area css end */

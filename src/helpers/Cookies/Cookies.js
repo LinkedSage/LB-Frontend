@@ -20,6 +20,7 @@ export const getCookies = (name, cb) => {
 }
 
 export const removeCookies = (name, path, cb) => {
+    console.log(name,path)
     try{
         return !!(cookies.remove(name, path))
     }catch (err){

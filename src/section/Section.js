@@ -12,7 +12,7 @@ export default function Section() {
       <Route path="/login" component={Login} />
 
       <Route exact path="/" component={Home} />
-      <Route exact path="/product_derails" component={ProductDetails} />
+      <Route exact path="/product_details" component={ProductDetails} />
 
       {/* <ProtectedRoute exact path = "/top-user-by-country" component={topUserByCountry} /> */}
     </>

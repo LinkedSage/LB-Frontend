@@ -1,3 +1,29 @@
 /*-----------------
 	6. Product Details
 -----------------------*/
+
+.product-details .bullet_point_section {
+  margin-top: 10px;
+}
+.product-details .bullet_point_logo {
+  height: 20px !important;
+}
+.product-details .vl-line {
+  height: 100%;
+  width: 1px;
+  background: rgb(83, 81, 81);
+}
+.product-details .text {
+  color: black;
+}
+.product-details .vl-line2 {
+  height: 12px;
+  width: 2px;
+  background: rgb(83, 81, 81);
+}
+.product-details .fee_charges {
+  margin-top: 20px;
+}
+.product-details .fee_charge_table {
+  width: 100px;
+}

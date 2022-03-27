@@ -78,3 +78,26 @@
     color: var(--white);
 }
 /* Statistics area css end */
+
+
+/* Financial area css start  */
+
+.financial-area .left svg{
+    width: 60px;
+}
+.financial-area .left .vl{
+    width: 2px;
+    height: 90%;
+    background: #666;
+    position: absolute;
+    right: -1px;
+    top: 5%;
+}
+/* Financial area css end  */
+
+
+/* our partners area css start  */
+.partners-area{
+    background: rgb(238, 238, 238);
+}
+/* our partners area css end  */

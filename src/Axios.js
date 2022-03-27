@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getCookies } from './apps/helpers/Cookies/AdminCookies';
+import { getCookies } from './helpers/Cookies/Cookies.js';
 
 const access = getCookies('data')
 

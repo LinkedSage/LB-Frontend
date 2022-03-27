@@ -70,7 +70,19 @@ input {
   color: #444;
   margin-bottom: 10px;
 }
-
+#sign-in-up .btn-group button{
+  border: none;
+  background: none;
+  padding: 5px 10px;
+  margin: 0 10px;
+  transition: .3s ease-in-out;
+  cursor: pointer;
+  outline: none;
+}
+#sign-in-up .btn-group button:hover,
+#sign-in-up .btn-group .active{
+  background: #f0f0f0;
+}
 ._container .input-field {
   max-width: 380px;
   width: 100%;
@@ -85,7 +97,8 @@ input {
   border: 1px solid transparent;
 }
 
-._container .input-field img {
+._container .input-field img,
+._container .input-field svg {
   margin-top: 17px;
   margin-left: 17px;
   height: 1.2rem;

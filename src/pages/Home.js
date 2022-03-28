@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import '../Components/CSS/Home.css'
+import PartnerSlider from "../Components/PartnerSlider";
 import { _trendingProduct } from "../helpers/Data/Products";
 
 export default function Home() {
@@ -9,53 +10,52 @@ export default function Home() {
   return (
     <section id="homePage">
       {/* Hero area start */}
-      <div className="hero-area">
-        <div className="container ptb-50">
-          <div className="row">
-            <div className="col-md-6">
-              <p className="h4">Find Your Best Deal</p>
-              <div className="d-flex justify-content-between mt-5">
-                <div class="select">
-                  <select placeholder="Profession">
-                    <option value="" disabled selected>Profession</option>
-                    <option value="1">Salaried</option>
-                    <option value="2">Self Employee</option>
-                  </select>
+      {/* <div className="hero-area-bg-color"> */}
+        <div className="hero-area">
+          <div className="container-fluid ptb-50 h-100">
+            <div className="row pt-100">
+              <div className="col-md-6 pl-5 pt-100">
+                <h1 className="h1">Search for</h1>
+                <div className="d-flex mt-5">
+                  <div class="select mr-2">
+                    <select placeholder="Profession">
+                      <option value="" disabled selected>Profession</option>
+                      <option value="1">Salaried</option>
+                      <option value="2">Self Employee</option>
+                    </select>
+                  </div>
+                  <div class="input-container">
+                    <input id="name" type="number" required />
+                    <label class="label" for="name">Salary</label>
+                  </div>
                 </div>
-                <div class="input-container">
-                  <input id="name" type="number" required />
-                  <label class="label" for="name">Salary</label>
+                <div className="btn-grp d-flex mt-4">
+                  <button className="h4 glow-on-hover">
+                    Credit<br />
+                    <span className="h5">Card</span>
+                  </button>
+                  <button className="h4 glow-on-hover">
+                    Personal<br />
+                    <span className="h5">Loan</span>
+                  </button>
+                  <button className="h4 glow-on-hover">
+                    Home<br />
+                    <span className="h5">Loan</span>
+                  </button>
+                  <button className="h4 glow-on-hover">
+                    Auto<br />
+                    <span className="h5">Loan</span>
+                  </button>
                 </div>
+                {/* <div className="w-100 text-center pt-5">
+                  <button className="glowing-btn">Get Free Credit Score</button>
+                </div> */}
               </div>
-              <div className="btn-grp d-flex justify-content-between mt-4">
-                <button className="h4">
-                  Credit<br />
-                  <span className="h5">Card</span>
-                </button>
-                <button className="h4">
-                  Personal<br />
-                  <span className="h5">Loan</span>
-                </button>
-                <button className="h4">
-                  Home<br />
-                  <span className="h5">Loan</span>
-                </button>
-                <button className="h4">
-                  Auto<br />
-                  <span className="h5">Loan</span>
-                </button>
-              </div>
-            </div>
-            <div className="col-md-1"></div>
-            <div className="col-md-5 right">
-              <p className="text-justify">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</p>
-              <div className="w-100 text-center">
-                <button className="glowing-btn">Get Free Credit Score</button>
-              </div>
+
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
       {/* Hero area end */}
 
       {/* Trending Product area start  */}
@@ -129,7 +129,7 @@ export default function Home() {
       </div>
       {/* Statistics area end  */}
 
-      {/* Financial Strength area start  */}
+      {/* Financial Strength area start  client_slider*/}
       <div className="financial-area pt-5 pb-5">
         <div className="container">
           <div className="row">
@@ -174,7 +174,7 @@ export default function Home() {
                   <label class="label" for="phoneNo">Phone No.</label>
                 </div>
                 <div className="mt-4 text-center w-100">
-                  <button>Send Now</button>
+                  <button className="glow-on-hover">Send Now</button>
                 </div>
               </div>
             </div>
@@ -185,13 +185,11 @@ export default function Home() {
 
       {/* Our partners area start  */}
       <div className="partners-area pt-5 pb-5">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
-            <h3 className="w-100 text-center">Our Partners</h3>
-            <div className="partners-group">
-              
-            </div>
+            <h3 className="w-100 text-center mb-3">Our Partners</h3>
           </div>
+          <PartnerSlider />
         </div>
       </div>
       {/* Our partners area end  */}

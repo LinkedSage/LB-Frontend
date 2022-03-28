@@ -42,7 +42,6 @@ export default function Navbar() {
     }, delayInMilliseconds);
   }
   function signOutFun() {
-
     notification('success', 'Logout Successfully. Redirecting...')
     removeCookies('data', '/')
     setTimeout(() => {

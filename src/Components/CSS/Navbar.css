@@ -60,6 +60,7 @@
     padding: 0;
     position: absolute;
     top: -10rem;
+	z-index: 111;
 }
 .right-nav .nav-item:hover .dropdown{
     top: 30px !important;

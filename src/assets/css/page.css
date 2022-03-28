@@ -158,10 +158,14 @@ textarea.form-control {resize: vertical;}
 .m-b-30 {margin-bottom: 30px !important;}
 .pt-50{ padding-top: 50px; }
 .pb-50{padding-bottom: 50px;}
+.pt-100{padding-top: 100px;}
 .ptb-50{
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
+
+/* glowing btn css */
+
 .glowing-btn {
     width: 220px;
     height: 45px;
@@ -210,10 +214,56 @@ textarea.form-control {resize: vertical;}
     100% { background-position: 0 0; }
 }
 
+/* glowing oh hover  */
+
+.glow-on-hover {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 40px;
+}
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 40px;
+}
+.glow-on-hover:active:after {
+    background: transparent;
+    border-radius: 40px;
+}
+.glow-on-hover:hover:before {
+    opacity: 1;
+    border-radius: 40px;
+}
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+	background: #1e222de3;
+    left: 0;
+    top: 0;
+    border-radius: 40px;
+}
+
 /* Estrutura */
 .input-container {
 	position: relative;
-width: 250px;
+	width: 250px;
 }  
 .input-container input {
 	border: 0;
@@ -221,6 +271,7 @@ width: 250px;
 	outline: none;
 	transition: .2s ease-in-out;
 	box-sizing: border-box;
+	padding: 10px 0;
 	padding-left: 5px;
 	color: var(--black);
 }  
@@ -240,10 +291,10 @@ width: 250px;
 .input-container input,
 .input-container label {
 	width: 100%;
-	height: 3rem;
+	height: 5rem;
 	font-size: 1rem;
-	padding-left: 5px;
-	border-radius: 7px;
+	padding-left: 20px;
+	border-radius: 40px;
 }
 
 /* Interation */
@@ -265,7 +316,7 @@ select {
 	outline: 0;
 	border: none;
 	border-bottom: 2px solid #9e9e9e;
-	border-radius: 7px;
+	border-radius: 40px;
 	box-shadow: none;
 	flex: 1;
 	padding: 0 1em;
@@ -290,15 +341,17 @@ select::-ms-expand {
 .select::after {
 	content: '\25BC';
 	position: absolute;
+	font-size: 20px;
 	top: 0;
 	right: 0;
-	padding: 1em;
+	bottom: 0;
+	padding: 1.75rem 1em;
 	color: var(--primary);
 	background-color:var(--gray);
 	transition: .25s all ease;
 	pointer-events: none;
-	border-bottom-right-radius: 7px;
-	border-top-right-radius: 7px;
+	border-bottom-right-radius: 40px;
+	border-top-right-radius: 40px;
 }
   /* Transition */
 .select:hover::after {

@@ -4,7 +4,7 @@
 -----------------------*/
 #footer{
 	font-size: 15px;
-    background-color: #444444;
+    background-color: #888;
 	padding: 10px 0;
 }
 #footer .logo{
@@ -17,16 +17,18 @@
 #footer ul li{
 	margin-bottom: 10px;
 }
-#footer ul li .icon{
-	height: 22px;
+#footer ul li .icon svg{
+	height: 20px;
+	fill:  var(--white);
 	margin-right: 5px;
+	margin-bottom: -5px;
 }
 #footer ul li a{
 	color: var(--white);
 	transition: .4s ease-in-out;
 }
 #footer p{
-	color: rgb(160, 160, 160);
+	color: var(--primary);
 	margin-top: 2.5rem;
 	margin-bottom: 20px;
 }
@@ -34,8 +36,9 @@
 	letter-spacing: 1px;
 }
 
-#footer ul li .social-icon{
+#footer ul li .social-icon svg{
 	height: 36px;
+	fill: #fff;
 }
 #copy-right{
 	background: var(--primary);
@@ -48,6 +51,7 @@
 #copy-right p a{
 	font-weight: 500;
 }
-#copy-right p img{
+#copy-right p svg{
 	height: 18px;
+	fill: #fff;
 }

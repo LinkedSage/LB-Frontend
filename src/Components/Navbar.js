@@ -93,7 +93,7 @@ export default function Navbar() {
                     <li><Link className="hover-effect" to='/signin'>Signin</Link></li>
                 }
 
-                <li><Link className="hover-effect nav-item" to='' onClick={showNavMenu}><img src={menu} alt="menu" />Menu</Link></li>
+                <li><a className="hover-effect nav-item" href='#' onClick={showNavMenu}><img src={menu} alt="menu" />Menu</a></li>
               </ul>
               <div id="open-nav" className="nav-menu-sec" >
                 <div className="close-nav-sec" onClick={hideNavMenu}>
@@ -108,11 +108,11 @@ export default function Navbar() {
                   </ul>
                   <ul>
                     <p className="h4">CREDIT CARD</p>
-                    <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>SCB Credit Card</Link></li>
-                    <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>MTBL Credit Card</Link></li>
-                    <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>City Credit Card</Link></li>
-                    <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>BRACK Credit Card</Link></li>
-                    <li><Link className="hover-effect-black" to="/" onClick={hideNavMenu}>DBBL Credit Card</Link></li>
+                    <li><Link className="hover-effect-black" to="/credit-card" onClick={hideNavMenu}>SCB Credit Card</Link></li>
+                    <li><Link className="hover-effect-black" to="/credit-card" onClick={hideNavMenu}>MTBL Credit Card</Link></li>
+                    <li><Link className="hover-effect-black" to="/credit-card" onClick={hideNavMenu}>City Credit Card</Link></li>
+                    <li><Link className="hover-effect-black" to="/credit-card" onClick={hideNavMenu}>BRACK Credit Card</Link></li>
+                    <li><Link className="hover-effect-black" to="/credit-card" onClick={hideNavMenu}>DBBL Credit Card</Link></li>
                   </ul>
                   <div className="close-btn">
                     <button onClick={hideNavMenu}>X</button>

@@ -4,9 +4,13 @@
     background: rgb(56, 56, 56);
 }
 #homePage .hero-area{
-    background: url('../../assets/images/hero-banner-6.png');
-    background-size:  cover;
-    min-height: calc(100vh - 80px);    
+    
+    background: url('../../assets/images/hero-banner-7.png');
+    background-image:url('../../assets/images/hero-banner-7.png'), linear-gradient(to right, rgb(12, 12, 12), rgba(39, 38, 107, 0.171));
+    background-size:contain;
+    background-position:right bottom;
+    background-repeat: no-repeat;
+    min-height: calc(100vh - 80px);
 }
 #homePage .hero-area h1{
     font-size: 100px;
@@ -17,7 +21,7 @@
     padding: 8px 0;
     border-radius: 12px;
     cursor: pointer;
-    width: 140px;
+    width: 150px;
     background: #1e222d8a;
     transition: .3s ease-in-out;
     border: none;
@@ -26,8 +30,16 @@
     border-radius: 40px;
 }
 
-#homePage .btn-grp button:hover{
-    background: #1e222d;
+#homePage .btn-grp button p{
+    margin-bottom: 0 !important;
+}
+#homePage .btn-grp button .hero-icon svg{
+    height: 20px;
+    fill: #fff;
+    margin-right: 10px;
+}
+.financial-area .w-200{
+    width: 200px !important;
 }
 /* Hero area css end  */
 

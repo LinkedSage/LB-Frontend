@@ -11,50 +11,75 @@ export default function Home() {
     <section id="homePage">
       {/* Hero area start */}
       {/* <div className="hero-area-bg-color"> */}
-        <div className="hero-area">
-          <div className="container-fluid ptb-50 h-100">
-            <div className="row pt-100">
-              <div className="col-md-6 pl-5 pt-100">
-                <h1 className="h1">Search for</h1>
-                <div className="d-flex mt-5">
-                  <div class="select mr-2">
-                    <select placeholder="Profession">
-                      <option value="" disabled selected>Profession</option>
-                      <option value="1">Salaried</option>
-                      <option value="2">Self Employee</option>
-                    </select>
-                  </div>
-                  <div class="input-container">
-                    <input id="name" type="number" required />
-                    <label class="label" for="name">Salary</label>
-                  </div>
+      <div className="hero-area">
+        <div className="container-fluid ptb-50 h-100">
+          <div className="row pt-100">
+            <div className="col-md-6 pl-5 pt-100">
+              <h1 className="h1">Search for</h1>
+              <div className="d-flex mt-3">
+                <div class="select mr-4">
+                  <select placeholder="Profession">
+                    <option value="" disabled selected>Profession</option>
+                    <option value="1">Salaried</option>
+                    <option value="2">Self Employee</option>
+                  </select>
                 </div>
-                <div className="btn-grp d-flex mt-4">
-                  <button className="h4 glow-on-hover">
-                    Credit<br />
-                    <span className="h5">Card</span>
-                  </button>
-                  <button className="h4 glow-on-hover">
-                    Personal<br />
-                    <span className="h5">Loan</span>
-                  </button>
-                  <button className="h4 glow-on-hover">
-                    Home<br />
-                    <span className="h5">Loan</span>
-                  </button>
-                  <button className="h4 glow-on-hover">
-                    Auto<br />
-                    <span className="h5">Loan</span>
-                  </button>
+                <div class="input-container">
+                  <input id="name" type="number" required />
+                  <label class="label" for="name">Salary</label>
                 </div>
-                {/* <div className="w-100 text-center pt-5">
+              </div>
+              <div className="btn-grp d-flex mt-4">
+                <button className="h4 glow-on-hover">
+                  <div className="d-flex align-items-center justify-content-start pl-3 text-left">
+                    <span className="hero-icon">
+                      <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>
+                    </span>
+                    <p>Credit<br />
+                      <span className="h5">Card</span>
+                    </p>
+                  </div>
+                </button>
+                <button className="h4 glow-on-hover">
+                  <div className="d-flex align-items-center justify-content-start pl-3 text-left">
+                    <span className="hero-icon">
+                      <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>
+                    </span>
+                    <p>Personal<br />
+                      <span className="h5">Loan</span>
+                    </p>
+                  </div>
+                </button>
+                <button className="h4 glow-on-hover">
+                  <div className="d-flex align-items-center justify-content-start pl-3 text-left">
+                    <span className="hero-icon">
+                      <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>
+                    </span>
+                    <p>Home<br />
+                      <span className="h5">Loan</span>
+                    </p>
+                  </div>
+                </button>
+                <button className="h4 glow-on-hover">
+                  <div className="d-flex align-items-center justify-content-start pl-3 text-left">
+                    <span className="hero-icon">
+                      <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>
+                    </span>
+                    <p>Auto<br />
+                      <span className="h5">Loan</span>
+                    </p>
+                  </div>
+                </button>
+                
+              </div>
+              {/* <div className="w-100 text-center pt-5">
                   <button className="glowing-btn">Get Free Credit Score</button>
                 </div> */}
-              </div>
-
             </div>
+
           </div>
         </div>
+      </div>
       {/* </div> */}
       {/* Hero area end */}
 
@@ -90,7 +115,7 @@ export default function Home() {
       {/* Trending Product area end  */}
 
       {/* Statistics area start  */}
-      <div className="statistics-area pt-4 pb-4">
+      <div className="statistics-area pt-5 pb-5">
         <div className="container">
           <div className="row">
             <div className="col-md-2"></div>
@@ -133,7 +158,7 @@ export default function Home() {
       <div className="financial-area pt-5 pb-5">
         <div className="container">
           <div className="row">
-            <div className="col-md-6 left">
+            <div className="col-md-7 left pr-5">
               <h3>Increase Your Financial Strength </h3>
               <div className="d-flex align-items-center pt-4">
                 <div>
@@ -155,17 +180,17 @@ export default function Home() {
               </div>
               <div className="vl"></div>
             </div>
-            <div className="col-md-6 right pl-3">
+            <div className="col-md-5 right pl-5">
               <h3>Help Us to Find You</h3>
               <div className="d-flex flex-wrap justify-content-between mt-5">
-                <div class="select">
+                <div class="select w-200">
                   <select placeholder="Profession">
                     <option value="" disabled selected>Profession</option>
                     <option value="1">Salaried</option>
                     <option value="2">Self Employee</option>
                   </select>
                 </div>
-                <div class="input-container">
+                <div class="input-container w-200">
                   <input id="salary" type="number" required />
                   <label class="label" for="salary">Salary</label>
                 </div>
@@ -187,7 +212,7 @@ export default function Home() {
       <div className="partners-area pt-5 pb-5">
         <div className="container-fluid">
           <div className="row">
-            <h3 className="w-100 text-center mb-3">Our Partners</h3>
+            <h2 className="w-100 text-center mb-3">Our Partners</h2>
           </div>
           <PartnerSlider />
         </div>

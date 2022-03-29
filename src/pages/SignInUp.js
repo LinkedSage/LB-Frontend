@@ -66,7 +66,7 @@ export default function SignInUp() {
                     else {
                         notification('success', 'Login Successfully. Redirecting.. ')
                         setTimeout(() => {
-                            // window.location.href = '/'
+                            window.location.href = '/'
                         }, 1500)
                     }
                 } else {
@@ -127,7 +127,7 @@ export default function SignInUp() {
                 if (res.status === 200) {
                     notification('success', 'Login Successfully. Redirecting.. ')
                     setTimeout(() => {
-                        // window.location.href = '/'
+                        window.location.href = '/'
                     }, 1500)
                 } else {
                     notification('fail', res.message)

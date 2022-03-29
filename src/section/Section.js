@@ -4,7 +4,7 @@ import Navbar from "../Components/Navbar";
 import ProtectedRoute from "../Components/ProtectedRoute";
 import Home from "../pages/Home";
 import SignInUp from "../pages/SignInUp";
-import OTPVerify from '../pages/OTPVerify'
+import CreditCard from '../pages/CreditCard'
 
 
 
@@ -13,7 +13,7 @@ export default function Section() {
     <>     
       <Route exact path = "/" component={Home} />
       <Route exact path = "/signin" component={SignInUp} />
-      <Route exact path = "/otp-verify" component={OTPVerify} />
+      <Route exact path = "/credit-card" component={CreditCard} />
 
       
       {/* <ProtectedRoute exact path = "/top-user-by-country" component={topUserByCountry} /> */}

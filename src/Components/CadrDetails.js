@@ -1,7 +1,6 @@
 import React from "react";
 
 export const CadrDetails = ({title,data}) => {
-    console.log(title,data)
     return (
         <>
             <img className="fst-child" src={data[0]} alt="card image" />

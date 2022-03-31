@@ -1,10 +1,6 @@
-
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { notification } from "../helpers/Confirm/ConfirmAction";
 import { ToastContainer } from 'react-toastify';
 import Axios from "../Axios";
-import { getAllCards } from "../helpers/API/Product";
 import Select from 'react-select';
 import '../Components/CSS/CreditCard.css'
 import card from '../assets/images/sadiq_credit_card.png'
@@ -193,19 +189,19 @@ export default function CreditCard(data) {
                         <button id={"Benifits" + key} onClick={(e) => { filterFun('Benifits', key, 3) }}>Benifits</button>
                       </div>
 
-                      <div id= {"initialID"+key}className="description d-flex align-items-center justify-content-around">
+                      <div id= {"initialID"+key}className="description d-flex">
                         <CadrDetails title={initialKeys} data={initialData} />
                       </div>
-                      <div id={"feesID"+key} className="description d-none align-items-center justify-content-around">
+                      <div id={"feesID"+key} className="description d-none">
                         <CadrDetails title={feesKey} data={feesData} />
                       </div>
-                      <div id={"anualFeesID"+key} className="description d-none align-items-center justify-content-around">
+                      <div id={"anualFeesID"+key} className="description d-none">
                         <CadrDetails title={anualFeesKey} data={anualFeesData} />
                       </div>
-                      <div id={"withdrawalID"+key} className="description d-none align-items-center justify-content-around">
+                      <div id={"withdrawalID"+key} className="description d-none">
                         <CadrDetails title={withdrawalKey} data={withdrawalData} />
                       </div>
-                      <div id={"benefitsID"+key} className="description d-none align-items-center justify-content-around">
+                      <div id={"benefitsID"+key} className="description d-none">
                         <CadrDetails title={benifitsKey} data={benefitsData} />
                       </div>
                     </div>

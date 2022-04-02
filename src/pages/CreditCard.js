@@ -97,15 +97,8 @@ export default function CreditCard(data) {
   var filteredData = []
   function filterFun(value, key, index) {
     console.log(value, key)
-    // classList[key].push(document.getElementById('fees'))
-    // classList[key].push(document.getElementById('anualFees'))
-    // classList[key].push(document.getElementById('Withdrawal'))
-    // classList[key].push(document.getElementById('Benifits'))
-
     filteredData[key] = value
-
     classList[key] = ([document.getElementById('fees' + key), document.getElementById('anualFees' + key), document.getElementById('Withdrawal' + key), document.getElementById('Benifits' + key)])
-
     classListDescription[key] = ([ document.getElementById('feesID' + key), document.getElementById('anualFeesID' + key), document.getElementById('withdrawalID' + key), document.getElementById('benefitsID' + key),document.getElementById('initialID' + key)])
 
     // feeCls.classList.add("active");

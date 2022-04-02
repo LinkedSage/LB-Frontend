@@ -126,26 +126,26 @@ export default function CreditCard(data) {
     <section id="credit-card-page">
       <ToastContainer></ToastContainer>
       <div className="pc-card-filter">
-        <div className="group-dropdown d-flex align-items-center justify-content-center">
+        <div className="group-dropdown d-flex align-items-center justify-content-center pt-3">
           <div className="single-dropdown">
-            <label>Currency</label>
             <Select
               onChange={(e) => { handleChangeCurrency(e) }}
               options={currency}
+              placeholder="Currency"
             />
           </div>
           <div className="single-dropdown">
-            <label>Card Network</label>
             <Select
               onChange={(e) => { handleChangeCardNetwork(e) }}
               options={cardNetwork}
+              placeholder="Card Network"
             />
           </div>
           <div className="single-dropdown">
-            <label>Card Type</label>
             <Select
               onChange={(e) => { handleChangeCCardType(e) }}
               options={cardType}
+              placeholder="Card Type"
             />
           </div>
           <div className="card-search ml-4">
@@ -162,7 +162,8 @@ export default function CreditCard(data) {
         </div>
       </div>
       <div className="card-section">
-        <div className="container">
+        <div className="container-fluid
+        ">
           <div className="row group-card ptb-50">
             {
               cardShow?

@@ -5,11 +5,12 @@ import Select from 'react-select';
 import '../Components/CSS/CreditCard.css'
 import card from '../assets/images/sadiq_credit_card.png'
 import { CadrDetails } from "../Components/CadrDetails";
+import { useHistory } from "react-router-dom";
 
 
 export default function CreditCard(data) {
 
-
+  let history = useHistory()
 
   const [currencyValue, setCurrencyValue] = useState()
   const [cardNetworkValue, setCardNetworkValue] = useState()
@@ -45,9 +46,9 @@ export default function CreditCard(data) {
   ];
 
   const initialKeys = ['img', 'Interest/Day', 'Anual Fee', 'Max Supplimentary', 'Int. ATM Fee']
-  const feesKey = ['img', 'int_lounge_access', 'late_payment', 'regular_anual', 'lounge_access']
-  const anualFeesKey = ['img', 'waived', 'free_anual_fee', 'regular', 'waived_transaction']
-  const withdrawalKey = ['img', 'currency', 'network', 'card_type', 'free_guest_allowed']
+  const feesKey = ['img', 'int lounge access', 'late payment', 'regular anual', 'lounge access']
+  const anualFeesKey = ['img', 'waived', 'free anual fee', 'regular', 'waived transaction']
+  const withdrawalKey = ['img', 'currency', 'network', 'card type', 'free guest allowed']
   const benifitsKey = ['img', 'Feature1', 'Feature2', 'Feature3', 'Feature4']
 
   function handleChangeCurrency(e) {
@@ -89,7 +90,21 @@ export default function CreditCard(data) {
     setCardShow(filteredTemp)
   }
   function setSearchFun(value) {
-    console.log("hi baby", value)
+    let l = value.length
+    let temp = cardList.data
+    let tempFilter = []
+    temp.map((item) => {
+      let name = item.name
+      for(let i = 0; i < name.length-l+1;i++){
+        if(name.substr(i,l).toLowerCase() === value.toLowerCase()){
+          tempFilter.push(item)
+          break;
+        }
+      }
+    })
+    setTimeout(function(){
+      setCardShow(tempFilter)
+    },1000)
   }
 
   var classList = new Array([])
@@ -118,10 +133,18 @@ export default function CreditCard(data) {
         classListDescription[key][i].classList.add("d-none");
       }
     }
-
-
-    console.log("hi baby", filteredData)
   }
+
+  function clearALlFun(){
+    console.log("aaaaaaaaaaaaa",currencyValue)
+    setCardShow(cardList.data)
+    document.getElementById("currency").value = null
+    setCurrencyValue(null)
+    setCardNetworkValue(null)
+    setCardTypeValue(null)
+    window.location.href = '/credit-card'
+  }
+
   return (
     <section id="credit-card-page">
       <ToastContainer></ToastContainer>
@@ -129,6 +152,7 @@ export default function CreditCard(data) {
         <div className="group-dropdown d-flex align-items-center justify-content-center pt-3">
           <div className="single-dropdown">
             <Select
+              id = 'currency'
               onChange={(e) => { handleChangeCurrency(e) }}
               options={currency}
               placeholder="Currency"
@@ -148,6 +172,7 @@ export default function CreditCard(data) {
               placeholder="Card Type"
             />
           </div>
+          <button className="clear-filter" onClick={clearALlFun}>Clear all</button>
           <div className="card-search ml-4">
             <input
               type="search"
@@ -164,10 +189,11 @@ export default function CreditCard(data) {
       <div className="card-section">
         <div className="container-fluid
         ">
-          <div className="row group-card ptb-50">
+          <div className="row group-card pb-50 pt-3">
             {
               cardShow?
                 cardShow.map((item, key) => {
+                  console.log('item',item)
                   let initialData = [card, item.interest_per_day, item.regular_anual_fee, item.max_supplementary_card, item.international_bank_atm_fee];
                   let feesData = [card, item.int_lounge_access_fee, item.late_payment_fee, item.regular_anual_fee, item.lounge_access_fee];
                   let anualFeesData = [card, item.anual_fee_waived_rewards, item.free_anual_fee, item.regular_anual_fee, item.anual_fee_waived_transaction];

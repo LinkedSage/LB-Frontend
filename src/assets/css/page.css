@@ -167,8 +167,8 @@ textarea.form-control {resize: vertical;}
 /* glowing btn css */
 
 .glowing-btn {
-    width: 220px;
-    height: 45px;
+    width: 100px;
+    height: 40px;
     border: none;
     outline: none;
     color: #fff;
@@ -214,7 +214,7 @@ textarea.form-control {resize: vertical;}
     100% { background-position: 0 0; }
 }
 
-/* glowing oh hover  */
+/* glowing on hover  */
 
 .glow-on-hover {
     border: none;

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-export const CadrDetails = ({ title, data }) => {
+export const CadrDetails = ({ title, data, cardDetails }) => {
+    console.log("state 1",cardDetails)
 
-    const [popupStatus, setPopupStatus] = useState(true)
+    const [popupStatus, setPopupStatus] = useState(false)
 
     function MoreDetails(e) {
         setPopupStatus(true)
@@ -33,7 +35,15 @@ export const CadrDetails = ({ title, data }) => {
             </div>
             <div className="vl-line"></div>
             <div className="text-center d-flex flex-column lst-child  w-120 pl-2 pr-2" >
-                <button className="mb-3">Apply</button>
+                <Link 
+                className="mb-2"
+                to={{
+                  pathname: `/application/${cardDetails._id}`,
+                  state: {cardDetails},
+                }}
+              >
+                Apply
+              </Link>
                 <button onClick={() => { MoreDetails(data[1]) }}>More<br /><span>Details</span></button>
             </div>
 

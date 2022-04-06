@@ -1,10 +1,26 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import '../Components/CSS/Home.css'
 import PartnerSlider from "../Components/PartnerSlider";
 import { _trendingProduct } from "../helpers/Data/Products";
 
 export default function Home() {
+
+  let history = useHistory()
+
+  const [profession,setProfession] = useState(1)
+  const [salary,setSalary] = useState()
+
+  function creditCardFun(e){
+    if(e === 'credit-card'){
+      history.push({
+        pathname: "/credit-card",
+        state: {salary:salary,profession:profession}
+      })
+    }
+console.log(e)
+  }
 
 
   return (
@@ -18,19 +34,19 @@ export default function Home() {
               <h1 className="h1">Search for</h1>
               <div className="d-flex mt-3">
                 <div class="select mr-4">
-                  <select placeholder="Profession">
-                    <option value="" disabled selected>Profession</option>
-                    <option value="1">Salaried</option>
-                    <option value="2">Self Employee</option>
+                  <select placeholder="Profession" onChange={(e) => {setProfession(e.target.value)}}>
+                    <option selected value="Salaried">Salaried</option>
+                    <option value="Business">Business</option>
+                    <option value="Self Employee">Self Employee</option>
                   </select>
                 </div>
                 <div class="input-container">
-                  <input id="name" type="number" required />
+                  <input id="name" type="number" required onChange={(e) => {setSalary(e.target.value)}}></input>
                   <label class="label" for="name">Salary</label>
                 </div>
               </div>
               <div className="btn-grp d-flex mt-4">
-                <button className="h4 glow-on-hover">
+                <button className="h4 glow-on-hover" onClick={() => {creditCardFun('credit-card')}}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>

@@ -5,12 +5,13 @@ import Select from 'react-select';
 import '../Components/CSS/CreditCard.css'
 import card from '../assets/images/sadiq_credit_card.png'
 import { CadrDetails } from "../Components/CadrDetails";
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 export default function CreditCard(data) {
 
-  let history = useHistory()
+  let location = useLocation()
+  console.log("state",location.state)
 
   const [currencyValue, setCurrencyValue] = useState()
   const [cardNetworkValue, setCardNetworkValue] = useState()
@@ -193,7 +194,7 @@ export default function CreditCard(data) {
             {
               cardShow?
                 cardShow.map((item, key) => {
-                  console.log('item',item)
+                  if(location.state) item.state = location.state
                   let initialData = [card, item.interest_per_day, item.regular_anual_fee, item.max_supplementary_card, item.international_bank_atm_fee];
                   let feesData = [card, item.int_lounge_access_fee, item.late_payment_fee, item.regular_anual_fee, item.lounge_access_fee];
                   let anualFeesData = [card, item.anual_fee_waived_rewards, item.free_anual_fee, item.regular_anual_fee, item.anual_fee_waived_transaction];
@@ -210,19 +211,19 @@ export default function CreditCard(data) {
                       </div>
 
                       <div id= {"initialID"+key}className="description d-flex">
-                        <CadrDetails title={initialKeys} data={initialData} />
+                        <CadrDetails title={initialKeys} data={initialData} cardDetails = {item} />
                       </div>
                       <div id={"feesID"+key} className="description d-none">
-                        <CadrDetails title={feesKey} data={feesData} />
+                        <CadrDetails title={feesKey} data={feesData} cardDetails = {item} />
                       </div>
                       <div id={"anualFeesID"+key} className="description d-none">
-                        <CadrDetails title={anualFeesKey} data={anualFeesData} />
+                        <CadrDetails title={anualFeesKey} data={anualFeesData} cardDetails = {item} />
                       </div>
                       <div id={"withdrawalID"+key} className="description d-none">
-                        <CadrDetails title={withdrawalKey} data={withdrawalData} />
+                        <CadrDetails title={withdrawalKey} data={withdrawalData} cardDetails = {item} />
                       </div>
                       <div id={"benefitsID"+key} className="description d-none">
-                        <CadrDetails title={benifitsKey} data={benefitsData} />
+                        <CadrDetails title={benifitsKey} data={benefitsData} cardDetails = {item} />
                       </div>
                     </div>
                   )

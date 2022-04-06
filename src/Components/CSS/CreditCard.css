@@ -70,14 +70,16 @@
     position: relative;
     top: -25px;
 }
-.group-card .lst-child button{
+.group-card .lst-child button,
+.group-card .lst-child a{
     padding: 5px 10px;
     cursor: pointer;
     transition: .3s ease-in-out;
     font-size: 17px;
     border: 2px solid #666;
+    color: #666;
 }
-.group-card .lst-child button:first-child:hover{
+.group-card .lst-child a:hover{
     background: var(--primary);
     color: #fff;
     /* border: 2px solid rgb(134, 134, 134); */

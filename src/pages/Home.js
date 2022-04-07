@@ -9,10 +9,11 @@ export default function Home() {
 
   let history = useHistory()
 
-  const [profession,setProfession] = useState(1)
+  const [profession,setProfession] = useState('Salaried')
   const [salary,setSalary] = useState()
 
   function creditCardFun(e){
+    console.log("ssss",profession)
     if(e === 'credit-card'){
       history.push({
         pathname: "/credit-card",

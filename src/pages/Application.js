@@ -35,6 +35,7 @@ export default function Home() {
 
     function setProfessionFun(e) {
         setProfession(e)
+        cardInfo.state.profession = e ;
         setProfessionList(false)
         let leftArrow = document.getElementById('profession-arrow')
         leftArrow.classList.remove("rotation");

@@ -108,8 +108,41 @@
     background-color: transparent;
 }
 .more-details-sec .more-details{
-    width: 300px;
-    height: 200px;
+    /* width: 60vw; */
     background-color: #fff;
     z-index: 101;
+    border-radius: 10px;
+    padding: 0 15px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+.more-details-sec .closs-details-btn{
+    position: absolute;
+    left: 77.2vw;
+    top: 28.3vh;
+    z-index: 102;
+}
+.more-details-sec .closs-details-btn:hover{
+    color: red;
+}
+.more-details .left-details{
+    display: flex;
+    flex-direction: column;
+    padding: 20px ;
+}
+.more-details .right-details{
+    display: flex;
+    flex-direction: column;
+    padding: 20px ;
+}
+.more-details-sec .more-details .vl{
+    width: 3px;
+    background: var(--gray);
+}
+.more-details-sec .more-details .hr{
+    height: 1px;
+    background: var(--gray);
+    margin-top: 10px;
+    margin-bottom: 15px;
 }

@@ -43,7 +43,7 @@ console.log(e)
                 </div>
                 <div class="input-container">
                   <input id="name" type="number" required onChange={(e) => {setSalary(e.target.value)}}></input>
-                  <label class="label" for="name">Salary</label>
+                  <label class="label" for="name">Salary*</label>
                 </div>
               </div>
               <div className="btn-grp d-flex mt-4">
@@ -202,18 +202,18 @@ console.log(e)
               <div className="d-flex flex-wrap justify-content-between mt-5">
                 <div class="select w-200">
                   <select placeholder="Profession">
-                    <option value="" disabled selected>Profession</option>
+                    <option value="" disabled selected>Profession*</option>
                     <option value="1">Salaried</option>
                     <option value="2">Self Employee</option>
                   </select>
                 </div>
                 <div class="input-container w-200">
                   <input id="salary" type="number" required />
-                  <label class="label" for="salary">Salary</label>
+                  <label class="label" for="salary">Salary*</label>
                 </div>
                 <div class="input-container mt-4 w-100">
                   <input id="phoneNo" type="text" required />
-                  <label class="label" for="phoneNo">Phone No.</label>
+                  <label class="label" for="phoneNo">Phone No.*</label>
                 </div>
                 <div className="mt-4 text-center w-100">
                   <button className="glow-on-hover">Send Now</button>

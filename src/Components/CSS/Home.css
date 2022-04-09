@@ -117,6 +117,7 @@
     position: absolute;
     right: -1px;
     top: 5%;
+    padding: 0 !important;
 }
 .financial-area .right .glow-on-hover {
     color: #fff;

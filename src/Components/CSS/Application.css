@@ -53,14 +53,14 @@
     height: 100%;
     width: 100%;
     padding: 5px 10px;
-    border-radius: 2px;
+    border-radius: 5px;
     border: 1px solid rgb(190, 190, 190);    
 }
 .application-form .form-group .select-btn {
     width: 100%;
     height: 100%;
     background-color: #fff;
-    border-radius: 2px;
+    border-radius: 5px;
     border: 1px solid rgb(190, 190, 190);    
     outline: none;
     cursor: pointer;
@@ -90,7 +90,7 @@
 .city-list{
     margin-top: 5px;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -115,9 +115,22 @@ background: #fff;
 .application-form #Organization{
     height: 55px;
 }
-.css-1s2u09g-control,
-.css-1pahdxg-control{
+#Organization .css-1s2u09g-control,
+#Organization .css-1pahdxg-control{
     height: 53px;
+    /* padding-left: 55px; */
+}
+
+#organization-arrow{
+    position: absolute;
+    z-index: 1;
+    border-right: 1px dotted #888;
+    padding: 14px 20px;
+}
+#organization-arrow svg{
+    height: 20px;
+    fill: #696969;
+    margin-bottom: -5px;
 }
 .application-form .css-1hb7zxy-IndicatorsContainer{
     display: none;
@@ -133,4 +146,9 @@ background: #fff;
     background: #008ECC;
     color: #fff;
     border: 2px solid #008ECC;
+}
+.css-2613qy-menu,
+.css-26l3qy-menu,
+#react-select-3-listbox{
+    display: block !important;
 }

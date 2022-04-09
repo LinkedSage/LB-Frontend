@@ -2,7 +2,7 @@
     padding: 0 100px;
 }
 #credit-card-page .group-dropdown .single-dropdown{
-    width: 180px;
+    width: 160px;
     margin-right: 10px;
 }
 #credit-card-page .group-dropdown .clear-filter{
@@ -112,19 +112,22 @@
     background-color: #fff;
     z-index: 101;
     border-radius: 10px;
-    padding: 0 15px;
+    padding: 0 20px;
     display: flex;
     position: relative;
     justify-content: space-between;
 }
 .more-details-sec .closs-details-btn{
     position: absolute;
-    left: 77.2vw;
-    top: 28.3vh;
+    right: -10px;
+    top: -10px;
+    border-radius: 40px;
     z-index: 102;
+    transition: .3s ease-in-out;
 }
 .more-details-sec .closs-details-btn:hover{
     color: red;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.349);
 }
 .more-details .left-details{
     display: flex;
@@ -136,8 +139,11 @@
     flex-direction: column;
     padding: 20px ;
 }
+.more-details .right-details p{
+    margin-bottom: 0 !important;
+}
 .more-details-sec .more-details .vl{
-    width: 3px;
+    width: 2px;
     background: var(--gray);
 }
 .more-details-sec .more-details .hr{

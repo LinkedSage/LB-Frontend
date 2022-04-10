@@ -20,7 +20,11 @@ export default function CreditCard(data) {
   const [cardShow, setCardShow] = useState()
 
   useEffect(async () => {
-    const result = await Axios.get(`${process.env.REACT_APP_API_URL}/cards`);
+    let value = {
+      profession:location.state.profession,
+      salary:location.state.salary,
+    }
+    const result = await Axios.get(`${process.env.REACT_APP_API_URL}/cards?profession=${location.state.profession}&salary=${location.state.salary}`);
     setCardList(result.data)
     setCardShow(result.data.data)
   }, []);
@@ -150,7 +154,11 @@ export default function CreditCard(data) {
     <section id="credit-card-page">
       <ToastContainer></ToastContainer>
       <div className="pc-card-filter">
-        <div className="group-dropdown d-flex align-items-center justify-content-center pt-3">
+        <div className="group-dropdown d-flex align-items-center justify-content-around pt-3">
+          <div className="d-flex align-items-center justify-content-center">
+            <div className="filter">
+            <svg viewBox="0 0 512 512"><path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z"/></svg>
+            </div>
           <div className="single-dropdown">
             <Select
               id = 'currency'
@@ -163,7 +171,7 @@ export default function CreditCard(data) {
             <Select
               onChange={(e) => { handleChangeCardNetwork(e) }}
               options={cardNetwork}
-              placeholder="Card Network"
+              placeholder="Network"
             />
           </div>
           <div className="single-dropdown">
@@ -173,7 +181,8 @@ export default function CreditCard(data) {
               placeholder="Card Type"
             />
           </div>
-          <button className="clear-filter" onClick={clearALlFun}>Clear all</button>
+          <button className="clear-filter" onClick={clearALlFun}>Reset</button>
+          </div>
           <div className="card-search ml-4">
             <input
               type="search"
@@ -201,7 +210,7 @@ export default function CreditCard(data) {
                   let withdrawalData = [card, item.currency, item.network, item.card_type, item.free_guest_allowed];
                   let benefitsData = [card, 'Feature1', 'Feature2', 'Feature3', 'Feature4'];
                   return (
-                    <div className="single-card w-100 d-flex flex-column justify-content-center mb-4">
+                    <div  key = {key} className="single-card w-100 d-flex flex-column justify-content-center mb-4">
                       <p className="h4 text-center">{item.name}</p>
                       < div className="btn__group text-center">
                         <button id={'fees' + key} onClick={(e) => { filterFun('fees', key, 0) }}>Fees</button>

@@ -52,7 +52,7 @@ h3,
 h4,
 .h4 {font-size: 1.125rem;}
 h5,
-.h5 {font-size: 0.875rem;}
+.h5 {font-size: 0.975rem;}
 h6,
 .h6 {font-size: 0.75rem;}
 a:hover,
@@ -278,7 +278,7 @@ textarea.form-control {resize: vertical;}
 }  
 .input-container input.empty{
 	border: none;
-	border: 2px solid red;
+	border: 2px solid red !important;
 }
 .input-container label {
 	top: 0;

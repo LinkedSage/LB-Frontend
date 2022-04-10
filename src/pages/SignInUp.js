@@ -42,15 +42,20 @@ export default function SignInUp() {
 
     const submitLoginForm = () => {
         let values
-        if (emailSI)
+        if (emailSI){
+            let phn = phoneNo?phoneNo:document.getElementById('phoneSI').value
             values = {
-                phone: phoneNo,
+                phone: phn,
                 password: password,
             }
-        else values = {
-            email: email,
+        }
+        else {
+        let eml = email? email : document.getElementById('emailSI').value
+        values = {
+            email: eml,
             password: password,
         }
+    }
 
         console.log("aaa", values)
         // login form submitting
@@ -80,15 +85,20 @@ export default function SignInUp() {
     function submitSigupForm() {
         if (password == confirmPassword) {
             let values
-            if (emailSU)
+            if (emailSU){
+                let phn = phoneNo?phoneNo:document.getElementById('phoneSU').value
                 values = {
-                    phone: phoneNo,
+                    phone: phn,
                     password: password,
                 }
-            else values = {
-                email: email,
+            }
+            else{ 
+                let eml = email? email : document.getElementById('emailSU').value
+                values = {
+                email: eml,
                 password: password,
             }
+        }
 
             console.log("aaa", values)
             // login form submitting
@@ -165,7 +175,7 @@ export default function SignInUp() {
                         <div class="signin-signup">
                             {
                                 signinOTP ?
-                                    <form class="sign-in-form" >
+                                    <form class="sign-in-form" onSubmit={submitLoginForm}>
                                         <h2 class="title">Sign in</h2>
                                         <div className="btn-group mt-3 mb-2">
                                             <button type="button" onClick={phoneSIFun} className={emailSI ? 'active' : ''}>Phone</button>
@@ -180,14 +190,14 @@ export default function SignInUp() {
                                                 :
                                                 <div class="input-field">
                                                     <svg viewBox="0 0 512 512"><path d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z" /></svg>
-                                                    <input type="email" id="email" name="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} required />
+                                                    <input type="email" id="emailSI" name="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} required />
                                                 </div>
                                         }
                                         <div class="input-field">
                                             <img src={lock} alt="phone" />
                                             <input type="password" placeholder="Password" minlength="6" onChange={(e) => { setPassword(e.target.value) }} required />
                                         </div>
-                                        <input type="button" value="Login" class="btn solid" onClick={submitLoginForm} />
+                                        <input type="submit" value="Login" class="btn solid" />
                                     </form>
                                     :
                                     <form class="sign-in-form" >
@@ -217,7 +227,7 @@ export default function SignInUp() {
                                                 :
                                                 <div class="input-field">
                                                     <svg viewBox="0 0 512 512"><path d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z" /></svg>
-                                                    <input type="email" id="email" name="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} required />
+                                                    <input type="email" id="emailSU" name="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} required />
                                                 </div>
                                         }
                                         <div class="input-field">

@@ -9,30 +9,46 @@ export default function Home() {
 
   let history = useHistory()
 
-  const [profession,setProfession] = useState('Salaried')
-  const [salary,setSalary] = useState()
+  const [profession, setProfession] = useState('salaried')
+  const [salary, setSalary] = useState()
+  const [profession1, setProfession1] = useState('salaried')
+  const [salary1, setSalary1] = useState()
+  const [phoneNo, setPhoneNo] = useState()
+  const [name, setName] = useState()
 
-  function creditCardFun(e){
+  function creditCardFun(e) {
     let salaryId = document.getElementById('salary')
-    if(!salary || salary && salary < 0) {
+    if (!salary || salary && salary < 0) {
       salaryId.classList.add('empty')
-      salaryId.value = 0
+      salaryId.value = ''
     }
-    else{
+    else {
       salaryId.classList.remove('empty')
-      if(e === 'credit-card'){
+      if (e === 'credit-card') {
         history.push({
           pathname: "/credit-card",
-          state: {salary:salary,profession:profession}
+          state: { salary: salary, profession: profession }
         })
       }
     }
   }
-  function setSalaryFun(e){
+  function setSalaryFun(e) {
     setSalary(e)
     document.getElementById('salary').classList.remove('empty')
   }
 
+  function sendMsgFun() {
+    if (phoneNo && name && salary1) {
+      let values = {
+        phone: phoneNo,
+        name: name,
+        salary: salary1,
+        profession: profession1
+      }
+      console.log("value", values)
+    }
+
+  }
 
   return (
     <section id="homePage">
@@ -43,21 +59,22 @@ export default function Home() {
           <div className="row pt-100">
             <div className="col-md-6 pl-5 pt-100">
               <h1 className="h1">Search for</h1>
-              <div className="d-flex mt-3">
-                <div class="select mr-4">
-                  <select placeholder="Profession" onChange={(e) => {setProfession(e.target.value)}}>
-                    <option selected value="Salaried">Salaried</option>
-                    <option value="Business">Business</option>
-                    <option value="Self Employee">Self Employee</option>
-                  </select>
+                <div className="d-flex mt-3">
+                  <div class="select mr-4">
+                    <select placeholder="Profession" onChange={(e) => { setProfession(e.target.value) }}>
+                      <option selected value="salaried">Salaried</option>
+                      <option value="business">Business</option>
+                      <option value="doctor">Doctor</option>
+                      <option value="landLord">Land Lord</option>
+                    </select>
+                  </div>
+                  <div class="input-container">
+                    <input id="salary" type="number" min="0" required onChange={(e) => { setSalaryFun(e.target.value) }}></input>
+                    <label class="label" for="salary">Salary*</label>
+                  </div>
                 </div>
-                <div class="input-container">
-                  <input id="salary" type="number" min="0" required onChange={(e) => {setSalaryFun(e.target.value)}}></input>
-                  <label class="label" for="salary">Salary*</label>
-                </div>
-              </div>
               <div className="btn-grp d-flex mt-4">
-                <button className="h4 glow-on-hover" onClick={() => {creditCardFun('credit-card')}}>
+                <button className="h4 glow-on-hover" onClick={() => { creditCardFun('credit-card') }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>
@@ -97,7 +114,7 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                
+
               </div>
               {/* <div className="w-100 text-center pt-5">
                   <button className="glowing-btn">Get Free Credit Score</button>
@@ -117,9 +134,9 @@ export default function Home() {
             <p className="h2 w-100 text-center">Trending Products</p>
             <div className="col-md-12 product-group mt-3">
               {
-                _trendingProduct.map((item) => {
+                _trendingProduct.map((item,key) => {
                   return (
-                    <Link>
+                    <Link  key = {key}>
                       <div className="single-product text-left">
                         <div className="">
                           <svg viewBox="0 0 576 512">
@@ -209,26 +226,33 @@ export default function Home() {
             </div>
             <div className="col-md-5 right pl-5">
               <h3>Help Us to Find You</h3>
-              <div className="d-flex flex-wrap justify-content-between mt-5">
-                <div class="select w-200">
-                  <select placeholder="Profession">
-                    <option value="" disabled selected>Profession*</option>
-                    <option value="1">Salaried</option>
-                    <option value="2">Self Employee</option>
-                  </select>
+              <form onSubmit={sendMsgFun}>
+                <div className="d-flex flex-wrap justify-content-between mt-5">
+                  <div class="input-container mb-4 w-100">
+                    <input id="name" type="text" required onChange={(e) => { setName(e.target.value) }} />
+                    <label class="label" for="name">Your Name*</label>
+                  </div>
+                  <div class="select w-200">
+                    <select placeholder="Profession" onChange={(e) => { setProfession1(e.target.value) }}>
+                    <option selected value="salaried">Salaried</option>
+                      <option value="business">Business</option>
+                      <option value="doctor">Doctor</option>
+                      <option value="landLord">Land Lord</option>
+                    </select>
+                  </div>
+                  <div class="input-container w-200">
+                    <input id="salary1" type="number" required onChange={(e) => { setSalary1(e.target.value) }} />
+                    <label class="label" for="salary1">Salary*</label>
+                  </div>
+                  <div class="input-container mt-4 w-100">
+                    <input id="phoneNo" type="tel" pattern="[0-9]{11}" required onChange={(e) => { setPhoneNo(e.target.value) }} />
+                    <label class="label" for="phoneNo">Phone No.*</label>
+                  </div>
+                  <div className="mt-4 text-center w-100">
+                    <button className="glow-on-hover" type="submit" >Send Now</button>
+                  </div>
                 </div>
-                <div class="input-container w-200">
-                  <input id="salary1" type="number" required />
-                  <label class="label" for="salary1">Salary*</label>
-                </div>
-                <div class="input-container mt-4 w-100">
-                  <input id="phoneNo" type="text" required />
-                  <label class="label" for="phoneNo">Phone No.*</label>
-                </div>
-                <div className="mt-4 text-center w-100">
-                  <button className="glow-on-hover">Send Now</button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

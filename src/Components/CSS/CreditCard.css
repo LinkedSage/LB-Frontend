@@ -2,7 +2,7 @@
     padding: 0 100px;
 }
 #credit-card-page .group-dropdown .single-dropdown{
-    width: 160px;
+    width: 145px;
     margin-right: 10px;
 }
 #credit-card-page .group-dropdown .clear-filter{
@@ -11,16 +11,22 @@
     background: none;
     outline: none;
 }
+
+#credit-card-page .group-dropdown .filter svg{
+    height: 25px;
+    fill: #666;
+    margin-right: 10px;
+}
 #credit-card-page .card-search input{
     width: 200px;
     border-radius: 20px;
     padding: 10px;
     border: 1px solid #ddd;
 }
-#credit-
-card-page .single-card{
+#credit-card-page .single-card{
     border: 1px solid #666;
     padding: 10px;
+    padding-top: 20PX;
 }
 .single-card .w-160{
     width: 160px;

@@ -10,9 +10,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
     const [popupStatus, setPopupStatus] = useState(false)
     const [moreDetails, setMoreDetails] = useState()
 
-    useEffect(async () => {
-        const result = await Axios.get(`${process.env.REACT_APP_API_URL}/cards/${cardDetails._id}/required-documents`);
-        if (result && result.data && result.data.data) setMoreDetails(result.data.data)
+    useEffect( () => {        
         if(popupStatus){
             let element = document.getElementById('_close_details_btn');
             let element1 = document.getElementById('__close_details_btn');
@@ -21,8 +19,11 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
         }
     }, [])
 
-    function MoreDetails(e) {
+    async function MoreDetails(e) {
         setPopupStatus(true)
+        const result = await Axios.get(`${process.env.REACT_APP_API_URL}/cards/${e}/required-documents`);
+        if (result && result.data && result.data.data) setMoreDetails(result.data.data)
+        console.log("xxxaxaxa",result)
     }
     function hideMoreDetails(){
         setPopupStatus(false)
@@ -62,7 +63,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                 >
                     Apply
                 </Link>
-                <button onClick={() => { MoreDetails(data[1]) }}>More<br /><span>Details</span></button>
+                <button onClick={() => { MoreDetails(cardDetails._id) }}>More<br /><span>Details</span></button>
             </div>
 
             {
@@ -75,11 +76,11 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                 <div className="left-top">
                                     <h4>Feature</h4>
                                     {
-                                        moreDetails.features && moreDetails.features.map((item) => {
+                                        moreDetails[0].features && moreDetails[0].features.map((item,key) => {
                                             return (
-                                                <div>
+                                                <div key = {key}>
                                                     <p className="h5">{item.title}</p>
-                                                    <p>{item.description}</p>
+                                                    <p>{item.short_description}</p>
                                                 </div>
                                             )
                                         })
@@ -101,13 +102,13 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                             <div className="right-details">
                                 <h4>Required Documents</h4>
                                 {
-                                    moreDetails.required_documents && moreDetails.required_documents.essential_documents ?
+                                    moreDetails[0].required_documents && moreDetails[0].required_documents.essential_documents ?
                                         <div>
                                             <p className="h5">Essential Documents</p>
                                             {
-                                                moreDetails.required_documents.essential_documents.map((item) => {
+                                                moreDetails[0].required_documents.essential_documents.map((item,key) => {
                                                     return (
-                                                        <p>{item}</p>
+                                                        <p key = {key}>{item}</p>
                                                     )
                                                 })
                                             }
@@ -117,13 +118,13 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
 
                                 }
                                 {
-                                    moreDetails.required_documents && moreDetails.required_documents.reference_documents ?
+                                    moreDetails[0].required_documents && moreDetails[0].required_documents.reference_documents ?
                                         <div>
                                             <p className="h5 mt-4">Reference Documents</p>
                                             {
-                                                moreDetails.required_documents.reference_documents.map((item) => {
+                                                moreDetails[0].required_documents.reference_documents.map((item,key) => {
                                                     return (
-                                                        <p>{item}</p>
+                                                        <p key = {key}>{item}</p>
                                                     )
                                                 })
                                             }
@@ -134,13 +135,13 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                 }
                                 
                                 {
-                                    moreDetails.required_documents && moreDetails.required_documents.notes ?
+                                    moreDetails[0].required_documents && moreDetails[0].required_documents.notes ?
                                         <div>
                                             <p className="h5 mt-4">Notes</p>
                                             {
-                                                moreDetails.required_documents.notes.map((item) => {
+                                                moreDetails[0].required_documents.notes.map((item,key) => {
                                                     return (
-                                                        <p>{item}</p>
+                                                        <p key = {key}>{item}</p>
                                                     )
                                                 })
                                             }

@@ -13,14 +13,24 @@ export default function Home() {
   const [salary,setSalary] = useState()
 
   function creditCardFun(e){
-    console.log("ssss",profession)
-    if(e === 'credit-card'){
-      history.push({
-        pathname: "/credit-card",
-        state: {salary:salary,profession:profession}
-      })
+    let salaryId = document.getElementById('salary')
+    if(!salary || salary && salary < 0) {
+      salaryId.classList.add('empty')
+      salaryId.value = 0
     }
-console.log(e)
+    else{
+      salaryId.classList.remove('empty')
+      if(e === 'credit-card'){
+        history.push({
+          pathname: "/credit-card",
+          state: {salary:salary,profession:profession}
+        })
+      }
+    }
+  }
+  function setSalaryFun(e){
+    setSalary(e)
+    document.getElementById('salary').classList.remove('empty')
   }
 
 
@@ -42,8 +52,8 @@ console.log(e)
                   </select>
                 </div>
                 <div class="input-container">
-                  <input id="name" type="number" required onChange={(e) => {setSalary(e.target.value)}}></input>
-                  <label class="label" for="name">Salary*</label>
+                  <input id="salary" type="number" min="0" required onChange={(e) => {setSalaryFun(e.target.value)}}></input>
+                  <label class="label" for="salary">Salary*</label>
                 </div>
               </div>
               <div className="btn-grp d-flex mt-4">
@@ -208,8 +218,8 @@ console.log(e)
                   </select>
                 </div>
                 <div class="input-container w-200">
-                  <input id="salary" type="number" required />
-                  <label class="label" for="salary">Salary*</label>
+                  <input id="salary1" type="number" required />
+                  <label class="label" for="salary1">Salary*</label>
                 </div>
                 <div class="input-container mt-4 w-100">
                   <input id="phoneNo" type="text" required />

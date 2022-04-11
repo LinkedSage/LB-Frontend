@@ -36,3 +36,30 @@ export const verifyOTP = async (values) => {
     return result.data
 }
 
+export const isExistUser = async (values) => {
+    console.log("vvvv", values)
+    const result = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/users/is-user-exists?email=${values.email}&phone=${values.phone}`);
+    return result.data
+}
+
+export const forceRegister = async (temp) => {
+    console.log("vvvv", temp)
+    let values = {
+        name:temp.name,
+        phone:temp.phone,
+        email:temp.email,
+        city: temp.city,
+        employeement_information:{
+            job_location: temp.city,
+            profession:temp.profession,
+            salary_amount:parseInt(temp.salary),
+            organization:temp.organization || ''
+        }
+    }
+    // if(temp.organization) values['employeement_information']['company_name'] = temp.organization
+    console.log("vallll",values)
+    const result = await Axios.post(
+        `${process.env.REACT_APP_API_URL}/users/force-register`,values);
+    return result.data
+}

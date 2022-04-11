@@ -175,7 +175,7 @@ export default function SignInUp() {
                         <div class="signin-signup">
                             {
                                 signinOTP ?
-                                    <form class="sign-in-form" onSubmit={submitLoginForm}>
+                                    <form class="sign-in-form" >
                                         <h2 class="title">Sign in</h2>
                                         <div className="btn-group mt-3 mb-2">
                                             <button type="button" onClick={phoneSIFun} className={emailSI ? 'active' : ''}>Phone</button>
@@ -197,7 +197,7 @@ export default function SignInUp() {
                                             <img src={lock} alt="phone" />
                                             <input type="password" placeholder="Password" minlength="6" onChange={(e) => { setPassword(e.target.value) }} required />
                                         </div>
-                                        <input type="submit" value="Login" class="btn solid" />
+                                        <input type="button" value="Login" class="btn solid" onClick={submitLoginForm} />
                                     </form>
                                     :
                                     <form class="sign-in-form" >

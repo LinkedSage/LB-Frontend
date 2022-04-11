@@ -152,3 +152,37 @@ background: #fff;
 #react-select-3-listbox{
     display: block !important;
 }
+.input-field input.empty,
+.input-field button.empty,
+.empty .css-1s2u09g-control{
+    border: 1px solid red !important;
+}
+.poppu-container{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.459);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 103;
+}
+.poppu-container .popup-sec{
+    background: #fff;
+    padding: 30px;
+}
+.poppu-container .popup-sec .input-field{
+    height: 55px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    position: relative;
+}
+.popup-sec .input-field input{
+    height: 100%;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(190, 190, 190);
+}

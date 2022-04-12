@@ -30,14 +30,14 @@ export default function OTPVerify(data) {
     verifyOTP(values)
         .then((res) => {
             console.log("cccc", res)
-            // if (res.status === 200) {
-            //     notification('success', 'Login Successfully. Redirecting.. ')
-            //     setTimeout(() => {
-            //             window.location.href = '/'
-            //     }, 1500)
-            // } else {
-            //     notification('fail', res.message)
-            // }
+            if (res.status === 200) {
+                notification('success', 'Login Successfully. Redirecting.. ')
+                setTimeout(() => {
+                        window.location.href = '/'
+                }, 1500)
+            } else {
+                notification('fail', res.message)
+            }
         })
         .catch((err) => {
             console.log(err)

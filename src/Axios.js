@@ -2,9 +2,9 @@ import axios from 'axios'
 import { getCookies } from './helpers/Cookies/Cookies.js';
 
 const access = getCookies('data')
-
-let token = ''
-if (access) token = access.token
+console.log("axios",access)
+let token = 'Bearer '
+if (access) token = token + access
 
 let baseURL = process.env.REACT_APP_LOCAL_BASE_URL
 if (process.env.REACT_APP_ENVIRONMENT == "production") {

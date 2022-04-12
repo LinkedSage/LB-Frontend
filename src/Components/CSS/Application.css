@@ -157,7 +157,7 @@ background: #fff;
 .empty .css-1s2u09g-control{
     border: 1px solid red !important;
 }
-.poppu-container{
+.popup-container{
     position: fixed;
     top: 0;
     bottom: 0;
@@ -169,11 +169,11 @@ background: #fff;
     align-items: center;
     z-index: 103;
 }
-.poppu-container .popup-sec{
+.popup-container .popup-sec{
     background: #fff;
     padding: 30px;
 }
-.poppu-container .popup-sec .input-field{
+.popup-container .popup-sec .input-field{
     height: 55px;
     padding-right: 10px;
     padding-bottom: 5px;

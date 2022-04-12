@@ -3,11 +3,17 @@ import { useLocation } from "react-router-dom";
 import { companyName } from "../helpers/Data/CompanyName";
 import Select from 'react-select';
 import '../Components/CSS/Application.css'
-import { isExistUser, forceRegister, verifyOTP } from "../helpers/API/Auth";
+import { isExistUser, forceRegister, verifyOTP, onSubmitLogin } from "../helpers/API/Auth";
+import { cardApplicationAdd } from "../helpers/API/Application";
+import { getCurrentUser } from "../helpers/Cookies/Cookies";
+import { ToastContainer } from 'react-toastify';
+import { notification } from "../helpers/Confirm/ConfirmAction";
+import { getCardById } from "../helpers/API/Product";
 
 export default function Home() {
     let location = useLocation()
-    const cardInfo = location.state.cardDetails
+    const currentUser = getCurrentUser()
+    let cardInfo = []
     const [name, setName] = useState()
     const [phone, setPhone] = useState()
     const [email, setEmail] = useState()
@@ -19,10 +25,28 @@ export default function Home() {
     const [professionList, setProfessionList] = useState(false)
     const [otpPopup, setOTPPopup] = useState(false)
     const [OTPCode, setOTPCode] = useState()
+    const [__userId, set__UserId] = useState()
+    const [signinPopup, setSigninPopup] = useState(false)
+    const [existUser, setExistUser] = useState()
+    const [password, setPassword] = useState()
 
     useEffect(() => {
-        if (cardInfo.state.profession) setProfession(cardInfo.state.profession)
-        if (cardInfo.state.salary) setSalary(cardInfo.state.salary)
+        // console.log("loca",)
+        if (location.state && location.state.cardDetails)
+            cardInfo = location.state.cardDetails;
+        else {
+            let value = location.pathname.split('/')
+            getCardById(value[2])
+                .then((res) => {
+                    cardInfo = res.data[0]
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+        console.log("location", cardInfo, currentUser)
+        if (cardInfo && cardInfo.state && cardInfo.state.profession) setProfession(cardInfo.state.profession)
+        if (cardInfo && cardInfo.state && cardInfo.state.salary) setSalary(cardInfo.state.salary)
 
     }, [])
 
@@ -35,13 +59,19 @@ export default function Home() {
         isExistUser(value)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(200000000000000000)
+                    console.log("aaaaaaaaaaa", res)
+                    setExistUser(res.data)
+                    notification('warning', "User Exist please login")
+                    setTimeout(() => {
+                        setSigninPopup(true)
+                    }, 1000)
                 } else {
                     forceRegister(value)
                         .then((res1) => {
-                            console.log("ressssss", res1)
+                            console.log("ressssss", res1.data._id)
                             if (res1.status === 200) {
                                 setOTPPopup(true)
+                                set__UserId(res1.data._id)
                             }
                         })
                         .catch((err) => {
@@ -83,7 +113,7 @@ export default function Home() {
         if (name && phone && city && profession && profession !== 'salaried' && salary) {
             checkIsExist(value)
         }
-        else {
+        else if (name && phone && city && profession && profession === 'salaried' && salary) {
             if (organization) {
                 checkIsExist(value)
             }
@@ -99,7 +129,7 @@ export default function Home() {
 
     function setProfessionFun(e) {
         setProfession(e)
-        cardInfo.state.profession = e;
+        // cardInfo.state.profession = e;
         setProfessionList(false)
         let leftArrow = document.getElementById('profession-arrow')
         leftArrow.classList.remove("rotation");
@@ -144,15 +174,72 @@ export default function Home() {
     }
     function otpVerificationFun() {
         if (OTPCode && OTPCode.length >= 6) {
+            let values = {
+                email: email,
+                phone: phone,
+                otp: OTPCode
+            }
             document.getElementById('otp').classList.remove('empty')
-            // setOTPPopup(true)
+            verifyOTP(values)
+                .then((res) => {
+                    console.log("resotp", res, currentUser)
+                    if (res.status === 200) {
+                        let value = {
+                            _id: __userId,
+                            cardId: cardInfo._id,
+                            token: res.data
+                        }
+                        setOTPPopup(true)
+                        cardApplicationAdd(value)
+                            .then((res1) => {
+                                console.log("res1", res1)
+                                if (res1.status === 200) {
+                                    setOTPPopup(false)
+                                    notification('success', 'Application submited successfully...')
+                                    setTimeout(() => {
+                                        window.location.href = '/'
+                                    }, 1000)
+                                }
+                                else {
+                                    notification('fail', res.message)
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    } else {
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            // 
         }
         else document.getElementById('otp').classList.add('empty')
 
     }
+    function loginFun() {
+        let values = {
+            ...existUser,
+            password: password
+        }
+        if(password){
+            onSubmitLogin(values)
+            .then((res) => {
+                console.log("login",res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+        console.log("vvvv",values)
+    }
 
     return (
         <section id="application-page">
+
+            <ToastContainer></ToastContainer>
             <div className="application-form ptb-50">
                 <div className="container">
                     <div className="row">
@@ -163,130 +250,131 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="col-md-8 right ">
-                            <h3>
+                            {/* <h3>
                                 <svg viewBox="0 0 576 512"><path d="M168 336C181.3 336 192 346.7 192 360C192 373.3 181.3 384 168 384H120C106.7 384 96 373.3 96 360C96 346.7 106.7 336 120 336H168zM360 336C373.3 336 384 346.7 384 360C384 373.3 373.3 384 360 384H248C234.7 384 224 373.3 224 360C224 346.7 234.7 336 248 336H360zM512 32C547.3 32 576 60.65 576 96V416C576 451.3 547.3 480 512 480H64C28.65 480 0 451.3 0 416V96C0 60.65 28.65 32 64 32H512zM512 80H64C55.16 80 48 87.16 48 96V128H528V96C528 87.16 520.8 80 512 80zM528 224H48V416C48 424.8 55.16 432 64 432H512C520.8 432 528 424.8 528 416V224z" /></svg>
                                 Application for {cardInfo.name}
-                            </h3>
-
-                            <div className="row form-group  mt-4">
-                                <div className="col-md-4">
-                                    <label>Name*</label>
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="input-field">
-                                        <input id="name" type="text" placeholder="Name" onChange={(e) => { setNameFun(e.target.value) }} required />
+                            </h3> */}
+                            <form onSubmit={(e) => { e.preventDefault(); applicationFormSubmit() }}>
+                                <div className="row form-group  mt-4">
+                                    <div className="col-md-4">
+                                        <label>Name*</label>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="row form-group">
-                                <div className="col-md-4">
-                                    <label>City*</label>
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="input-field">
-                                        <button id="city" className="select-btn d-flex align-items-center" onClick={openCityListFun}>
-                                            <span id="city-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
-                                            <p className="h-100">{city}</p>
-                                        </button>
-                                        {
-                                            cityList ?
-                                                <div className="city-list">
-                                                    <button onClick={() => { setCityFun('Dhaka') }}>Dhaka</button>
-                                                    <button onClick={() => { setCityFun('Chitagong') }}>Chitagong</button>
-                                                    <button onClick={() => { setCityFun('Sylhet') }}>Sylhet</button>
-                                                    <button onClick={() => { setCityFun('Rajshahi') }}>Rajshahi</button>
-                                                    <button onClick={() => { setCityFun('Khulna') }}>Khulna</button>
-                                                    <button onClick={() => { setCityFun('Rangpur') }}>Rangpur</button>
-                                                    <button onClick={() => { setCityFun('Barisal') }}>Barisal</button>
-                                                </div>
-                                                : null
-                                        }
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row form-group">
-                                <div className="col-md-4">
-                                    <label>Phone No.*</label>
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="input-field">
-                                        <input type="tel" id="phone" name="phone" placeholder="Phone no." pattern="[0-9]" required onChange={(e) => { setPhoneFun(e.target.value) }} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row form-group">
-                                <div className="col-md-4">
-                                    <label>Email*</label>
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="input-field">
-                                        <input type="email" id="email" name="email" placeholder="Email" required onChange={(e) => { setEmailFun(e.target.value) }} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row form-group">
-                                <div className="col-md-4">
-                                    <label>Profession*</label>
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="input-field">
-                                        <button id="profession" className="select-btn d-flex align-items-center" onClick={openProfessionFun}>
-                                            <span id="profession-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
-                                            <p className="h-100">{profession}</p>
-                                        </button>
-                                        {
-                                            professionList ?
-                                                <div className="city-list">
-                                                    <button onClick={() => { setProfessionFun('salaried') }}>Salaried</button>
-                                                    <button onClick={() => { setProfessionFun('business') }}>Businessman</button>
-                                                    <button onClick={() => { setProfessionFun('doctor') }}>Doctor</button>
-                                                    <button onClick={() => { setProfessionFun('landLord') }}>Land Lord</button>
-                                                </div>
-                                                : null
-                                        }
-
-                                    </div>
-                                </div>
-                            </div>
-                            {
-                                profession === 'salaried' ?
-                                    <div className="row form-group">
-                                        <div className="col-md-4">
-                                            <label>Organization*</label>
+                                    <div className="col-md-8">
+                                        <div class="input-field">
+                                            <input id="name" type="text" placeholder="Name" onChange={(e) => { setNameFun(e.target.value) }} required />
                                         </div>
-                                        <div className="col-md-8">
-                                            <div class="input-field">
-                                                {/* <span id="organization-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span> */}
-                                                <Select
-                                                    id='Organization'
-                                                    onChange={(e) => { setOrganizationFun(e.value) }}
-                                                    options={companyName}
-                                                    placeholder="Organization"
-                                                />
+                                    </div>
+                                </div>
+                                <div className="row form-group">
+                                    <div className="col-md-4">
+                                        <label>City*</label>
+                                    </div>
+                                    <div className="col-md-8">
+                                        <div class="input-field">
+                                            <button id="city" className="select-btn d-flex align-items-center" onClick={openCityListFun}>
+                                                <span id="city-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
+                                                <p className="h-100">{city}</p>
+                                            </button>
+                                            {
+                                                cityList ?
+                                                    <div className="city-list">
+                                                        <button onClick={() => { setCityFun('Dhaka') }}>Dhaka</button>
+                                                        <button onClick={() => { setCityFun('Chitagong') }}>Chitagong</button>
+                                                        <button onClick={() => { setCityFun('Sylhet') }}>Sylhet</button>
+                                                        <button onClick={() => { setCityFun('Rajshahi') }}>Rajshahi</button>
+                                                        <button onClick={() => { setCityFun('Khulna') }}>Khulna</button>
+                                                        <button onClick={() => { setCityFun('Rangpur') }}>Rangpur</button>
+                                                        <button onClick={() => { setCityFun('Barisal') }}>Barisal</button>
+                                                    </div>
+                                                    : null
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row form-group">
+                                    <div className="col-md-4">
+                                        <label>Phone No.*</label>
+                                    </div>
+                                    <div className="col-md-8">
+                                        <div class="input-field">
+                                            <input type="tel" id="phone" name="phone" placeholder="Phone no." pattern="[0-9]{11}" required onChange={(e) => { setPhoneFun(e.target.value) }} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row form-group">
+                                    <div className="col-md-4">
+                                        <label>Email*</label>
+                                    </div>
+                                    <div className="col-md-8">
+                                        <div class="input-field">
+                                            <input type="email" id="email" name="email" placeholder="Email" required onChange={(e) => { setEmailFun(e.target.value) }} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="row form-group">
+                                    <div className="col-md-4">
+                                        <label>Profession*</label>
+                                    </div>
+                                    <div className="col-md-8">
+                                        <div class="input-field">
+                                            <button id="profession" className="select-btn d-flex align-items-center" onClick={openProfessionFun}>
+                                                <span id="profession-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
+                                                <p className="h-100">{profession}</p>
+                                            </button>
+                                            {
+                                                professionList ?
+                                                    <div className="city-list">
+                                                        <button onClick={() => { setProfessionFun('salaried') }}>Salaried</button>
+                                                        <button onClick={() => { setProfessionFun('business') }}>Businessman</button>
+                                                        <button onClick={() => { setProfessionFun('doctor') }}>Doctor</button>
+                                                        <button onClick={() => { setProfessionFun('landLord') }}>Land Lord</button>
+                                                    </div>
+                                                    : null
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    profession === 'salaried' ?
+                                        <div className="row form-group">
+                                            <div className="col-md-4">
+                                                <label>Organization*</label>
+                                            </div>
+                                            <div className="col-md-8">
+                                                <div class="input-field">
+                                                    {/* <span id="organization-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span> */}
+                                                    <Select
+                                                        id='Organization'
+                                                        onChange={(e) => { setOrganizationFun(e.value) }}
+                                                        options={companyName}
+                                                        placeholder="Organization"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
+                                        : null
+                                }
+                                <div className="row form-group">
+                                    <div className="col-md-4">
+                                        <label>Salary*</label>
                                     </div>
-                                    : null
-                            }
-                            <div className="row form-group">
-                                <div className="col-md-4">
-                                    <label>Salary*</label>
-                                </div>
-                                <div className="col-md-8">
-                                    <div class="input-field">
-                                        <input id="salary" type="number" placeholder="Salary" defaultValue={salary} onChange={(e) => { setSalaryFun(e.target.value) }} required />
+                                    <div className="col-md-8">
+                                        <div class="input-field">
+                                            <input id="salary" type="number" placeholder="Salary" defaultValue={salary} onChange={(e) => { setSalaryFun(e.target.value) }} required />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row form-group pt-4 pb-5">
-                                <div className="col-md-12 text-center application">
-                                    <button className="btn" onClick={applicationFormSubmit}>Submit</button>
+                                <div className="row form-group pt-4 pb-5">
+                                    <div className="col-md-12 text-center application">
+                                        <input type='submit' className="btn" value='Sumbit' />
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
 
                         </div>
                     </div>
@@ -294,7 +382,7 @@ export default function Home() {
             </div>
 
             {
-                !otpPopup ?
+                otpPopup ?
                     <div className="poppu-container">
                         <div className="popup-sec d-flex flex-column justify-content-center align-items-center">
                             <h2 class="title mb-4">OTP Verify</h2>
@@ -305,6 +393,24 @@ export default function Home() {
                         </div>
                     </div>
                     : null
+            }
+            {
+                signinPopup ?
+                    <div className="popup-container">
+                        <div className="popup-sec d-flex flex-column justify-content-center align-items-center">
+                            <h2 class="title mb-4">Login</h2>
+                            <div class="input-field">
+                                <input type="text" id="phn-mail" placeholder="Phone no. or Email" disabled value={existUser.phone ? existUser.phone : existUser.email} />
+                            </div>
+
+                            <div class="input-field">
+                                <input type="password" id="password" placeholder="Password" minlength="6" onChange={(e) => { setPassword(e.target.value) }} required />
+                            </div>
+                            <input type="button" value="Login" class="btn solid mt-3" onClick={loginFun} />
+                        </div>
+                    </div>
+                    : null
+
             }
 
         </section>

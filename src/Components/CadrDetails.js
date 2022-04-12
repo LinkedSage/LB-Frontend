@@ -97,7 +97,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                 </div>
                             </div>
                             <div className="vl"></div>
-                            <button id="__close_details_btn" className="closs-details-btn btn" >X</button>
+                            <input type="button" id="__close_details_btn" className="closs-details-btn btn" onClick={() => setPopupStatus(false)} value='X' />
                             {/* <button className="closs-details-btn btn" onClick={() => setPopupStatus(false)}>X</button> */}
                             <div className="right-details">
                                 <h4>Required Documents</h4>

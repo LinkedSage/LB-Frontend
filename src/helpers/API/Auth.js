@@ -1,12 +1,14 @@
 
 import Axios from "../../Axios";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { setCookies, getCurrentUser } from "../Cookies/Cookies"
 
 export const onSubmitLogin = async (values) => {
     console.log("vvvv", values)
-    const result = await Axios.post(
+    const result = await axios.post(
         `${process.env.REACT_APP_API_URL}/users/login`, values);
+        console.log("1stxxxxxxxxxxxxxxxxxxxxxxxxxxxx",result)
     if (result.data.status == 200) {
         // setCookies('data', result.data.data, { path: '/' })
         // const abcd = getCurrentUser();

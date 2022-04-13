@@ -44,6 +44,17 @@ export const getCurrentUser = () => {
     }
   }
   
+export const getCurrentUserData = (e) => {
+    try {
+    const get_cookies = e
+      
+      const currentUser = jwt_decode(get_cookies);
+      console.log('user',currentUser)
+      return currentUser;
+    } catch (ex) {
+      return null;
+    }
+  }
 //   export function updateCurrentUser(nid,salary) {
 //     try {
 //       const jwt = localStorage.getItem(tokenKey);

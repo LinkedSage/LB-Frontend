@@ -5,15 +5,15 @@ import Select from 'react-select';
 import '../Components/CSS/Application.css'
 import { isExistUser, forceRegister, verifyOTP, onSubmitLogin } from "../helpers/API/Auth";
 import { cardApplicationAdd } from "../helpers/API/Application";
-import { getCurrentUser } from "../helpers/Cookies/Cookies";
+import { getCookies } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from 'react-toastify';
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById } from "../helpers/API/Product";
 
 export default function Home() {
     let location = useLocation()
-    const currentUser = getCurrentUser()
-    let cardInfo = []
+    // let cardInfo = []
+    const [cardInfo, setCardInfo] = useState()
     const [name, setName] = useState()
     const [phone, setPhone] = useState()
     const [email, setEmail] = useState()
@@ -31,24 +31,24 @@ export default function Home() {
     const [password, setPassword] = useState()
 
     useEffect(() => {
-        // console.log("loca",)
         if (location.state && location.state.cardDetails)
-            cardInfo = location.state.cardDetails;
+            setCardInfo(location.state.cardDetails)
         else {
             let value = location.pathname.split('/')
             getCardById(value[2])
                 .then((res) => {
-                    cardInfo = res.data[0]
+                    setCardInfo(res.data[0])
                 })
                 .catch((err) => {
                     console.log(err)
                 })
         }
-        console.log("location", cardInfo, currentUser)
+    }, [])
+    useEffect(() => {
         if (cardInfo && cardInfo.state && cardInfo.state.profession) setProfession(cardInfo.state.profession)
         if (cardInfo && cardInfo.state && cardInfo.state.salary) setSalary(cardInfo.state.salary)
 
-    }, [])
+    }, [cardInfo])
 
     function validationFun(fieldValue, fieldId) {
         if (fieldValue) document.getElementById(fieldId).classList.remove('empty')
@@ -59,7 +59,6 @@ export default function Home() {
         isExistUser(value)
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("aaaaaaaaaaa", res)
                     setExistUser(res.data)
                     notification('warning', "User Exist please login")
                     setTimeout(() => {
@@ -68,10 +67,11 @@ export default function Home() {
                 } else {
                     forceRegister(value)
                         .then((res1) => {
-                            console.log("ressssss", res1.data._id)
-                            if (res1.status === 200) {
+                            if (res1.token.status === 200) {
                                 setOTPPopup(true)
-                                set__UserId(res1.data._id)
+                            }
+                            else {
+                                notification("warning", res1.token.message)
                             }
                         })
                         .catch((err) => {
@@ -85,7 +85,6 @@ export default function Home() {
     }
 
     function applicationFormSubmit() {
-        console.log("scsss", document.getElementById('name').classList)
         let value = {
             name: name,
             phone: phone,
@@ -95,7 +94,6 @@ export default function Home() {
             email: email
         }
         if (profession === 'salaried') value['organization'] = organization
-        console.log("aaaaaaaa", value)
 
 
         validationFun(name, 'name')
@@ -180,35 +178,19 @@ export default function Home() {
                 otp: OTPCode
             }
             document.getElementById('otp').classList.remove('empty')
+
             verifyOTP(values)
                 .then((res) => {
-                    console.log("resotp", res, currentUser)
-                    if (res.status === 200) {
+                    if (res.token.status === 200) {
                         let value = {
-                            _id: __userId,
+                            _id: res.data._id,
                             cardId: cardInfo._id,
-                            token: res.data
+                            token: res.token.data
                         }
                         setOTPPopup(true)
-                        cardApplicationAdd(value)
-                            .then((res1) => {
-                                console.log("res1", res1)
-                                if (res1.status === 200) {
-                                    setOTPPopup(false)
-                                    notification('success', 'Application submited successfully...')
-                                    setTimeout(() => {
-                                        window.location.href = '/'
-                                    }, 1000)
-                                }
-                                else {
-                                    notification('fail', res.message)
-                                }
-                            })
-                            .catch((err) => {
-                                console.log(err)
-                            })
+                        applicationSubmitFun(value)
                     } else {
-
+                        notification('fail', res.token.message)
                     }
                 })
                 .catch((err) => {
@@ -219,21 +201,58 @@ export default function Home() {
         else document.getElementById('otp').classList.add('empty')
 
     }
+
+    function applicationSubmitFun(value) {
+        cardApplicationAdd(value)
+            .then((res1) => {
+                if (res1.status === 200) {
+                    setOTPPopup(false)
+                    notification('success', 'Application submited successfully...')
+                    setTimeout(() => {
+                        // window.location.href = '/'
+                    }, 1000)
+                }
+                else {
+                    notification('fail', res1.message)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     function loginFun() {
         let values = {
             ...existUser,
             password: password
         }
-        if(password){
+        if (password) {
             onSubmitLogin(values)
-            .then((res) => {
-                console.log("login",res)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setSigninPopup(false)
+                        if (res.data.is_verified) {
+                            let token = getCookies()
+                            let value = {
+                                _id: res.data._id,
+                                cardId: cardInfo._id,
+                                token: token
+                            }
+                            applicationSubmitFun(value)
+                        }
+                        else {
+                            setOTPPopup(true);
+                            // otpVerificationFun()
+                        }
+                    }
+                    else {
+                        notification('warning', res.message)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
-        console.log("vvvv",values)
     }
 
     return (
@@ -271,20 +290,20 @@ export default function Home() {
                                     </div>
                                     <div className="col-md-8">
                                         <div class="input-field">
-                                            <button id="city" className="select-btn d-flex align-items-center" onClick={openCityListFun}>
+                                            <button id="city" type="button" className="select-btn d-flex align-items-center" onClick={openCityListFun}>
                                                 <span id="city-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
                                                 <p className="h-100">{city}</p>
                                             </button>
                                             {
                                                 cityList ?
                                                     <div className="city-list">
-                                                        <button onClick={() => { setCityFun('Dhaka') }}>Dhaka</button>
-                                                        <button onClick={() => { setCityFun('Chitagong') }}>Chitagong</button>
-                                                        <button onClick={() => { setCityFun('Sylhet') }}>Sylhet</button>
-                                                        <button onClick={() => { setCityFun('Rajshahi') }}>Rajshahi</button>
-                                                        <button onClick={() => { setCityFun('Khulna') }}>Khulna</button>
-                                                        <button onClick={() => { setCityFun('Rangpur') }}>Rangpur</button>
-                                                        <button onClick={() => { setCityFun('Barisal') }}>Barisal</button>
+                                                        <button type="button" onClick={() => { setCityFun('Dhaka') }}>Dhaka</button>
+                                                        <button type="button" onClick={() => { setCityFun('Chitagong') }}>Chitagong</button>
+                                                        <button type="button" onClick={() => { setCityFun('Sylhet') }}>Sylhet</button>
+                                                        <button type="button" onClick={() => { setCityFun('Rajshahi') }}>Rajshahi</button>
+                                                        <button type="button" onClick={() => { setCityFun('Khulna') }}>Khulna</button>
+                                                        <button type="button" onClick={() => { setCityFun('Rangpur') }}>Rangpur</button>
+                                                        <button type="button" onClick={() => { setCityFun('Barisal') }}>Barisal</button>
                                                     </div>
                                                     : null
                                             }
@@ -321,17 +340,17 @@ export default function Home() {
                                     </div>
                                     <div className="col-md-8">
                                         <div class="input-field">
-                                            <button id="profession" className="select-btn d-flex align-items-center" onClick={openProfessionFun}>
+                                            <button id="profession" type="button" className="select-btn d-flex align-items-center" onClick={openProfessionFun}>
                                                 <span id="profession-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
                                                 <p className="h-100">{profession}</p>
                                             </button>
                                             {
                                                 professionList ?
                                                     <div className="city-list">
-                                                        <button onClick={() => { setProfessionFun('salaried') }}>Salaried</button>
-                                                        <button onClick={() => { setProfessionFun('business') }}>Businessman</button>
-                                                        <button onClick={() => { setProfessionFun('doctor') }}>Doctor</button>
-                                                        <button onClick={() => { setProfessionFun('landLord') }}>Land Lord</button>
+                                                        <button type="button" onClick={() => { setProfessionFun('salaried') }}>Salaried</button>
+                                                        <button type="button" onClick={() => { setProfessionFun('business') }}>Businessman</button>
+                                                        <button type="button" onClick={() => { setProfessionFun('doctor') }}>Doctor</button>
+                                                        <button type="button" onClick={() => { setProfessionFun('landLord') }}>Land Lord</button>
                                                     </div>
                                                     : null
                                             }
@@ -383,7 +402,7 @@ export default function Home() {
 
             {
                 otpPopup ?
-                    <div className="poppu-container">
+                    <div className="popup-container">
                         <div className="popup-sec d-flex flex-column justify-content-center align-items-center">
                             <h2 class="title mb-4">OTP Verify</h2>
                             <div class="input-field">

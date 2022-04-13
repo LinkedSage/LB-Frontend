@@ -2,11 +2,11 @@
 import Axios from "../../Axios";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { setCookies, getCurrentUser } from "../Cookies/Cookies"
+import { setCookies, getCurrentUserData } from "../Cookies/Cookies"
 
 export const onSubmitLogin = async (values) => {
     console.log("vvvv", values)
-    const result = await axios.post(
+    const result = await Axios.post(
         `${process.env.REACT_APP_API_URL}/users/login`, values);
         console.log("1stxxxxxxxxxxxxxxxxxxxxxxxxxxxx",result)
     if (result.data.status == 200) {
@@ -35,7 +35,12 @@ export const verifyOTP = async (values) => {
     if (result.data.status == 200) {
         setCookies('data', result.data.data, { path: '/' })
     }
-    return result.data
+    let userdata
+    if(result.data.status === 200)
+       userdata =  getCurrentUserData(result.data.data)
+       console.log("userdata",userdata)
+       userdata.token = result.data
+    return userdata
 }
 
 export const isExistUser = async (values) => {
@@ -63,5 +68,10 @@ export const forceRegister = async (temp) => {
     console.log("vallll",values)
     const result = await Axios.post(
         `${process.env.REACT_APP_API_URL}/users/force-register`,values);
-    return result.data
+       let userdata
+       if(result.data.status === 200)
+       userdata =  getCurrentUserData(result.data.data)
+       userdata.token = result.data
+    
+    return userdata
 }

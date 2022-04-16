@@ -24,7 +24,7 @@ export default function Home() {
     const [email, setEmail] = useState()
     const [city, setCity] = useState('Select Division')
     const [profession, setProfession] = useState('salaried')
-    const [organization, setOrganization] = useState()
+    const [organization, setOrganization] = useState({})
     const [salary, setSalary] = useState()
     const [cityList, setCityList] = useState(false)
     const [professionList, setProfessionList] = useState(false)
@@ -37,10 +37,13 @@ export default function Home() {
     useEffect(() => {
         if(getCookies('data')){
             let temp = getCurrentUser().data;
-            console.log("aaaaaaaaaaa",temp)
+            console.log("aaaaaaaaaaa",temp,temp.employeement_information.job_location)
             if(temp && temp.phone) setPhone(temp.phone)
             if(temp && temp.email) setEmail(temp.email)
             if(temp && temp.name) setName(temp.name)
+            if(temp && temp.employeement_information.profession) setProfessionFun(temp.employeement_information.profession)
+            if(temp && temp.city) setCityFun(temp.city)
+            // if(temp && temp.employeement_information.job_location) setOrganization({value:temp.employeement_information.job_location,label:temp.employeement_information.job_location})
         }
 
         if (location.state && location.state.cardDetails)
@@ -107,8 +110,21 @@ export default function Home() {
         }
         if (profession === 'salaried') value['organization'] = organization
 
-        userData.value = value
-        userData._id = "62567f1462707c3209252fc0"
+        userData.data = {
+            name: name,
+            phone: phone,
+            city: city,
+            profession: profession,
+            salary: salary,
+            email: email,
+            employeement_information:{
+                profession : profession,
+                salary_amount:salary,
+                job_location: city,
+                companyName:organization || ''
+            }
+        }
+        
 
         validationFun(name, 'name')
         validationFun(phone, 'phone')
@@ -193,6 +209,7 @@ export default function Home() {
         setSalary(e)
     }
     function setOrganizationFun(e) {
+        console.log("aaa",e)
         if (e) document.getElementById('Organization').classList.remove('empty')
         else document.getElementById('Organization').classList.add('empty')
         setOrganization(e)
@@ -231,6 +248,7 @@ export default function Home() {
 
     function applicationSubmitFun(value) {
         console.log("cccaaaaaaaa",value)
+        userData._id = value._id
         userUpdate(userData)
         .then((res) => {
             console.log(res)
@@ -403,6 +421,7 @@ export default function Home() {
                                                 <div className="input-field">
                                                     {/* <span id="organization-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span> */}
                                                     <Select
+                                                    // defaultValue={organization}
                                                         id='Organization'
                                                         onChange={(e) => { setOrganizationFun(e.value) }}
                                                         options={companyName}

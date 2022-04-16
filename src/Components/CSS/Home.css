@@ -1,133 +1,136 @@
-
 /* Hero area css start  */
-#homePage .hero-area-bg-color{
-    background: rgb(56, 56, 56);
+#homePage .hero-area-bg-color {
+  background: rgb(56, 56, 56);
 }
-#homePage .hero-area{
-    
-    background: url('../../assets/images/hero-banner-7.png');
-    background-image:url('../../assets/images/hero-banner-7.png'), linear-gradient(to right, rgb(12, 12, 12), rgba(39, 38, 107, 0.171));
-    background-size:contain;
-    background-position:right bottom;
-    background-repeat: no-repeat;
-    min-height: calc(100vh - 80px);
+#homePage .hero-area {
+  background: url("../../assets/images/hero-banner-7.png"),
+    linear-gradient(to right, #fbab15 20%, #0b4376 80%);
+  background-size: contain;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  min-height: calc(100vh - 80px);
 }
-#homePage .hero-area h1{
-    font-size: 100px;
-    line-height: 100px;
-    color: #fff;
+#homePage .hero-area h1 {
+  font-size: 100px;
+  line-height: 100px;
+  color: var(--primary);
 }
-#homePage .btn-grp button{
-    padding: 8px 0;
-    border-radius: 12px;
-    cursor: pointer;
-    width: 150px;
-    background: #1e222d8a;
-    transition: .3s ease-in-out;
-    border: none;
-    color: var(--white);
-    margin-right: 15px;
-    border-radius: 40px;
+#homePage .btn-grp button {
+  padding: 8px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 150px;
+  background: #1e222d8a;
+  transition: 0.3s ease-in-out;
+  border: none;
+  color: var(--white);
+  margin-right: 15px;
+  border-radius: 40px;
 }
 
-#homePage .btn-grp button p{
-    margin-bottom: 0 !important;
+#homePage .btn-grp button p {
+  margin-bottom: 0 !important;
 }
-#homePage .btn-grp button .hero-icon svg{
-    height: 20px;
-    fill: #fff;
-    margin-right: 10px;
+#homePage .btn-grp button .hero-icon svg {
+  height: 20px;
+  fill: #fff;
+  margin-right: 10px;
 }
-.financial-area .w-200{
-    width: 200px !important;
+.financial-area .w-200 {
+  width: 200px !important;
 }
 /* Hero area css end  */
 
 /* Trending  product css start  */
-.trending-product-area .product-group{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+.trending-product-area .product-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.trending-product-area .product-group .single-product{
-    width: 225px;
-    height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    padding: 15px 10px;
+.trending-product-area .product-group .single-product {
+  width: 260px;
+  /* height: 160px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 15px 10px;
 }
-.single-product .txt-lg{
-    font-size: 1.1rem;
+.single-product .txt-lg {
+  font-size: 1.1rem;
 }
-.trending-product-area .product-group .single-product p{
-    margin-bottom: 0 !important;
-} 
-.trending-product-area .product-group a{
-    color: var(--primary);
-    border-right: 1px solid rgb(238, 238, 238);
-    border-bottom: 1px solid rgb(238, 238, 238);    
-    cursor: pointer;
-    box-shadow: 0 0 10px rgb(11 67 118 / 40%);
-    border-radius: 10px;
-    transition: .3s ease-in-out;
-    margin: 20px;
+.trending-product-area .product-group .single-product p {
+  margin-bottom: 0 !important;
 }
-.trending-product-area .product-group svg{
-    height: 35px;
-    fill: var(--primary);
+.trending-product-area .product-group a {
+  color: var(--primary);
+  border-right: 1px solid rgb(238, 238, 238);
+  border-bottom: 1px solid rgb(238, 238, 238);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(11 67 118 / 40%);
+  /* border-radius: 10px; */
+  transition: 0.3s ease-in-out;
+  margin: 20px;
 }
+.trending-product-area .product-group svg {
+  height: 35px;
+  fill: var(--primary);
+}
+
 .trending-product-area .product-group a:hover {
-    background: var(--primary);
-    color: #fff;
+  outline: 1px solid var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+  /* color: #fff; */
+  /* border-radius: 10px; */
 }
-.trending-product-area .product-group a:hover{
-    border-radius: 10px;
-}
-.trending-product-area .product-group a:hover .single-product svg{
-    fill: #fff;
+.trending-product-area .product-group a:hover .single-product svg {
+  /* fill: #fff; */
 }
 /* Trending  product css end  */
 
 /* Statistics area css start */
-.statistics-area{
-    background: #0b4276;
+.statistics-area {
+  background: #0b4276;
 }
-.statistics-area ._image{
-    width: 80px;
+.statistics-area ._image {
+  width: 80px;
 }
-.statistics-area ._image svg{
-    fill: var(--white);
+.statistics-area ._image svg {
+  fill: var(--white);
 }
-.statistics-area .col-md-8 p{
-    color: var(--white);
+.statistics-area .col-md-8 p {
+  color: var(--white);
 }
 /* Statistics area css end */
 
-
 /* Financial area css start  */
 
-.financial-area .left svg{
-    width: 60px;
+.financial-area .left div {
+  background: none;
 }
-.financial-area .left .vl{
-    width: 2px;
-    height: 90%;
-    background: #666;
-    position: absolute;
-    right: -1px;
-    top: 5%;
-    padding: 0 !important;
+.financial-area .left img {
+  width: 30px;
+}
+.financial-area .left .vl {
+  width: 2px;
+  height: 90%;
+  background: #666;
+  position: absolute;
+  right: -1px;
+  top: 5%;
+  padding: 0 !important;
 }
 .financial-area .right .glow-on-hover {
-    color: #fff;
-    padding: 15px 30px;
+  color: #fff;
+  padding: 15px 30px;
 }
 /* Financial area css end  */
 
-
 /* our partners area css start  */
-.partners-area{
-    background: rgb(238, 238, 238);
+.partners-area {
+  background: rgb(238, 238, 238);
+}
+.partners-area .container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 /* our partners area css end  */

@@ -1,57 +1,59 @@
-
 /*-----------------
 	5. Footer
 -----------------------*/
-#footer{
-	font-size: 15px;
-    background-color: #888;
-	padding: 10px 0;
+
+/* #fbab15 #0b4376 */
+#footer {
+  font-size: 15px;
+  background-color: #fbab15;
+  padding: 10px 0;
 }
-#footer .logo{
-	height: 60px;
-	margin-bottom: 20px;
+#footer .logo {
+  height: 60px;
+  margin-bottom: 20px;
 }
-#footer ul{
-	padding: 0 !important;
+#footer ul {
+  padding: 0 !important;
 }
-#footer ul li{
-	margin-bottom: 10px;
+#footer ul li {
+  margin-bottom: 10px;
+  margin-right: 25px;
 }
-#footer ul li .icon svg{
-	height: 20px;
-	fill:  var(--white);
-	margin-right: 5px;
-	margin-bottom: -5px;
+#footer ul li .icon svg {
+  height: 20px;
+  fill: var(--primary);
+  margin-right: 5px;
+  margin-bottom: -5px;
 }
-#footer ul li a{
-	color: var(--white);
-	transition: .4s ease-in-out;
+#footer ul li a {
+  color: var(--primary);
+  transition: 0.4s ease-in-out;
 }
-#footer p{
-	color: var(--primary);
-	margin-top: 2.5rem;
-	margin-bottom: 20px;
+#footer p {
+  color: var(--primary);
+  margin-top: 2.5rem;
+  margin-bottom: 20px;
 }
-#footer ul li a:hover{
-	letter-spacing: 1px;
+#footer ul li a:hover {
+  letter-spacing: 1px;
 }
 
-#footer ul li .social-icon svg{
-	height: 36px;
-	fill: #fff;
+#footer ul li .social-icon svg {
+  height: 36px;
+  fill: var(--primary);
 }
-#copy-right{
-	background: var(--primary);
+#copy-right {
+  background: var(--primary);
 }
 
 #copy-right p,
 #copy-right p a {
-	color: var(--white);
+  color: var(--white);
 }
-#copy-right p a{
-	font-weight: 500;
+#copy-right p a {
+  font-weight: 500;
 }
-#copy-right p svg{
-	height: 18px;
-	fill: #fff;
+#copy-right p svg {
+  height: 18px;
+  fill: #fff;
 }

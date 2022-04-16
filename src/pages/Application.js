@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 import { companyName } from "../helpers/Data/CompanyName";
 import Select from 'react-select';
 import '../Components/CSS/Application.css'
-import { isExistUser, forceRegister, verifyOTP, onSubmitLogin } from "../helpers/API/Auth";
+import { isExistUser, forceRegister, verifyOTP, onSubmitLogin,userUpdate } from "../helpers/API/Auth";
 import { cardApplicationAdd } from "../helpers/API/Application";
-import { getCookies } from "../helpers/Cookies/Cookies";
+import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from 'react-toastify';
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById } from "../helpers/API/Product";
@@ -13,6 +13,11 @@ import { getCardById } from "../helpers/API/Product";
 export default function Home() {
     let location = useLocation()
     // let cardInfo = []
+    let userData ={
+        data:{},
+        _id:0
+
+    }
     const [cardInfo, setCardInfo] = useState()
     const [name, setName] = useState()
     const [phone, setPhone] = useState()
@@ -25,12 +30,19 @@ export default function Home() {
     const [professionList, setProfessionList] = useState(false)
     const [otpPopup, setOTPPopup] = useState(false)
     const [OTPCode, setOTPCode] = useState()
-    const [__userId, set__UserId] = useState()
     const [signinPopup, setSigninPopup] = useState(false)
     const [existUser, setExistUser] = useState()
     const [password, setPassword] = useState()
 
     useEffect(() => {
+        if(getCookies('data')){
+            let temp = getCurrentUser().data;
+            console.log("aaaaaaaaaaa",temp)
+            if(temp && temp.phone) setPhone(temp.phone)
+            if(temp && temp.email) setEmail(temp.email)
+            if(temp && temp.name) setName(temp.name)
+        }
+
         if (location.state && location.state.cardDetails)
             setCardInfo(location.state.cardDetails)
         else {
@@ -95,6 +107,8 @@ export default function Home() {
         }
         if (profession === 'salaried') value['organization'] = organization
 
+        userData.value = value
+        userData._id = "62567f1462707c3209252fc0"
 
         validationFun(name, 'name')
         validationFun(phone, 'phone')
@@ -107,13 +121,26 @@ export default function Home() {
             if (organization) document.getElementById('Organization').classList.remove('empty')
             else document.getElementById('Organization').classList.add('empty')
         }
-
-        if (name && phone && city && profession && profession !== 'salaried' && salary) {
-            checkIsExist(value)
+        let token = getCookies('data');
+        let userId = getCurrentUser();
+        if (token && userId) {
+            let values = {
+                _id: userId.data._id,
+                cardId: cardInfo._id,
+                token: token
+            }
+            console.log("value", values)
+            applicationSubmitFun(values)
         }
-        else if (name && phone && city && profession && profession === 'salaried' && salary) {
-            if (organization) {
+        else {
+
+            if (name && phone && city && profession && profession !== 'salaried' && salary) {
                 checkIsExist(value)
+            }
+            else if (name && phone && city && profession && profession === 'salaried' && salary) {
+                if (organization) {
+                    checkIsExist(value)
+                }
             }
         }
     }
@@ -203,6 +230,13 @@ export default function Home() {
     }
 
     function applicationSubmitFun(value) {
+        console.log("cccaaaaaaaa",value)
+        userUpdate(userData)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch(err => console.log(err)) 
+
         cardApplicationAdd(value)
             .then((res1) => {
                 if (res1.status === 200) {
@@ -232,12 +266,13 @@ export default function Home() {
                     if (res.status === 200) {
                         setSigninPopup(false)
                         if (res.data.is_verified) {
-                            let token = getCookies()
+                            let token = getCookies('data')
                             let value = {
                                 _id: res.data._id,
                                 cardId: cardInfo._id,
                                 token: token
                             }
+                            console.log("value", value)
                             applicationSubmitFun(value)
                         }
                         else {
@@ -279,8 +314,8 @@ export default function Home() {
                                         <label>Name*</label>
                                     </div>
                                     <div className="col-md-8">
-                                        <div class="input-field">
-                                            <input id="name" type="text" placeholder="Name" onChange={(e) => { setNameFun(e.target.value) }} required />
+                                        <div className="input-field">
+                                            <input id="name" type="text" placeholder="Name" defaultValue={name} onChange={(e) => { setNameFun(e.target.value) }} required />
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +324,7 @@ export default function Home() {
                                         <label>City*</label>
                                     </div>
                                     <div className="col-md-8">
-                                        <div class="input-field">
+                                        <div className="input-field">
                                             <button id="city" type="button" className="select-btn d-flex align-items-center" onClick={openCityListFun}>
                                                 <span id="city-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
                                                 <p className="h-100">{city}</p>
@@ -317,8 +352,8 @@ export default function Home() {
                                         <label>Phone No.*</label>
                                     </div>
                                     <div className="col-md-8">
-                                        <div class="input-field">
-                                            <input type="tel" id="phone" name="phone" placeholder="Phone no." pattern="[0-9]{11}" required onChange={(e) => { setPhoneFun(e.target.value) }} />
+                                        <div className="input-field">
+                                            <input type="tel" id="phone" name="phone" defaultValue={phone} placeholder="Phone no." pattern="[0-9]{11}" required onChange={(e) => { setPhoneFun(e.target.value) }} />
                                         </div>
                                     </div>
                                 </div>
@@ -328,8 +363,8 @@ export default function Home() {
                                         <label>Email*</label>
                                     </div>
                                     <div className="col-md-8">
-                                        <div class="input-field">
-                                            <input type="email" id="email" name="email" placeholder="Email" required onChange={(e) => { setEmailFun(e.target.value) }} />
+                                        <div className="input-field">
+                                            <input type="email" id="email" name="email" defaultValue={email} placeholder="Email" required onChange={(e) => { setEmailFun(e.target.value) }} />
                                         </div>
                                     </div>
                                 </div>
@@ -339,7 +374,7 @@ export default function Home() {
                                         <label>Profession*</label>
                                     </div>
                                     <div className="col-md-8">
-                                        <div class="input-field">
+                                        <div className="input-field">
                                             <button id="profession" type="button" className="select-btn d-flex align-items-center" onClick={openProfessionFun}>
                                                 <span id="profession-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span>
                                                 <p className="h-100">{profession}</p>
@@ -365,7 +400,7 @@ export default function Home() {
                                                 <label>Organization*</label>
                                             </div>
                                             <div className="col-md-8">
-                                                <div class="input-field">
+                                                <div className="input-field">
                                                     {/* <span id="organization-arrow"><svg viewBox="0 0 256 512"><path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></span> */}
                                                     <Select
                                                         id='Organization'
@@ -383,7 +418,7 @@ export default function Home() {
                                         <label>Salary*</label>
                                     </div>
                                     <div className="col-md-8">
-                                        <div class="input-field">
+                                        <div className="input-field">
                                             <input id="salary" type="number" placeholder="Salary" defaultValue={salary} onChange={(e) => { setSalaryFun(e.target.value) }} required />
                                         </div>
                                     </div>
@@ -404,11 +439,11 @@ export default function Home() {
                 otpPopup ?
                     <div className="popup-container">
                         <div className="popup-sec d-flex flex-column justify-content-center align-items-center">
-                            <h2 class="title mb-4">OTP Verify</h2>
-                            <div class="input-field">
+                            <h2 className="title mb-4">OTP Verify</h2>
+                            <div className="input-field">
                                 <input type="text" id="otp" placeholder="Please enter the OTP " minlength="6" onChange={(e) => { setOTPCode(e.target.value) }} required />
                             </div>
-                            <input type="button" value="Verify" class="btn solid mt-3" onClick={otpVerificationFun} />
+                            <input type="button" value="Verify" className="btn solid mt-3" onClick={otpVerificationFun} />
                         </div>
                     </div>
                     : null
@@ -417,15 +452,15 @@ export default function Home() {
                 signinPopup ?
                     <div className="popup-container">
                         <div className="popup-sec d-flex flex-column justify-content-center align-items-center">
-                            <h2 class="title mb-4">Login</h2>
-                            <div class="input-field">
+                            <h2 className="title mb-4">Login</h2>
+                            <div className="input-field">
                                 <input type="text" id="phn-mail" placeholder="Phone no. or Email" disabled value={existUser.phone ? existUser.phone : existUser.email} />
                             </div>
 
-                            <div class="input-field">
+                            <div className="input-field">
                                 <input type="password" id="password" placeholder="Password" minlength="6" onChange={(e) => { setPassword(e.target.value) }} required />
                             </div>
-                            <input type="button" value="Login" class="btn solid mt-3" onClick={loginFun} />
+                            <input type="button" value="Login" className="btn solid mt-3" onClick={loginFun} />
                         </div>
                     </div>
                     : null

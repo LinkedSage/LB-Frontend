@@ -75,3 +75,15 @@ export const forceRegister = async (temp) => {
     
     return userdata
 }
+
+
+
+export const userUpdate = async (values) => {
+    console.log("vvvv", values)
+    const result = await Axios.post(
+        `${process.env.REACT_APP_API_URL}/users/update/${values._id}`,values.value);
+        if (result.data.status == 200) {
+            setCookies('data', result.data.data, { path: '/' })
+        }
+    console.log("otp", result.data)
+}

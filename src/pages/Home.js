@@ -60,7 +60,7 @@ export default function Home() {
             <div className="col-md-6 pl-5 pt-100">
               <h1 className="h1">Search for</h1>
                 <div className="d-flex mt-3">
-                  <div class="select mr-4">
+                  <div className="select mr-4">
                     <select placeholder="Profession" onChange={(e) => { setProfession(e.target.value) }}>
                       <option selected value="salaried">Salaried</option>
                       <option value="business">Business</option>
@@ -68,9 +68,9 @@ export default function Home() {
                       <option value="landLord">Land Lord</option>
                     </select>
                   </div>
-                  <div class="input-container">
+                  <div className="input-container">
                     <input id="salary" type="number" min="0" required onChange={(e) => { setSalaryFun(e.target.value) }}></input>
-                    <label class="label" for="salary">Salary*</label>
+                    <label className="label" for="salary">Salary*</label>
                   </div>
                 </div>
               <div className="btn-grp d-flex mt-4">
@@ -131,7 +131,7 @@ export default function Home() {
       <div className="trending-product-area">
         <div className="container ptb-50">
           <div className="row">
-            <p className="h2 w-100 text-center">Trending Products</p>
+            <p className="h2 w-100 text-center _title">Trending Products</p>
             <div className="col-md-12 product-group mt-3">
               {
                 _trendingProduct.map((item,key) => {
@@ -226,13 +226,16 @@ export default function Home() {
             </div>
             <div className="col-md-5 right pl-5">
               <h3>Help Us to Find You</h3>
+              <div className="_sub-title">
+                <hr />
+              </div>
               <form onSubmit={sendMsgFun}>
                 <div className="d-flex flex-wrap justify-content-between mt-5">
-                  <div class="input-container mb-4 w-100">
+                  <div className="input-container mb-4 w-100">
                     <input id="name" type="text" required onChange={(e) => { setName(e.target.value) }} />
-                    <label class="label" for="name">Your Name*</label>
+                    <label className="label" for="name">Your Name*</label>
                   </div>
-                  <div class="select w-200">
+                  <div className="select w-200">
                     <select placeholder="Profession" onChange={(e) => { setProfession1(e.target.value) }}>
                     <option selected value="salaried">Salaried</option>
                       <option value="business">Business</option>
@@ -240,13 +243,13 @@ export default function Home() {
                       <option value="landLord">Land Lord</option>
                     </select>
                   </div>
-                  <div class="input-container w-200">
+                  <div className="input-container w-200">
                     <input id="salary1" type="number" required onChange={(e) => { setSalary1(e.target.value) }} />
-                    <label class="label" for="salary1">Salary*</label>
+                    <label className="label" for="salary1">Salary*</label>
                   </div>
-                  <div class="input-container mt-4 w-100">
+                  <div className="input-container mt-4 w-100">
                     <input id="phoneNo" type="tel" pattern="[0-9]{11}" required onChange={(e) => { setPhoneNo(e.target.value) }} />
-                    <label class="label" for="phoneNo">Phone No.*</label>
+                    <label className="label" for="phoneNo">Phone No.*</label>
                   </div>
                   <div className="mt-4 text-center w-100">
                     <button className="glow-on-hover" type="submit" >Send Now</button>

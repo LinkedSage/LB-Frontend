@@ -59,13 +59,13 @@ function ProductDetails() {
 
 
   return (
-    <section id='product-details-page' class="product-details">
-      <div class="container ptb-50">
+    <section id='product-details-page' className="product-details">
+      <div className="container ptb-50">
         <div className="row">
           <div className="col-md-8 ">
-            <div class="product_text">
-              <h1 class="product_titel">SCB-Visa Silver Credit Card </h1>
-              <div class="product_description mb-3">
+            <div className="product_text">
+              <h1 className="product_titel">SCB-Visa Silver Credit Card </h1>
+              <div className="product_description mb-3">
                 Enter the world of benefits and rewards with Standard
                 Chartered Silver Credit Card and delight yourself with
                 unbeatable rewards and benefits.
@@ -223,7 +223,7 @@ function ProductDetails() {
         <div className="fee_charges mt-5">
           <h2 className="fee_charges mb-3">Fees & Charges</h2>
           <div className="fee_charge_table ">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Fee Type</th>

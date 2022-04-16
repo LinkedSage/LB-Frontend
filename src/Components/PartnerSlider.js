@@ -13,8 +13,8 @@ import client9 from '../assets/images/profession/Salaried.png';
 
 function PartnerSlider() {
     return (
-        <div class="__slider ">
-            <div class="__slide-track">
+        <div className="__slider ">
+            <div className="__slide-track">
                 <div className="__slide">
                     <img src={client1} alt="" height="180" width="160"></img>
                     <p>U.S Department Of <br />Homeland Security</p>

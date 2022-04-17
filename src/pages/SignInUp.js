@@ -13,8 +13,8 @@ import { notification } from "../helpers/Confirm/ConfirmAction";
 
 export default function SignInUp() {
     const history = useHistory();
-    const [phoneNo, setPhoneNo] = useState()
-    const [email, setEmail] = useState()
+    const [phoneNo, setPhoneNo] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState()
     const [confirmPassword, setConfirmPassword] = useState()
     const [emailSI, setEmailSI] = useState(true)
@@ -29,6 +29,8 @@ export default function SignInUp() {
         const sign_in_btn = document.querySelector("#sign-in-btn");
         const sign_up_btn = document.querySelector("#sign-up-btn");
         const container = document.querySelector("._container");
+        if(document.getElementById("phoneSI")) document.getElementById("phoneSI").value = ''
+        if(document.getElementById("emailSI")) document.getElementById("emailSI").value = ''
 
         sign_up_btn.addEventListener("click", () => {
             container.classList.add("sign-up-mode");
@@ -175,7 +177,7 @@ export default function SignInUp() {
                         <div className="signin-signup">
                             {
                                 signinOTP ?
-                                    <form className="sign-in-form" >
+                                    <form className="sign-in-form" onSubmit={submitLoginForm} >
                                         <h2 className="title">Sign in</h2>
                                         <div className="btn-group mt-3 mb-2">
                                             <button type="button" onClick={phoneSIFun} className={emailSI ? 'active' : ''}>Phone</button>
@@ -197,7 +199,7 @@ export default function SignInUp() {
                                             <img src={lock} alt="phone" />
                                             <input type="password" placeholder="Password" minlength="6" onChange={(e) => { setPassword(e.target.value) }} required />
                                         </div>
-                                        <input type="button" value="Login" className="btn solid" onClick={submitLoginForm} />
+                                        <input type="submit" value="Login" className="btn solid" />
                                     </form>
                                     :
                                     <form className="sign-in-form" >
@@ -212,7 +214,7 @@ export default function SignInUp() {
 
                             {
                                 signupOTP ?
-                                    <form className="sign-up-form">
+                                    <form className="sign-up-form" onSubmit={submitSigupForm}>
                                         <h2 className="title">Sign up</h2>
                                         <div className="btn-group mt-3 mb-2">
                                             <button type="button" onClick={phoneSUFun} className={emailSU ? 'active' : ''}>Phone</button>
@@ -238,7 +240,7 @@ export default function SignInUp() {
                                             <img src={lock} alt="phone" />
                                             <input type="password" placeholder="Confirm Password" minlength="6" onChange={(e) => { setConfirmPassword(e.target.value) }} required />
                                         </div>
-                                        <input type="button" className="btn solid" value="Sign up" onClick={submitSigupForm} />
+                                        <input type="submit" className="btn solid" value="Sign up" />
                                     </form>
                                     :
                                     <form className="sign-up-form" >

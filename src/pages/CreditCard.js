@@ -49,12 +49,10 @@ export default function CreditCard(data) {
     { value: 'Titanium', label: 'Titanium' },
     { value: 'Word Card', label: 'Word Card' },
   ];
-
-  const initialKeys = ['img', 'Interest/Day', 'Anual Fee', 'Max Supplimentary', 'Int. ATM Fee']
-  const feesKey = ['img', 'int lounge access', 'late payment', 'regular anual', 'lounge access']
-  const anualFeesKey = ['img', 'waived', 'free anual fee', 'regular', 'waived transaction']
-  const withdrawalKey = ['img', 'currency', 'network', 'card type', 'free guest allowed']
-  const benifitsKey = ['img', 'Feature1', 'Feature2', 'Feature3', 'Feature4']
+  
+  const feesKey = ['img', 'Interest Free Period', 'Regular Anual', 'Free anual', 'Rewards Point']
+  const anualFeesKey = ['img', 'Lounge Access Fee', 'Int. Lounge Access Fee', 'Free Guest Allowed', 'Int. Free Guest Allowed']
+  const withdrawalKey = ['img', 'Max Card Limit', 'Free Supply Card', 'Max Supply Card', 'Eligible For']
 
   function handleChangeCurrency(e) {
     setCurrencyValue(e);
@@ -118,17 +116,17 @@ export default function CreditCard(data) {
   function filterFun(value, key, index) {
     console.log(value, key)
     filteredData[key] = value
-    classList[key] = ([document.getElementById('fees' + key), document.getElementById('anualFees' + key), document.getElementById('Withdrawal' + key), document.getElementById('Benifits' + key)])
-    classListDescription[key] = ([ document.getElementById('feesID' + key), document.getElementById('anualFeesID' + key), document.getElementById('withdrawalID' + key), document.getElementById('benefitsID' + key),document.getElementById('initialID' + key)])
+    classList[key] = ([document.getElementById('fees' + key), document.getElementById('anualFees' + key), document.getElementById('Withdrawal' + key)])
+    classListDescription[key] = ([ document.getElementById('feesID' + key), document.getElementById('anualFeesID' + key), document.getElementById('withdrawalID' + key)])
 
     // feeCls.classList.add("active");
     console.log(classList)
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
       if (i == index) classList[key][i].classList.add("active");
       else classList[key][i].classList.remove("active");
     }
     console.log(key,index,classListDescription)
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       if (i == index) {
         classListDescription[key][i].classList.add("d-flex");
         classListDescription[key][i].classList.remove("d-none");
@@ -204,25 +202,19 @@ export default function CreditCard(data) {
               cardShow?
                 cardShow.map((item, key) => {
                   if(location.state) item.state = location.state
-                  let initialData = [card, item.interest_per_day, item.regular_anual_fee, item.max_supplementary_card, item.international_bank_atm_fee];
-                  let feesData = [card, item.int_lounge_access_fee, item.late_payment_fee, item.regular_anual_fee, item.lounge_access_fee];
-                  let anualFeesData = [card, item.anual_fee_waived_rewards, item.free_anual_fee, item.regular_anual_fee, item.anual_fee_waived_transaction];
-                  let withdrawalData = [card, item.currency, item.network, item.card_type, item.free_guest_allowed];
-                  let benefitsData = [card, 'Feature1', 'Feature2', 'Feature3', 'Feature4'];
+                  let feesData = [card, item.interest_free_period, item.regular_anual_fee, item.free_anual_fee, item.anual_fee_waived_rewards];
+                  let anualFeesData = [card, item.lounge_access_fee, item.free_guest_allowed, item.int_free_guest_allowed, item.int_lounge_access_fee];
+                  let withdrawalData = [card, item.max_card_limit, item.free_supplementary_card, item.max_supplementary_card, item.eligibility];
                   return (
                     <div  key = {key} className="single-card w-100 d-flex flex-column justify-content-center mb-4">
-                      <p className="h4 text-center">{item.name}</p>
-                      < div className="btn__group text-center">
-                        <button id={'fees' + key} onClick={(e) => { filterFun('fees', key, 0) }}>Fees</button>
-                        <button id={"anualFees" + key} onClick={(e) => { filterFun('Anual Fees', key, 1) }}>Anual Fees</button>
-                        <button id={"Withdrawal" + key} onClick={(e) => { filterFun('Withdrawal', key, 2) }}>Withdrawal</button>
-                        <button id={"Benifits" + key} onClick={(e) => { filterFun('Benifits', key, 3) }}>Benifits</button>
+                      <p className="h4 text-center mb-3">{item.name}</p>
+                      < div className="btn__group text-center mb-3">
+                        <button className="active" id={'fees' + key} onClick={(e) => { filterFun('fees', key, 0) }}>Fees & Charges</button>
+                        <button id={"anualFees" + key} onClick={(e) => { filterFun('Anual Fees', key, 1) }}>Lounge Facility</button>
+                        <button id={"Withdrawal" + key} onClick={(e) => { filterFun('Withdrawal', key, 2) }}>Other Details</button>
                       </div>
 
-                      <div id= {"initialID"+key}className="description d-flex">
-                        <CadrDetails title={initialKeys} data={initialData} cardDetails = {item} />
-                      </div>
-                      <div id={"feesID"+key} className="description d-none">
+                      <div id={"feesID"+key} className="description d-flex">
                         <CadrDetails title={feesKey} data={feesData} cardDetails = {item} />
                       </div>
                       <div id={"anualFeesID"+key} className="description d-none">
@@ -230,9 +222,6 @@ export default function CreditCard(data) {
                       </div>
                       <div id={"withdrawalID"+key} className="description d-none">
                         <CadrDetails title={withdrawalKey} data={withdrawalData} cardDetails = {item} />
-                      </div>
-                      <div id={"benefitsID"+key} className="description d-none">
-                        <CadrDetails title={benifitsKey} data={benefitsData} cardDetails = {item} />
                       </div>
                     </div>
                   )

@@ -14,7 +14,7 @@ export default function Section() {
       <Route exact path = "/" component={Home} />
       <Route exact path = "/signin" component={SignInUp} />
       <Route exact path = "/credit-card" component={CreditCard} />
-      <Route exact path='/product-details' component={ProductDetails}/>
+      <Route exact path='/product-details/:id' component={ProductDetails}/>
       <Route exact path='/application/:id' component={Application}/>
 
       

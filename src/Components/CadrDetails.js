@@ -4,18 +4,17 @@ import { Link } from "react-router-dom";
 import Axios from '../Axios'
 
 export const CadrDetails = ({ title, data, cardDetails }) => {
-    console.log("state 1", cardDetails)
 
 
     const [popupStatus, setPopupStatus] = useState(false)
     const [moreDetails, setMoreDetails] = useState()
 
-    useEffect( () => {        
-        if(popupStatus){
+    useEffect(() => {
+        if (popupStatus) {
             let element = document.getElementById('_close_details_btn');
             let element1 = document.getElementById('__close_details_btn');
-            element.addEventListener('click',hideMoreDetails,false)
-            element1.addEventListener('click',hideMoreDetails,true)
+            element.addEventListener('click', hideMoreDetails, false)
+            element1.addEventListener('click', hideMoreDetails, true)
         }
     }, [])
 
@@ -23,9 +22,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
         setPopupStatus(true)
         const result = await Axios.get(`${process.env.REACT_APP_API_URL}/cards/${e}/required-documents`);
         if (result && result.data && result.data.data) setMoreDetails(result.data.data)
-        console.log("xxxaxaxa",result)
     }
-    function hideMoreDetails(){
+    function hideMoreDetails() {
         setPopupStatus(false)
     }
 
@@ -34,23 +32,38 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
             <img className="fst-child w-160 pl-2 pr-2" src={data[0]} alt="card image" />
             <div className="vl-line"></div>
             <div className="text-center w-160 pl-2 pr-2" >
-                <p className="h4">{title[1]}</p>
+                <p className="h5">{title[1]}</p>
                 <p>{data[1]}</p>
             </div>
             <div className="vl-line-1"></div>
             <div className="text-center w-160 pl-2 pr-2" >
-                <p className="h4">{title[2]}</p>
+                <p className="h5">{title[2]}</p>
                 <p>{data[2]}</p>
             </div>
             <div className="vl-line-1"></div>
             <div className="text-center w-160 pl-2 pr-2" >
-                <p className="h4">{title[3]}</p>
+                <p className="h5">{title[3]}</p>
                 <p>{data[3]}</p>
             </div>
             <div className="vl-line-1"></div>
             <div className="text-center w-160 pl-2 pr-2" >
-                <p className="h4">{title[4]}</p>
-                <p>{data[4]}</p>
+                <p className="h5">{title[4]}</p>
+                {
+                    title[4] === 'Eligible For' ?
+                        <>
+                        {
+                            data[4].salaried && data[4].salaried.is_available ?
+                            <p>Salaried</p>
+                            :                            
+                            data[4].doctor && data[4].doctor.is_available ?
+                            <p>Doctor</p>
+                            :
+                            <p>Businessman</p>
+                        }
+                        </>
+                        :
+                        <p>{data[4]}</p>
+                }
             </div>
             <div className="vl-line"></div>
             <div className="text-center d-flex flex-column lst-child  w-120 pl-2 pr-2" >
@@ -76,9 +89,9 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                 <div className="left-top">
                                     <h4>Feature</h4>
                                     {
-                                        moreDetails[0].features && moreDetails[0].features.map((item,key) => {
+                                        moreDetails[0].features && moreDetails[0].features.map((item, key) => {
                                             return (
-                                                <div key = {key}>
+                                                <div key={key}>
                                                     <p className="h5">{item.title}</p>
                                                     <p>{item.short_description}</p>
                                                 </div>
@@ -106,9 +119,9 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                         <div>
                                             <p className="h5">Essential Documents</p>
                                             {
-                                                moreDetails[0].required_documents.essential_documents.map((item,key) => {
+                                                moreDetails[0].required_documents.essential_documents.map((item, key) => {
                                                     return (
-                                                        <p key = {key}>{item}</p>
+                                                        <p key={key}>{item}</p>
                                                     )
                                                 })
                                             }
@@ -122,9 +135,9 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                         <div>
                                             <p className="h5 mt-4">Reference Documents</p>
                                             {
-                                                moreDetails[0].required_documents.reference_documents.map((item,key) => {
+                                                moreDetails[0].required_documents.reference_documents.map((item, key) => {
                                                     return (
-                                                        <p key = {key}>{item}</p>
+                                                        <p key={key}>{item}</p>
                                                     )
                                                 })
                                             }
@@ -133,15 +146,15 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                                         : null
 
                                 }
-                                
+
                                 {
                                     moreDetails[0].required_documents && moreDetails[0].required_documents.notes ?
                                         <div>
                                             <p className="h5 mt-4">Notes</p>
                                             {
-                                                moreDetails[0].required_documents.notes.map((item,key) => {
+                                                moreDetails[0].required_documents.notes.map((item, key) => {
                                                     return (
-                                                        <p key = {key}>{item}</p>
+                                                        <p key={key}>{item}</p>
                                                     )
                                                 })
                                             }
@@ -153,7 +166,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                             </div>
 
                         </div>
-                        
+
                     </div>
                     : null
             }

@@ -31,6 +31,12 @@ export default function Home() {
           state: { salary: salary, profession: profession },
         });
       }
+      else if (e === "personal-loan") {
+        history.push({
+          pathname: "/personal-loan",
+          state: { salary: salary, profession: profession },
+        });
+      }
     }
   }
   function setSalaryFun(e) {
@@ -110,7 +116,10 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover">
+                <button className="h4 glow-on-hover"
+                onClick={() => {
+                  creditCardFun("personal-loan");
+                }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">

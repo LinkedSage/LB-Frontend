@@ -6,7 +6,7 @@ import Home from "../pages/Home";
 import SignInUp from "../pages/SignInUp";
 import CreditCard from '../pages/CreditCard'
 import ProductDetails from '../pages/ProductDetails'
-
+import PersonalLoan from '../pages/PersonalLoan'
 
 export default function Section() {
   return (
@@ -14,6 +14,7 @@ export default function Section() {
       <Route exact path = "/" component={Home} />
       <Route exact path = "/signin" component={SignInUp} />
       <Route exact path = "/credit-card" component={CreditCard} />
+      <Route exact path = "/personal-loan" component={PersonalLoan} />
       <Route exact path='/product-details/:id' component={ProductDetails}/>
       <Route exact path='/application/:id' component={Application}/>
 

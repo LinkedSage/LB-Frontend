@@ -3,11 +3,12 @@ import { ToastContainer } from "react-toastify";
 import Axios from "../Axios";
 import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
-import { PersonalLoanDetails } from "../Components/PersonalLoanDetails";
+import { CadrDetails } from "../Components/CadrDetails";
 import { useLocation } from "react-router-dom";
 
-export default function CreditCard(data) {
+export default function AutoLoan(data) {
   let location = useLocation();
+  console.log("state", location.state);
 
   const [currencyValue, setCurrencyValue] = useState();
   const [cardNetworkValue, setCardNetworkValue] = useState();
@@ -248,21 +249,96 @@ export default function CreditCard(data) {
           <div className="row group-card pb-50 pt-3">
             {cardShow
               ? cardShow.map((item, key) => {
+                  if (location.state) item.state = location.state;
+                  let feesData = [
+                    item.image_url,
+                    item.interest_free_period,
+                    item.regular_anual_fee,
+                    item.free_anual_fee,
+                    item.anual_fee_waived_rewards,
+                  ];
+                  let anualFeesData = [
+                    item.image_url,
+                    item.lounge_access_fee,
+                    item.free_guest_allowed,
+                    item.int_free_guest_allowed,
+                    item.int_lounge_access_fee,
+                  ];
+                  let withdrawalData = [
+                    item.image_url,
+                    item.max_card_limit,
+                    item.free_supplementary_card,
+                    item.max_supplementary_card,
+                    item.eligibility,
+                  ];
                   return (
                     <div
                       key={key}
                       className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
                     >
-                      
+                      <img
+                        className="bank-image w-160 pl-2 pr-2"
+                        src={item.bank[0].image_url}
+                        alt="card image"
+                      />
                       <p className="h4 text-center mb-3 text-uppercase">
                         {item.name}
                       </p>
-                      
-
-                      <div className="description d-flex">
-                        <PersonalLoanDetails data = {item} />
+                      <div className="btn__group text-center mb-3">
+                        <button
+                          className="active"
+                          id={"fees" + key}
+                          onClick={(e) => {
+                            filterFun("fees", key, 0);
+                          }}
+                        >
+                          Fees & Charges
+                        </button>
+                        <button
+                          id={"anualFees" + key}
+                          onClick={(e) => {
+                            filterFun("Anual Fees", key, 1);
+                          }}
+                        >
+                          Lounge Facility
+                        </button>
+                        <button
+                          id={"Withdrawal" + key}
+                          onClick={(e) => {
+                            filterFun("Withdrawal", key, 2);
+                          }}
+                        >
+                          Other Details
+                        </button>
                       </div>
-                      
+
+                      <div id={"feesID" + key} className="description d-flex">
+                        <CadrDetails
+                          title={feesKey}
+                          data={feesData}
+                          cardDetails={item}
+                        />
+                      </div>
+                      <div
+                        id={"anualFeesID" + key}
+                        className="description d-none"
+                      >
+                        <CadrDetails
+                          title={anualFeesKey}
+                          data={anualFeesData}
+                          cardDetails={item}
+                        />
+                      </div>
+                      <div
+                        id={"withdrawalID" + key}
+                        className="description d-none"
+                      >
+                        <CadrDetails
+                          title={withdrawalKey}
+                          data={withdrawalData}
+                          cardDetails={item}
+                        />
+                      </div>
                     </div>
                   );
                 })

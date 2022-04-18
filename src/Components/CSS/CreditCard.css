@@ -93,6 +93,9 @@
   background: #666;
   border: none;
 }
+.eligible-for p{
+  margin-bottom: 5px !important;
+}
 .card-section .single-card .fst-child,
 .card-section .single-card .lst-child {
   position: relative;

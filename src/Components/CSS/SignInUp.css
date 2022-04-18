@@ -1,4 +1,3 @@
-
 /*-----------------
 	6. SignInUp
 -----------------------*/
@@ -70,17 +69,21 @@ input {
   color: #444;
   margin-bottom: 10px;
 }
-#sign-in-up .btn-group button{
+#sign-in-up .btn-group {
+  width: 100%;
+  max-width: 380px;
+}
+#sign-in-up .btn-group button {
   border: none;
   background: none;
-  padding: 5px 10px;
+  padding: 10px 20px;
   margin: 0 10px;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   cursor: pointer;
   outline: none;
 }
 #sign-in-up .btn-group button:hover,
-#sign-in-up .btn-group .active{
+#sign-in-up .btn-group .active {
   background: #f0f0f0;
 }
 ._container .input-field {
@@ -119,8 +122,8 @@ input {
   color: #aaa;
   font-weight: 500;
 }
-._container .input-field input:invalid{
-	color: red;
+._container .input-field input:invalid {
+  color: red;
 }
 
 ._container .social-text {
@@ -157,7 +160,7 @@ input {
 .panels-container .btn,
 .sign-up-form .btn {
   width: 150px;
-  background-color: #5995fd;
+  background-color: var(--primary);
   border: none;
   outline: none;
   height: 49px;
@@ -192,7 +195,11 @@ input {
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+  background-image: linear-gradient(
+    -45deg,
+    var(--primary) 0%,
+    var(--primary) 100%
+  );
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;
@@ -248,10 +255,10 @@ input {
   height: 41px;
   font-weight: 600;
   font-size: 0.8rem;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 .panels-container .btn.transparent:hover {
-	letter-spacing: 2px;
+  letter-spacing: 2px;
 }
 
 .right-panel .image,

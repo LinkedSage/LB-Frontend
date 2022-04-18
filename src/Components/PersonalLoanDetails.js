@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const CadrDetails = ({ title, data, cardDetails }) => {
+export const PersonalLoanDetails = ({data }) => {
+  console.log("ssss",data)
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -18,7 +19,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
   async function MoreDetails(e) {
     setPopupStatus(true);
     const result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/cards/${e}/required-documents`
+      `${process.env.REACT_APP_API_URL}/personalloans/${e}/required-documents`
     );
     if (result && result.data && result.data.data)
       setMoreDetails(result.data.data);
@@ -31,48 +32,48 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
     <>
       <img
         className="fst-child w-220 pl-2 pr-2"
-        src={data[0]}
+        src={data.image_url}
         alt="card image"
       />
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
-        <p className="h5">{title[1]}</p>
-        <p>{data[1]}</p>
+        <p className="h5">Max Loan Amount</p>
+        <p>{data.max_loan_amount}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
-        <p className="h5">{title[2]}</p>
-        <p>{data[2]}</p>
+        <p className="h5">Max Tenor</p>
+        <p>{data.max_tenor}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
-        <p className="h5">{title[3]}</p>
-        <p>{data[3]}</p>
+        <p className="h5">Max Duration</p>
+        <p>{data.max_duration}</p>
       </div>
       <div className="vl-line-1"></div>
-      <div className="text-center w-220 pl-2 pr-2">
-        <p className="h5">{title[4]}</p>
-        {title[4] === "Eligible For" ? (
-          <>
-            {data[4].salaried && data[4].salaried.is_available ? (
-              <p>Salaried</p>
-            ) : data[4].doctor && data[4].doctor.is_available ? (
-              <p>Doctor</p>
-            ) : (
-              <p>Businessman</p>
-            )}
-          </>
-        ) : (
-          <p>{data[4]}</p>
-        )}
+      <div className="text-center eligible-for w-220 pl-2 pr-2">
+        <p className="h5">Eligible For</p>
+        {
+          data.eligibility && data.eligibility.salaried.is_available?
+          <p>Salaried</p>:null
+        }{
+          data.eligibility && data.eligibility.business.is_available?
+          <p>Businessman</p>:null
+        }{
+          data.eligibility && data.eligibility.doctor.is_available?
+          <p>Doctor</p>:null
+        }{
+          data.eligibility && data.eligibility.landlord.is_available?
+          <p>Landlord</p>:null
+        }
       </div>
       <div className="vl-line"></div>
       <div className="text-center d-flex flex-column lst-child  w-150 pl-2 pr-2">
         <Link
           className="mb-2 glow-on-hover"
           to={{
-            pathname: `/card-application/${cardDetails._id}`,
-            state: { cardDetails },
+            pathname: `/personal-loan-application/${data._id}`,
+            state: { data },
           }}
         >
           Apply Now
@@ -80,7 +81,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
         <Link
           className="glow-on-hover"
           onClick={() => {
-            MoreDetails(cardDetails._id);
+            MoreDetails(data._id);
           }}
         >
           Details
@@ -136,7 +137,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.essential_documents ? (
+                moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -157,7 +158,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.reference_documents ? (
+                moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -179,7 +180,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.notes ? (
+                moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">

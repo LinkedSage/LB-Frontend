@@ -31,6 +31,24 @@ export default function Home() {
           state: { salary: salary, profession: profession },
         });
       }
+      else if (e === "personal-loan") {
+        history.push({
+          pathname: "/personal-loan",
+          state: { salary: salary, profession: profession },
+        });
+      }
+      else if (e === "home-loan") {
+        history.push({
+          pathname: "/home-loan",
+          state: { salary: salary, profession: profession },
+        });
+      }
+      else if (e === "auto-loan") {
+        history.push({
+          pathname: "/auto-loan",
+          state: { salary: salary, profession: profession },
+        });
+      }
     }
   }
   function setSalaryFun(e) {
@@ -110,7 +128,10 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover">
+                <button className="h4 glow-on-hover"
+                onClick={() => {
+                  creditCardFun("personal-loan");
+                }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -124,7 +145,10 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover">
+                <button className="h4 glow-on-hover"
+                onClick={() => {
+                  creditCardFun("home-loan");
+                }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -138,7 +162,10 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover">
+                <button className="h4 glow-on-hover"
+                onClick={() => {
+                  creditCardFun("auto-loan");
+                }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">

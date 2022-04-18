@@ -198,7 +198,7 @@ export default function Home() {
             <div className="col-md-12 product-group mt-3">
               {_trendingProduct.map((item, key) => {
                 return (
-                  <Link key={key}>
+                  <Link key={key} to='/'>
                     <div className="single-product text-left">
                       <div className="">
                         <svg viewBox="0 0 576 512">
@@ -324,7 +324,7 @@ export default function Home() {
               </div>
               <form onSubmit={sendMsgFun}>
                 <div className="d-flex flex-wrap justify-content-between mt-5">
-                  <div class="input-container mb-4 w-100">
+                  <div class="input-container w-100">
                     <input
                       id="name"
                       type="text"
@@ -337,7 +337,7 @@ export default function Home() {
                       Your Name*
                     </label>
                   </div>
-                  <div class="select w-200">
+                  <div class="select w-200 mt-4">
                     <select
                       placeholder="Profession"
                       onChange={(e) => {
@@ -352,7 +352,7 @@ export default function Home() {
                       <option value="landLord">Land Lord</option>
                     </select>
                   </div>
-                  <div class="input-container w-200">
+                  <div class="input-container w-200 mt-4">
                     <input
                       id="salary1"
                       type="number"

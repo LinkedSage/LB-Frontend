@@ -16,9 +16,12 @@ export default function CreditCard(data) {
   const [cardShow, setCardShow] = useState();
 
   useEffect(async () => {
-    const result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/personalloans?profession=${location.state.profession}&salary=${location.state.salary}`
-    );
+
+    let result
+    if(location.state && location.state.profession && location.state.salary) result = await Axios.get(
+      `${process.env.REACT_APP_API_URL}/personalloans?profession=${location.state.profession}&salary=${location.state.salary}`);
+    else result = await Axios.get(
+      `${process.env.REACT_APP_API_URL}/personalloans`);
     setCardList(result.data);
     setCardShow(result.data.data);
   }, []);

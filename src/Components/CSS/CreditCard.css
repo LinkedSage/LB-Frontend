@@ -183,3 +183,9 @@
   margin-top: 10px;
   margin-bottom: 15px;
 }
+.profession-salary .row{
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

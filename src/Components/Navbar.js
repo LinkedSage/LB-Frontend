@@ -103,7 +103,6 @@ export default function Navbar() {
                         <li>
                           <Link
                             className="hover-effect"
-                            to=""
                             onClick={signOutFun}
                           >
                             Logout
@@ -140,7 +139,7 @@ export default function Navbar() {
                     <li>
                       <Link
                         className="hover-effect-black"
-                        to="/"
+                        to="/personal-loan"
                         onClick={hideNavMenu}
                       >
                         <span className="hero-icon mr-2">
@@ -154,7 +153,7 @@ export default function Navbar() {
                     <li>
                       <Link
                         className="hover-effect-black"
-                        to="/"
+                        to="/home-loan"
                         onClick={hideNavMenu}
                       >
                         <span className="hero-icon mr-2">
@@ -168,7 +167,7 @@ export default function Navbar() {
                     <li>
                       <Link
                         className="hover-effect-black"
-                        to="/"
+                        to="/auto-loan"
                         onClick={hideNavMenu}
                       >
                         <span className="hero-icon mr-2">
@@ -181,7 +180,7 @@ export default function Navbar() {
                     </li>
                   </ul>
                   <ul>
-                    <p className="h4  _title">CREDIT CARDS</p>
+                    <p className="h4 _title">CREDIT CARDS</p>
                     <li>
                       <Link
                         className="hover-effect-black"

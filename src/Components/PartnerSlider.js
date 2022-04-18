@@ -7,8 +7,6 @@ import client4 from "../assets/images/partners/ajkerdeal.png";
 import client6 from "../assets/images/partners/bdjobs.png";
 import client5 from "../assets/images/partners/delivery tiger.png";
 import client7 from "../assets/images/partners/nfl.png";
-import client8 from "../assets/images/clients/city islamic.png";
-import client9 from "../assets/images/clients/city.png";
 
 function PartnerSlider() {
   return (
@@ -35,12 +33,6 @@ function PartnerSlider() {
         <div className="__slide">
           <img src={client7} alt="" height="180" width="180"></img>
         </div>
-        <div className="__slide">
-          <img src={client8} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client9} alt="" height="180" width="180"></img>
-        </div>
 
         <div className="__slide">
           <img src={client1} alt="" height="180" width="180"></img>
@@ -63,12 +55,6 @@ function PartnerSlider() {
         <div className="__slide">
           <img src={client7} alt="" height="180" width="180"></img>
         </div>
-        <div className="__slide">
-          <img src={client8} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client9} alt="" height="180" width="180"></img>
-        </div>
 
         <div className="__slide">
           <img src={client1} alt="" height="180" width="180"></img>
@@ -90,12 +76,6 @@ function PartnerSlider() {
         </div>
         <div className="__slide">
           <img src={client7} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client8} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client9} alt="" height="180" width="180"></img>
         </div>
       </div>
     </div>

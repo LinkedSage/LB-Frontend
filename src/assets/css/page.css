@@ -78,6 +78,13 @@ h6,
   text-align: center;
 }
 
+.primary-star {
+  color: var(--primary);
+}
+.primary-dot {
+  color: var(--primary);
+  font-size: 25px;
+}
 ._title:before,
 ._title:after {
   position: absolute;

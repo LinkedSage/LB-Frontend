@@ -1,161 +1,182 @@
-#credit-card-page .card-section{
-    padding: 0 100px;
+#credit-card-page .card-section {
+  padding: 0 100px;
 }
-#credit-card-page .group-dropdown .single-dropdown{
-    width: 145px;
-    margin-right: 10px;
+#credit-card-page .card-shadow {
+  background: white;
+  padding: 0 10px;
+  box-shadow: 0px 0px 1px 0px #0b4376;
 }
-#credit-card-page .group-dropdown .clear-filter{
-    border: none;
-    cursor: pointer;
-    background: none;
-    outline: none;
+#credit-card-page .group-dropdown .single-dropdown {
+  width: 145px;
+  margin-right: 10px;
 }
-
-#credit-card-page .group-dropdown .filter svg{
-    height: 25px;
-    fill: #666;
-    margin-right: 10px;
+#credit-card-page .group-dropdown .single-dropdown select {
 }
-#credit-card-page .card-search input{
-    width: 200px;
-    border-radius: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-#credit-card-page .single-card{
-    border: 1px solid #666;
-    padding: 10px;
-    padding-top: 20PX;
-}
-.single-card .w-160{
-    width: 160px;
-}
-.single-card .w-120{
-    width: 100px;
-}
-.card-section .single-card .btn__group button{
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: .3s ease-in-out;
-    outline: none;
+#credit-card-page .group-dropdown .clear-filter {
+  border: none;
+  cursor: pointer;
+  background: none;
+  outline: none;
 }
 
-.card-section .single-card .btn__group button:active{
-    outline: none;
+#credit-card-page .group-dropdown .filter svg {
+  height: 25px;
+  fill: var(--primary);
+  margin-right: 10px;
 }
-.card-section .single-card .btn__group button:not(:last-child){
-    border-right: none !important;
+#credit-card-page .card-search input {
+  width: 200px;
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+#credit-card-page .single-card {
+  /* border: 1px solid #666; */
+  padding: 10px;
+  padding-top: 20px;
+  position: relative;
+}
+#credit-card-page .single-card .bank-image {
+  /* width: 85px;
+    height: 85px; */
+  position: absolute;
+  top: 5px;
+  left: 0;
+  /* border: 1px solid #0b4376; */
+  /* background: #0b4376; */
+  /* border-radius: 50% */
+}
+.single-card .w-220 {
+  width: 220px;
+}
+.single-card .w-160 {
+  width: 160px;
+}
+.single-card .w-150 {
+  width: 150px;
+}
+.card-section .single-card .btn__group button {
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  outline: none;
+}
+
+.card-section .single-card .btn__group button:active {
+  outline: none;
+}
+.card-section .single-card .btn__group button:not(:last-child) {
+  border-right: none !important;
 }
 .card-section .single-card .btn__group button:hover,
-.card-section .single-card .active{
-    background: var(--primary);
-    color: #ddd;
+.card-section .single-card .active {
+  background: var(--primary);
+  color: #ddd;
 }
-.card-section .single-card  .description{
-    align-items: center;
-    justify-content: space-around;
+.card-section .single-card .description {
+  align-items: center;
+  justify-content: space-around;
 }
 /* .card-section .single-card  .description img{
     width: 150px;
 } */
-.card-section .single-card  .description .vl-line{
-    width: 2px;
-    height: 120px;
-    background: #666;
-    margin-top: -36px;
-    border: none;
+.card-section .single-card .description .vl-line {
+  width: 2px;
+  height: 120px;
+  background: #666;
+  margin-top: -36px;
+  border: none;
 }
-.card-section .single-card  .description .vl-line-1{
-    width: 2px;
-    height: 80%;
-    background: #666;
-    border: none;
+.card-section .single-card .description .vl-line-1 {
+  width: 2px;
+  height: 80%;
+  background: #666;
+  border: none;
 }
-.card-section .single-card  .fst-child,
-.card-section .single-card  .lst-child{
-    position: relative;
-    top: -25px;
+.card-section .single-card .fst-child,
+.card-section .single-card .lst-child {
+  position: relative;
+  top: -25px;
 }
 .group-card .lst-child button,
-.group-card .lst-child a{
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: .3s ease-in-out;
-    font-size: 17px;
-    border: 2px solid #666;
-    color: #666;
+.group-card .lst-child a {
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-size: 17px;
+  /* border: 2px solid #666; */
+  color: var(--white);
 }
-.group-card .lst-child a:hover{
-    background: var(--primary);
-    color: #fff;
-    /* border: 2px solid rgb(134, 134, 134); */
+.group-card .lst-child a:hover {
+  background: var(--primary);
+  color: #fff;
+  /* border: 2px solid rgb(134, 134, 134); */
 }
-.group-card .lst-child button span{
-    font-size: 14px;
+.group-card .lst-child button span {
+  font-size: 14px;
 }
-.group-card .lst-child button:last-child{
-    border-radius: 50px;
-    line-height: 16px;
-    padding: 5px 20px;
+.group-card .lst-child button:last-child {
+  border-radius: 50px;
+  line-height: 16px;
+  padding: 5px 20px;
 }
-.more-details-sec{
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(109, 109, 109, 0.418);
+.more-details-sec {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(109, 109, 109, 0.418);
 }
-.closs-details{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
+.closs-details {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
 }
-.more-details-sec .more-details{
-    /* width: 60vw; */
-    background-color: #fff;
-    z-index: 101;
-    border-radius: 10px;
-    padding: 0 20px;
-    display: flex;
-    position: relative;
-    justify-content: space-between;
+.more-details-sec .more-details {
+  /* width: 60vw; */
+  background-color: #fff;
+  z-index: 101;
+  border-radius: 10px;
+  padding: 20px 20px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
 }
-.more-details-sec .closs-details-btn{
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    border-radius: 40px;
-    z-index: 102;
-    transition: .3s ease-in-out;
+.more-details-sec .closs-details-btn {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  border-radius: 40px;
+  z-index: 102;
+  transition: 0.3s ease-in-out;
 }
-.more-details-sec .closs-details-btn:hover{
-    color: red;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.349);
+.more-details-sec .closs-details-btn:hover {
+  color: red;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.349);
 }
-.more-details .left-details{
-    display: flex;
-    flex-direction: column;
-    padding: 20px ;
+.more-details .left-details {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
-.more-details .right-details{
-    display: flex;
-    flex-direction: column;
-    padding: 20px ;
+.more-details .right-details {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
-.more-details .right-details p{
-    margin-bottom: 0 !important;
+.more-details .right-details p {
+  margin-bottom: 0 !important;
 }
-.more-details-sec .more-details .vl{
-    width: 2px;
-    background: var(--gray);
+.more-details-sec .more-details .vl {
+  width: 2px;
+  background: var(--primary);
 }
-.more-details-sec .more-details .hr{
-    height: 1px;
-    background: var(--gray);
-    margin-top: 10px;
-    margin-bottom: 15px;
+.more-details-sec .more-details .hr {
+  height: 1px;
+  background: var(--gray);
+  margin-top: 10px;
+  margin-bottom: 15px;
 }

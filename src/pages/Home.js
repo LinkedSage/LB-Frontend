@@ -251,7 +251,7 @@ export default function Home() {
         <div className="container">
           <div className="row">
             <div className="col-md-7 left pr-5">
-              <h3>Why Choose Loaner Bazar</h3>
+              <h3>Why Choose Loaner Bazar ?</h3>
               <div className="_sub-title">
                 <hr />
               </div>
@@ -378,7 +378,9 @@ export default function Home() {
       <div className="partners-area pt-5 pb-5">
         <div className="container">
           <div className="row">
-            <h2 className="w-100 text-center mb-3 _title">Our Partners</h2>
+            <h2 className="w-100 text-center mb-3 _title">
+              Our Clients & Partners
+            </h2>
           </div>
         </div>
         <div className="container-fluid">

@@ -57,13 +57,13 @@ export default function Navbar() {
       <section id="navbar-main">
         <div className="container-fluid">
           <div className="row navbar d-flex align-items-center">
-            <div className="left-nav col ">
+            <div className="left-nav ">
               <div className="d-flex align-items-center">
                 <Link to="/" className="logo">
                   <img src={logo} alt="logo" />
                 </Link>
                 <a
-                  className="d-flex align-items-center ml-5 call"
+                  className="d-flex align-items-center ml-5 call phone-none"
                   href="tel:8801997766489"
                 >
                   <img className="phn-logo" src={phoneLogo} alt="phn-logo" />
@@ -74,13 +74,25 @@ export default function Navbar() {
                 </a>
               </div>
             </div>
+            <div className="phone-show ">
+            <a
+                  className="d-flex align-items-center ml-5 call hover-effect"
+                  href="tel:8801997766489"
+                >
+                  <img className="phn-logo" src={phoneLogo} alt="phn-logo" />
+                  <div className="phn-no pl-2">
+                    <p className="hover-effect">Helpline</p>
+                    <p className="hover-effect">+880 199 111 2222</p>
+                  </div>
+                </a>
+            </div>
 
-            <div className="right-nav col">
+            <div className="right-nav ">
               <ul className="d-flex justify-content-end">
                 {currentUser &&
                 currentUser.data &&
                 currentUser.data.is_verified ? (
-                  <li>
+                  <li className="phone-none">
                     <a className="hover-effect nav-item">
                       <img src={userLogo} alt="user" />
                       {currentUser.data.name ? (
@@ -112,7 +124,7 @@ export default function Navbar() {
                     </a>
                   </li>
                 ) : (
-                  <li>
+                  <li className="phone-none">
                     <Link className="hover-effect" to="/signin">
                       Signin
                     </Link>

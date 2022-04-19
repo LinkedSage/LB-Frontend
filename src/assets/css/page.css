@@ -228,7 +228,9 @@ textarea.form-control {
   transition: all 0.5s cubic-bezier(0, 0, 0.23, 1);
   background-position: 0%;
 }
-
+.phone-show{
+  display: none;
+}
 /*-----------------
 	3. Helper Class
 -----------------------*/

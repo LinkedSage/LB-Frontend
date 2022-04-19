@@ -28,7 +28,7 @@
   height: 30px !important;
 }
 
-.left-nav .phn-no p {
+.call .phn-no p {
   line-height: 1.5;
   font-weight: 500;
   margin-top: 0 !important;
@@ -39,9 +39,9 @@
   transition: all 0.5s cubic-bezier(0, 0, 0.23, 1);
   background-position: 0%;
 }
-.right-nav li {
+/* .right-nav li {
   margin: 0 20px;
-}
+} */
 .right-nav li a {
   color: var(--white);
   padding: 10px;
@@ -104,7 +104,7 @@
   z-index: 111;
 }
 .nav-menu-sec .nav-menu ul {
-  padding-left: 20px;
+  padding: 0 10px;
 }
 
 .nav-menu-sec .nav-link-show {
@@ -140,13 +140,14 @@
   padding: 5px 0px;
 }
 .right-nav .nav-menu a {
-  font-size: 16px !important;
+  font-size: 16px;
   color: #777;
 }
 .nav-menu-sec .close-btn {
   position: absolute;
   top: -2px;
-  right: 258px;
+  left: -45px;
+  /* right: 258px; */
 }
 .nav-menu-sec .close-btn button {
   padding: 5px 15px;

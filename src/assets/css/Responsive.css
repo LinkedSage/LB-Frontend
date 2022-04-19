@@ -19,11 +19,28 @@
         font-size: 1rem !important;
     }
 }
+@media screen and (max-width: 830px) {
+    .right-nav li {
+        margin: 0 !important;
+    }
+    .right-nav .phone-none,
+    .left-nav .phone-none{
+        display: none !important;
+    }
+    .phone-show{
+        display: flex !important;
+    }
+}
 @media screen and (max-width: 768px) {
     .mobile-view-none{
         display: none !important;
     }
     .form-group .input-field{
         padding-right: 0 !important;
+    }
+}
+@media screen and (max-width: 535px) {
+    .right-nav .nav-menu a{
+        font-size: 14px;
     }
 }

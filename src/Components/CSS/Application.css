@@ -1,188 +1,255 @@
-
 /*-----------------
 	1. Application page
 -----------------------*/
 
-
-.application-form .left div{
-    width: 100%;
-    height: 100%;
+.application-form {
+  background: var(--primary-dark);
+  padding: 25px 0px;
+}
+.application-form .left div {
+  width: 100%;
+  height: 100%;
 }
 
 .application-form .right,
-.left div{
-    background: #e3f4fc;
-    padding: 10px;
-    border-radius: 6px;
+.application-form .left div {
+  background: #e3f4fc;
+  padding: 10px;
+  border: 35px solid #0b43769e;
+  border-radius: 6px;
 }
-.application-form .right h3{
-    background: #008ECC;
-    color: #fff;
-    padding: 20px 10px ;
-    letter-spacing: 1px;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+.application-form .right h3 {
+  background: #008ecc;
+  color: #fff;
+  padding: 20px 10px;
+  letter-spacing: 1px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
-.application-form .right h3 svg{
-    height: 25px;
-    fill: #fff;
-    margin-bottom: -3px;
-    margin-right: 5px;
+.application-form .right h3 svg {
+  height: 25px;
+  fill: #fff;
+  margin-bottom: -3px;
+  margin-right: 5px;
 }
-.application-form .form-group{
-    margin-bottom: 0 !important;
+.application-form .form-group {
+  margin-bottom: 0 !important;
 }
-.application-form .form-group label{
-    padding-left: 10px;
-    line-height: 52px;
-    color: #696969;
-    font-size: 16px;
-    font-weight: 500;
-    height: 100%;
-    display: flex;
-    align-items: start;
-    justify-content: start;
+.application-form .form-group label {
+  padding-left: 65px;
+  line-height: 52px;
+  color: #696969;
+  font-size: 16px;
+  font-weight: 500;
+  height: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: start;
 }
-.application-form .form-group .input-field{
-    height: 55px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    position: relative;
+.application-form .form-group .input-field {
+  height: 55px;
+  padding-right: 55px;
+  padding-bottom: 5px;
+  position: relative;
 }
-.application-form .form-group .input-field input{
-    height: 100%;
-    width: 100%;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid rgb(190, 190, 190);    
+.application-form .form-group .input-field input {
+  height: 100%;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 190, 190);
 }
 .application-form .form-group .select-btn {
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid rgb(190, 190, 190);    
-    outline: none;
-    cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 190, 190);
+  outline: none;
+  cursor: pointer;
 }
 
-.application-form .form-group .select-btn p{
-    margin: 0 !important;
-    color: #696969;
-    padding: 14px;
-    border-left: 1px dotted #666;
+.application-form .form-group .select-btn p {
+  margin: 0 !important;
+  color: #696969;
+  padding: 14px;
+  border-left: 1px dotted #666;
 }
-.application-form .form-group .select-btn span{
-    padding: 14px 20px;
-    height: 100%;
+.application-form .form-group .select-btn span {
+  padding: 14px 20px;
+  height: 100%;
 }
-.application-form .form-group .select-btn svg{
-    height: 20px;
-    fill: #696969;
-    margin-bottom: -4px;
+.application-form .form-group .select-btn svg {
+  height: 20px;
+  fill: #696969;
+  margin-bottom: -4px;
 }
-.form-group .select-btn span.rotation{
-    transition: .3s ease-in-out;
+.form-group .select-btn span.rotation {
+  transition: 0.3s ease-in-out;
 }
-.form-group .select-btn span.rotation svg{
-    transform: rotate(90deg);
+.form-group .select-btn span.rotation svg {
+  transform: rotate(90deg);
 }
-.city-list{
-    margin-top: 5px;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    text-align: left;
+.city-list {
+  margin-top: 5px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  text-align: left;
 }
-.city-list button{
-    text-align: left !important;
-    border: none;
-    padding: 8px;
-    padding-left: 15px;
-    cursor: pointer;
-transition: .3s ease-in-out;
-outline: none;
-background: #fff;
+.city-list button {
+  text-align: left !important;
+  border: none;
+  padding: 8px;
+  padding-left: 15px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  outline: none;
+  background: #fff;
 }
-.city-list button:hover{
-   background: #E3F4FC;
-   color: var(--gray);
+.city-list button:hover {
+  background: #e3f4fc;
+  color: var(--gray);
 }
-.application-form #Organization{
-    height: 55px;
+.application-form #Organization {
+  height: 55px;
 }
 #Organization .css-1s2u09g-control,
-#Organization .css-1pahdxg-control{
-    height: 53px;
-    /* padding-left: 55px; */
+#Organization .css-1pahdxg-control {
+  height: 53px;
+  /* padding-left: 55px; */
 }
 
-#organization-arrow{
-    position: absolute;
-    z-index: 1;
-    border-right: 1px dotted #888;
-    padding: 14px 20px;
+#organization-arrow {
+  position: absolute;
+  z-index: 1;
+  border-right: 1px dotted #888;
+  padding: 14px 20px;
 }
-#organization-arrow svg{
-    height: 20px;
-    fill: #696969;
-    margin-bottom: -5px;
+#organization-arrow svg {
+  height: 20px;
+  fill: #696969;
+  margin-bottom: -5px;
 }
-.application-form .css-1hb7zxy-IndicatorsContainer{
-    display: none;
+.application-form .css-1hb7zxy-IndicatorsContainer {
+  display: none;
 }
-.application .btn{
-    background: none;
-    border: 2px solid #888;
-    border-radius: 40px;
-    padding: 15px 70px;
-    transition: .3s ease-in-out;
+.application .btn {
+  background: none;
+  border: 2px solid #888;
+  border-radius: 40px;
+  padding: 15px 70px;
+  transition: 0.3s ease-in-out;
 }
-.application .btn:hover{
-    background: #008ECC;
-    color: #fff;
-    border: 2px solid #008ECC;
+.application .btn:hover {
+  background: #008ecc;
+  color: #fff;
+  border: 2px solid #008ecc;
 }
 .css-2613qy-menu,
 .css-26l3qy-menu,
-#react-select-3-listbox{
-    display: block !important;
+#react-select-3-listbox {
+  display: block !important;
 }
 .input-field input.empty,
 .input-field button.empty,
-.empty .css-1s2u09g-control{
-    border: 1px solid red !important;
+.empty .css-1s2u09g-control {
+  border: 1px solid red !important;
 }
-.popup-container{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.459);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 103;
+.popup-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.459);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 103;
 }
-.popup-container .popup-sec{
-    background: #fff;
-    padding: 30px;
+.popup-container .popup-sec {
+  background: #fff;
+  padding: 30px;
 }
-.popup-container .popup-sec .input-field{
-    height: 55px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    position: relative;
+.popup-container .popup-sec .input-field {
+  height: 55px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  position: relative;
 }
-.popup-sec .input-field input{
-    height: 100%;
-    width: 100%;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid rgb(190, 190, 190);
+.popup-sec .input-field input {
+  height: 100%;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 190, 190);
 }
+
+/* OTP verification */
+
+.card {
+  width: 400px;
+  border: none;
+  height: 300px;
+  box-shadow: 0px 5px 20px 0px #d2dae3;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card h6 {
+  color: red;
+  font-size: 20px;
+}
+
+.inputs input {
+  width: 40px;
+  height: 40px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.card-2 {
+  background-color: #fff;
+  padding: 10px;
+  width: 350px;
+  height: 100px;
+  bottom: -50px;
+  left: 20px;
+  position: absolute;
+  border-radius: 5px;
+}
+
+.card-2 .content {
+  margin-top: 50px;
+}
+
+.card-2 .content a {
+  color: red;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border: 2px solid red;
+}
+
+.validate {
+  border-radius: 20px;
+  height: 40px;
+  background-color: red;
+  border: 1px solid red;
+  width: 140px;
+}
+/* OTP verification */

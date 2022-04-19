@@ -312,7 +312,7 @@ export default function Home() {
         <section id="application-page">
 
             <ToastContainer></ToastContainer>
-            <div className="application-form ptb-50">
+            <div className="application-form">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-4 left">

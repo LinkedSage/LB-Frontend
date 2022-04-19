@@ -77,16 +77,16 @@ export default function Navbar() {
               </div>
             </div>
             <div className="phone-show ">
-            <a
-                  className="d-flex align-items-center ml-5 call hover-effect"
-                  href="tel:8801997766489"
-                >
-                  <img className="phn-logo" src={phoneLogo} alt="phn-logo" />
-                  <div className="phn-no pl-2">
-                    <p className="hover-effect">Helpline</p>
-                    <p className="hover-effect">+880 199 111 2222</p>
-                  </div>
-                </a>
+              <a
+                className="d-flex align-items-center ml-5 call hover-effect"
+                href="tel:8801997766489"
+              >
+                <img className="phn-logo" src={phoneLogo} alt="phn-logo" />
+                <div className="phn-no pl-2">
+                  <p className="hover-effect">Helpline</p>
+                  <p className="hover-effect">+880 199 111 2222</p>
+                </div>
+              </a>
             </div>
 
             <div className="right-nav ">
@@ -115,10 +115,7 @@ export default function Navbar() {
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            className="hover-effect"
-                            onClick={signOutFun}
-                          >
+                          <Link className="hover-effect" onClick={signOutFun}>
                             Logout
                           </Link>
                         </li>

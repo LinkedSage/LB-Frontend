@@ -75,7 +75,7 @@
 }
 .card-section .single-card .description {
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 /* .card-section .single-card  .description img{
     width: 150px;

@@ -5,6 +5,8 @@ import phoneLogo from "../assets/images/icons/phone-solid.png";
 import userLogo from "../assets/images/icons/phone-solid.png";
 import menu from "../assets/images/icons/menu.webp";
 import logo from "../assets/images/logo.png";
+import city_bank_icon from "../assets/images/icons/city-bank-icon.png";
+import scb_bank_icon from "../assets/images/icons/scb-bank-icon.png";
 import {
   getCookies,
   removeCookies,
@@ -199,43 +201,17 @@ export default function Navbar() {
                         to="/credit-card"
                         onClick={hideNavMenu}
                       >
-                        SCB Credit Card
+                        <img src={scb_bank_icon}></img> SCB Credit Card
                       </Link>
                     </li>
+
                     <li>
                       <Link
                         className="hover-effect-black"
                         to="/credit-card"
                         onClick={hideNavMenu}
                       >
-                        MTBL Credit Card
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="hover-effect-black"
-                        to="/credit-card"
-                        onClick={hideNavMenu}
-                      >
-                        City Credit Card
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="hover-effect-black"
-                        to="/credit-card"
-                        onClick={hideNavMenu}
-                      >
-                        BRACK Credit Card
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="hover-effect-black"
-                        to="/credit-card"
-                        onClick={hideNavMenu}
-                      >
-                        DBBL Credit Card
+                        <img src={city_bank_icon}></img> City Credit Card
                       </Link>
                     </li>
                   </ul>

@@ -215,6 +215,32 @@ export default function Navbar() {
                       </Link>
                     </li>
                   </ul>
+                  <ul>
+                    <p className="h4 _title">Account</p>
+                    <li>
+                      {
+                        currentUser &&
+                        currentUser.data &&
+                        currentUser.data.is_verified ?
+                        <Link
+                        className="hover-effect-black"
+                        to="/credit-card"
+                        onClick={hideNavMenu}
+                      >
+                        <img src={scb_bank_icon}></img> SCB Credit Card
+                      </Link>
+                      :
+                      <Link
+                        className="hover-effect-black"
+                        to="/credit-card"
+                        onClick={hideNavMenu}
+                      >
+                        <img src={scb_bank_icon}></img> SCB Credit Card
+                      </Link>
+                      }
+                      
+                    </li>
+                  </ul>
                   <div className="close-btn">
                     <button onClick={hideNavMenu}>X</button>
                   </div>

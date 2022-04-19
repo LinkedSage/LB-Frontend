@@ -72,10 +72,10 @@ export default function Home() {
     <section id="homePage">
       {/* Hero area start */}
       {/* <div className="hero-area-bg-color"> */}
-      <div className="hero-area">
+      <div className="hero-area phone-none">
         <div className="container-fluid ptb-50 h-100">
           <div className="row pt-100">
-            <div className="col-md-6 pl-5 pt-100">
+            <div className="col-md-12 pl-5 pt-100">
               <h1 className="h1">Search for</h1>
               <div className="d-flex mt-3">
                 <div class="select mr-4">
@@ -187,11 +187,35 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* </div> */}
+
+      {/* Phone hero area  */}
+      <div className="phone-hero-area phone-show pl-3 pr-3 ptb-50">
+          <div className="content">
+            <div className="hero-group-btn d-flex justify-content-around flex-wrap">
+              {
+                _trendingProduct.map((item,key) => {
+                  return (
+                    <Link key={key} to='/' className="">
+                      <div className="single-product d-flex flex-column justify-content-center text-center">
+                          <svg viewBox="0 0 576 512">
+                            <path d={item.svgPath} />
+                          </svg>
+                        <p className="mt-2 h4">{item.name}</p>
+                        {/* <p className="text-muted">{item.description}</p>
+                        <p className="mt-2 h4">Read More &rarr;</p> */}
+                      </div>
+                    </Link>
+                  );
+                })
+              }
+             
+            </div>
+          </div>
+      </div>
       {/* Hero area end */}
 
       {/* Trending Product area start  */}
-      <div className="trending-product-area">
+      <div className="trending-product-area phone-none">
         <div className="container ptb-50">
           <div className="row">
             <p className="h2 w-100 text-center _title">Trending Products</p>

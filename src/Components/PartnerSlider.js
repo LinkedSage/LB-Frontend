@@ -13,69 +13,69 @@ function PartnerSlider() {
     <div class="__slider ">
       <div class="__slide-track">
         <div className="__slide">
-          <img src={client1} alt="" height="180" width="180"></img>
+          <img src={client1} alt="partner img" ></img>
         </div>
         <div className="__slide">
-          <img src={client2} alt="" height="180" width="180"></img>
+          <img src={client2} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client3} alt="" height="180" width="180"></img>
+          <img src={client3} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client4} alt="" height="180" width="180"></img>
+          <img src={client4} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client5} alt="" height="180" width="180"></img>
+          <img src={client5} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client6} alt="" height="180" width="180"></img>
+          <img src={client6} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client7} alt="" height="180" width="180"></img>
-        </div>
-
-        <div className="__slide">
-          <img src={client1} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client2} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client3} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client4} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client5} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client6} alt="" height="180" width="180"></img>
-        </div>
-        <div className="__slide">
-          <img src={client7} alt="" height="180" width="180"></img>
+          <img src={client7} alt="partner img"></img>
         </div>
 
         <div className="__slide">
-          <img src={client1} alt="" height="180" width="180"></img>
+          <img src={client1} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client2} alt="" height="180" width="180"></img>
+          <img src={client2} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client3} alt="" height="180" width="180"></img>
+          <img src={client3} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client4} alt="" height="180" width="180"></img>
+          <img src={client4} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client5} alt="" height="180" width="180"></img>
+          <img src={client5} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client6} alt="" height="180" width="180"></img>
+          <img src={client6} alt="partner img"></img>
         </div>
         <div className="__slide">
-          <img src={client7} alt="" height="180" width="180"></img>
+          <img src={client7} alt="partner img"></img>
+        </div>
+
+        <div className="__slide">
+          <img src={client1} alt="partner img"></img>
+        </div>
+        <div className="__slide">
+          <img src={client2} alt="partner img"></img>
+        </div>
+        <div className="__slide">
+          <img src={client3} alt="partner img"></img>
+        </div>
+        <div className="__slide">
+          <img src={client4} alt="partner img"></img>
+        </div>
+        <div className="__slide">
+          <img src={client5} alt="partner img"></img>
+        </div>
+        <div className="__slide">
+          <img src={client6} alt="partner img"></img>
+        </div>
+        <div className="__slide">
+          <img src={client7} alt="partner img"></img>
         </div>
       </div>
     </div>

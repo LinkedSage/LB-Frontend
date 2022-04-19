@@ -21,6 +21,7 @@
 
 :root {
   --primary: #0b4376;
+  --primary-dark: #3e7cb6;
   --hover: #ffff00;
   --white: #eee;
   --yellow: #fbab15;
@@ -228,7 +229,7 @@ textarea.form-control {
   transition: all 0.5s cubic-bezier(0, 0, 0.23, 1);
   background-position: 0%;
 }
-.phone-show{
+.phone-show {
   display: none;
 }
 /*-----------------
@@ -529,7 +530,6 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-
 /* Preloader  */
 .site-preloader {
   position: fixed;
@@ -541,7 +541,7 @@ input::-webkit-inner-spin-button {
   z-index: 99999;
   opacity: 1;
 }
-.site-preloader-section{
+.site-preloader-section {
   position: absolute;
   left: 0;
   top: 0;

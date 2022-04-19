@@ -19,10 +19,7 @@ import { getCardById } from "../helpers/API/Product";
 export default function Home() {
   let location = useLocation();
   // let cardInfo = []
-  let userData = {
-    data: {},
-    _id: 0,
-  };
+  const[userData, setUserData] = useState({})
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
@@ -143,7 +140,7 @@ export default function Home() {
     };
     if (profession === "salaried") value["organization"] = organization;
 
-    userData.data = {
+    setUserData({
       name: name,
       phone: phone,
       city: city,
@@ -156,7 +153,7 @@ export default function Home() {
         job_location: city,
         companyName: organization || "",
       },
-    };
+    })
 
     validationFun(name, "name");
     validationFun(phone, "phone");
@@ -277,17 +274,17 @@ export default function Home() {
 
       verifyOTP(values)
         .then((res) => {
-          console.log(res);
-          if (res.token.status === 200) {
+          console.log("xxx",res);
+          if (res.status === 200) {
             let value = {
-              _id: res.data._id,
+              _id: res.userData._id,
               cardId: cardInfo._id,
-              token: res.token.data,
+              token: res.data,
             };
             setOTPPopup(true);
             applicationSubmitFun(value);
           } else {
-            notification("fail", res.token.message);
+            notification("fail", res.message);
           }
         })
         .catch((err) => {
@@ -298,9 +295,9 @@ export default function Home() {
   }
 
   function applicationSubmitFun(value) {
-    console.log("cccaaaaaaaa", value);
-    userData._id = value._id;
-    userUpdate(userData)
+    let tempValue = userData
+    console.log("cccaaaaaaaa", tempValue);
+    userUpdate(tempValue,value)
       .then((res) => {
         console.log(res);
       })
@@ -311,7 +308,9 @@ export default function Home() {
         if (res1.status === 200) {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
-          setTimeout(() => {}, 1000);
+          setTimeout(() => {
+            
+           }, 1000);
         } else {
           notification("fail", res1.message);
         }
@@ -642,15 +641,22 @@ export default function Home() {
                   </h6>
                   <div>
                     <span>A code has been sent to</span>
-                    <small>
-                      {existUser.phone
+                    {/* <small>
+                      {
+                        console.log()
+                      }
+                      {
+                      existUser && existUser.phone
                         ? existUser.phone.substr(0, 3)
-                        : existUser.email.substr(0, 3)}
+                        : existUser.email.substr(0, 3)
+                      }
                       *******
-                      {existUser.phone
+                      {
+                      existUser && existUser.phone
                         ? existUser.phone.substr(phone.length - 5)
-                        : existUser.email.substr(email.length - 5)}
-                    </small>
+                        : existUser.email.substr(email.length - 5)
+                        }
+                    </small> */}
                   </div>
                   <div
                     id="otp"

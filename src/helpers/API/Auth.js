@@ -34,13 +34,13 @@ export const verifyOTP = async (values) => {
     console.log("otp", result.data)
     if (result.data.status == 200) {
         setCookies('data', result.data.data, { path: '/' })
+        let userdata = result.data
+           userdata.userData =  getCurrentUserData(result.data.data).data
+           console.log("userdata",userdata)
+        return userdata
     }
-    let userdata
-    if(result.data.status === 200)
-       userdata =  getCurrentUserData(result.data.data)
-       console.log("userdata",userdata)
-       userdata.token = result.data
-    return userdata
+    else return result.data
+   
 }
 
 export const isExistUser = async (values) => {
@@ -78,12 +78,17 @@ export const forceRegister = async (temp) => {
 
 
 
-export const userUpdate = async (values) => {
+export const userUpdate = async (values,value) => {
     console.log("vvvv", values)
     const result = await Axios.post(
-        `${process.env.REACT_APP_API_URL}/users/update/${values._id}`,values.data);
+        `${process.env.REACT_APP_API_URL}/users/update/${value._id}`,values,
+        {
+            headers: { 'Authorization': "Bearer "+ value.token }
+        }
+        );
         if (result.data.status == 200) {
             setCookies('data', result.data.data, { path: '/' })
         }
+
     console.log("otp", result.data)
 }

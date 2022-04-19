@@ -115,9 +115,9 @@ export default function Navbar() {
                           </Link>
                         </li>
                         <li>
-                          <Link className="hover-effect" onClick={signOutFun}>
+                          <a className="hover-effect" onClick={signOutFun}>
                             Logout
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                     </a>

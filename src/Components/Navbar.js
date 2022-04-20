@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./CSS/Navbar.css";
 import { Link } from "react-router-dom";
 import phoneLogo from "../assets/images/icons/phone-solid.png";
@@ -8,18 +8,17 @@ import logo from "../assets/images/logo.png";
 import city_bank_icon from "../assets/images/icons/city-bank-icon.png";
 import scb_bank_icon from "../assets/images/icons/scb-bank-icon.png";
 import {
-  getCookies,
   removeCookies,
   getCurrentUser,
 } from "../helpers/Cookies/Cookies";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { ToastContainer } from "react-toastify";
 import { _trendingProduct } from "../helpers/Data/Products";
+import { useHistory } from "react-router-dom";
 
 export default function Navbar() {
-  const get_cookies = getCookies("data");
   const currentUser = getCurrentUser();
-  console.log("currentUser", currentUser);
+  let history = useHistory()
   function showNavMenu() {
     var element = document.getElementById("open-nav");
     var element1 = document.getElementById("open-nav-item");
@@ -45,11 +44,11 @@ export default function Navbar() {
     }, delayInMilliseconds);
   }
   function signOutFun() {
-    notification("success", "Logout Successfully. Redirecting...");
-    removeCookies("data", "/");
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 1000);
+    notification("success", "Logout Successfully. Redirecting...");    
+    // setTimeout(function () {
+      removeCookies("data", "/");   
+      history.push('/');
+    // }, 1500);
   }
 
   return (
@@ -115,7 +114,7 @@ export default function Navbar() {
                           </Link>
                         </li>
                         <li>
-                          <a className="hover-effect" onClick={signOutFun}>
+                          <a className="hover-effect" href="" onClick={signOutFun}>
                             Logout
                           </a>
                         </li>

@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 
 export default function SignInUp() {
-  const history = useHistory();
+  // const history = useHistory();
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();

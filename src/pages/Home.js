@@ -430,6 +430,8 @@ export default function Home() {
         </div>
       </div>
       {/* Our partners area end  */}
+
+      
     </section>
   );
 }

@@ -1,3 +1,7 @@
+
+.card-section .card-section-phone{
+      display: none;
+  }
 #credit-card-page .card-section {
   padding: 0 100px;
 }
@@ -9,8 +13,6 @@
 #credit-card-page .group-dropdown .single-dropdown {
   width: 145px;
   margin-right: 10px;
-}
-#credit-card-page .group-dropdown .single-dropdown select {
 }
 #credit-card-page .group-dropdown .clear-filter {
   border: none;
@@ -188,4 +190,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.phone-single-card .card-nav{
+  background: var(--primary);
+}
+.phone-single-card .card-nav button{
+  width: 50%;
+  border: none;
+  background: var(--primary);
+  color: var(--white);
+  font-size: 20px;
+  padding: 10px 0;
+  outline: none;
+}
+.phone-single-card .card-nav button.active-left{
+  background: #fbab15;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.phone-single-card .card-nav  button.active-right{
+  background: #fbab15;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+.phone-single-card .middle div{
+  width: 50%;
+  text-align: center;
+  background: rgba(238, 238, 238, 0.815);
+  padding: 15px;
+  border: 1px solid var(--primary);
 }

@@ -23,6 +23,15 @@
     .h4{
         font-size: 1rem !important;
     }
+    .single-card .w-220{
+        width: 190px;
+    }
+    .card-section .single-card .btn__group{
+        margin-bottom: 2.5rem !important;
+    }
+    #credit-card-page .card-search input{
+        width: 160px;
+    }
 }
 @media screen and (max-width: 768px) {
     .mobile-view-none{
@@ -42,6 +51,21 @@
     }
     .statistics-area ._image{
         width: 50px;
+    }
+    .financial-area .left .vl{
+        display: none !important;
+    }
+    .financial-area .right{
+        padding-left: 15px !important;
+    }
+    .card-section .card-section-pc{
+        display: none;
+    }
+    .card-section .card-section-phone{
+        display: block;
+    }
+    #credit-card-page .card-section {
+        padding: 0 !important;
     }
 }
 @media screen and (max-width: 600px) {

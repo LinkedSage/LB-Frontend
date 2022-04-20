@@ -102,7 +102,7 @@
   /* transition: top 1s 0.5s; */
   display: flex;
   padding-top: 20px;
-  z-index: 111;
+  z-index: 11111;
 }
 .nav-menu-sec .nav-menu ul {
   padding: 0 10px;

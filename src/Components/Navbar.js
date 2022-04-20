@@ -44,10 +44,10 @@ export default function Navbar() {
     }, delayInMilliseconds);
   }
   function signOutFun() {
-    notification("success", "Logout Successfully. Redirecting...");    
+    notification("success", "Logout Successfully. Redirecting...");
     // setTimeout(function () {
-      removeCookies("data", "/");   
-      history.push('/');
+    removeCookies("data", "/");
+    history.push('/');
     // }, 1500);
   }
 
@@ -91,8 +91,8 @@ export default function Navbar() {
             <div className="right-nav ">
               <ul className="d-flex justify-content-end">
                 {currentUser &&
-                currentUser.data &&
-                currentUser.data.is_verified ? (
+                  currentUser.data &&
+                  currentUser.data.is_verified ? (
                   <li className="phone-none">
                     <a className="hover-effect nav-item">
                       <img src={userLogo} alt="user" />
@@ -213,29 +213,54 @@ export default function Navbar() {
                   </ul>
                   <ul>
                     <p className="h4 _title">Account</p>
-                    <li>
-                      {
-                        currentUser &&
+
+                    {
+                      currentUser &&
                         currentUser.data &&
                         currentUser.data.is_verified ?
-                        <Link
-                        className="hover-effect-black"
-                        to="/credit-card"
-                        onClick={hideNavMenu}
-                      >
-                        <img src={scb_bank_icon}></img> SCB Credit Card
-                      </Link>
-                      :
-                      <Link
-                        className="hover-effect-black"
-                        to="/credit-card"
-                        onClick={hideNavMenu}
-                      >
-                        <img src={scb_bank_icon}></img> SCB Credit Card
-                      </Link>
-                      }
-                      
-                    </li>
+                        <>
+                        <li>
+                          <Link
+                            className="hover-effect-black"
+                            to="/"
+                            onClick={hideNavMenu}
+                          >
+                            <img src={userLogo} alt="user" />
+                            {currentUser.data.name ? (
+                              <>{currentUser.data.name}</>
+                            ) : (
+                              <>Account</>
+                            )}
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/dashboard">
+                            Dashboard
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/profile">
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <a className="hover-effect-black"href="" onClick={signOutFun}>
+                            Logout
+                          </a>
+                        </li>
+                        </>
+                        :
+                        <li>
+                          <Link
+                            className="hover-effect-black"
+                            to="/signin"
+                            onClick={hideNavMenu}
+                          >
+                            Login
+                          </Link>
+                        </li>
+                    }
+
                   </ul>
                   <div className="close-btn">
                     <button onClick={hideNavMenu}>X</button>

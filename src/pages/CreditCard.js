@@ -3,8 +3,9 @@ import { ToastContainer } from "react-toastify";
 import Axios from "../Axios";
 import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
-import card from "../assets/images/sadiq_credit_card.png";
 import { CadrDetails } from "../Components/CadrDetails";
+import { CardDetailsPhone } from "../Components/CardDetailsPhone";
+
 import { useLocation } from "react-router-dom";
 
 export default function CreditCard(data) {
@@ -279,10 +280,7 @@ export default function CreditCard(data) {
           </div>
           :
           <div className="card-section">
-            <div
-              className="container-fluid
-        "
-            >
+            <div className="container-fluid card-section-pc">
               <div className="row pc-card-filter card-shadow mt-3">
                 <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
                   <div className="d-flex align-items-center justify-content-center">
@@ -433,6 +431,21 @@ export default function CreditCard(data) {
                     );
                   })
                   : null}
+              </div>
+            </div>
+            
+
+            <div className="card-section-phone">
+              <div className="phone-card-group">
+              {cardShow
+                  ? cardShow.map((item, key) => {
+                    return(
+                      <CardDetailsPhone data = {item} key = {key} />
+                    )
+                  })
+                  :null
+              }
+              <CardDetailsPhone data = 'hi' />
               </div>
             </div>
           </div>

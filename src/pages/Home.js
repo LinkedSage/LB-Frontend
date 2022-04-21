@@ -195,7 +195,7 @@ export default function Home() {
               {
                 _trendingProduct.map((item,key) => {
                   return (
-                    <Link key={key} to='/' className="">
+                    <Link key={key} to={item.path} className="">
                       <div className="single-product d-flex flex-column justify-content-center text-center">
                           <svg viewBox="0 0 576 512">
                             <path d={item.svgPath} />
@@ -222,7 +222,7 @@ export default function Home() {
             <div className="col-md-12 product-group mt-3">
               {_trendingProduct.map((item, key) => {
                 return (
-                  <Link key={key} to='/'>
+                  <Link key={key} to={item.path}>
                     <div className="single-product text-left">
                       <div className="">
                         <svg viewBox="0 0 576 512">

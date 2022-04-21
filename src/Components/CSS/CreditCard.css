@@ -201,11 +201,20 @@
   margin-top: 10px;
   margin-bottom: 15px;
 }
+.profession-salary{
+  background: var(--primary-dark);
+}
 .profession-salary .row{
   height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.profession-salary .row form{   
+  background: #e3f4fc;
+  padding: 10px;
+  border: 35px solid #0b43769e;
+  border-radius: 6px;
 }
 .phone-single-card .top img{
   width: 40%;
@@ -241,4 +250,7 @@
   background: rgba(238, 238, 238, 0.815);
   padding: 15px;
   border: 1px solid var(--primary);
+}
+.card-search-phone{
+  display: none;
 }

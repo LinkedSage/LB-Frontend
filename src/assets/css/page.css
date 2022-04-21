@@ -365,6 +365,7 @@ textarea.form-control {
   position: relative;
   z-index: 0;
   border-radius: 40px;
+  color: #fff;
 }
 .glow-on-hover:before {
   content: "";
@@ -576,5 +577,100 @@ input::-webkit-inner-spin-button {
   }
   to {
     transform: rotateZ(360deg);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* coming soon page css  */
+.coming-soon .page {
+  background: #f1f1f1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.coming-soon .col {
+  flex: 1;
+  height:calc(100vh - 150px);
+  position: relative;
+}
+
+.coming-soon  .countdown-col {
+  background: url(https://fadzrinmadu.github.io/hosted-assets/responsive-coming-soon-page-with-awesome-newsletter-html-css-and-js/bg.png) no-repeat center;
+  background-size: cover;
+}
+
+.coming-soon  .time {
+  color: #fff;
+  text-transform: uppercase;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
+.coming-soon  .middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.coming-soon  .middle h2{
+  color: #fff;
+}
+
+.coming-soon  .time span {
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.coming-soon .time span div {
+  font-size: 40px;
+}
+
+.coming-soon .newslatter {
+  width: 90%;
+}
+
+.coming-soon .newslatter h4 {
+  font-style: italic;
+  font-size: 14px;
+}
+
+.coming-soon .newslatter input, .coming-soon .newslatter button {
+  display: block;
+  margin: 12px auto;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.coming-soon .newslatter-button {
+  background: linear-gradient(125deg, #3498db, #34495e);
+  color: #fff;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.coming-soon .newslatter-button:hover {
+  opacity: 0.7;
+}
+
+
+@media screen and (max-width: 900px) {
+  .col {
+    flex: 100%;
   }
 }

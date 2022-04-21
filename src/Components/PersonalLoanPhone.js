@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import image_url from '../assets/images/sadiq_credit_card.png'
 import Axios from "../Axios";
 
-export const CardDetailsPhone = ({ cardDetails }) => {
+export const PersonalLoanPhone = ({ cardDetails }) => {
   console.log("sssssss", cardDetails)
 
-  
+
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -24,48 +23,66 @@ export const CardDetailsPhone = ({ cardDetails }) => {
       MoreDetails(cardDetails._id);
     }
   }
-  
+
   async function MoreDetails(e) {
     setPopupStatus(true);
     const result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/cards/${e}/required-documents`
+      `${process.env.REACT_APP_API_URL}/personalloans/${e}/required-documents`
     );
     if (result && result.data && result.data.data)
       setMoreDetails(result.data.data);
-  }
-  function hideMoreDetails() {
-    setPopupStatus(false);
   }
 
 
   return (
     <div className="phone-single-card">
       <div className="phone-filter-icon">
-        
+
       </div>
       <div className="top p-3 d-flex">
-        <img src={image_url} alt="card image" />
+        <img src={cardDetails.image_url} alt="card image" />
         <div className="pl-3">
-          <p className="h4">Visa Silver (Classic) Credit Card 2</p>
-          <p>SCB</p>
+          <p className="h4">{cardDetails.name}</p>
+          <p>{cardDetails.bank[0].name}</p>
         </div>
       </div>
       <div className="middle d-flex justify-content-center align-items-center flex-wrap mb-3">
         <div>
-          <p className="h4">Interest Free Period</p>
-          <p>{cardDetails.interest_free_period} days</p>
+          <p className="h4">Interest Rate</p>
+          <p>{cardDetails.interest_rate}</p>
         </div>
         <div>
-          <p className="h4">Regular Anual Fee</p>
-          <p>{cardDetails.regular_anual_fee}</p>
+          <p className="h4">Max Tenor</p>
+          <p>{cardDetails.max_tenor}</p>
         </div>
         <div>
-          <p className="h4">Free Anual Fee</p>
-          <p>{cardDetails.free_anual_fee}</p>
+          <p className="h4">Min Tenor</p>
+          <p>{cardDetails.min_tenor}</p>
         </div>
         <div>
-          <p className="h4">Rewards Point</p>
-          <p>{cardDetails.anual_fee_waived_rewards}</p>
+          <p className="h4">Eligibility</p>
+          <p>
+            {
+              cardDetails.eligibility.business.is_available ?
+                <span className="pr-2">Businessman</span>
+                : null
+            }
+            {
+              cardDetails.eligibility.doctor.is_available ?
+                <span className="pr-2">Doctor</span>
+                : null
+            }
+            {
+              cardDetails.eligibility.landlord.is_available ?
+                <span className="pr-2">Landlord</span>
+                : null
+            }
+            {
+              cardDetails.eligibility.salaried.is_available ?
+                <span className="pr-2">Salaried</span>
+                : null
+            }
+          </p>
         </div>
       </div>
       <div className="bottom mb-3">
@@ -74,7 +91,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
           <Link
             id="apply-now-btn" onClick={() => cardNavButtonFun(0)}
             to={{
-              pathname: `/card-application/${cardDetails._id}`,
+              pathname: `/personal-loan-application/${cardDetails._id}`,
               state: { cardDetails },
             }}
           >
@@ -141,7 +158,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.essential_documents ? (
+                moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -162,7 +179,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.reference_documents ? (
+                moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -184,7 +201,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.notes ? (
+                moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">

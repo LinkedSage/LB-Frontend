@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const PersonalLoanDetails = ({data }) => {
+export const PersonalLoanDetails = ({data}) => {
   console.log("ssss",data)
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();

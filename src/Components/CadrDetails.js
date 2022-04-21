@@ -181,7 +181,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
               {moreDetails[0].required_documents &&
               moreDetails[0].required_documents.notes ? (
                 <>
-                  <h5 className="mt-3">Reference DocumentNotess</h5>
+                  <h5 className="mt-3">Reference Document Notes</h5>
                   <div className="_sub-title">
                     <hr></hr>
                   </div>

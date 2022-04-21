@@ -70,6 +70,31 @@
     .application-form .form-group label{
         padding-left: 10px !important;
     }
+    .card-search-pc{
+        display: none;
+    }
+    .card-search-phone{
+        display: flex !important;
+    }
+    .pc-card-filter .filter-section{
+        flex-wrap: wrap !important;
+        justify-content: space-around !important;
+    }
+    #credit-card-page .card-search input{
+        width: 165px !important;
+    }
+    .filter-section .card-search,
+    .filter-section .single-dropdown{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 165px !important;
+    }
+    .filter-section .filter{
+        width: 48px;
+    }
+    .more-details-sec .more-details{
+        padding: 0 !important;
+    }
 }
 @media screen and (max-width: 600px) {
     #homePage .hero-area h1{
@@ -110,5 +135,8 @@
     }
     .phone-show{
         display: block !important;
+    }
+    #copy-right{
+        padding-bottom: 80px !important;
     }
 }

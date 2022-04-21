@@ -1,29 +1,32 @@
+import { PersonalLoanDetails } from "../Components/PersonalLoanDetails";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Axios from "../Axios";
 import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
-import { PersonalLoanDetails } from "../Components/PersonalLoanDetails";
-import { useLocation } from "react-router-dom";
+import { CadrDetails } from "../Components/CadrDetails";
+import { PersonalLoanPhone } from "../Components/PersonalLoanPhone";
 
 export default function CreditCard(data) {
-  let location = useLocation();
 
   const [currencyValue, setCurrencyValue] = useState();
   const [cardNetworkValue, setCardNetworkValue] = useState();
   const [cardTypeValue, setCardTypeValue] = useState();
   const [cardList, setCardList] = useState();
   const [cardShow, setCardShow] = useState();
+  const [salary, setSalary] = useState();
+  const [profession, setProfession] = useState('salaried');
+  const [professionSalary, setProfessionSalary] = useState(false);
+
 
   useEffect(async () => {
+    let result = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/personalloans`);
+        
+      setCardList(result.data);
+      setCardShow(result.data.data);   
 
-    let result
-    if(location.state && location.state.profession && location.state.salary) result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/personalloans?profession=${location.state.profession}&salary=${location.state.salary}`);
-    else result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/personalloans`);
-    setCardList(result.data);
-    setCardShow(result.data.data);
+
   }, []);
 
   const currency = [
@@ -186,93 +189,199 @@ export default function CreditCard(data) {
     window.location.href = "/credit-card";
   }
 
+  async function findCardFun(e) {
+
+    e.preventDefault();
+    console.log(salary, profession)
+
+    let salaryId = document.getElementById("salary");
+    if ((!salary || (salary && salary < 0)) && profession) {
+      salaryId.classList.add("empty");
+      salaryId.value = "";
+    }
+    else {
+      salaryId.classList.remove("empty");
+      // location.state.profession = profession ;
+      // location.state.salary = salary;
+      const  result = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/cards?profession=${profession}&salary=${salary}`);
+      setCardList(result.data);
+      setCardShow(result.data.data);
+      
+      setProfessionSalary(false)
+    }
+
+
+  
+
+  }
+
   return (
     <section id="credit-card-page">
       <ToastContainer></ToastContainer>
-
-      <div className="card-section">
-        <div
-          className="container-fluid
-        "
-        >
-          <div className="row pc-card-filter card-shadow mt-3">
-            <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
-              <div className="d-flex align-items-center justify-content-center">
-                <div className="filter">
-                  <svg viewBox="0 0 512 512">
-                    <path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z" />
-                  </svg>
-                </div>
-                <div className="single-dropdown">
-                  <Select
-                    id="currency"
-                    onChange={(e) => {
-                      handleChangeCurrency(e);
-                    }}
-                    options={currency}
-                    placeholder="Currency"
-                  />
-                </div>
-                <div className="single-dropdown">
-                  <Select
-                    onChange={(e) => {
-                      handleChangeCardNetwork(e);
-                    }}
-                    options={cardNetwork}
-                    placeholder="Network"
-                  />
-                </div>
-                <div className="single-dropdown">
-                  <Select
-                    onChange={(e) => {
-                      handleChangeCCardType(e);
-                    }}
-                    options={cardType}
-                    placeholder="Card Type"
-                  />
-                </div>
-                <button className="clear-filter" onClick={clearALlFun}>
-                  Reset
-                </button>
-              </div>
-              <div className="card-search ml-4">
-                <input
-                  type="search"
-                  name="search-form"
-                  id="search-form"
-                  className="search-input"
-                  placeholder="Search for..."
-                  // value={q}
-                  onChange={(e) => setSearchFun(e.target.value)}
-                />
+      {
+        professionSalary ?
+          <div className="profession-salary">
+            <div className="container">
+              <div className="row">
+                <form className="p-3">
+                  <h3 className="w-100 text-center">Find your best <span className="h2">Credit Card</span></h3>
+                  <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
+                    <div class="select mb-4">
+                      <select
+                        placeholder="Profession"
+                        onChange={(e) => {
+                          setProfession(e.target.value);
+                        }}
+                      >
+                        <option selected value="salaried">
+                          Salaried
+                        </option>
+                        <option value="business">Business</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="landLord">Land Lord</option>
+                      </select>
+                    </div>
+                    <div class="input-container">
+                      <input
+                        id="salary"
+                        type="number"
+                        min="0"
+                        required
+                        onChange={(e) => {
+                          setSalary(e.target.value);
+                        }}
+                      ></input>
+                      <label class="label" for="salary">
+                        Salary*
+                      </label>
+                    </div>
+                  </div>
+                  <div className="text-center mt-4">
+                    <button
+                      className="h4 p-3 pl-5 pr-5 glow-on-hover"
+                      onClick={(e) => {
+                        findCardFun(e);
+                      }}
+                    >Submit</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-          <div className="row group-card pb-50 pt-3">
-            {cardShow
-              ? cardShow.map((item, key) => {
-                  return (
-                    <div
-                      key={key}
-                      className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
-                    >
-                      
-                      <p className="h4 text-center mb-3 text-uppercase">
-                        {item.name}
-                      </p>
-                      
-
-                      <div className="description d-flex">
-                        <PersonalLoanDetails data = {item} />
-                      </div>
-                      
+          :
+          <div className="card-section">
+            <div className="container-fluid card-section-pc">
+              <div className="row pc-card-filter card-shadow mt-3">
+                <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
+                  <div className="d-flex align-items-center justify-content-center filter-section ">
+                    <div className="filter">
+                      <svg viewBox="0 0 512 512">
+                        <path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z" />
+                      </svg>
                     </div>
-                  );
-                })
-              : null}
+                    <div className="single-dropdown">
+                      <Select
+                        id="currency"
+                        onChange={(e) => {
+                          handleChangeCurrency(e);
+                        }}
+                        options={currency}
+                        placeholder="Currency"
+                      />
+                    </div>
+                    <div className="single-dropdown">
+                      <Select
+                        onChange={(e) => {
+                          handleChangeCardNetwork(e);
+                        }}
+                        options={cardNetwork}
+                        placeholder="Network"
+                      />
+                    </div>
+                    
+                    <button className="clear-filter card-search-phone" onClick={clearALlFun}>
+                      Reset
+                    </button>
+
+                    <div className="single-dropdown">
+                      <Select
+                        onChange={(e) => {
+                          handleChangeCCardType(e);
+                        }}
+                        options={cardType}
+                        placeholder="Card Type"
+                      />
+                    </div>
+                    <div className="card-search card-search-phone">
+                    <input
+                      type="search"
+                      name="search-form"
+                      id="search-form"
+                      className="search-input"
+                      placeholder="Search for..."
+                      onChange={(e) => setSearchFun(e.target.value)}
+                    />
+                  </div>
+                    <button className="clear-filter card-search-pc mr-" onClick={clearALlFun}>
+                      Reset
+                    </button>
+                  </div>
+                  <div className="card-search ml-4 card-search-pc">
+                    <input
+                      type="search"
+                      name="search-form"
+                      id="search-form"
+                      className="search-input"
+                      placeholder="Search for..."
+                      onChange={(e) => setSearchFun(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="row card-section-pc group-card pb-50 pt-3">
+                {cardShow
+                  ? cardShow.map((item, key) => {                   
+                    return (
+                      <div
+                        key={key}
+                        className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
+                      >
+                        <p className="h4 text-center mb-3 text-uppercase">
+                          {item.name}
+                        </p>
+                        
+
+                        <div className="description d-flex">
+                          <PersonalLoanDetails
+                            data={item}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+                  : null}
+              </div>
+            </div>
+            
+
+            <div className="card-section-phone">
+              <div className="phone-card-group">
+              {cardShow
+                  ? cardShow.map((item, key) => {
+                    return(
+                      <PersonalLoanPhone cardDetails = {item} key = {key} />
+                    )
+                  })
+                  :null
+              }
+              {/* <CardDetailsPhone data = 'hi' /> */}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+      }
+
+
     </section>
   );
 }

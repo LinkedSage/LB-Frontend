@@ -67,6 +67,9 @@
     #credit-card-page .card-section {
         padding: 0 !important;
     }
+    .application-form .form-group label{
+        padding-left: 10px !important;
+    }
 }
 @media screen and (max-width: 600px) {
     #homePage .hero-area h1{
@@ -74,7 +77,7 @@
     }
 
 }
-    @media screen and (max-width: 572px) {
+@media screen and (max-width: 572px) {
     .left-nav .logo img{
         height: 50px;
     }

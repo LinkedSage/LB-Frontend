@@ -440,12 +440,12 @@ export default function CreditCard(data) {
               {cardShow
                   ? cardShow.map((item, key) => {
                     return(
-                      <CardDetailsPhone data = {item} key = {key} />
+                      <CardDetailsPhone cardDetails = {item} key = {key} />
                     )
                   })
                   :null
               }
-              <CardDetailsPhone data = 'hi' />
+              {/* <CardDetailsPhone data = 'hi' /> */}
               </div>
             </div>
           </div>

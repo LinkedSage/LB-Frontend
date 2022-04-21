@@ -133,6 +133,7 @@
   left: 0;
   right: 0;
   background: rgba(109, 109, 109, 0.418);
+  padding: 20px;
 }
 .closs-details {
   position: absolute;
@@ -149,6 +150,8 @@
   display: flex;
   position: relative;
   justify-content: space-between;
+  max-height: 100%;
+  overflow-y: scroll;
 }
 .more-details-sec .closs-details-btn {
   position: absolute;
@@ -159,6 +162,16 @@
   transition: 0.3s ease-in-out;
 }
 .more-details-sec .closs-details-btn:hover {
+  color: red;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.349);
+}
+.more-details-sec .close-details-phn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;  
+}
+.more-details-sec .close-details-phn:hover {
   color: red;
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.349);
 }
@@ -191,24 +204,30 @@
   justify-content: center;
   align-items: center;
 }
+.phone-single-card .top img{
+  width: 40%;
+}
 .phone-single-card .card-nav{
   background: var(--primary);
+  display: flex;
+  flex-direction: row;
 }
-.phone-single-card .card-nav button{
-  width: 50%;
-  border: none;
+.phone-single-card .card-nav a{
   background: var(--primary);
   color: var(--white);
   font-size: 20px;
   padding: 10px 0;
   outline: none;
+  display: flex;
+  width: 50%;
+  justify-content: center;
 }
-.phone-single-card .card-nav button.active-left{
+.phone-single-card .card-nav a.active-left{
   background: #fbab15;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
 }
-.phone-single-card .card-nav  button.active-right{
+.phone-single-card .card-nav  a.active-right{
   background: #fbab15;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;

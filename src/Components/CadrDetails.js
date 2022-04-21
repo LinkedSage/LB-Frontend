@@ -37,7 +37,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">{title[1]}</p>
-        <p>{data[1]}</p>
+        <p>{data[1]} days</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">

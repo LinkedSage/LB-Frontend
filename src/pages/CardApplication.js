@@ -90,6 +90,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
+    console.log("cardInfo,cardInfo",cardInfo)
     if (cardInfo && cardInfo.state && cardInfo.state.profession)
       setProfession(cardInfo.state.profession);
     if (cardInfo && cardInfo.state && cardInfo.state.salary)

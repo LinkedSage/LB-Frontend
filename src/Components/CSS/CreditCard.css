@@ -169,7 +169,10 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: #fff;  
+  background: #fff; 
+  padding: 5px 10px; 
+  border-radius: 20px;
+  border: none;
 }
 .more-details-sec .close-details-phn:hover {
   color: red;

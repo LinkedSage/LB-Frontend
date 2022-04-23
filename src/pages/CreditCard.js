@@ -35,7 +35,6 @@ export default function CreditCard(data) {
       setProfessionSalary(true)
     }
 
-
   }, []);
 
   const currency = [
@@ -212,16 +211,16 @@ export default function CreditCard(data) {
       salaryId.classList.remove("empty");
       // location.state.profession = profession ;
       // location.state.salary = salary;
-      const  result = await Axios.get(
+      const result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/cards?profession=${profession}&salary=${salary}`);
       setCardList(result.data);
       setCardShow(result.data.data);
-      
+
       setProfessionSalary(false)
     }
 
 
-  
+
 
   }
 
@@ -279,190 +278,199 @@ export default function CreditCard(data) {
             </div>
           </div>
           :
-          <div className="card-section">
-            <div className="container-fluid card-section-p">
-              <div className="row pc-card-filter card-shadow mt-3">
-                <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
-                  <div className="d-flex align-items-center justify-content-center filter-section ">
-                    <div className="filter">
-                      <svg viewBox="0 0 512 512">
-                        <path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z" />
-                      </svg>
-                    </div>
-                    <div className="single-dropdown">
-                      <Select
-                        id="currency"
-                        onChange={(e) => {
-                          handleChangeCurrency(e);
-                        }}
-                        options={currency}
-                        placeholder="Currency"
-                      />
-                    </div>
-                    <div className="single-dropdown">
-                      <Select
-                        onChange={(e) => {
-                          handleChangeCardNetwork(e);
-                        }}
-                        options={cardNetwork}
-                        placeholder="Network"
-                      />
-                    </div>
-                    
-                    <button className="clear-filter card-search-phone" onClick={clearALlFun}>
-                      Reset
-                    </button>
+          <>
+            {
+              cardShow && cardShow.length > 0 ?
+                <div className="card-section">
+                  <div className="container-fluid card-section-p">
+                    <div className="row pc-card-filter card-shadow mt-3">
+                      <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
+                        <div className="d-flex align-items-center justify-content-center filter-section ">
+                          <div className="filter">
+                            <svg viewBox="0 0 512 512">
+                              <path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z" />
+                            </svg>
+                          </div>
+                          <div className="single-dropdown">
+                            <Select
+                              id="currency"
+                              onChange={(e) => {
+                                handleChangeCurrency(e);
+                              }}
+                              options={currency}
+                              placeholder="Currency"
+                            />
+                          </div>
+                          <div className="single-dropdown">
+                            <Select
+                              onChange={(e) => {
+                                handleChangeCardNetwork(e);
+                              }}
+                              options={cardNetwork}
+                              placeholder="Network"
+                            />
+                          </div>
 
-                    <div className="single-dropdown">
-                      <Select
-                        onChange={(e) => {
-                          handleChangeCCardType(e);
-                        }}
-                        options={cardType}
-                        placeholder="Card Type"
-                      />
-                    </div>
-                    <div className="card-search card-search-phone">
-                    <input
-                      type="search"
-                      name="search-form"
-                      id="search-form"
-                      className="search-input"
-                      placeholder="Search for..."
-                      onChange={(e) => setSearchFun(e.target.value)}
-                    />
-                  </div>
-                    <button className="clear-filter card-search-pc mr-" onClick={clearALlFun}>
-                      Reset
-                    </button>
-                  </div>
-                  <div className="card-search ml-4 card-search-pc">
-                    <input
-                      type="search"
-                      name="search-form"
-                      id="search-form"
-                      className="search-input"
-                      placeholder="Search for..."
-                      onChange={(e) => setSearchFun(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="row card-section-pc group-card pb-50 pt-3">
-                {cardShow
-                  ? cardShow.map((item, key) => {
-                    if (location.state) item.state = location.state;
-                    let feesData = [
-                      item.image_url,
-                      item.interest_free_period,
-                      item.regular_anual_fee,
-                      item.free_anual_fee,
-                      item.anual_fee_waived_rewards,
-                    ];
-                    let anualFeesData = [
-                      item.image_url,
-                      item.lounge_access_fee,
-                      item.free_guest_allowed,
-                      item.int_free_guest_allowed,
-                      item.int_lounge_access_fee,
-                    ];
-                    let withdrawalData = [
-                      item.image_url,
-                      item.max_card_limit,
-                      item.free_supplementary_card,
-                      item.max_supplementary_card,
-                      item.eligibility,
-                    ];
-                    return (
-                      <div
-                        key={key}
-                        className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
-                      >
-                        <img
-                          className="bank-image w-160 pl-2 pr-2"
-                          src={item.bank[0].image_url}
-                          alt="card image"
-                        />
-                        <p className="h4 text-center mb-3 text-uppercase">
-                          {item.name}
-                        </p>
-                        <div className="btn__group text-center mb-3">
-                          <button
-                            className="active"
-                            id={"fees" + key}
-                            onClick={(e) => {
-                              filterFun("fees", key, 0);
-                            }}
-                          >
-                            Fees & Charges
+                          <button className="clear-filter card-search-phone" onClick={clearALlFun}>
+                            Reset
                           </button>
-                          <button
-                            id={"anualFees" + key}
-                            onClick={(e) => {
-                              filterFun("Anual Fees", key, 1);
-                            }}
-                          >
-                            Lounge Facility
-                          </button>
-                          <button
-                            id={"Withdrawal" + key}
-                            onClick={(e) => {
-                              filterFun("Withdrawal", key, 2);
-                            }}
-                          >
-                            Other Details
-                          </button>
-                        </div>
 
-                        <div id={"feesID" + key} className="description d-flex">
-                          <CadrDetails
-                            title={feesKey}
-                            data={feesData}
-                            cardDetails={item}
-                          />
+                          <div className="single-dropdown">
+                            <Select
+                              onChange={(e) => {
+                                handleChangeCCardType(e);
+                              }}
+                              options={cardType}
+                              placeholder="Card Type"
+                            />
+                          </div>
+                          <div className="card-search card-search-phone">
+                            <input
+                              type="search"
+                              name="search-form"
+                              id="search-form"
+                              className="search-input"
+                              placeholder="Search for..."
+                              onChange={(e) => setSearchFun(e.target.value)}
+                            />
+                          </div>
+                          <button className="clear-filter card-search-pc mr-" onClick={clearALlFun}>
+                            Reset
+                          </button>
                         </div>
-                        <div
-                          id={"anualFeesID" + key}
-                          className="description d-none"
-                        >
-                          <CadrDetails
-                            title={anualFeesKey}
-                            data={anualFeesData}
-                            cardDetails={item}
-                          />
-                        </div>
-                        <div
-                          id={"withdrawalID" + key}
-                          className="description d-none"
-                        >
-                          <CadrDetails
-                            title={withdrawalKey}
-                            data={withdrawalData}
-                            cardDetails={item}
+                        <div className="card-search ml-4 card-search-pc">
+                          <input
+                            type="search"
+                            name="search-form"
+                            id="search-form"
+                            className="search-input"
+                            placeholder="Search for..."
+                            onChange={(e) => setSearchFun(e.target.value)}
                           />
                         </div>
                       </div>
-                    );
-                  })
-                  : null}
-              </div>
-            </div>
-            
+                    </div>
+                    <div className="row card-section-pc group-card pb-50 pt-3">
+                      {cardShow
+                        ? cardShow.map((item, key) => {
+                          if (location.state) item.state = location.state;
+                          let feesData = [
+                            item.image_url,
+                            item.interest_free_period,
+                            item.regular_anual_fee,
+                            item.free_anual_fee,
+                            item.anual_fee_waived_rewards,
+                          ];
+                          let anualFeesData = [
+                            item.image_url,
+                            item.lounge_access_fee,
+                            item.free_guest_allowed,
+                            item.int_free_guest_allowed,
+                            item.int_lounge_access_fee,
+                          ];
+                          let withdrawalData = [
+                            item.image_url,
+                            item.max_card_limit,
+                            item.free_supplementary_card,
+                            item.max_supplementary_card,
+                            item.eligibility,
+                          ];
+                          return (
+                            <div
+                              key={key}
+                              className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
+                            >
+                              <img
+                                className="bank-image w-160 pl-2 pr-2"
+                                src={item.bank[0].image_url}
+                                alt="card image"
+                              />
+                              <p className="h4 text-center mb-3 text-uppercase">
+                                {item.name}
+                              </p>
+                              <div className="btn__group text-center mb-3">
+                                <button
+                                  className="active"
+                                  id={"fees" + key}
+                                  onClick={(e) => {
+                                    filterFun("fees", key, 0);
+                                  }}
+                                >
+                                  Fees & Charges
+                                </button>
+                                <button
+                                  id={"anualFees" + key}
+                                  onClick={(e) => {
+                                    filterFun("Anual Fees", key, 1);
+                                  }}
+                                >
+                                  Lounge Facility
+                                </button>
+                                <button
+                                  id={"Withdrawal" + key}
+                                  onClick={(e) => {
+                                    filterFun("Withdrawal", key, 2);
+                                  }}
+                                >
+                                  Other Details
+                                </button>
+                              </div>
 
-            <div className="card-section-phone">
-              <div className="phone-card-group">
-              {cardShow
-                  ? cardShow.map((item, key) => {
-                    return(
-                      <CardDetailsPhone cardDetails = {item} key = {key} />
-                    )
-                  })
-                  :null
-              }
-              {/* <CardDetailsPhone data = 'hi' /> */}
-              </div>
-            </div>
-          </div>
+                              <div id={"feesID" + key} className="description d-flex">
+                                <CadrDetails
+                                  title={feesKey}
+                                  data={feesData}
+                                  cardDetails={item}
+                                />
+                              </div>
+                              <div
+                                id={"anualFeesID" + key}
+                                className="description d-none"
+                              >
+                                <CadrDetails
+                                  title={anualFeesKey}
+                                  data={anualFeesData}
+                                  cardDetails={item}
+                                />
+                              </div>
+                              <div
+                                id={"withdrawalID" + key}
+                                className="description d-none"
+                              >
+                                <CadrDetails
+                                  title={withdrawalKey}
+                                  data={withdrawalData}
+                                  cardDetails={item}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })
+                        : null}
+                    </div>
+                  </div>
+
+
+                  <div className="card-section-phone">
+                    <div className="phone-card-group">
+                      {cardShow
+                        ? cardShow.map((item, key) => {
+                          return (
+                            <CardDetailsPhone cardDetails={item} key={key} />
+                          )
+                        })
+                        : null
+                      }
+                    </div>
+                  </div>
+                </div>
+                :
+                <div className="empty-card-msg ptb-50 text-center">
+                  <p className="h4">No Credit Card is available right now.</p>
+                </div>
+            }
+          </>
+
       }
 
 

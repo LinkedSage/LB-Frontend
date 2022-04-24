@@ -110,7 +110,7 @@
   transition: 0.3s ease-in-out;
   font-size: 17px;
   /* border: 2px solid #666; */
-  color: var(--white);
+  color: var(--white) !important;
 }
 .group-card .lst-child a:hover {
   background: var(--primary);

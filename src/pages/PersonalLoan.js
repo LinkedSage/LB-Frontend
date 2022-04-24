@@ -6,9 +6,11 @@ import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
 import { CadrDetails } from "../Components/CadrDetails";
 import { PersonalLoanPhone } from "../Components/PersonalLoanPhone";
+import { useLocation } from "react-router-dom";
 
 export default function CreditCard(data) {
-
+  
+  let location = useLocation()
   const [currencyValue, setCurrencyValue] = useState();
   const [cardNetworkValue, setCardNetworkValue] = useState();
   const [cardTypeValue, setCardTypeValue] = useState();
@@ -22,7 +24,8 @@ export default function CreditCard(data) {
   useEffect(async () => {
     let result = await Axios.get(
       `${process.env.REACT_APP_API_URL}/personalloans`);
-
+    
+    console.log(location.state,result.data.data);
     setCardList(result.data);
     setCardShow(result.data.data);
 
@@ -46,28 +49,6 @@ export default function CreditCard(data) {
     { value: "Signature", label: "Signature" },
     { value: "Titanium", label: "Titanium" },
     { value: "Word Card", label: "Word Card" },
-  ];
-
-  const feesKey = [
-    "img",
-    "Interest Free Period",
-    "Regular Anual",
-    "Free anual",
-    "Rewards Point",
-  ];
-  const anualFeesKey = [
-    "img",
-    "Lounge Access Fee",
-    "Int. Lounge Access Fee",
-    "Free Guest Allowed",
-    "Int. Free Guest Allowed",
-  ];
-  const withdrawalKey = [
-    "img",
-    "Max Card Limit",
-    "Free Supply Card",
-    "Max Supply Card",
-    "Eligible For",
   ];
 
   function handleChangeCurrency(e) {
@@ -144,41 +125,7 @@ export default function CreditCard(data) {
     }, 1000);
   }
 
-  var classList = new Array([]);
-  var classListDescription = new Array([]);
   var filteredData = [];
-  function filterFun(value, key, index) {
-    console.log(value, key);
-    filteredData[key] = value;
-    classList[key] = [
-      document.getElementById("fees" + key),
-      document.getElementById("anualFees" + key),
-      document.getElementById("Withdrawal" + key),
-    ];
-    classListDescription[key] = [
-      document.getElementById("feesID" + key),
-      document.getElementById("anualFeesID" + key),
-      document.getElementById("withdrawalID" + key),
-    ];
-
-    // feeCls.classList.add("active");
-    console.log(classList);
-    for (let i = 0; i < 3; i++) {
-      if (i == index) classList[key][i].classList.add("active");
-      else classList[key][i].classList.remove("active");
-    }
-    console.log(key, index, classListDescription);
-    for (let i = 0; i < 3; i++) {
-      if (i == index) {
-        classListDescription[key][i].classList.add("d-flex");
-        classListDescription[key][i].classList.remove("d-none");
-      } else {
-        classListDescription[key][i].classList.remove("d-flex");
-        classListDescription[key][i].classList.add("d-none");
-      }
-    }
-  }
-
   function clearALlFun() {
     console.log("aaaaaaaaaaaaa", currencyValue);
     setCardShow(cardList.data);
@@ -210,10 +157,6 @@ export default function CreditCard(data) {
 
       setProfessionSalary(false)
     }
-
-
-
-
   }
 
   return (
@@ -357,7 +300,7 @@ export default function CreditCard(data) {
 
                               <div className="description d-flex">
                                 <PersonalLoanDetails
-                                  data={item}
+                                  cardDetails={item}
                                 />
                               </div>
                             </div>

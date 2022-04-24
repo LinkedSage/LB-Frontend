@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const PersonalLoanDetails = ({data}) => {
-  console.log("ssss",data)
+export const PersonalLoanDetails = ({cardDetails}) => {
+  console.log("aaaa",cardDetails)
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -32,38 +32,38 @@ export const PersonalLoanDetails = ({data}) => {
     <>
       <img
         className="fst-child w-220 pl-2 pr-2"
-        src={data.image_url}
+        src={cardDetails.image_url}
         alt="card image"
       />
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Loan Amount</p>
-        <p>{data.max_loan_amount}</p>
+        <p>{cardDetails.max_loan_amount}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Tenor</p>
-        <p>{data.max_tenor}</p>
+        <p>{cardDetails.max_tenor}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Duration</p>
-        <p>{data.max_duration}</p>
+        <p>{cardDetails.max_duration}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center eligible-for w-220 pl-2 pr-2">
         <p className="h5">Eligible For</p>
         {
-          data.eligibility && data.eligibility.salaried.is_available?
+          cardDetails.eligibility && cardDetails.eligibility.salaried.is_available?
           <p>Salaried</p>:null
         }{
-          data.eligibility && data.eligibility.business.is_available?
+          cardDetails.eligibility && cardDetails.eligibility.business.is_available?
           <p>Businessman</p>:null
         }{
-          data.eligibility && data.eligibility.doctor.is_available?
+          cardDetails.eligibility && cardDetails.eligibility.doctor.is_available?
           <p>Doctor</p>:null
         }{
-          data.eligibility && data.eligibility.landlord.is_available?
+          cardDetails.eligibility && cardDetails.eligibility.landlord.is_available?
           <p>Landlord</p>:null
         }
       </div>
@@ -72,8 +72,8 @@ export const PersonalLoanDetails = ({data}) => {
         <Link
           className="mb-2 glow-on-hover"
           to={{
-            pathname: `/personal-loan-application/${data._id}`,
-            state: { data },
+            pathname: `/personal-loan-application/${cardDetails._id}`,
+            state: { cardDetails },
           }}
         >
           Apply Now
@@ -81,7 +81,7 @@ export const PersonalLoanDetails = ({data}) => {
         <Link
           className="glow-on-hover"
           onClick={() => {
-            MoreDetails(data._id);
+            MoreDetails(cardDetails._id);
           }}
         >
           Details
@@ -123,16 +123,6 @@ export const PersonalLoanDetails = ({data}) => {
               </div>
             </div>
             <div className="vl"></div>
-            {/* <input
-              type="button"
-              id="__close_details_btn"
-              className="closs-details-btn btn"
-              onClick={() => {
-                  console.log("jello")
-                setPopupStatus(false);
-              }}
-              value="X"
-            /> */}
             {/* <button className="closs-details-btn btn" onClick={() => setPopupStatus(false)}>X</button> */}
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>

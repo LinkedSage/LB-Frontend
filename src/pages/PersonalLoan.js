@@ -133,7 +133,7 @@ export default function CreditCard(data) {
     setCurrencyValue(null);
     setCardNetworkValue(null);
     setCardTypeValue(null);
-    window.location.href = "/credit-card";
+    window.location.href = "/personal-loan";
   }
 
   async function findCardFun(e) {
@@ -151,7 +151,7 @@ export default function CreditCard(data) {
       // location.state.profession = profession ;
       // location.state.salary = salary;
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/cards?profession=${profession}&salary=${salary}`);
+        `${process.env.REACT_APP_API_URL}/personalloans?profession=${profession}&salary=${salary}`);
       setCardList(result.data);
       setCardShow(result.data.data);
 
@@ -217,8 +217,8 @@ export default function CreditCard(data) {
             {
               cardShow && cardShow.length > 0 ?
                 <div className="card-section">
-                  <div className="container-fluid card-section-pc">
-                    <div className="row pc-card-filter card-shadow mt-3">
+                  <div className="container-fluid card-section-pc pt-50">
+                    {/* <div className="row pc-card-filter card-shadow mt-3">
                       <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
                         <div className="d-flex align-items-center justify-content-center filter-section ">
                           <div className="filter">
@@ -284,7 +284,7 @@ export default function CreditCard(data) {
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="row card-section-pc group-card pb-50 pt-3">
                       {cardShow
                         ? cardShow.map((item, key) => {

@@ -63,15 +63,11 @@ export default function Home() {
   useEffect(() => {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
-      console.log(
-        "aaaaaaaaaaa",
-        temp,
-        temp.employeement_information.job_location
-      );
+      
       if (temp && temp.phone) setPhone(temp.phone);
       if (temp && temp.email) setEmail(temp.email);
       if (temp && temp.name) setName(temp.name);
-      if (temp && temp.employeement_information.profession)
+      if (temp && temp.employeement_information && temp.employeement_information.profession )
         setProfessionFun(temp.employeement_information.profession);
       if (temp && temp.city) setCityFun(temp.city);
     }
@@ -105,6 +101,7 @@ export default function Home() {
   function checkIsExist(value) {
     isExistUser(value)
       .then((res) => {
+        console.log("rres",res)
         if (res.status === 200) {
           setExistUser(res.data);
           notification("warning", "User Exist please login");
@@ -627,6 +624,10 @@ export default function Home() {
 
       {otpPopup ? (
         <div className="popup-container">
+          <button
+            className="closs-details"
+            onClick={() => setOTPPopup(false)}
+          ></button>
           <div class="container height-100 d-flex justify-content-center align-items-center">
             <div class="position-relative">
               <div class="card p-2 text-center">

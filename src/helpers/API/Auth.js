@@ -7,8 +7,7 @@ import { setCookies, getCurrentUserData } from "../Cookies/Cookies"
 export const onSubmitLogin = async (values) => {
     console.log("vvvv", values)
     const result = await Axios.post(
-        `${process.env.REACT_APP_API_URL}/users/login`, values);
-        console.log("1stxxxxxxxxxxxxxxxxxxxxxxxxxxxx",result)
+        `${process.env.REACT_APP_API_URL}/user/login`, values);
     if (result.data.status == 200) {
         // setCookies('data', result.data.data, { path: '/' })
         // const abcd = getCurrentUser();
@@ -24,13 +23,13 @@ export const onSubmitLogin = async (values) => {
 export const onSubmitSignup = async (values) => {
     console.log("vvvv", values)
     const result = await Axios.post(
-        `${process.env.REACT_APP_API_URL}/users/register`, values);
+        `${process.env.REACT_APP_API_URL}/user/register`, values);
     return result.data
 }
 export const verifyOTP = async (values) => {
     console.log("vvvv", values)
     const result = await Axios.post(
-        `${process.env.REACT_APP_API_URL}/users/verify-otp`, values);
+        `${process.env.REACT_APP_API_URL}/user/verify-otp`, values);
     console.log("otp", result.data)
     if (result.data.status == 200) {
         setCookies('data', result.data.data, { path: '/' })
@@ -46,7 +45,7 @@ export const verifyOTP = async (values) => {
 export const isExistUser = async (values) => {
     console.log("vvvv", values)
     const result = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/users/is-user-exists?email=${values.email}&phone=${values.phone}`);
+        `${process.env.REACT_APP_API_URL}/user/is-user-exists?email=${values.email}&phone=${values.phone}`);
     return result.data
 }
 
@@ -67,7 +66,7 @@ export const forceRegister = async (temp) => {
     // if(temp.organization) values['employeement_information']['company_name'] = temp.organization
     console.log("vallll",values)
     const result = await Axios.post(
-        `${process.env.REACT_APP_API_URL}/users/force-register`,values);
+        `${process.env.REACT_APP_API_URL}/user/force-register`,values);
        let userdata
        if(result.data.status === 200)
        userdata =  getCurrentUserData(result.data.data)
@@ -81,7 +80,7 @@ export const forceRegister = async (temp) => {
 export const userUpdate = async (values,value) => {
     console.log("vvvv", values)
     const result = await Axios.post(
-        `${process.env.REACT_APP_API_URL}/users/update/${value._id}`,values,
+        `${process.env.REACT_APP_API_URL}/user/update/${value._id}`,values,
         {
             headers: { 'Authorization': "Bearer "+ value.token }
         }

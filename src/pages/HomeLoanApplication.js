@@ -627,6 +627,10 @@ export default function Home() {
 
       {otpPopup ? (
         <div className="popup-container">
+          <button
+            className="closs-details"
+            onClick={() => setOTPPopup(false)}
+          ></button>
           <div class="container height-100 d-flex justify-content-center align-items-center">
             <div class="position-relative">
               <div class="card p-2 text-center">
@@ -725,6 +729,10 @@ export default function Home() {
       ) : null}
       {signinPopup ? (
         <div className="popup-container">
+          <button
+            className="closs-details"
+            onClick={() => setSigninPopup(false)}
+          ></button>
           <div class="container height-100 d-flex justify-content-center align-items-center">
             <div class="position-relative">
               <div class="card p-2 text-center">

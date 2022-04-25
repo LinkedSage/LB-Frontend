@@ -1,34 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import image_url from '../assets/images/sadiq_credit_card.png'
 import Axios from "../Axios";
 
-export const CardDetailsPhone = ({ cardDetails }) => {
-  console.log("sssssss", cardDetails)
-
-  
+export const CarLoanDetails = ({cardDetails}) => {
+  console.log("aaaa",cardDetails)
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
+  useEffect(() => {
+    if (popupStatus) {
+      let element = document.getElementById("_close_details_btn");
+      let element1 = document.getElementById("__close_details_btn");
+      element.addEventListener("click", hideMoreDetails, false);
+      element1.addEventListener("click", hideMoreDetails, true);
+    }
+  }, []);
 
-  function cardNavButtonFun(e) {
-    let btn1 = document.getElementById('apply-now-btn')
-    let btn2 = document.getElementById('more-details-btn')
-    if (e === 0) {
-      btn1.classList.add('active-left')
-      btn2.classList.remove('active-right')
-    }
-    if (e === 1) {
-      btn1.classList.remove('active-left')
-      btn2.classList.add('active-right')
-      MoreDetails(cardDetails._id);
-    }
-  }
-  
   async function MoreDetails(e) {
     setPopupStatus(true);
     const result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/cards/${e}/required-documents`
+      `${process.env.REACT_APP_API_URL}/carloans/${e}/required-documents`
     );
     if (result && result.data && result.data.data)
       setMoreDetails(result.data.data);
@@ -37,67 +28,72 @@ export const CardDetailsPhone = ({ cardDetails }) => {
     setPopupStatus(false);
   }
 
-
   return (
-    <div className="phone-single-card">
-      <div className="phone-filter-icon">
-        
+    <>
+      <img
+        className="fst-child w-220 pl-2 pr-2"
+        src={cardDetails.image_url}
+        alt="card image"
+      />
+      <div className="vl-line"></div>
+      <div className="text-center w-220 pl-2 pr-2">
+        <p className="h5">Max Loan Amount</p>
+        <p>{cardDetails.max_loan_amount}</p>
       </div>
-      <div className="top p-3 d-flex">
-        <img src={cardDetails.image_url} alt="card image" />
-        <div className="pl-3">
-          <p className="h4">{cardDetails.name}</p>
-          <p>{cardDetails.bank[0].name}</p>
-        </div>
+      <div className="vl-line-1"></div>
+      <div className="text-center w-220 pl-2 pr-2">
+        <p className="h5">Max Tenor</p>
+        <p>{cardDetails.max_tenor}</p>
       </div>
-      <div className="middle d-flex justify-content-center align-items-center flex-wrap mb-3">
-        <div>
-          <p className="h4">Interest Free Period</p>
-          <p>{cardDetails.interest_free_period} days</p>
-        </div>
-        <div>
-          <p className="h4">Regular Anual Fee</p>
-          <p>{cardDetails.regular_anual_fee}</p>
-        </div>
-        <div>
-          <p className="h4">Free Anual Fee</p>
-          <p>{cardDetails.free_anual_fee}</p>
-        </div>
-        <div>
-          <p className="h4">Rewards Point</p>
-          <p>{cardDetails.anual_fee_waived_rewards}</p>
-        </div>
+      <div className="vl-line-1"></div>
+      <div className="text-center w-220 pl-2 pr-2">
+        <p className="h5">Max Duration</p>
+        <p>{cardDetails.max_duration}</p>
       </div>
-      <div className="bottom mb-3">
-        <div className="card-nav">
+      <div className="vl-line-1"></div>
+      <div className="text-center eligible-for w-220 pl-2 pr-2">
+        <p className="h5">Eligible For</p>
+        {
+          cardDetails.eligibility && cardDetails.eligibility.salaried && cardDetails.eligibility.salaried.is_available?
+          <p>Salaried</p>:null
+        }{
+          cardDetails.eligibility && cardDetails.eligibility.business && cardDetails.eligibility.business.is_available?
+          <p>Businessman</p>:null
+        }{
+          cardDetails.eligibility && cardDetails.eligibility.doctor && cardDetails.eligibility.doctor.is_available?
+          <p>Doctor</p>:null
+        }{
+          cardDetails.eligibility && cardDetails.eligibility.landlord && cardDetails.eligibility.landlord.is_available?
+          <p>Landlord</p>:null
+        }
+      </div>
+      <div className="vl-line"></div>
+      <div className="text-center d-flex flex-column lst-child  w-150 pl-2 pr-2">
+        <Link
+          className="mb-2 glow-on-hover"
+          to={{
+            pathname: `/car-loan-application/${cardDetails._id}`,
+            state: { cardDetails },
+          }}
+        >
+          Apply Now
+        </Link>
+        <Link
+          className="glow-on-hover"
+          onClick={() => {
+            MoreDetails(cardDetails._id);
+          }}
+        >
+          Details
+        </Link>
+      </div>
 
-          <Link
-            id="apply-now-btn" onClick={() => cardNavButtonFun(0)}
-            to={{
-              pathname: `/card-application/${cardDetails._id}`,
-              state: { cardDetails },
-            }}
-          >
-            Apply Now
-          </Link>
-          <Link
-            id="more-details-btn" onClick={() => cardNavButtonFun(1)}
-          >
-            More Details
-          </Link>
-        </div>
-        <div></div>
-      </div>
       {popupStatus && moreDetails ? (
         <div className="more-details-sec d-flex justify-content-center align-items-center">
           <button
             className="closs-details"
             onClick={() => setPopupStatus(false)}
           ></button>
-          <button
-            className="close-details-phn"
-            onClick={() => setPopupStatus(false)}
-          >X</button>
           <div
             id="_close_details_btn"
             className="more-details"
@@ -127,21 +123,11 @@ export const CardDetailsPhone = ({ cardDetails }) => {
               </div>
             </div>
             <div className="vl"></div>
-            {/* <input
-              type="button"
-              id="__close_details_btn"
-              className="closs-details-btn btn"
-              onClick={() => {
-                  console.log("jello")
-                setPopupStatus(false);
-              }}
-              value="X"
-            /> */}
             {/* <button className="closs-details-btn btn" onClick={() => setPopupStatus(false)}>X</button> */}
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.essential_documents ? (
+                moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -162,7 +148,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.reference_documents ? (
+                moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -184,7 +170,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.notes ? (
+                moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">
@@ -208,6 +194,6 @@ export const CardDetailsPhone = ({ cardDetails }) => {
           </div>
         </div>
       ) : null}
-    </div>
+    </>
   );
 };

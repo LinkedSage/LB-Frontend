@@ -194,7 +194,7 @@ export default function CreditCard(data) {
     setCurrencyValue(null);
     setCardNetworkValue(null);
     setCardTypeValue(null);
-    window.location.href = "/credit-card";
+    // window.location.href = "/credit-card";
   }
 
   async function findCardFun(e) {
@@ -218,10 +218,6 @@ export default function CreditCard(data) {
 
       setProfessionSalary(false)
     }
-
-
-
-
   }
 
   return (
@@ -279,77 +275,80 @@ export default function CreditCard(data) {
           </div>
           :
           <>
-            {
-              cardShow && cardShow.length > 0 ?
-                <div className="card-section">
-                  <div className="container-fluid card-section-p">
-                    <div className="row pc-card-filter card-shadow mt-3">
-                      <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
-                        <div className="d-flex align-items-center justify-content-center filter-section ">
-                          <div className="filter">
-                            <svg viewBox="0 0 512 512">
-                              <path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z" />
-                            </svg>
-                          </div>
-                          <div className="single-dropdown">
-                            <Select
-                              id="currency"
-                              onChange={(e) => {
-                                handleChangeCurrency(e);
-                              }}
-                              options={currency}
-                              placeholder="Currency"
-                            />
-                          </div>
-                          <div className="single-dropdown">
-                            <Select
-                              onChange={(e) => {
-                                handleChangeCardNetwork(e);
-                              }}
-                              options={cardNetwork}
-                              placeholder="Network"
-                            />
-                          </div>
 
-                          <button className="clear-filter card-search-phone" onClick={clearALlFun}>
-                            Reset
-                          </button>
-
-                          <div className="single-dropdown">
-                            <Select
-                              onChange={(e) => {
-                                handleChangeCCardType(e);
-                              }}
-                              options={cardType}
-                              placeholder="Card Type"
-                            />
-                          </div>
-                          <div className="card-search card-search-phone">
-                            <input
-                              type="search"
-                              name="search-form"
-                              id="search-form"
-                              className="search-input"
-                              placeholder="Search for..."
-                              onChange={(e) => setSearchFun(e.target.value)}
-                            />
-                          </div>
-                          <button className="clear-filter card-search-pc mr-" onClick={clearALlFun}>
-                            Reset
-                          </button>
-                        </div>
-                        <div className="card-search ml-4 card-search-pc">
-                          <input
-                            type="search"
-                            name="search-form"
-                            id="search-form"
-                            className="search-input"
-                            placeholder="Search for..."
-                            onChange={(e) => setSearchFun(e.target.value)}
-                          />
-                        </div>
+            <div className="card-section">
+              <div className="container-fluid card-section-p">
+                <div className="row pc-card-filter card-shadow mt-3">
+                  <div className="w-100 group-dropdown d-flex align-items-center justify-content-between pt-2 pb-2">
+                    <div className="d-flex align-items-center justify-content-center filter-section ">
+                      <div className="filter">
+                        <svg viewBox="0 0 512 512">
+                          <path d="M3.853 54.87C10.47 40.9 24.54 32 40 32H472C487.5 32 501.5 40.9 508.1 54.87C514.8 68.84 512.7 85.37 502.1 97.33L320 320.9V448C320 460.1 313.2 471.2 302.3 476.6C291.5 482 278.5 480.9 268.8 473.6L204.8 425.6C196.7 419.6 192 410.1 192 400V320.9L9.042 97.33C-.745 85.37-2.765 68.84 3.854 54.87L3.853 54.87z" />
+                        </svg>
                       </div>
+                      <div className="single-dropdown">
+                        <Select
+                          id="currency"
+                          onChange={(e) => {
+                            handleChangeCurrency(e);
+                          }}
+                          options={currency}
+                          placeholder="Currency"
+                        />
+                      </div>
+                      <div className="single-dropdown">
+                        <Select
+                          onChange={(e) => {
+                            handleChangeCardNetwork(e);
+                          }}
+                          options={cardNetwork}
+                          placeholder="Network"
+                        />
+                      </div>
+
+                      <button className="clear-filter card-search-phone" onClick={clearALlFun}>
+                        Reset
+                      </button>
+
+                      <div className="single-dropdown">
+                        <Select
+                          onChange={(e) => {
+                            handleChangeCCardType(e);
+                          }}
+                          options={cardType}
+                          placeholder="Card Type"
+                        />
+                      </div>
+                      <div className="card-search card-search-phone">
+                        <input
+                          type="search"
+                          name="search-form"
+                          id="search-form"
+                          className="search-input"
+                          placeholder="Search for..."
+                          onChange={(e) => setSearchFun(e.target.value)}
+                        />
+                      </div>
+                      <button className="clear-filter card-search-pc mr-" onClick={clearALlFun}>
+                        Reset
+                      </button>
                     </div>
+                    <div className="card-search ml-4 card-search-pc">
+                      <input
+                        type="search"
+                        name="search-form"
+                        id="search-form"
+                        className="search-input"
+                        placeholder="Search for..."
+                        onChange={(e) => setSearchFun(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {
+                  cardShow && cardShow.length > 0 ?
+
                     <div className="row card-section-pc group-card pb-50 pt-3">
                       {cardShow
                         ? cardShow.map((item, key) => {
@@ -448,27 +447,28 @@ export default function CreditCard(data) {
                         })
                         : null}
                     </div>
-                  </div>
-
-
-                  <div className="card-section-phone">
-                    <div className="phone-card-group">
-                      {cardShow
-                        ? cardShow.map((item, key) => {
-                          return (
-                            <CardDetailsPhone cardDetails={item} key={key} />
-                          )
-                        })
-                        : null
-                      }
+                    :
+                    <div className="empty-card-msg ptb-50 text-center">
+                      <p className="h4">No Credit Card is available right now.</p>
                     </div>
-                  </div>
+                }
+              </div>
+
+
+              <div className="card-section-phone">
+                <div className="phone-card-group">
+                  {cardShow
+                    ? cardShow.map((item, key) => {
+                      return (
+                        <CardDetailsPhone cardDetails={item} key={key} />
+                      )
+                    })
+                    : null
+                  }
                 </div>
-                :
-                <div className="empty-card-msg ptb-50 text-center">
-                  <p className="h4">No Credit Card is available right now.</p>
-                </div>
-            }
+              </div>
+            </div>
+
           </>
 
       }

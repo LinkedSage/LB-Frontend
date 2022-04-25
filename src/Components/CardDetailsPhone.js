@@ -4,7 +4,6 @@ import image_url from '../assets/images/sadiq_credit_card.png'
 import Axios from "../Axios";
 
 export const CardDetailsPhone = ({ cardDetails }) => {
-  console.log("sssssss", cardDetails)
 
   
   const [popupStatus, setPopupStatus] = useState(false);

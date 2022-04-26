@@ -21,12 +21,18 @@ export default function CreditCard(data) {
 
 
   useEffect(async () => {
+
+    if (location.state && location.state.profession && location.state.salary) {
     let result = await Axios.get(
       `${process.env.REACT_APP_API_URL}/homeloans`);
     
     console.log(location.state,result.data.data);
     setCardList(result.data);
     setCardShow(result.data.data);
+    }
+    else{
+      setProfessionSalary(true)
+    }
 
 
   }, []);
@@ -151,7 +157,7 @@ export default function CreditCard(data) {
             <div className="container">
               <div className="row">
                 <form className="p-3">
-                  <h3 className="w-100 text-center">Find your best <span className="h2">Credit Card</span></h3>
+                  <h3 className="w-100 text-center">Find your best <span className="h2">Home Loan</span></h3>
                   <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
                     <div class="select mb-4">
                       <select

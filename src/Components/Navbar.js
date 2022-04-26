@@ -136,7 +136,7 @@ export default function Navbar() {
                     onClick={showNavMenu}
                   >
                     <img src={menu} alt="menu" />
-                    Menu
+                    {/* Menus */}
                   </a>
                 </li>
               </ul>

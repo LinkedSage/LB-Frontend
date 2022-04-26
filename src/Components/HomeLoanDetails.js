@@ -19,10 +19,12 @@ export const HomeLoanDetails = ({cardDetails}) => {
   async function MoreDetails(e) {
     setPopupStatus(true);
     const result = await Axios.get(
-      `${process.env.REACT_APP_API_URL}/personalloans/${e}/required-documents`
+      `${process.env.REACT_APP_API_URL}/homeloans/${e}/required-documents`
     );
     if (result && result.data && result.data.data)
       setMoreDetails(result.data.data);
+    else setPopupStatus(false);
+    
   }
   function hideMoreDetails() {
     setPopupStatus(false);

@@ -91,3 +91,14 @@ export const userUpdate = async (values,value) => {
 
     console.log("otp", result.data)
 }
+
+
+export const resetPassword = async (values) => {
+    console.log("vvvv", values)
+    // const result = await Axios.post(
+    //     `${process.env.REACT_APP_API_URL}/user/force-register`,values);
+       
+    // return result
+}
+
+

@@ -13,6 +13,10 @@ import PersonalLoan from '../pages/PersonalLoan'
 import HomeLoan from '../pages/HomeLoan'
 import AutoLoan from '../pages/AutoLoan'
 import ComingSoon from '../pages/ComingSoon'
+import ResetPassword from "../pages/ResetPassword";
+import UserDashboard from "../pages/UserDashboard";
+import UserProfile from "../pages/UserProfile";
+import UpdateUserProfile from "../pages/UpdateUserProfile";
 
 export default function Section() {
   return (
@@ -32,8 +36,11 @@ export default function Section() {
 
       <Route exact path = '/coming-soon' component={ComingSoon} />
 
-      
-      {/* <ProtectedRoute exact path = "/top-user-by-country" component={topUserByCountry} /> */}
+      <Route exact path = '/reset-password' component={ResetPassword} />      
+      <Route exact path = "/user-dashboard" component={UserDashboard} />
+      <Route exact path = "/user-profile" component={UserProfile} />
+      <Route exact path = "/update-user-profile" component={UpdateUserProfile} />
+      {/* <ProtectedRoute exact path = "/reset-password" component={ResetPassword} /> */}
     </>
   );
 }

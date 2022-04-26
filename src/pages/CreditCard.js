@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom";
 
 export default function CreditCard(data) {
   let location = useLocation();
-  console.log("state", location.state);
 
   const [currencyValue, setCurrencyValue] = useState();
   const [cardNetworkValue, setCardNetworkValue] = useState();
@@ -454,7 +453,6 @@ export default function CreditCard(data) {
                 }
               </div>
 
-
               <div className="card-section-phone">
                 <div className="phone-card-group">
                   {cardShow
@@ -468,12 +466,8 @@ export default function CreditCard(data) {
                 </div>
               </div>
             </div>
-
           </>
-
       }
-
-
     </section>
   );
 }

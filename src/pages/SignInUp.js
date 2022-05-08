@@ -8,6 +8,7 @@ import lock from "../assets/images/icons/lock-solid.svg";
 import { onSubmitLogin, onSubmitSignup, verifyOTP } from "../helpers/API/Auth";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
+import {getCurrentUserData} from '../helpers/Cookies/Cookies'
 
 export default function SignInUp() {
   // const history = useHistory();
@@ -102,10 +103,11 @@ export default function SignInUp() {
       console.log("aaa", values);
       // login form submitting
       onSubmitSignup(values)
-        .then((res) => {
-          console.log("cccc", res);
+        .then((res) => { 
+          let temp = getCurrentUserData(res.data)
+          console.log("cccsfsafc", temp,res.data);
           if (res.status === 200) {
-            setUserData(res.data);
+            setUserData(temp.data);
             setSignupOTP(false);
             notification("", "Please verify OTP..");
           } else {
@@ -123,9 +125,10 @@ export default function SignInUp() {
     let values = {
       otp: otpCode,
     };
-    if (userData && userData.phoneNo) values.phone = userData.phoneNo;
+    console.log("userData",userData)
+    if (userData && userData.phone) values.phone = userData.phone;
     else if (userData && userData.email) values.email = userData.email;
-    console.log("aaa", values);
+    console.log("axxxxaa", values);
     // login form submitting
     verifyOTP(values)
       .then((res) => {

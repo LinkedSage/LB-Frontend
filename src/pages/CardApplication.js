@@ -63,15 +63,10 @@ export default function Home() {
   useEffect(() => {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
-      console.log(
-        "aaaaaaaaaaa",
-        temp,
-        temp.employeement_information.job_location
-      );
       if (temp && temp.phone) setPhone(temp.phone);
       if (temp && temp.email) setEmail(temp.email);
       if (temp && temp.name) setName(temp.name);
-      if (temp && temp.employeement_information.profession)
+      if (temp && temp.employeement_information && temp.employeement_information.profession)
         setProfessionFun(temp.employeement_information.profession);
       if (temp && temp.city) setCityFun(temp.city);
     }

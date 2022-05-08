@@ -79,7 +79,7 @@ export const forceRegister = async (temp) => {
 
 export const userUpdate = async (values,value) => {
     console.log("vvvv", values)
-    const result = await Axios.post(
+    const result = await axios.post(
         `${process.env.REACT_APP_API_URL}/user/update/${value._id}`,values,
         {
             headers: { 'Authorization': "Bearer "+ value.token }

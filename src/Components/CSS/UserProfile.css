@@ -1,0 +1,39 @@
+/*-----------------
+	1. User Profile page
+-----------------------*/
+.profile-form .right .edit-btn{
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+.profile-form .right .edit-btn svg{
+  fill: rgb(66, 69, 83);
+  height: 18px;
+}
+.profile-form .right .form-grp{
+  background: #0000000e;
+  padding: 12px;
+}
+.profile-form .right .form-grp h4{
+  margin-bottom: 0 !important;
+}
+.profile-form .right .group-info{
+  border: 1px solid #00000033;
+}
+.profile-form .form-group label{
+  padding-left: 35px !important;
+}
+.profile-form .form-group .input-field{
+  padding-right: 35px !important;
+}
+.profile-form .form-group .submit-btn{
+  border: none;
+}
+.profile-form .form-group select{
+  width: 100% !important;  
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 190, 190);
+  background: #fff;
+}

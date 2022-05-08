@@ -38,8 +38,7 @@ export default function Section() {
 
       <Route exact path = '/reset-password' component={ResetPassword} />      
       <Route exact path = "/user-dashboard" component={UserDashboard} />
-      <Route exact path = "/user-profile" component={UserProfile} />
-      <Route exact path = "/update-user-profile" component={UpdateUserProfile} />
+      <Route exact path = "/user-profile" component={UpdateUserProfile} />
       {/* <ProtectedRoute exact path = "/reset-password" component={ResetPassword} /> */}
     </>
   );

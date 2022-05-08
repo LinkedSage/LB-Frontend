@@ -102,7 +102,7 @@ export default function Navbar() {
                         <>Account</>
                       )}
 
-                      <ul className="dropdown d-flex flex-column">
+                      {/* <ul className="dropdown d-flex flex-column">
                         <li>
                           <Link className="hover-effect" to="/dashboard">
                             Dashboard
@@ -118,7 +118,7 @@ export default function Navbar() {
                             Logout
                           </a>
                         </li>
-                      </ul>
+                      </ul> */}
                     </a>
                   </li>
                 ) : (
@@ -239,7 +239,7 @@ export default function Navbar() {
                           </Link>
                         </li>
                         <li>
-                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/profile">
+                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/user-profile">
                             Profile
                           </Link>
                         </li>

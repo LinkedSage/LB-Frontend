@@ -29,8 +29,22 @@ export default function Home() {
     const [sendFilePaySlip, setSendFilePaySlip] = useState()
     const [paySlip, setPaySlip] = useState()
 
-    const [pi, setPI] = useState({ })
-    const [fi, setFI] = useState({})
+    const [personalInfo, setPersonalInfo] = useState({ })
+    const [financialInfo, setFinansialInfo] = useState({})
+
+    const[sendNIDFront,setSendNIDFront] = useState()
+    const[NIDFront,setNIDFront] = useState()
+
+    useEffect(() => {
+        
+    },[])
+
+    const uploadNIDFront = (e) => {
+        const fileFront = document.getElementById("nidFront").files[0];
+        setSendNIDFront(fileFront);
+        let temp = URL.createObjectURL(fileFront);
+        setNIDFront(temp);
+    };
 
     const uploadDocuments = (e) => {
         const file = document.getElementById("accountS").files[0];
@@ -46,38 +60,42 @@ export default function Home() {
         setPaySlip(temp);
       };
 
-    function personalInfo() {
+    function personalInfoFun() {
         setHideShow([!hideShow[0], false, false, false])
     }
 
-    function financialInfo() {
+    function financialInfoFun() {
         setHideShow([false, !hideShow[1], false, false])
     }
 
-    function financialDocument() {
+    function nidFrontBackFun() {
+        setHideShow([false, false, !hideShow[2],false])
+    }
+
+    function financialDocumentFun() {
         setHideShow([false, false, false, !hideShow[3]])
     }
 
-    function submitPersonalInfo() {
+    function submitPersonal() {
 
-        Object.keys(pi).forEach(key => {
-            if (pi[key] === '') {
-                delete pi[key];
+        Object.keys(financialInfo).forEach(key => {
+            if (financialInfo[key] === '') {
+                delete financialInfo[key];
             }
         });
-        updateUserProfile(pi)
-        console.log("xxxxxxxxx", pi)
+        updateUserProfile(financialInfo)
+        console.log("xxxxxxxxx", financialInfo)
     }
 
-    function submitFinancialInfo() {
+    function submitFinancial() {
 
-        Object.keys(fi).forEach(key => {
-            if (fi[key] === '') {
-                delete fi[key];
+        Object.keys(financialInfo).forEach(key => {
+            if (financialInfo[key] === '') {
+                delete financialInfo[key];
             }
         });
-        updateUserProfile(fi)
-        console.log("xxxxxxxxx", fi)
+        updateUserProfile(financialInfo)
+        console.log("xxxxxxxxx", financialInfo)
     }
 
 
@@ -112,7 +130,7 @@ export default function Home() {
                             <div className="group-info mt-5">
                                 <div className="pl-3 pr-3 d-flex justify-content-between align-items-center form-grp">
                                     <h4>Personal Information</h4>
-                                    <button className="edit-btn" type="button" onClick={personalInfo}>
+                                    <button className="edit-btn" type="button" onClick={personalInfoFun}>
                                         <svg viewBox="0 0 576 512"><path d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" /></svg>
                                     </button>
                                 </div>
@@ -129,9 +147,9 @@ export default function Home() {
                                                             id="name"
                                                             type="text"
                                                             placeholder="Enter Your Name"
-                                                            defaultValue={pi.name}
+                                                            defaultValue={personalInfo.name}
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     name: e.target.value
                                                                 }));
@@ -151,7 +169,7 @@ export default function Home() {
                                                             type="text"
                                                             placeholder="Enter Your Father's Name"
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     fatherName: e.target.value
                                                                 }));
@@ -171,7 +189,7 @@ export default function Home() {
                                                             type="text"
                                                             placeholder="Enter Your Mother's Name"
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     motherName: e.target.value
                                                                 }));
@@ -191,7 +209,7 @@ export default function Home() {
                                                             type="text"
                                                             placeholder="Enter Your Gender"
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     gender: e.target.value
                                                                 }));
@@ -211,7 +229,7 @@ export default function Home() {
                                                             type="date"
                                                             placeholder="Date of Birth"
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     dob: e.target.value
                                                                 }));
@@ -231,7 +249,7 @@ export default function Home() {
                                                             type="text"
                                                             placeholder="Permanent Address"
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     permanentAddress: e.target.value
                                                                 }));
@@ -251,7 +269,7 @@ export default function Home() {
                                                             type="text"
                                                             placeholder="Current Address"
                                                             onChange={(e) => {
-                                                                setPI(prevState => ({
+                                                                setPersonalInfo(prevState => ({
                                                                     ...prevState,
                                                                     currentAddress: e.target.value
                                                                 }));
@@ -261,7 +279,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-md-8"></div>
                                                 <div className="col-md-4">
-                                                    <button className="m-2 glowing-btn" onClick={submitPersonalInfo} type="button">Submit</button>
+                                                    <button className="m-2 glowing-btn" onClick={submitPersonal} type="button">Submit</button>
                                                 </div>
                                             </div>
 
@@ -272,7 +290,7 @@ export default function Home() {
                             <div className="group-info mt-3">
                                 <div className="pl-3 pr-3 d-flex justify-content-between align-items-center form-grp">
                                     <h4>Financial Information</h4>
-                                    <button className="edit-btn" type="button" onClick={financialInfo}>
+                                    <button className="edit-btn" type="button" onClick={financialInfoFun}>
                                         <svg viewBox="0 0 576 512"><path d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" /></svg>
                                     </button>
                                 </div>
@@ -288,7 +306,7 @@ export default function Home() {
                                                         <select
                                                             placeholder="Profession"
                                                             onChange={(e) => {
-                                                                setFI(prevState => ({
+                                                                setFinansialInfo(prevState => ({
                                                                     ...prevState,
                                                                     profession: e.target.value
                                                                 }));
@@ -313,7 +331,7 @@ export default function Home() {
                                                         <Select
                                                             id="Organization"
                                                             onChange={(e) => {
-                                                                setFI(prevState => ({
+                                                                setFinansialInfo(prevState => ({
                                                                     ...prevState,
                                                                     organization: e.value
                                                                 }));
@@ -335,7 +353,7 @@ export default function Home() {
                                                             type="number"
                                                             placeholder="Enter Your Salary"
                                                             onChange={(e) => {
-                                                                setFI(prevState => ({
+                                                                setFinansialInfo(prevState => ({
                                                                     ...prevState,
                                                                     salary: e.target.value
                                                                 }));
@@ -355,7 +373,7 @@ export default function Home() {
                                                             type="number"
                                                             placeholder="Length of Service"
                                                             onChange={(e) => {
-                                                                setFI(prevState => ({
+                                                                setFinansialInfo(prevState => ({
                                                                     ...prevState,
                                                                     los: e.target.value
                                                                 }));
@@ -365,18 +383,61 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-md-8"></div>
                                                 <div className="col-md-4">
-                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancialInfo}>Submit</button>
+                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancial}>Submit</button>
                                                 </div>
                                             </div>
                                         </div>
                                         : null
                                 }
                             </div>
-
+                            <div className="group-info mt-3">
+                                <div className="pl-3 pr-3 d-flex justify-content-between align-items-center form-grp">
+                                    <h4>NID Front / Back</h4>
+                                    <button className="edit-btn" type="button" onClick={nidFrontBackFun}>
+                                        <svg viewBox="0 0 576 512"><path d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" /></svg>
+                                    </button>
+                                </div>
+                                {
+                                    hideShow[2] ?
+                                        <div>
+                                            <div className="row form-group-nid mt-3">
+                                                <div className="col-md-6">
+                                                    <label>Bank Statement</label>
+                                                    <label for='img' className="input-preview">
+                                                        <input
+                                                            className="input-preview__src"
+                                                            id="nidFront"
+                                                            accept=".jpeg, .jpg, .png"
+                                                            onChange={uploadNIDFront}
+                                                            type="file"
+                                                        />
+                                                    </label>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label>Pay Slip</label>
+                                                    <div className="input-field">
+                                                        <input
+                                                            className="input-preview__src"
+                                                            id="nidBack"
+                                                            accept=".jpeg, .jpg, .png"
+                                                            onChange={uploadPaySlip}
+                                                            type="file"
+                                                        />
+                                                    </div>
+                                                </div>    
+                                                <div className="col-md-8"></div>
+                                                <div className="col-md-4">
+                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancial}>Submit</button>
+                                                </div>                                            
+                                            </div>
+                                        </div>
+                                        : null
+                                }
+                            </div>
                             <div className="group-info mt-3">
                                 <div className="pl-3 pr-3 d-flex justify-content-between align-items-center form-grp">
                                     <h4>Financial Document</h4>
-                                    <button className="edit-btn" type="button" onClick={financialDocument}>
+                                    <button className="edit-btn" type="button" onClick={financialDocumentFun}>
                                         <svg viewBox="0 0 576 512"><path d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z" /></svg>
                                     </button>
                                 </div>
@@ -416,7 +477,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-md-8"></div>
                                                 <div className="col-md-4">
-                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancialInfo}>Submit</button>
+                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancial}>Submit</button>
                                                 </div>
                                             </div>
                                         </div>

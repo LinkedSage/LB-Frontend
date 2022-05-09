@@ -49,22 +49,22 @@ export const CardDetailsPhone = ({ cardDetails }) => {
           <p>{cardDetails.bank[0].name}</p>
         </div>
       </div>
-      <div className="middle d-flex justify-content-center align-items-center flex-wrap mb-3">
+      <div className="middle d-flex justify-content-center align-items-center flex-wrap">
         <div>
           <p className="h4">Interest Free Period</p>
-          <p>{cardDetails.interest_free_period} days</p>
+          <p className="mb-0">{cardDetails.interest_free_period} days</p>
         </div>
         <div>
           <p className="h4">Regular Anual Fee</p>
-          <p>{cardDetails.regular_anual_fee}</p>
+          <p className="mb-0">{cardDetails.regular_anual_fee}</p>
         </div>
         <div>
           <p className="h4">Free Anual Fee</p>
-          <p>{cardDetails.free_anual_fee}</p>
+          <p className="mb-0">{cardDetails.free_anual_fee}</p>
         </div>
         <div>
           <p className="h4">Rewards Point</p>
-          <p>{cardDetails.anual_fee_waived_rewards}</p>
+          <p className="mb-0">{cardDetails.anual_fee_waived_rewards}</p>
         </div>
       </div>
       <div className="bottom mb-3">

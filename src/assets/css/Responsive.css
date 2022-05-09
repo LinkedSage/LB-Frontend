@@ -1,148 +1,283 @@
 @media screen and (max-width: 1200px) {
-    #credit-card-page .card-section{
-        padding: 0 30px !important;
-    }
-    .financial-area .w-200{
-        width: 100% !important;
-    }
+  #credit-card-page .card-section {
+    padding: 0 30px !important;
+  }
+  .financial-area .w-200 {
+    width: 100% !important;
+  }
 }
 
 @media screen and (max-width: 1100px) {
-    #credit-card-page .card-section{
-        padding: 0 30px !important;
-    }
+  #credit-card-page .card-section {
+    padding: 0 30px !important;
+  }
 }
 
 @media screen and (max-width: 1025px) {
-    #homePage .hero-area h1{
-        font-size: 80px !important;
-    }
+  #homePage .hero-area h1 {
+    font-size: 80px !important;
+  }
 }
 
 @media screen and (max-width: 950px) {
-    #credit-card-page .card-section{
-        padding: 0 15px !important;
-    }
-    .h4{
-        font-size: 1rem !important;
-    }
-    .single-card .w-220{
-        width: 190px;
-    }
-    .card-section .single-card .btn__group{
-        margin-bottom: 2.5rem !important;
-    }
-    #credit-card-page .card-search input{
-        width: 160px;
-    }
+  #credit-card-page .card-section {
+    padding: 0 15px !important;
+  }
+  .h4 {
+    font-size: 1rem !important;
+  }
+  .single-card .w-220 {
+    width: 190px;
+  }
+  .card-section .single-card .btn__group {
+    margin-bottom: 2.5rem !important;
+  }
+  #credit-card-page .card-search input {
+    width: 160px;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .mobile-view-none{
-        display: none !important;
-    }
-    .form-group .input-field{
-        padding-right: 0 !important;
-    }
-    .hero-area .btn-grp button div{
-        padding-left: 5px !important;
-    }
-    #homePage .btn-grp button{
-        margin-right: 10px;
-    }
-    .hero-area .row .col-md-12{
-        padding-left: 10px !important;
-    }
-    .statistics-area ._image{
-        width: 50px;
-    }
-    .financial-area .left .vl{
-        display: none !important;
-    }
-    .financial-area .right{
-        padding-left: 15px !important;
-    }
-    .card-section .card-section-pc{
-        display: none;
-    }
-    .card-section .card-section-phone{
-        display: block;
-    }
-    #credit-card-page .card-section {
-        padding: 0 !important;
-    }
-    .application-form .form-group label{
-        padding-left: 10px !important;
-    }
-    .card-search-pc{
-        display: none;
-    }
-    .card-search-phone{
-        display: flex !important;
-    }
-    .pc-card-filter .filter-section{
-        flex-wrap: wrap !important;
-        justify-content: space-around !important;
-    }
-    #credit-card-page .card-search input{
-        width: 165px !important;
-    }
-    .filter-section .card-search,
-    .filter-section .single-dropdown{
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 165px !important;
-    }
-    .filter-section .filter{
-        width: 48px;
-    }
-    .more-details-sec .more-details{
-        padding: 0 !important;
-    }
+  .mobile-view-none {
+    display: none !important;
+  }
+  .form-group .input-field {
+    padding-right: 0 !important;
+  }
+  .hero-area .btn-grp button div {
+    padding-left: 5px !important;
+  }
+  #homePage .btn-grp button {
+    margin-right: 10px;
+  }
+  .hero-area .row .col-md-12 {
+    padding-left: 10px !important;
+  }
+  .statistics-area ._image {
+    width: 50px;
+  }
+  .financial-area .left .vl {
+    display: none !important;
+  }
+  .financial-area .right {
+    padding-left: 15px !important;
+  }
+  .card-section .card-section-pc {
+    display: none;
+  }
+  .card-section .card-section-phone {
+    display: block;
+  }
+  #credit-card-page .card-section {
+    padding: 0 !important;
+  }
+  .application-form .form-group label {
+    padding-left: 10px !important;
+  }
+  .card-search-pc {
+    display: none;
+  }
+  .card-search-phone {
+    display: flex !important;
+  }
+  .pc-card-filter .filter-section {
+    flex-wrap: wrap !important;
+    justify-content: space-around !important;
+  }
+  #credit-card-page .card-search input {
+    width: 165px !important;
+  }
+  .filter-section .card-search,
+  .filter-section .single-dropdown {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 165px !important;
+  }
+  .filter-section .filter {
+    width: 48px;
+  }
+  .more-details-sec .more-details {
+    padding: 0 !important;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    #homePage .hero-area h1{
-        color: var(--white) !important;
-    }
+  #homePage .hero-area h1 {
+    color: var(--white) !important;
+  }
 }
 
 @media screen and (max-width: 572px) {
-    .left-nav .logo img{
-        height: 50px;
-    }
-    .left-nav .logo{
-        padding: 15px 20px;
-    }
-    .left-nav .call {
-        margin-left: 5px !important;
-    }
+  .left-nav .logo img {
+    height: 50px;
+  }
+  .left-nav .logo {
+    padding: 15px 20px;
+  }
+  .left-nav .call {
+    margin-left: 5px !important;
+  }
 }
 
 @media screen and (max-width: 535px) {
-    .right-nav .nav-menu a{
-        font-size: 14px;
-    }
+  .right-nav .nav-menu a {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 481px) {
-    .phone-none,
-    .left-nav .phone-none{
-        display: none !important;
-    }
-    .phone-show{
-        display: flex !important;
-    }
-    .phone-show a{
-        margin-left: 5px !important;
-    }
-    .statistics-area ._image{
-        width: 40px;
-    }
-    .phone-show{
-        display: block !important;
-    }
-    #copy-right{
-        padding-bottom: 80px !important;
-    }
+  .phone-none,
+  .left-nav .phone-none {
+    display: none !important;
+  }
+  .phone-show {
+    display: flex !important;
+  }
+  .phone-show a {
+    margin-left: 5px !important;
+  }
+  .statistics-area ._image {
+    width: 40px;
+  }
+  .phone-show {
+    display: block !important;
+  }
+  #copy-right {
+    padding-bottom: 80px !important;
+  }
+
+  /* Edited By Dev-Sharif ---------START */
+  .left-nav .logo {
+    padding-left: 10px;
+    padding-right: 30px;
+  }
+  .right-nav li a img {
+    height: 35px;
+  }
+  .right-nav .nav-menu a img {
+    height: 20px;
+    margin-right: 0px;
+  }
+  .ptb-sm-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .hero-group-btn a {
+    padding: 8px 0px;
+    padding-top: 24px;
+  }
+  .hero-group-btn a svg {
+    height: 25px;
+    fill: var(--primary);
+  }
+  .hero-group-btn .single-product p {
+    font-size: 14px !important;
+    color: var(--gray);
+  }
+
+  .financial-area {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+  .help-us-form {
+    margin-top: 25px !important;
+  }
+  .help-us-form input,
+  .help-us-form select {
+    border-radius: 0px;
+  }
+  .financial-area .right {
+    padding-top: 20px;
+  }
+  .financial-area .right .glow-on-hover {
+    width: 200px;
+  }
+  ._title {
+    font-size: 18px;
+  }
+  .partners-area {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+  .partners-area .__slider .__slide {
+    margin: 0 5px;
+  }
+  .partners-area .__slider .__slide img {
+    width: 90px;
+    height: 90px;
+  }
+  #footer p {
+    margin-top: 0.5rem;
+  }
+  .profession-salary {
+    border-top: 1px solid var(--white);
+  }
+  .profession-salary .row {
+    height: auto;
+  }
+
+  .profession-salary .row form {
+    background: var(--white);
+    padding: 10px;
+    border: 35px solid var(--primary);
+  }
+  .profession-salary .row form select,
+  .profession-salary .row form input {
+    background: var(--off-white);
+  }
+  .profession-salary .row form .glow-on-hover {
+    width: 200px;
+  }
+  .pc-card-filter .filter-section {
+    display: none !important;
+  }
+  .filter-section .card-search,
+  .filter-section .single-dropdown div div div:last-child div {
+    padding: 0px;
+  }
+  .filter-section .card-search,
+  .filter-section .single-dropdown {
+    width: max-content !important;
+  }
+  .card-section .mobile-view .filter svg {
+    width: 25px;
+    fill: var(--primary);
+  }
+  #credit-card-page .card-search input {
+    width: 250px !important;
+  }
+  .clear-filter {
+    font-size: 22px;
+    color: var(--primary);
+  }
+  .phone-single-card {
+    border-top: 1px solid var(--primary);
+  }
+  .phone-single-card .middle div {
+    padding: 2px 0px;
+    border-bottom: none;
+  }
+  .phone-single-card .card-nav a:nth-child(2n + 1) {
+    border-right: 1px solid white;
+  }
+  .phone-single-card .middle div:nth-child(2n + 1) {
+    border-left: none;
+  }
+  .phone-single-card .middle div:nth-child(2n) {
+    border-right: none;
+  }
+  .more-details-sec .more-details {
+    background-color: #fff;
+    z-index: 101;
+    border-radius: 10px;
+    padding: 20px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: block;
+    height: 82vh;
+    position: absolute;
+    max-height: 100%;
+    top: 31px;
+  }
+  /* Edited By Dev-Sharif ---------END */
 }

@@ -256,7 +256,7 @@
   text-align: center;
   background: rgba(238, 238, 238, 0.815);
   padding: 15px;
-  border: 1px solid var(--primary);
+  border: 1px dashed var(--primary);
 }
 .card-search-phone{
   display: none;

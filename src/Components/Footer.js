@@ -14,13 +14,13 @@ export default function Footer() {
               <Link to="/">
                 <img src={logo} className="logo" alt="logo" />
               </Link>
-              <ul>
+              <ul className="location">
                 <li>
                   <Link to="/">
                     <div className="icon">
                       <svg viewBox="0 0 384 512">
                         <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
-                      </svg>{" "}
+                      </svg>
                       <span>House-5A Rd 137, Dhaka 1212</span>
                     </div>
                   </Link>
@@ -40,7 +40,7 @@ export default function Footer() {
                     <div className="icon">
                       <svg viewBox="0 0 512 512">
                         <path d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z" />
-                      </svg>{" "}
+                      </svg>
                       info@linkedsage.com
                     </div>
                   </a>
@@ -50,6 +50,9 @@ export default function Footer() {
 
             <div className="col-md-4">
               <p className="h3">Quick Links</p>
+              <div class="_sub-title">
+                <hr />
+              </div>
               <ul>
                 <li>
                   <Link to="/">Link 1</Link>
@@ -64,6 +67,9 @@ export default function Footer() {
             </div>
             <div className="col-md-4">
               <p className="h3">Follow Us On</p>
+              <div class="_sub-title">
+                <hr />
+              </div>
               <ul className="d-flex justify-content-start">
                 <li>
                   <Link to="/">
@@ -110,11 +116,12 @@ export default function Footer() {
         <div className="container">
           <div className="row">
             <p className="d-flex justify-content-center w-100 align-items-center pt-3">
+              Copyright 2022 &nbsp;
               <svg viewBox="0 0 512 512">
                 <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464zM255.1 176C255.1 176 255.1 176 255.1 176c21.06 0 40.92 8.312 55.83 23.38c9.375 9.344 24.53 9.5 33.97 .1562c9.406-9.344 9.469-24.53 .1562-33.97c-24-24.22-55.95-37.56-89.95-37.56c0 0 .0313 0 0 0c-33.97 0-65.95 13.34-89.95 37.56c-49.44 49.88-49.44 131 0 180.9c24 24.22 55.98 37.56 89.95 37.56c.0313 0 0 0 0 0c34 0 65.95-13.34 89.95-37.56c9.312-9.438 9.25-24.62-.1562-33.97c-9.438-9.312-24.59-9.219-33.97 .1562c-14.91 15.06-34.77 23.38-55.83 23.38c0 0 .0313 0 0 0c-21.09 0-40.95-8.312-55.89-23.38c-30.94-31.22-30.94-82.03 0-113.3C214.2 184.3 234 176 255.1 176z" />
               </svg>
-              &nbsp; 2022 LoanerBazar. All rights reserved by &nbsp;{" "}
-              <a href="https://loanerbazar.com/">LoanerBazar.</a>
+              &nbsp;
+              <a href="https://loanerbazar.com/">Loaner Bazar</a>
             </p>
           </div>
         </div>
@@ -122,43 +129,40 @@ export default function Footer() {
 
       <section id="footer-nav" className="phone-show">
         <div className="content h-100 d-flex justify-content-around align-items-center">
-          <Link to='/'>
+          <Link to="/">
             <div className="d-flex align-items-center flex-column">
               <span className="hero-icon">
                 <svg viewBox="0 0 576 512">
                   <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" />
                 </svg>
               </span>
-              <p>
-                Home
-              </p>
-            </div> </Link>
-
-          <div className="separator"></div>
-          <Link to='/signin'>
-            <div className="d-flex align-items-center flex-column">
-              <span className="hero-icon">
-                <svg viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z" /></svg>
-              </span>
-              <p>
-                Profile
-              </p>
-            </div> </Link>
-
-          <div className="separator"></div>
-          <Link to='/support'>
-            <div className="d-flex align-items-center flex-column">
-              <span className="hero-icon">
-                <svg viewBox="0 0 576 512">
-                  <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" />
-                </svg>
-              </span>
-              <p>
-                Support
-              </p>
-            </div>
+              <p>Home</p>
+            </div>{" "}
           </Link>
 
+          <div className="separator"></div>
+          <Link to="/signin">
+            <div className="d-flex align-items-center flex-column">
+              <span className="hero-icon">
+                <svg viewBox="0 0 448 512">
+                  <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z" />
+                </svg>
+              </span>
+              <p>Profile</p>
+            </div>{" "}
+          </Link>
+
+          <div className="separator"></div>
+          <Link to="/support">
+            <div className="d-flex align-items-center flex-column">
+              <span className="hero-icon">
+                <svg viewBox="0 0 576 512">
+                  <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" />
+                </svg>
+              </span>
+              <p>Support</p>
+            </div>
+          </Link>
         </div>
       </section>
     </>

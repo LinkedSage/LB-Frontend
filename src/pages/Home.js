@@ -189,7 +189,7 @@ export default function Home() {
       </div>
 
       {/* Phone hero area  */}
-      <div className="phone-hero-area phone-show pl-3 pr-3 ptb-50">
+      <div className="phone-hero-area phone-show pl-3 pr-3 ptb-50 ptb-sm-10">
           <div className="content">
             <div className="hero-group-btn d-flex justify-content-around flex-wrap">
               {
@@ -289,7 +289,7 @@ export default function Home() {
       {/* Statistics area end  */}
 
       {/* Financial Strength area start  client_slider*/}
-      <div className="financial-area pt-5 pb-5">
+      <div className="financial-area pt-5  pb-5">
         <div className="container">
           <div className="row">
             <div className="col-md-7 left pr-5">
@@ -347,7 +347,7 @@ export default function Home() {
                 <hr />
               </div>
               <form onSubmit={sendMsgFun}>
-                <div className="d-flex flex-wrap justify-content-between mt-5">
+                <div className="help-us-form d-flex flex-wrap justify-content-between mt-5">
                   <div class="input-container w-100">
                     <input
                       id="name"

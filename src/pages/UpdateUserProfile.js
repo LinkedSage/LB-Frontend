@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Select from "react-select";
 import "../Components/CSS/Application.css";
 import "../Components/CSS/UserProfile.css";
@@ -7,58 +6,87 @@ import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { companyName } from "../helpers/Data/CompanyName";
-import {userUpdate} from '../helpers/API/Auth'
+import { userUpdate } from '../helpers/API/Auth'
 
 export default function Home() {
-    let location = useLocation();
-    const currentUser = getCurrentUser().data
-    const token = getCookies('data')
-    console.log("sssssssss",currentUser)
-    // let cardInfo = []
+    var currentUser = getCurrentUser().data
+    var token = getCookies('data')
 
     const [hideShow, setHideShow] = useState([true, false, false, false])
-    const [name, setName] = useState()
-    const [fatherName, setFatherName] = useState()
-    const [motherName, setMotherName] = useState()
-    const [gender, setGender] = useState()
-    const [dob, setDOB] = useState()
-    const [permanentAddress, setPermanentAddress] = useState()
-    const [currentAddress, setCurrentAddress] = useState()
     const [sendFile, setSendFile] = useState()
     const [documents, setDocuments] = useState()
     const [sendFilePaySlip, setSendFilePaySlip] = useState()
     const [paySlip, setPaySlip] = useState()
-
-    const [personalInfo, setPersonalInfo] = useState({ })
+    const [personalInfo, setPersonalInfo] = useState({})
     const [financialInfo, setFinansialInfo] = useState({})
-
-    const[sendNIDFront,setSendNIDFront] = useState()
-    const[NIDFront,setNIDFront] = useState()
+    const [sendNIDFront, setSendNIDFront] = useState()
+    const [NIDFront, setNIDFront] = useState()
+    const [sendNIDBack, setSendNIDBack] = useState()
+    const [NIDBack, setNIDBack] = useState()
+    const [organization,setOrganization] = useState({})
 
     useEffect(() => {
-        
-    },[])
+        setDefaultValues();
+    }, [])
+
+    function setDefaultValues(){
+        let tempUser = {};
+        Object.keys(currentUser).forEach(key => {
+            if (key === 'nid_front_image_url'|| key === 'nid_back_image_url' || key === 'account_statement_pdf_url' || key === 'payslip_pdf_url' || key === 'image_url' ) { }
+            else  tempUser[key] = currentUser[key];
+        });
+        setPersonalInfo(tempUser);
+        setFinansialInfo(tempUser)
+        if(tempUser && tempUser.employeement_information && tempUser.employeement_information.company_name)
+        setOrganization({label:tempUser.employeement_information.company_name,value:tempUser.employeement_information.company_name})
+        if(currentUser && currentUser.nid_back_image_url) {
+            setNIDBack(currentUser.nid_back_image_url)
+        }
+        if(currentUser && currentUser.nid_front_image_url) {
+            setNIDFront(currentUser.nid_front_image_url)
+        }
+        if(currentUser && currentUser.account_statement_pdf_url) {
+            setDocuments(currentUser.account_statement_pdf_url)
+        }
+        if(currentUser && currentUser.payslip_pdf_url) {
+            setPaySlip(currentUser.payslip_pdf_url)
+        }
+    }
 
     const uploadNIDFront = (e) => {
+        document.querySelector('.input-preview-front').classList.add("has-image");
         const fileFront = document.getElementById("nidFront").files[0];
         setSendNIDFront(fileFront);
-        let temp = URL.createObjectURL(fileFront);
-        setNIDFront(temp);
+        if (fileFront) {
+            let temp = URL.createObjectURL(fileFront);
+            setNIDFront(temp);
+        }
+    };
+    const uploadNIDBack = (e) => {
+        document.querySelector('.input-preview-back').classList.add("has-image");
+        const fileBack = document.getElementById("nidBack").files[0];
+        setSendNIDBack(fileBack);
+        if (fileBack) {
+            let temp = URL.createObjectURL(fileBack);
+            setNIDBack(temp);
+        }
     };
 
     const uploadDocuments = (e) => {
-        const file = document.getElementById("accountS").files[0];
+        const file = document.getElementById("bankStatemment").files[0];
         setSendFile(file);
-        let temp = URL.createObjectURL(file);
-        setDocuments(temp);
+        if (file) {
+            let temp = URL.createObjectURL(file);
+            setDocuments(temp);
+        }
     };
 
     const uploadPaySlip = (e) => {
-        const file = document.getElementById("paySlipImgUrl").files[0];
+        const file = document.getElementById("paySlip").files[0];
         setSendFilePaySlip(file);
         let temp = URL.createObjectURL(file);
         setPaySlip(temp);
-      };
+    };
 
     function personalInfoFun() {
         setHideShow([!hideShow[0], false, false, false])
@@ -69,7 +97,7 @@ export default function Home() {
     }
 
     function nidFrontBackFun() {
-        setHideShow([false, false, !hideShow[2],false])
+        setHideShow([false, false, !hideShow[2], false])
     }
 
     function financialDocumentFun() {
@@ -78,45 +106,62 @@ export default function Home() {
 
     function submitPersonal() {
 
+        Object.keys(personalInfo).forEach(key => {
+            if (personalInfo[key] === '') {
+                delete personalInfo[key];
+            }
+        });
+        updateUserProfile(personalInfo)
+        console.log("xxxxxxxxx", personalInfo)
+    }
+
+    function submitFinancialInfo() {
+
         Object.keys(financialInfo).forEach(key => {
             if (financialInfo[key] === '') {
                 delete financialInfo[key];
             }
         });
-        updateUserProfile(financialInfo)
+        let employeement_information = financialInfo
+        updateUserProfile({ employeement_information })
         console.log("xxxxxxxxx", financialInfo)
+    }
+
+    function submitNIDFrontBack() {
+        var fd = new FormData();
+        if (sendNIDFront)
+            fd.append("nid_front_image_url", sendNIDFront);
+        if (sendNIDBack)
+            fd.append("nid_back_image_url", sendNIDBack);
+        console.log('nnnnnnnnnnn', fd)
+        updateUserProfile(fd)
     }
 
     function submitFinancial() {
-
-        Object.keys(financialInfo).forEach(key => {
-            if (financialInfo[key] === '') {
-                delete financialInfo[key];
-            }
-        });
-        updateUserProfile(financialInfo)
-        console.log("xxxxxxxxx", financialInfo)
+        var fd = new FormData();
+        if (sendFile)
+            fd.append("account_statement_pdf_url", sendFile);
+        if (sendFilePaySlip)
+            fd.append("payslip_pdf_url", sendFilePaySlip);
+        console.log('nnnnnnnnnnn', fd)
+        updateUserProfile(fd)
     }
 
-
-    function updateUserProfile(values){
+    function updateUserProfile(values) {
         currentUser.token = token
-        console.log("user     Data",currentUser)
-        userUpdate(values,currentUser)
-      .then((res) => {
-        console.log("cccc", res);
-        if (res.status === 200) {
-        //   notification("success", "Login Successfully. Redirecting.. ");
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 1500);
-        } else {
-          notification("fail", res.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        console.log("user     Data", values)
+        userUpdate(values, currentUser)
+            .then((res) => {
+                console.log("cccc", res);
+                if (res.status === 200) {
+                    notification("success", res.message);
+                } else {
+                    notification("fail", res.message);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     return (
@@ -167,11 +212,12 @@ export default function Home() {
                                                         <input
                                                             id="fatherName"
                                                             type="text"
+                                                            defaultValue={personalInfo.fathers_name}
                                                             placeholder="Enter Your Father's Name"
                                                             onChange={(e) => {
                                                                 setPersonalInfo(prevState => ({
                                                                     ...prevState,
-                                                                    fatherName: e.target.value
+                                                                    fathers_name: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -187,11 +233,12 @@ export default function Home() {
                                                         <input
                                                             id="motherName"
                                                             type="text"
+                                                            defaultValue={personalInfo.mothers_name}
                                                             placeholder="Enter Your Mother's Name"
                                                             onChange={(e) => {
                                                                 setPersonalInfo(prevState => ({
                                                                     ...prevState,
-                                                                    motherName: e.target.value
+                                                                    mothers_name: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -207,6 +254,7 @@ export default function Home() {
                                                         <input
                                                             id="gender"
                                                             type="text"
+                                                            defaultValue={personalInfo.gender}
                                                             placeholder="Enter Your Gender"
                                                             onChange={(e) => {
                                                                 setPersonalInfo(prevState => ({
@@ -227,11 +275,12 @@ export default function Home() {
                                                         <input
                                                             id="dob"
                                                             type="date"
+                                                            defaultValue={personalInfo.date_of_birth}
                                                             placeholder="Date of Birth"
                                                             onChange={(e) => {
                                                                 setPersonalInfo(prevState => ({
                                                                     ...prevState,
-                                                                    dob: e.target.value
+                                                                    date_of_birth: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -247,11 +296,12 @@ export default function Home() {
                                                         <input
                                                             id="permanentAddress"
                                                             type="text"
+                                                            defaultValue={personalInfo.permanent_address}
                                                             placeholder="Permanent Address"
                                                             onChange={(e) => {
                                                                 setPersonalInfo(prevState => ({
                                                                     ...prevState,
-                                                                    permanentAddress: e.target.value
+                                                                    permanent_address: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -267,11 +317,12 @@ export default function Home() {
                                                         <input
                                                             id="currentAddress"
                                                             type="text"
+                                                            defaultValue={personalInfo.present_address}
                                                             placeholder="Current Address"
                                                             onChange={(e) => {
                                                                 setPersonalInfo(prevState => ({
                                                                     ...prevState,
-                                                                    currentAddress: e.target.value
+                                                                    present_address: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -329,11 +380,12 @@ export default function Home() {
                                                 <div className="col-md-8">
                                                     <div className="input-field">
                                                         <Select
-                                                            id="Organization"
+                                                            id="Organization"   
+                                                            defaultValue={organization}    
                                                             onChange={(e) => {
                                                                 setFinansialInfo(prevState => ({
                                                                     ...prevState,
-                                                                    organization: e.value
+                                                                    company_name: e.value
                                                                 }));
                                                             }}
                                                             options={companyName}
@@ -350,12 +402,13 @@ export default function Home() {
                                                     <div className="input-field">
                                                         <input
                                                             id="salary"
-                                                            type="number"
+                                                            type="number"                                                            
+                                                            defaultValue={financialInfo.employeement_information.salary_amount}
                                                             placeholder="Enter Your Salary"
                                                             onChange={(e) => {
                                                                 setFinansialInfo(prevState => ({
                                                                     ...prevState,
-                                                                    salary: e.target.value
+                                                                    salary_amount: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -370,12 +423,13 @@ export default function Home() {
                                                     <div className="input-field">
                                                         <input
                                                             id="los"
-                                                            type="number"
+                                                            type="number"                                                            
+                                                            defaultValue={financialInfo.employeement_information.total_job_experience}
                                                             placeholder="Length of Service"
                                                             onChange={(e) => {
                                                                 setFinansialInfo(prevState => ({
                                                                     ...prevState,
-                                                                    los: e.target.value
+                                                                    total_job_experience: e.target.value
                                                                 }));
                                                             }}
                                                         />
@@ -383,7 +437,7 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-md-8"></div>
                                                 <div className="col-md-4">
-                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancial}>Submit</button>
+                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancialInfo}>Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -402,10 +456,17 @@ export default function Home() {
                                         <div>
                                             <div className="row form-group-nid mt-3">
                                                 <div className="col-md-6">
-                                                    <label>Bank Statement</label>
-                                                    <label for='img' className="input-preview">
+                                                    <label>NID Front</label>
+                                                    <label for='img' className="input-preview-front">
+                                                        {
+                                                            NIDFront ?
+                                                                <img src={NIDFront} alt="NID Front"/>
+                                                                : null
+                                                        }
+
+
                                                         <input
-                                                            className="input-preview__src"
+                                                            className="input-preview-front__src"
                                                             id="nidFront"
                                                             accept=".jpeg, .jpg, .png"
                                                             onChange={uploadNIDFront}
@@ -414,21 +475,29 @@ export default function Home() {
                                                     </label>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <label>Pay Slip</label>
-                                                    <div className="input-field">
+                                                    <label>NID Back</label>
+                                                    <label for='img' className="input-preview-back">
+                                                        {
+                                                            NIDFront ?
+                                                                <img src={NIDBack} alt="NID Back"/>
+                                                                : null
+                                                        }
+
+
                                                         <input
-                                                            className="input-preview__src"
+                                                            className="input-preview-back__src"
                                                             id="nidBack"
                                                             accept=".jpeg, .jpg, .png"
-                                                            onChange={uploadPaySlip}
+                                                            onChange={uploadNIDBack}
                                                             type="file"
                                                         />
-                                                    </div>
-                                                </div>    
+                                                    </label>
+                                                </div>
+
                                                 <div className="col-md-8"></div>
                                                 <div className="col-md-4">
-                                                    <button className="m-2 glowing-btn" type="button" onClick={submitFinancial}>Submit</button>
-                                                </div>                                            
+                                                    <button className="m-2 glowing-btn" type="button" onClick={submitNIDFrontBack}>Submit</button>
+                                                </div>
                                             </div>
                                         </div>
                                         : null
@@ -444,37 +513,56 @@ export default function Home() {
                                 {
                                     hideShow[3] ?
                                         <div>
-                                            <div className="row form-group mt-3">
-                                                <div className="col-md-4">
+                                            <div className="row form-group-nid mt-3">
+                                                <div className="col-md-6">
                                                     <label>Bank Statement</label>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div className="input-field">
+                                                    <label for='iframe' className="input-preview-front">
+                                                        {
+                                                            documents ?
+                                                                <iframe
+                                                                    src={documents}
+                                                                    frameBorder="0"
+                                                                    scrolling="auto"
+                                                                    height="100%"
+                                                                    width="100%"                                                                    
+                                                                ></iframe>
+                                                                : null
+                                                        }
+
                                                         <input
-                                                            className="modifyFile"
-                                                            id="accountS"
-                                                            accept=".pdf, .doc, .docx"
+                                                            className="input-preview-front__src"
+                                                            id="bankStatemment"
+                                                            accept=".pdf"
                                                             onChange={uploadDocuments}
                                                             type="file"
                                                         />
-                                                    </div>
+                                                    </label>
                                                 </div>
-                                            </div>
-                                            <div className="row form-group">
-                                                <div className="col-md-4">
+                                                <div className="col-md-6">
                                                     <label>Pay Slip</label>
-                                                </div>
-                                                <div className="col-md-8">
-                                                    <div className="input-field">
+                                                    <label for='iframe' className="input-preview-back">
+                                                        {
+                                                            paySlip ?
+                                                                <iframe
+                                                                    src={paySlip}                                                                    
+                                                                    frameBorder="0"
+                                                                    scrolling="auto"
+                                                                    height="100%"
+                                                                    width="100%"
+                                                                ></iframe>
+                                                                : null
+                                                        }
+
                                                         <input
-                                                            className="modifyFile"
-                                                            id="paySlipImgUrl"
-                                                            accept=".pdf, .doc, .docx"
+                                                            className="input-preview-back__src"
+                                                            id="paySlip"
+                                                            accept=".pdf"
                                                             onChange={uploadPaySlip}
                                                             type="file"
                                                         />
-                                                    </div>
+                                                    </label>
                                                 </div>
+
                                                 <div className="col-md-8"></div>
                                                 <div className="col-md-4">
                                                     <button className="m-2 glowing-btn" type="button" onClick={submitFinancial}>Submit</button>

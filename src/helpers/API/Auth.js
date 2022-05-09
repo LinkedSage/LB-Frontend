@@ -90,6 +90,7 @@ export const userUpdate = async (values,value) => {
         }
 
     console.log("otp", result.data)
+    return  result.data
 }
 
 

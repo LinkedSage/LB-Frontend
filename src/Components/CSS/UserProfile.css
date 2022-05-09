@@ -42,17 +42,20 @@
 }
 
 
-.input-preview__src {
+.input-preview-front__src,
+.input-preview-back__src {
   height: 100% !important;
   opacity: 0;
   width: 100%;
+  position: absolute;
   z-index: 5;
 }
 
-.input-preview {
+.input-preview-front,
+.input-preview-back {
 	border-radius: 4px;
 	width: 200px;
-	height: 200px;
+	height: 170px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -61,11 +64,19 @@
 	background-position: center;
 	position: relative;
 	transition: ease-in-out 750ms;
-  border: 1px solid red;
+  border: 1px solid rgb(190, 190, 190);
   z-index: 1;
 }
 
-.input-preview::after {
+.input-preview-front img,
+.input-preview-back img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px;
+}
+.input-preview-front::after,
+.input-preview-back::after {
 	position: absolute;
 	top: 50%;
 	left: 0;

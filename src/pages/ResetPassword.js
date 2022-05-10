@@ -7,30 +7,71 @@ import { resetPassword } from "../helpers/API/Auth";
 import Axios from '../Axios'
 
 export default function ResetPassword() {
-    
-    const currentUser = getCurrentUser();
+
+    const currentUser = getCurrentUser().data;
 
     const [otp, setOtp] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState(false);
-    const [getOtp,setGetOtp] = useState();
-
-    useEffect( async () => {
-        let values = {}
-        if(currentUser && currentUser.phone) values.phone = currentUser.phone
-        if(currentUser && currentUser.email) values.email = currentUser.email
-        
-        const result = await Axios.post(
-                `${process.env.REACT_APP_API_URL}/user/force-register`,values);
-               
+    const [phoneEmail,setPhoneEmail] = useState()
+    const [getOtp, setGetOtp] = useState();
+    let values = {}
+    useEffect(async () => {
+        setPhoneEmail(currentUser.phone || currentUser.email)
     }, []);
 
-    function formSubmit(){
-        if(password === confirmPassword){
-            console.log("aaaaaaaaaa",otp,password,confirmPassword)
+
+    function isNumber(str){
+        if (typeof str !== 'string') {
+          return false;
         }
-        else{
-            notification('warning',"Password did not match")
+      
+        if (str.trim() === '') {
+          return false;
+        }
+      
+        return !Number.isNaN(Number(str));
+      }
+
+    async function sendOtpFun(){
+        console.log("xxxxxxx",phoneEmail)
+        let result
+        if(isNumber(phoneEmail))
+          result = await Axios.post(`${process.env.REACT_APP_API_URL}/user/request-reset-password`, {phone:phoneEmail});
+        else
+          result = await Axios.post(`${process.env.REACT_APP_API_URL}/user/request-reset-password`, {email:phoneEmail});
+        
+         if(result.data && result.data.status === 200) {
+            notification('success',`Your OTP has been send to ${phoneEmail}`)
+         }
+         else{
+            notification('warning', result.data.message)
+         }
+    }
+
+    function formSubmit() {
+        if (password === confirmPassword) {
+            let values = {
+                otp : otp,
+                password:password
+            }
+            if(isNumber(phoneEmail)) values.phone = phoneEmail
+            else values.email = phoneEmail
+            resetPassword(values)
+            .then((res) => {
+                if (res.status === 200) {
+                    notification('success',res.data.message)
+                }
+                else{
+                    notification('warning', res.data.message)
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+        else {
+            notification('warning', "Password did not match")
         }
     }
 
@@ -42,28 +83,56 @@ export default function ResetPassword() {
                     <div className="row justify-content-center">
                         <div className="col-md-8 right ">
                             <h3 className="text-center">Change Your Password</h3>
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    formSubmit();
-                                }}
-                            >
+
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                formSubmit()
+                            }}>
                                 <div className="row form-group  mt-5">
                                     <div className="col-md-4">
-                                        <label>OTP*</label>
+                                        {
+                                            currentUser.phone?
+                                            <label>Phone No.</label>
+                                            :
+                                            <label>Email</label>
+                                        }
+                                        
                                     </div>
                                     <div className="col-md-8">
                                         <div className="input-field">
                                             <input
+                                                id="phoneEmail"
+                                                type="text"
+                                                placeholder="Please Enter Your Response"
+                                                defaultValue={currentUser.phone || currentUser.email}
+                                                onChange={(e) => {
+                                                    setPhoneEmail(e.target.value);
+                                                }}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <label>OTP*</label>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="input-field">
+                                            <input
                                                 id="otp"
                                                 type="text"
-                                                placeholder="Please Enter the OTP"
+                                                placeholder="Enter the OTP"
                                                 onChange={(e) => {
                                                     setOtp(e.target.value);
                                                 }}
                                                 required
                                             />
                                         </div>
+                                    </div>
+                                    <div className="col-md-4 pt-2">
+                                        <button onClick={()=>sendOtpFun()}
+                                            type="button"
+                                            className="w-50 text-white  pb-2 pt-2 glow-on-hover">Get OTP</button>
+
                                     </div>
                                 </div>
 
@@ -120,6 +189,7 @@ export default function ResetPassword() {
                                     </div>
                                 </div>
                             </form>
+                       
                         </div>
 
                     </div>

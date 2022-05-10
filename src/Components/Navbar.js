@@ -234,13 +234,18 @@ export default function Navbar() {
                           </Link>
                         </li>
                         <li>
-                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/dashboard">
+                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/user-dashboard">
                             Dashboard
                           </Link>
                         </li>
                         <li>
                           <Link className="hover-effect-black" onClick={hideNavMenu} to="/user-profile">
                             Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/reset-password">
+                            Reset Password
                           </Link>
                         </li>
                         <li>

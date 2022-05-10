@@ -7,18 +7,16 @@ import menu from "../assets/images/icons/menu.webp";
 import logo from "../assets/images/logo.png";
 import city_bank_icon from "../assets/images/icons/city-bank-icon.png";
 import scb_bank_icon from "../assets/images/icons/scb-bank-icon.png";
-import {
-  removeCookies,
-  getCurrentUser,
-} from "../helpers/Cookies/Cookies";
+import { removeCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { ToastContainer } from "react-toastify";
 import { _trendingProduct } from "../helpers/Data/Products";
 import { useHistory } from "react-router-dom";
+import "../assets/js/external.js";
 
 export default function Navbar() {
   const currentUser = getCurrentUser();
-  let history = useHistory()
+  let history = useHistory();
   function showNavMenu() {
     var element = document.getElementById("open-nav");
     var element1 = document.getElementById("open-nav-item");
@@ -47,9 +45,29 @@ export default function Navbar() {
     notification("success", "Logout Successfully. Redirecting...");
     // setTimeout(function () {
     removeCookies("data", "/");
-    history.push('/');
+    history.push("/");
     // }, 1500);
   }
+
+  window.addEventListener("scroll", (event) => {
+    if (window.pageYOffset >= 20) {
+      document
+        .getElementById("navbar-main")
+        .classList.add("sticky-navbar-main");
+      document.getElementsByClassName("card-section-container")[0] &&
+        document
+          .getElementsByClassName("card-section-container")[0]
+          .classList.add("sticky-card-section-container");
+    } else {
+      document
+        .getElementById("navbar-main")
+        .classList.remove("sticky-navbar-main");
+      document.getElementsByClassName("card-section-container")[0] &&
+        document
+          .getElementsByClassName("card-section-container")[0]
+          .classList.remove("sticky-card-section-container");
+    }
+  });
 
   return (
     <>
@@ -91,8 +109,8 @@ export default function Navbar() {
             <div className="right-nav ">
               <ul className="d-flex justify-content-end">
                 {currentUser &&
-                  currentUser.data &&
-                  currentUser.data.is_verified ? (
+                currentUser.data &&
+                currentUser.data.is_verified ? (
                   <li className="phone-none">
                     <a className="hover-effect nav-item">
                       <img src={userLogo} alt="user" />
@@ -214,11 +232,10 @@ export default function Navbar() {
                   <ul>
                     <p className="h4 _title">Account</p>
 
-                    {
-                      currentUser &&
-                        currentUser.data &&
-                        currentUser.data.is_verified ?
-                        <>
+                    {currentUser &&
+                    currentUser.data &&
+                    currentUser.data.is_verified ? (
+                      <>
                         <li>
                           <Link
                             className="hover-effect-black"
@@ -234,33 +251,44 @@ export default function Navbar() {
                           </Link>
                         </li>
                         <li>
-                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/dashboard">
+                          <Link
+                            className="hover-effect-black"
+                            onClick={hideNavMenu}
+                            to="/dashboard"
+                          >
                             Dashboard
                           </Link>
                         </li>
                         <li>
-                          <Link className="hover-effect-black" onClick={hideNavMenu} to="/user-profile">
+                          <Link
+                            className="hover-effect-black"
+                            onClick={hideNavMenu}
+                            to="/user-profile"
+                          >
                             Profile
                           </Link>
                         </li>
                         <li>
-                          <a className="hover-effect-black"href="" onClick={signOutFun}>
+                          <a
+                            className="hover-effect-black"
+                            href=""
+                            onClick={signOutFun}
+                          >
                             Logout
                           </a>
                         </li>
-                        </>
-                        :
-                        <li>
-                          <Link
-                            className="hover-effect-black"
-                            to="/signin"
-                            onClick={hideNavMenu}
-                          >
-                            Login
-                          </Link>
-                        </li>
-                    }
-
+                      </>
+                    ) : (
+                      <li>
+                        <Link
+                          className="hover-effect-black"
+                          to="/signin"
+                          onClick={hideNavMenu}
+                        >
+                          Login
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                   <div className="close-btn">
                     <button onClick={hideNavMenu}>X</button>

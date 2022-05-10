@@ -254,7 +254,7 @@ export default function Navbar() {
                           <Link
                             className="hover-effect-black"
                             onClick={hideNavMenu}
-                            to="/dashboard"
+                            to="/user-dashboard"
                           >
                             Dashboard
                           </Link>
@@ -266,6 +266,15 @@ export default function Navbar() {
                             to="/user-profile"
                           >
                             Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="hover-effect-black"
+                            onClick={hideNavMenu}
+                            to="/reset-password"
+                          >
+                            Reset Password
                           </Link>
                         </li>
                         <li>

@@ -10,12 +10,12 @@
   width: 100%;
   height: 100%;
 }
-
-.application-form .right,
+.application-form .right, 
 .application-form .left div {
   background: #e3f4fc;
   padding: 10px;
   border: 35px solid #0b43769e;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
   border-radius: 6px;
 }
 .application-form .right h3 {
@@ -36,7 +36,7 @@
   margin-bottom: 0 !important;
 }
 .application-form .form-group label {
-  padding-left: 65px;
+  padding-left: 45px;
   line-height: 52px;
   color: #696969;
   font-size: 16px;
@@ -48,7 +48,7 @@
 }
 .application-form .form-group .input-field {
   height: 55px;
-  padding-right: 55px;
+  padding-right: 45px;
   padding-bottom: 5px;
   position: relative;
 }

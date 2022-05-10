@@ -15,7 +15,6 @@ import AutoLoan from '../pages/AutoLoan'
 import ComingSoon from '../pages/ComingSoon'
 import ResetPassword from "../pages/ResetPassword";
 import UserDashboard from "../pages/UserDashboard";
-import UserProfile from "../pages/UserProfile";
 import UpdateUserProfile from "../pages/UpdateUserProfile";
 
 export default function Section() {

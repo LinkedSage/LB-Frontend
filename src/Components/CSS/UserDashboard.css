@@ -1,0 +1,47 @@
+/*-----------------
+	1. User Dashboard page
+-----------------------*/
+.user-dashboard-page{
+	background: rgb(245, 245, 245);
+}
+.user-dashboard-page .application-sec{
+	width: 100%;
+	background: #fff;
+	padding: 30px 20px;
+}
+
+.user-dashboard-page .application-table {
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  .user-dashboard-page .application-table td, 
+  .user-dashboard-page .application-table th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 5px;
+	text-align: center;
+  }
+  
+  .user-dashboard-page .application-table tr:nth-child(even) {
+	background-color: #eeeeeed0;
+  }
+  .user-dashboard-page .application-table tr{
+	  transition: .3s ease-in-out;
+  }
+  .user-dashboard-page .application-table tr:first-child th{
+	  padding-top: 15px;
+	  padding-bottom: 15px;
+	  font-size: 18px;
+	  font-weight: 600;
+  }
+  .user-dashboard-page .application-table tr:hover:not(:first-child){
+	  background-color: #d6d6d6;
+  }
+  .application-sec .application-table button{
+	  background: var(--primary);
+	  color: #fff;
+  }
+  .application-sec .application-table button:hover{
+	  background-color: var(--hover);
+  }

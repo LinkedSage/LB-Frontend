@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../Components/CSS/Home.css";
@@ -17,6 +17,10 @@ export default function Home() {
   const [salary1, setSalary1] = useState();
   const [phoneNo, setPhoneNo] = useState();
   const [name, setName] = useState();
+
+  useEffect(() => {
+    console.log("xzzxxzxz",localStorage.getItem('Name'))
+  },[])
 
   function creditCardFun(e) {
     let salaryId = document.getElementById("salary");
@@ -129,9 +133,9 @@ export default function Home() {
                   </div>
                 </button>
                 <button className="h4 glow-on-hover"
-                onClick={() => {
-                  creditCardFun("personal-loan");
-                }}>
+                  onClick={() => {
+                    creditCardFun("personal-loan");
+                  }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -146,9 +150,9 @@ export default function Home() {
                   </div>
                 </button>
                 <button className="h4 glow-on-hover"
-                onClick={() => {
-                  creditCardFun("home-loan");
-                }}>
+                  onClick={() => {
+                    creditCardFun("home-loan");
+                  }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -163,9 +167,9 @@ export default function Home() {
                   </div>
                 </button>
                 <button className="h4 glow-on-hover"
-                onClick={() => {
-                  creditCardFun("auto-loan");
-                }}>
+                  onClick={() => {
+                    creditCardFun("auto-loan");
+                  }}>
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -190,27 +194,27 @@ export default function Home() {
 
       {/* Phone hero area  */}
       <div className="phone-hero-area phone-show pl-3 pr-3 ptb-50 ptb-sm-10">
-          <div className="content">
-            <div className="hero-group-btn d-flex justify-content-around flex-wrap">
-              {
-                _trendingProduct.map((item,key) => {
-                  return (
-                    <Link key={key} to={item.path} className="">
-                      <div className="single-product d-flex flex-column justify-content-center text-center">
-                          <svg viewBox="0 0 576 512">
-                            <path d={item.svgPath} />
-                          </svg>
-                        <p className="mt-2 h4">{item.name}</p>
-                        {/* <p className="text-muted">{item.description}</p>
+        <div className="content">
+          <div className="hero-group-btn d-flex justify-content-around flex-wrap">
+            {
+              _trendingProduct.map((item, key) => {
+                return (
+                  <Link key={key} to={item.path} className="">
+                    <div className="single-product d-flex flex-column justify-content-center text-center">
+                      <svg viewBox="0 0 576 512">
+                        <path d={item.svgPath} />
+                      </svg>
+                      <p className="mt-2 h4">{item.name}</p>
+                      {/* <p className="text-muted">{item.description}</p>
                         <p className="mt-2 h4">Read More &rarr;</p> */}
-                      </div>
-                    </Link>
-                  );
-                })
-              }
-             
-            </div>
+                    </div>
+                  </Link>
+                );
+              })
+            }
+
           </div>
+        </div>
       </div>
       {/* Hero area end */}
 
@@ -346,7 +350,10 @@ export default function Home() {
               <div className="_sub-title">
                 <hr />
               </div>
-              <form onSubmit={sendMsgFun}>
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                sendMsgFun()
+              }}>
                 <div className="help-us-form d-flex flex-wrap justify-content-between mt-5">
                   <div class="input-container w-100">
                     <input
@@ -431,7 +438,7 @@ export default function Home() {
       </div>
       {/* Our partners area end  */}
 
-      
+
     </section>
   );
 }

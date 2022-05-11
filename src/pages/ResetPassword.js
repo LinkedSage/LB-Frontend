@@ -152,6 +152,7 @@ export default function ResetPassword() {
                                                 onChange={(e) => {
                                                     setPassword(e.target.value);
                                                 }}
+                                                require
                                             />
                                         </div>
                                     </div>

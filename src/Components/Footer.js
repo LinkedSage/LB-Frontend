@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CSS/Footer.css";
 import logo from "../assets/images/Loaner-Bazar-white.png";
+import supportImg from '../assets/images/support.png'
 
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+
+
+  const [supportPopup, setSupportPopup] = useState(false)
+
+
   return (
     <>
       <section id="footer">
@@ -153,18 +159,40 @@ export default function Footer() {
           </Link>
 
           <div className="separator"></div>
-          <Link to="/support">
+          <a onClick={() => setSupportPopup(true)}>
             <div className="d-flex align-items-center flex-column">
               <span className="hero-icon">
                 <svg viewBox="0 0 576 512">
-                  <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" />
+                <svg viewBox="0 0 512 512"><path d="M191.1 224c0-17.72-14.34-32.04-32-32.04L144 192c-35.34 0-64 28.66-64 64.08v47.79C80 339.3 108.7 368 144 368H160c17.66 0 32-14.36 32-32.06L191.1 224zM256 0C112.9 0 4.583 119.1 .0208 256L0 296C0 309.3 10.75 320 23.1 320S48 309.3 48 296V256c0-114.7 93.34-207.8 208-207.8C370.7 48.2 464 141.3 464 256v144c0 22.09-17.91 40-40 40h-110.7C305 425.7 289.7 416 272 416H241.8c-23.21 0-44.5 15.69-48.87 38.49C187 485.2 210.4 512 239.1 512H272c17.72 0 33.03-9.711 41.34-24H424c48.6 0 88-39.4 88-88V256C507.4 119.1 399.1 0 256 0zM368 368c35.34 0 64-28.7 64-64.13V256.1C432 220.7 403.3 192 368 192l-16 0c-17.66 0-32 14.34-32 32.04L320 335.9C320 353.7 334.3 368 352 368H368z"/></svg>
                 </svg>
               </span>
               <p>Support</p>
             </div>
-          </Link>
+          </a>
         </div>
       </section>
+      {
+        supportPopup ?
+          <div className="support-container">
+            <button className="close-btn" onClick={() => setSupportPopup(false)}></button>
+            <div className="support-content">
+            <button className="btn-close" onClick={() => setSupportPopup(false)}>X</button>
+              <div className="content">
+                <img src={supportImg} className="mb-5" alt="support" />
+                <div className="bottom text-center">
+                  <h4>Need Help ?</h4>
+                  <p>Contact us for any Queries</p>
+                  <h2 className="mb-4 mt-4">01997766489</h2>
+                  <a href="tel:8801997766489" className="glowing-btn">
+                    <svg viewBox="0 0 512 512"><path d="M511.2 387l-23.25 100.8c-3.266 14.25-15.79 24.22-30.46 24.22C205.2 512 0 306.8 0 54.5c0-14.66 9.969-27.2 24.22-30.45l100.8-23.25C139.7-2.602 154.7 5.018 160.8 18.92l46.52 108.5c5.438 12.78 1.77 27.67-8.98 36.45L144.5 207.1c33.98 69.22 90.26 125.5 159.5 159.5l44.08-53.8c8.688-10.78 23.69-14.51 36.47-8.975l108.5 46.51C506.1 357.2 514.6 372.4 511.2 387z" /></svg>
+                    Let's talk
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          : null
+      }
     </>
   );
 }

@@ -98,7 +98,10 @@ export const resetPassword = async (values) => {
     console.log("vvvv", values)
     const result = await Axios.post(
         `${process.env.REACT_APP_API_URL}/user/reset-password`,values);
-       
+    if(result.data.status === 200){
+        setCookies('data', result.data.data, { path: '/' })
+        console.log('data.data,data.data',result,result.data.data)
+    }
     return result
 }
 

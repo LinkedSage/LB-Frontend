@@ -13,16 +13,14 @@ export default function UserDashboard() {
     const [application, setApplication] = useState([])
 
     useEffect(() => {
-        console.log("current", application)
         getApplicationFun(currentUser._id)
     }, [])
 
     function getApplicationFun(values) {
-        console.log("user     Data", values)
         getApplicationBYId(values)
             .then((res) => {
                 if (res.status === 200) {
-                    setApplication([res.data[15],res.data[16]])
+                    setApplication(res.data)
                     console.log(res.data)
                 }
             })
@@ -31,8 +29,8 @@ export default function UserDashboard() {
             });
     }
 
-    function setScheduleFun(applicationId,cardId){
-        console.log("Ids",applicationId,cardId)
+    function setScheduleFun(applicationId, cardId) {
+        console.log("Ids", applicationId, cardId)
     }
 
     return (
@@ -40,7 +38,7 @@ export default function UserDashboard() {
             <ToastContainer></ToastContainer>
             <div className="container">
                 {
-                    application && application.length === 1 ?
+                    application && application.length === 0 ?
                         <div className="row">
                             <div className="application-sec">
                                 <h2>You haven't applied for anything yet</h2>
@@ -61,24 +59,69 @@ export default function UserDashboard() {
                                         <th>Remarks</th>
                                     </tr>
                                     {
-                                        application.map((item,key) => {
+                                        application['carLoanApplications'] && application['carLoanApplications'].map((item, key) => {
                                             return (
                                                 <tr>
-                                                    <td>{key+1}.</td>
-                                                    <td>Credit Card</td>
-                                                    {
-                                                        item.card && item.card.name?
-                                                        <td>{item.card.name}</td>
-                                                        :<td>VISA SIGNATURE CREDIT CARD</td>
-                                                    }
-                                                    {
-                                                        item.status?
-                                                        <td>{item.status}</td>
-                                                        :null
-                                                    }
-                                                    
+                                                    <td>{key + 1}.</td>
+                                                    <td>Car Loan</td>
+                                                    <td>{item.card.name}</td>
+                                                    <td>{item.status}</td>
                                                     <td>
-                                                        <button className="btn" onClick={()=> setScheduleFun(item._id,item.card._id)}>Set Now</button>
+                                                        <button className="btn" onClick={() => setScheduleFun(item._id, item.card._id)}>Set Now</button>
+                                                    </td>
+                                                    <td>
+                                                        <Link to='/user-profile'>Update profile for quicker services</Link>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        application['creditCardApplications'] && application['creditCardApplications'].map((item, key) => {
+                                            return (
+                                                <tr>
+                                                    <td>{key + 1}.</td>
+                                                    <td>Credit Card</td>
+                                                    <td>{item.card.name}</td>
+                                                    <td>{item.status}</td>
+                                                    <td>
+                                                        <button className="btn" onClick={() => setScheduleFun(item._id, item.card._id)}>Set Now</button>
+                                                    </td>
+                                                    <td>
+                                                        <Link to='/user-profile'>Update profile for quicker services</Link>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        application['homeLoanApplications'] && application['homeLoanApplications'].map((item, key) => {
+                                            return (
+                                                <tr>
+                                                    <td>{key + 1}.</td>
+                                                    <td>Home Loan</td>
+                                                    <td>{item.card.name}</td>
+                                                    <td>{item.status}</td>
+                                                    <td>
+                                                        <button className="btn" onClick={() => setScheduleFun(item._id, item.card._id)}>Set Now</button>
+                                                    </td>
+                                                    <td>
+                                                        <Link to='/user-profile'>Update profile for quicker services</Link>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        application['personalLoanApplications'] && application['personalLoanApplications'].map((item, key) => {
+                                            return (
+                                                <tr>
+                                                    <td>{key + 1}.</td>
+                                                    <td>Personal Loan</td>
+                                                    <td>{item.card.name}</td>
+                                                    <td>{item.status}</td>
+                                                    <td>
+                                                        <button className="btn" onClick={() => setScheduleFun(item._id, item.card._id)}>Set Now</button>
                                                     </td>
                                                     <td>
                                                         <Link to='/user-profile'>Update profile for quicker services</Link>

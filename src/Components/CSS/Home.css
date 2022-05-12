@@ -40,23 +40,22 @@
   width: 200px !important;
 }
 
-
 /* mobile hero area  */
-.phone-hero-area{
-  background:  #f8f8f8;  
+.phone-hero-area {
+  background: #f8f8f8;
 }
-.hero-group-btn a{
+.hero-group-btn a {
   background: #fff;
-  padding:15px 10px;
+  padding: 15px 10px;
   margin-bottom: 15px;
   width: 30%;
   border-radius: 10px;
   border: 1px solid #e2e2e2;
 }
-.hero-group-btn a svg{
+.hero-group-btn a svg {
   height: 40px;
 }
-.hero-group-btn .single-product{
+.hero-group-btn .single-product {
 }
 /* Hero area css end  */
 
@@ -114,6 +113,7 @@
   width: 80px;
 }
 .statistics-area ._image svg {
+  width: 80%;
   fill: var(--white);
 }
 .statistics-area .col-md-8 p {

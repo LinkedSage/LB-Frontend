@@ -19,8 +19,8 @@ export default function Home() {
   const [name, setName] = useState();
 
   useEffect(() => {
-    console.log("xzzxxzxz",localStorage.getItem('Name'))
-  },[])
+    console.log("xzzxxzxz", localStorage.getItem("Name"));
+  }, []);
 
   function creditCardFun(e) {
     let salaryId = document.getElementById("salary");
@@ -34,20 +34,17 @@ export default function Home() {
           pathname: "/credit-card",
           state: { salary: salary, profession: profession },
         });
-      }
-      else if (e === "personal-loan") {
+      } else if (e === "personal-loan") {
         history.push({
           pathname: "/personal-loan",
           state: { salary: salary, profession: profession },
         });
-      }
-      else if (e === "home-loan") {
+      } else if (e === "home-loan") {
         history.push({
           pathname: "/home-loan",
           state: { salary: salary, profession: profession },
         });
-      }
-      else if (e === "auto-loan") {
+      } else if (e === "auto-loan") {
         history.push({
           pathname: "/auto-loan",
           state: { salary: salary, profession: profession },
@@ -132,10 +129,12 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover"
+                <button
+                  className="h4 glow-on-hover"
                   onClick={() => {
                     creditCardFun("personal-loan");
-                  }}>
+                  }}
+                >
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -149,10 +148,12 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover"
+                <button
+                  className="h4 glow-on-hover"
                   onClick={() => {
                     creditCardFun("home-loan");
-                  }}>
+                  }}
+                >
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -166,10 +167,12 @@ export default function Home() {
                     </p>
                   </div>
                 </button>
-                <button className="h4 glow-on-hover"
+                <button
+                  className="h4 glow-on-hover"
                   onClick={() => {
                     creditCardFun("auto-loan");
-                  }}>
+                  }}
+                >
                   <div className="d-flex align-items-center justify-content-start pl-3 text-left">
                     <span className="hero-icon">
                       <svg viewBox="0 0 576 512">
@@ -196,23 +199,20 @@ export default function Home() {
       <div className="phone-hero-area phone-show pl-3 pr-3 ptb-50 ptb-sm-10">
         <div className="content">
           <div className="hero-group-btn d-flex justify-content-around flex-wrap">
-            {
-              _trendingProduct.map((item, key) => {
-                return (
-                  <Link key={key} to={item.path} className="">
-                    <div className="single-product d-flex flex-column justify-content-center text-center">
-                      <svg viewBox="0 0 576 512">
-                        <path d={item.svgPath} />
-                      </svg>
-                      <p className="mt-2 h4">{item.name}</p>
-                      {/* <p className="text-muted">{item.description}</p>
+            {_trendingProduct.map((item, key) => {
+              return (
+                <Link key={key} to={item.path} className="">
+                  <div className="single-product d-flex flex-column justify-content-center text-center">
+                    <svg viewBox="0 0 576 512">
+                      <path d={item.svgPath} />
+                    </svg>
+                    <p className="mt-2 h4">{item.name}</p>
+                    {/* <p className="text-muted">{item.description}</p>
                         <p className="mt-2 h4">Read More &rarr;</p> */}
-                    </div>
-                  </Link>
-                );
-              })
-            }
-
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -254,8 +254,8 @@ export default function Home() {
             <div className="col-md-8 d-flex justify-content-around">
               <div className="d-flex align-items-center">
                 <div className="_image">
-                  <svg viewBox="0 0 576 512">
-                    <path d="M326.3 218.8c0 20.5-16.7 37.2-37.2 37.2h-70.3v-74.4h70.3c20.5 0 37.2 16.7 37.2 37.2zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-128.1-37.2c0-47.9-38.9-86.8-86.8-86.8H169.2v248h49.6v-74.4h70.3c47.9 0 86.8-38.9 86.8-86.8z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M243.4 2.587C251.4-.8625 260.6-.8625 268.6 2.587L492.6 98.59C506.6 104.6 514.4 119.6 511.3 134.4C508.3 149.3 495.2 159.1 479.1 160V168C479.1 181.3 469.3 192 455.1 192H55.1C42.74 192 31.1 181.3 31.1 168V160C16.81 159.1 3.708 149.3 .6528 134.4C-2.402 119.6 5.429 104.6 19.39 98.59L243.4 2.587zM256 128C273.7 128 288 113.7 288 96C288 78.33 273.7 64 256 64C238.3 64 224 78.33 224 96C224 113.7 238.3 128 256 128zM127.1 416H167.1V224H231.1V416H280V224H344V416H384V224H448V420.3C448.6 420.6 449.2 420.1 449.8 421.4L497.8 453.4C509.5 461.2 514.7 475.8 510.6 489.3C506.5 502.8 494.1 512 480 512H31.1C17.9 512 5.458 502.8 1.372 489.3C-2.715 475.8 2.515 461.2 14.25 453.4L62.25 421.4C62.82 420.1 63.41 420.6 63.1 420.3V224H127.1V416z" />
                   </svg>
                 </div>
                 <p className="m-auto">
@@ -265,8 +265,8 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-center">
                 <div className="_image">
-                  <svg viewBox="0 0 576 512">
-                    <path d="M326.3 218.8c0 20.5-16.7 37.2-37.2 37.2h-70.3v-74.4h70.3c20.5 0 37.2 16.7 37.2 37.2zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-128.1-37.2c0-47.9-38.9-86.8-86.8-86.8H169.2v248h49.6v-74.4h70.3c47.9 0 86.8-38.9 86.8-86.8z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M328.7 52.28L431.7 119.8C449.5 132.9 453.3 157.9 440.2 175.7C427.1 193.5 402.1 197.3 384.3 184.2L296.6 127.1H191.1C183.2 127.1 175.1 135.2 175.1 143.1C175.1 152.7 183.2 159.1 191.1 159.1H254.2C270.2 159.1 284.1 170.9 287.6 186.6C290.8 206.6 275.5 223.1 255.1 223.1H143.1C116.1 223.1 90.87 214.7 69.87 197.7L23.37 159.1L15.1 160C7.25 160 0 152.7 0 143.1V47.99C0 39.25 7.25 32 15.1 32H266.1C289 32 310.9 39.19 328.7 52.28L328.7 52.28zM151.3 459.7L16.27 360.2C-1.509 347.1-5.305 322.1 7.803 304.3C20.93 286.5 45.94 282.7 63.74 295.8L183.4 384H304C312.8 384 320 376.8 320 368C320 359.3 312.8 352 304 352H225.8C209.8 352 195 341.1 192.4 325.4C189.2 305.4 204.5 288 224 288H352C379 288 405.1 297.3 426.1 314.3L472.6 352L496 352C504.7 352 512 359.3 512 368V464C512 472.8 504.7 480 496 480H213C190.1 480 169.1 472.8 151.3 459.7V459.7z" />
                   </svg>
                 </div>
                 <p className="m-auto">
@@ -276,8 +276,8 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-center">
                 <div className="_image">
-                  <svg viewBox="0 0 576 512">
-                    <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z" />
                   </svg>
                 </div>
                 <p className="m-auto">
@@ -350,10 +350,12 @@ export default function Home() {
               <div className="_sub-title">
                 <hr />
               </div>
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                sendMsgFun()
-              }}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  sendMsgFun();
+                }}
+              >
                 <div className="help-us-form d-flex flex-wrap justify-content-between mt-5">
                   <div class="input-container w-100">
                     <input
@@ -437,8 +439,6 @@ export default function Home() {
         </div>
       </div>
       {/* Our partners area end  */}
-
-
     </section>
   );
 }

@@ -361,5 +361,26 @@ width: auto;
   .application-form .glow-on-hover {
     width: 100% !important;
   }
+  #copy-right {
+    padding-bottom: 65px !important;
+  }
+  ._container {
+    min-height: 465px;
+    height: 524px;
+  }
+
+  ._container .panel {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  ._container .signin-signup {
+    top: 465px;
+  }
+  ._container .title {
+    display: none;
+  }
+  #navbar-main {
+    border-bottom: 2px solid var(--yellow);
+  }
   /* Edited By Dev-Sharif ---------END */
 }

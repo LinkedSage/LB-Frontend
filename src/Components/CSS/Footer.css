@@ -68,7 +68,7 @@
   right: 0;
   height: 65px;
   background: #fff;
-  border-top: 2px solid var(--gray);
+  border-top: 2px solid var(--yellow);
   z-index: 11110;
 }
 
@@ -79,12 +79,12 @@
 }
 #footer-nav .content .hero-icon svg {
   height: 25px;
-  fill: var(--gray);
+  /* fill: var(--gray); */
 }
 #footer-nav .content p {
   margin-bottom: 0 !important;
 }
-.support-container{
+.support-container {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -96,14 +96,14 @@
   justify-content: center;
   align-items: center;
 }
-.support-container .close-btn{
+.support-container .close-btn {
   width: 100%;
   height: 100%;
   position: absolute;
   z-index: 11112;
   background: transparent;
 }
-.support-container .support-content{
+.support-container .support-content {
   background-color: #fff;
   height: 75vh;
   width: 90vw;
@@ -114,13 +114,13 @@
   align-items: center;
   position: relative;
 }
-.support-container .support-content .content{
+.support-container .support-content .content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.support-container .support-content .btn-close{
+.support-container .support-content .btn-close {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -130,15 +130,15 @@
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.411);
 }
-.support-container .support-content img{
+.support-container .support-content img {
   height: 150px;
 }
-.support-container .support-content svg{
+.support-container .support-content svg {
   height: 20px;
   margin-right: 10px;
   margin-bottom: -5px;
   fill: #fff;
 }
-.support-container .support-content .content a{
+.support-container .support-content .content a {
   padding: 10px 20px;
 }

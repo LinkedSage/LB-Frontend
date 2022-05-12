@@ -184,14 +184,24 @@ export default function CreditCard(data) {
     }
   }
 
-  function clearALlFun() {
-    console.log("aaaaaaaaaaaaa", currencyValue);
-    setCardShow(cardList.data);
-    document.getElementById("currency").value = null;
-    setCurrencyValue(null);
-    setCardNetworkValue(null);
-    setCardTypeValue(null);
-    // window.location.href = "/credit-card";
+  function clearALlFun(view) {
+    try {
+      setCardShow(cardList.data);
+      setCurrencyValue(null);
+      var _currency = document.getElementById("currency-" + view).children[2]
+        .firstChild.children[0];
+      _currency.innerHTML = "Currency";
+      setCardNetworkValue(null);
+      var _network = document.getElementById("network-" + view).children[2]
+        .firstChild.children[0];
+      _network.innerHTML = "Network";
+      setCardTypeValue(null);
+      var _type = document.getElementById("type-" + view).children[2].firstChild
+        .children[0];
+      _type.innerHTML = "Type";
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function findCardFun(e) {
@@ -204,8 +214,6 @@ export default function CreditCard(data) {
       salaryId.value = "";
     } else {
       salaryId.classList.remove("empty");
-      // location.state.profession = profession ;
-      // location.state.salary = salary;
       const result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/cards?profession=${profession}&salary=${salary}`
       );
@@ -276,7 +284,7 @@ export default function CreditCard(data) {
       ) : (
         <>
           <div className="card-section">
-            <div class="container card-section-container phone-card-section-container">
+            <div class=" phone-show container card-section-container phone-card-section-container">
               <div className="row">
                 <div className="mobile-view w-100 flex d-flex align-items-center justify-content-around filter-section ">
                   <div className="filter">
@@ -286,7 +294,7 @@ export default function CreditCard(data) {
                   </div>
                   <div className="single-dropdown">
                     <Select
-                      id="currency"
+                      id="currency-phone"
                       onChange={(e) => {
                         handleChangeCurrency(e);
                       }}
@@ -296,6 +304,7 @@ export default function CreditCard(data) {
                   </div>
                   <div className="single-dropdown">
                     <Select
+                      id="network-phone"
                       onChange={(e) => {
                         handleChangeCardNetwork(e);
                       }}
@@ -306,6 +315,7 @@ export default function CreditCard(data) {
 
                   <div className="single-dropdown">
                     <Select
+                      id="type-phone"
                       onChange={(e) => {
                         handleChangeCCardType(e);
                       }}
@@ -314,7 +324,12 @@ export default function CreditCard(data) {
                     />
                   </div>
 
-                  <p className="clear-filter mb-0" onClick={clearALlFun}>
+                  <p
+                    className="clear-filter mb-0"
+                    onClick={() => {
+                      clearALlFun("phone");
+                    }}
+                  >
                     &#x27F3;
                   </p>
                 </div>
@@ -345,7 +360,7 @@ export default function CreditCard(data) {
                     </div>
                     <div className="single-dropdown">
                       <Select
-                        id="currency"
+                        id="currency-desktop"
                         onChange={(e) => {
                           handleChangeCurrency(e);
                         }}
@@ -355,6 +370,7 @@ export default function CreditCard(data) {
                     </div>
                     <div className="single-dropdown">
                       <Select
+                        id="network-desktop"
                         onChange={(e) => {
                           handleChangeCardNetwork(e);
                         }}
@@ -363,15 +379,16 @@ export default function CreditCard(data) {
                       />
                     </div>
 
-                    <button
+                    {/* <button
                       className="clear-filter card-search-phone"
                       onClick={clearALlFun}
                     >
                       Reset
-                    </button>
+                    </button> */}
 
                     <div className="single-dropdown">
                       <Select
+                        id="type-desktop"
                         onChange={(e) => {
                           handleChangeCCardType(e);
                         }}
@@ -379,7 +396,7 @@ export default function CreditCard(data) {
                         placeholder="Card Type"
                       />
                     </div>
-                    <div className="card-search card-search-phone">
+                    {/* <div className="card-search card-search-phone">
                       <input
                         type="search"
                         name="search-form"
@@ -388,12 +405,14 @@ export default function CreditCard(data) {
                         placeholder="Search for..."
                         onChange={(e) => setSearchFun(e.target.value)}
                       />
-                    </div>
+                    </div> */}
                     <button
                       className="clear-filter card-search-pc mr-"
-                      onClick={clearALlFun}
+                      onClick={() => {
+                        clearALlFun("desktop");
+                      }}
                     >
-                      Reset
+                      Reset &#x27F3;
                     </button>
                   </div>
                   <div className="card-search ml-4 card-search-pc">

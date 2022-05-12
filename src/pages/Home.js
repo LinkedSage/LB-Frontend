@@ -7,7 +7,7 @@ import { _trendingProduct } from "../helpers/Data/Products";
 import wc from "../assets/images/icons/wide choice.png";
 import secure from "../assets/images/icons/secure.png";
 import support from "../assets/images/icons/support.png";
-
+import PreloaderPage from '../Components/PreloaderSection'
 export default function Home() {
   let history = useHistory();
 
@@ -71,7 +71,9 @@ export default function Home() {
       console.log("value", values);
     }
   }
+  let f= true;
 
+  if(f)
   return (
     <section id="homePage">
       {/* Hero area start */}
@@ -441,4 +443,8 @@ export default function Home() {
 
     </section>
   );
+
+  else return(
+    <PreloaderPage />
+  )
 }

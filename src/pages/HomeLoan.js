@@ -6,6 +6,7 @@ import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
 import { HomeLoanPhone } from "../Components/HomeLoanPhone";
 import { useLocation } from "react-router-dom";
+import PreloaderPage from "../Components/PreloaderPage";
 
 export default function CreditCard(data) {
   
@@ -18,10 +19,10 @@ export default function CreditCard(data) {
   const [salary, setSalary] = useState();
   const [profession, setProfession] = useState('salaried');
   const [professionSalary, setProfessionSalary] = useState(false);
-
+  const [preloader,setPreloader] = useState(false)
 
   useEffect(async () => {
-
+    setPreloader(true)
     if (location.state && location.state.profession && location.state.salary) {
     let result = await Axios.get(
       `${process.env.REACT_APP_API_URL}/homeloans`);
@@ -34,7 +35,7 @@ export default function CreditCard(data) {
       setProfessionSalary(true)
     }
 
-
+    setPreloader(false)
   }, []);
 
   const currency = [
@@ -139,17 +140,25 @@ export default function CreditCard(data) {
     }
     else {
       salaryId.classList.remove("empty");
+      
+      setPreloader(true)
       const result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/homeloans?profession=${profession}&salary=${salary}`);
       setCardList(result.data);
       setCardShow(result.data.data);
 
       setProfessionSalary(false)
+      setPreloader(false)
     }
   }
 
   return (
     <section id="credit-card-page">
+      {
+        preloader?
+        <PreloaderPage />
+        :null
+      }
       <ToastContainer></ToastContainer>
       {
         professionSalary ?
@@ -277,6 +286,7 @@ export default function CreditCard(data) {
                     <div className="row card-section-pc group-card pb-50 pt-3">
                       {cardShow
                         ? cardShow.map((item, key) => {
+                          item.state = location.state
                           return (
                             <div
                               key={key}
@@ -304,6 +314,7 @@ export default function CreditCard(data) {
                     <div className="phone-card-group">
                       {cardShow
                         ? cardShow.map((item, key) => {
+                          item.state = location.state
                           return (
                             <HomeLoanPhone cardDetails={item} key={key} />
                           )

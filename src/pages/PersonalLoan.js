@@ -7,6 +7,7 @@ import "../Components/CSS/CreditCard.css";
 import { CadrDetails } from "../Components/CadrDetails";
 import { PersonalLoanPhone } from "../Components/PersonalLoanPhone";
 import { useLocation } from "react-router-dom";
+import PreloaderPage from '../Components/PreloaderPage'
 
 export default function CreditCard(data) {
   
@@ -19,9 +20,10 @@ export default function CreditCard(data) {
   const [salary, setSalary] = useState();
   const [profession, setProfession] = useState('salaried');
   const [professionSalary, setProfessionSalary] = useState(false);
-
+  const [preloader,setPreloader] = useState(false)
 
   useEffect(async () => {
+    setPreloader(true)
     console.log("state",location.state)
     if (location.state && location.state.profession && location.state.salary) {
     let result = await Axios.get(
@@ -35,7 +37,7 @@ export default function CreditCard(data) {
       setProfessionSalary(true)
     }
 
-
+    setPreloader(false)
   }, []);
 
   const currency = [
@@ -156,17 +158,24 @@ export default function CreditCard(data) {
       salaryId.classList.remove("empty");
       // location.state.profession = profession ;
       // location.state.salary = salary;
+      setPreloader(true)
       const result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/personalloans?profession=${profession}&salary=${salary}`);
       setCardList(result.data);
       setCardShow(result.data.data);
 
       setProfessionSalary(false)
+      setPreloader(false)
     }
   }
 
   return (
     <section id="credit-card-page">
+      {
+        preloader?
+        <PreloaderPage />
+        :null
+      }
       <ToastContainer></ToastContainer>
       {
         professionSalary ?
@@ -294,6 +303,7 @@ export default function CreditCard(data) {
                     <div className="row card-section-pc group-card pb-50 pt-3">
                       {cardShow
                         ? cardShow.map((item, key) => {
+                          item.state = location.state
                           return (
                             <div
                               key={key}
@@ -321,6 +331,7 @@ export default function CreditCard(data) {
                     <div className="phone-card-group">
                       {cardShow
                         ? cardShow.map((item, key) => {
+                          item.state = location.state
                           return (
                             <PersonalLoanPhone cardDetails={item} key={key} />
                           )

@@ -2,11 +2,10 @@ import { CarLoanDetails } from "../Components/CarLoanDetails";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import Axios from "../Axios";
-import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
-import { CadrDetails } from "../Components/CadrDetails";
 import { CarLoanPhone } from "../Components/CarLoanPhone";
 import { useLocation } from "react-router-dom";
+import PreloaderPage from '../Components/PreloaderPage'
 
 export default function CreditCard(data) {
   
@@ -19,10 +18,10 @@ export default function CreditCard(data) {
   const [salary, setSalary] = useState();
   const [profession, setProfession] = useState('salaried');
   const [professionSalary, setProfessionSalary] = useState(false);
-
+  const [preloader,setPreloader] = useState(false)
 
   useEffect(async () => {
-    
+    setPreloader(true)
     if (location.state && location.state.profession && location.state.salary) {
     let result = await Axios.get(
       `${process.env.REACT_APP_API_URL}/carloans`);
@@ -33,9 +32,8 @@ export default function CreditCard(data) {
     }
     else{
       setProfessionSalary(true)
-    }
-
-
+    } 
+    setPreloader(false)
   }, []);
 
   const currency = [
@@ -153,20 +151,25 @@ export default function CreditCard(data) {
       salaryId.value = "";
     }
     else {
+      setPreloader(true)
       salaryId.classList.remove("empty");
-      // location.state.profession = profession ;
-      // location.state.salary = salary;
       const result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/personalloans?profession=${profession}&salary=${salary}`);
       setCardList(result.data);
       setCardShow(result.data.data);
 
       setProfessionSalary(false)
+      setPreloader(false)
     }
   }
 
   return (
     <section id="credit-card-page">
+      {
+        preloader?
+        <PreloaderPage />
+        :null
+      }
       <ToastContainer></ToastContainer>
       {
         professionSalary ?
@@ -294,6 +297,7 @@ export default function CreditCard(data) {
                     <div className="row card-section-pc group-card pb-50 pt-3">
                       {cardShow
                         ? cardShow.map((item, key) => {
+                          item.state = location.state
                           return (
                             <div
                               key={key}
@@ -321,6 +325,7 @@ export default function CreditCard(data) {
                     <div className="phone-card-group">
                       {cardShow
                         ? cardShow.map((item, key) => {
+                          item.state = location.state
                           return (
                             <CarLoanPhone cardDetails={item} key={key} />
                           )

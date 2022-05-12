@@ -10,11 +10,12 @@ import {
   onSubmitLogin,
   userUpdate,
 } from "../helpers/API/Auth";
-import { cardApplicationAdd } from "../helpers/API/Application";
+import { HomeLoanApplicationAdd } from "../helpers/API/Application";
 import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById } from "../helpers/API/Product";
+import PreloaderPage from "../Components/PreloaderPage";
 
 export default function Home() {
   let location = useLocation();
@@ -35,6 +36,7 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
+  const [preloader,setPreloader] = useState(false)
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -76,8 +78,11 @@ export default function Home() {
       if (temp && temp.city) setCityFun(temp.city);
     }
 
-    if (location.state && location.state.cardDetails)
+    if (location.state && location.state.cardDetails){
       setCardInfo(location.state.cardDetails);
+      if(location.state.cardDetails.state && location.state.cardDetails.state.salary)
+      setSalary(location.state.cardDetails.state.salary)
+    }
     else {
       let value = location.pathname.split("/");
       getCardById(value[2])
@@ -103,6 +108,7 @@ export default function Home() {
   }
 
   function checkIsExist(value) {
+    setPreloader(true)
     isExistUser(value)
       .then((res) => {
         if (res.status === 200) {
@@ -128,6 +134,8 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+      
+    setPreloader(false)
   }
 
   function applicationFormSubmit() {
@@ -273,6 +281,7 @@ export default function Home() {
       };
       document.getElementById("otp").classList.remove("empty");
 
+      setPreloader(true)
       verifyOTP(values)
         .then((res) => {
           console.log("xxx",res);
@@ -291,26 +300,32 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         });
+        
+    setPreloader(false)
       //
     } else document.getElementById("otp").classList.add("empty");
   }
 
   function applicationSubmitFun(value) {
     let tempValue = userData
-    console.log("cccaaaaaaaa", tempValue);
+   
+    
+    setPreloader(true)
+    console.log("ppreloader", preloader, tempValue);
     userUpdate(tempValue,value)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
 
-    cardApplicationAdd(value)
+      HomeLoanApplicationAdd(value)
       .then((res1) => {
         if (res1.status === 200) {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
+          setPreloader(true)
           setTimeout(() => {
-            
+            window.location.href = "/user-dashboard";
            }, 1000);
         } else {
           notification("fail", res1.message);
@@ -319,6 +334,8 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+      
+    setPreloader(true)
   }
 
   function loginFun() {

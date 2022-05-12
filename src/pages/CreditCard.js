@@ -5,8 +5,8 @@ import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
 import { CadrDetails } from "../Components/CadrDetails";
 import { CardDetailsPhone } from "../Components/CardDetailsPhone";
-
 import { useLocation } from "react-router-dom";
+import PreloaderPage from '../Components/PreloaderPage'
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -19,10 +19,11 @@ export default function CreditCard(data) {
   const [salary, setSalary] = useState();
   const [profession, setProfession] = useState("salaried");
   const [professionSalary, setProfessionSalary] = useState(false);
+  const [preloader,setPreloader] = useState(false)
 
   useEffect(async () => {
     let result;
-
+    setPreloader(true)
     if (location.state && location.state.profession && location.state.salary) {
       result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/cards?profession=${location.state.profession}&salary=${location.state.salary}`
@@ -32,6 +33,7 @@ export default function CreditCard(data) {
     } else {
       setProfessionSalary(true);
     }
+    setPreloader(false)
   }, []);
 
   const currency = [
@@ -206,6 +208,7 @@ export default function CreditCard(data) {
       salaryId.classList.remove("empty");
       // location.state.profession = profession ;
       // location.state.salary = salary;
+      setPreloader(true)
       const result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/cards?profession=${profession}&salary=${salary}`
       );
@@ -213,11 +216,17 @@ export default function CreditCard(data) {
       setCardShow(result.data.data);
 
       setProfessionSalary(false);
+      setPreloader(false)
     }
   }
 
   return (
     <section id="credit-card-page">
+      {
+        preloader?
+        <PreloaderPage />
+        :null
+      }
       <ToastContainer></ToastContainer>
       {professionSalary ? (
         <div className="profession-salary">

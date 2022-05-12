@@ -15,6 +15,7 @@ import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById } from "../helpers/API/Product";
+import PreloaderPage from "../Components/PreloaderPage";
 
 export default function Home() {
   let location = useLocation();
@@ -35,6 +36,7 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
+  const [preloader,setPreloader] =useState(false)
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -98,6 +100,7 @@ export default function Home() {
   }
 
   function checkIsExist(value) {
+    setPreloader(true)
     isExistUser(value)
       .then((res) => {
         if (res.status === 200) {
@@ -123,6 +126,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+      setPreloader(false)
   }
 
   function applicationFormSubmit() {
@@ -135,7 +139,7 @@ export default function Home() {
       email: email,
     };
     if (profession === "salaried") value["organization"] = organization;
-
+    console.log("saDDSA",value)
     setUserData({
       name: name,
       phone: phone,
@@ -171,8 +175,8 @@ export default function Home() {
         cardId: cardInfo._id,
         token: token,
       };
-      console.log("value", values);
-      applicationSubmitFun(values);
+      console.log("vallue", values);
+      applicationSubmitFun(value,values);
     } else {
       if (
         name &&
@@ -290,10 +294,10 @@ export default function Home() {
     } else document.getElementById("otp").classList.add("empty");
   }
 
-  function applicationSubmitFun(value) {
-    let tempValue = userData
-    console.log("cccaaaaaaaa", tempValue);
-    userUpdate(tempValue,value)
+  function applicationSubmitFun(updatedData,value) {
+    setPreloader(true)
+    console.log("cccaaaaaaaa", updatedData,value);
+    userUpdate(updatedData,value)
       .then((res) => {
         console.log(res);
       })
@@ -314,6 +318,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+    setPreloader(false)
   }
 
   function loginFun() {
@@ -351,6 +356,11 @@ export default function Home() {
   return (
     <section id="application-page">
       <ToastContainer></ToastContainer>
+      {
+        preloader?
+        <PreloaderPage />
+        :null
+      }
       <div className="application-form">
         <div className="container">
           <div className="row justify-content-center">

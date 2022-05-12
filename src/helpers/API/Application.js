@@ -26,6 +26,6 @@ export const personalLoanApplicationAdd = async (values) => {
 export const getApplicationBYId = async (values) => {
     console.log("vvvv", values)
     const result = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/creditcardapplications/users/${values}`);
+        `${process.env.REACT_APP_API_URL}/applications/users/${values}`);
     return result.data
 }

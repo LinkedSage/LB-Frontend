@@ -125,7 +125,8 @@ h6,
 
 a:hover,
 a:active,
-a:focus {
+a:focus,
+a:not([href]):not([tabindex]) {
   text-decoration: none;
   color: #009ce7;
   outline: none;

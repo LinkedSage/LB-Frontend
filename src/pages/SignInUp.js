@@ -137,7 +137,7 @@ export default function SignInUp() {
           notification("success", "Login Successfully. Redirecting.. ");
           setTimeout(() => {
             window.location.href = "/";
-          }, 1500);
+          }, 1000);
         } else {
           notification("fail", res.message);
         }

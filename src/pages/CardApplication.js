@@ -305,8 +305,8 @@ export default function Home() {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
           setTimeout(() => {
-            
-           }, 1000);
+            window.location.href = "/user-dashboard";
+          }, 1000);
         } else {
           notification("fail", res1.message);
         }

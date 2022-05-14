@@ -76,6 +76,9 @@ h6,
 svg {
   fill: var(--primary);
 }
+.empty-card-msg svg {
+  width: 50px;
+}
 a p {
   color: var(--black);
 }

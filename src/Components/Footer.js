@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import "./CSS/Footer.css";
 import logo from "../assets/images/Loaner-Bazar-white.png";
-import supportImg from '../assets/images/support.png'
+import supportImg from "../assets/images/support.png";
 
 import { Link } from "react-router-dom";
 
 export default function Footer() {
-
-
-  const [supportPopup, setSupportPopup] = useState(false)
-
+  const [supportPopup, setSupportPopup] = useState(false);
 
   return (
     <>
@@ -27,17 +24,17 @@ export default function Footer() {
                       <svg viewBox="0 0 384 512">
                         <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                       </svg>
-                      <span>House-5A Rd 137, Dhaka 1212</span>
+                      <span>House-5A Rd 137, Gulshan-1, Dhaka 1212</span>
                     </div>
                   </Link>
                 </li>
                 <li>
-                  <a href="tel:8801997766489">
+                  <a href="tel:88+880 1729058150">
                     <div className="icon">
                       <svg viewBox="0 0 512 512">
                         <path d="M511.2 387l-23.25 100.8c-3.266 14.25-15.79 24.22-30.46 24.22C205.2 512 0 306.8 0 54.5c0-14.66 9.969-27.2 24.22-30.45l100.8-23.25C139.7-2.602 154.7 5.018 160.8 18.92l46.52 108.5c5.438 12.78 1.77 27.67-8.98 36.45L144.5 207.1c33.98 69.22 90.26 125.5 159.5 159.5l44.08-53.8c8.688-10.78 23.69-14.51 36.47-8.975l108.5 46.51C506.1 357.2 514.6 372.4 511.2 387z" />
                       </svg>
-                      +880 199 776 1111
+                      +880 1729058150
                     </div>
                   </a>
                 </li>
@@ -61,13 +58,84 @@ export default function Footer() {
               </div>
               <ul>
                 <li>
-                  <Link to="/">Link 1</Link>
+                  <Link
+                    to={{
+                      pathname: "/credit-card",
+                      state: { bank: "The City Bank" },
+                    }}
+                  >
+                    TCB Credit Card
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/">Link 2</Link>
+                  <Link
+                    to={{
+                      pathname: "/credit-card",
+                      state: { bank: "Standard Chartered Bank" },
+                    }}
+                  >
+                    SCB Credit Card
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/">Link 3</Link>
+                  <Link
+                    to={{
+                      pathname: "/personal-loan",
+                      state: { bank: "The City Bank" },
+                    }}
+                  >
+                    TCB Personal Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={{
+                      pathname: "/personal-loan",
+                      state: { bank: "Standard Chartered Bank" },
+                    }}
+                  >
+                    SCB Personal Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={{
+                      pathname: "/home-loan",
+                      state: { bank: "The City Bank" },
+                    }}
+                  >
+                    TCB Home Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={{
+                      pathname: "/home-loan",
+                      state: { bank: "Standard Chartered Bank" },
+                    }}
+                  >
+                    SCB Home Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={{
+                      pathname: "/auto-loan",
+                      state: { bank: "The City Bank" },
+                    }}
+                  >
+                    TCB Auto Loan
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={{
+                      pathname: "/auto-loan",
+                      state: { bank: "Standard Chartered Bank" },
+                    }}
+                  >
+                    SCB Auto Loan
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -78,40 +146,31 @@ export default function Footer() {
               </div>
               <ul className="d-flex justify-content-start">
                 <li>
-                  <Link to="/">
+                  <a href="https://www.facebook.com/LoanerBazar/" target="_blank" rel="noreferrer">
                     <div className="social-icon">
                       <svg viewBox="0 0 320 512">
                         <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" />
                       </svg>
                     </div>
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">
+                  <a href="https://www.instagram.com/loanerbazar/" target="_blank" rel="noreferrer">
                     <div className="social-icon">
                       <svg viewBox="0 0 448 512">
                         <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
                       </svg>
                     </div>
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">
-                    <div className="social-icon">
-                      <svg viewBox="0 0 512 512">
-                        <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
-                      </svg>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
+                  <a href="https://www.linkedin.com/company/loaner-bazar/?viewAsMember=true" target="_blank" rel="noreferrer">
                     <div className="social-icon">
                       <svg viewBox="0 0 448 512">
                         <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" />
                       </svg>
                     </div>
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -163,7 +222,9 @@ export default function Footer() {
             <div className="d-flex align-items-center flex-column">
               <span className="hero-icon">
                 <svg viewBox="0 0 576 512">
-                <svg viewBox="0 0 512 512"><path d="M191.1 224c0-17.72-14.34-32.04-32-32.04L144 192c-35.34 0-64 28.66-64 64.08v47.79C80 339.3 108.7 368 144 368H160c17.66 0 32-14.36 32-32.06L191.1 224zM256 0C112.9 0 4.583 119.1 .0208 256L0 296C0 309.3 10.75 320 23.1 320S48 309.3 48 296V256c0-114.7 93.34-207.8 208-207.8C370.7 48.2 464 141.3 464 256v144c0 22.09-17.91 40-40 40h-110.7C305 425.7 289.7 416 272 416H241.8c-23.21 0-44.5 15.69-48.87 38.49C187 485.2 210.4 512 239.1 512H272c17.72 0 33.03-9.711 41.34-24H424c48.6 0 88-39.4 88-88V256C507.4 119.1 399.1 0 256 0zM368 368c35.34 0 64-28.7 64-64.13V256.1C432 220.7 403.3 192 368 192l-16 0c-17.66 0-32 14.34-32 32.04L320 335.9C320 353.7 334.3 368 352 368H368z"/></svg>
+                  <svg viewBox="0 0 512 512">
+                    <path d="M191.1 224c0-17.72-14.34-32.04-32-32.04L144 192c-35.34 0-64 28.66-64 64.08v47.79C80 339.3 108.7 368 144 368H160c17.66 0 32-14.36 32-32.06L191.1 224zM256 0C112.9 0 4.583 119.1 .0208 256L0 296C0 309.3 10.75 320 23.1 320S48 309.3 48 296V256c0-114.7 93.34-207.8 208-207.8C370.7 48.2 464 141.3 464 256v144c0 22.09-17.91 40-40 40h-110.7C305 425.7 289.7 416 272 416H241.8c-23.21 0-44.5 15.69-48.87 38.49C187 485.2 210.4 512 239.1 512H272c17.72 0 33.03-9.711 41.34-24H424c48.6 0 88-39.4 88-88V256C507.4 119.1 399.1 0 256 0zM368 368c35.34 0 64-28.7 64-64.13V256.1C432 220.7 403.3 192 368 192l-16 0c-17.66 0-32 14.34-32 32.04L320 335.9C320 353.7 334.3 368 352 368H368z" />
+                  </svg>
                 </svg>
               </span>
               <p>Support</p>
@@ -171,28 +232,36 @@ export default function Footer() {
           </a>
         </div>
       </section>
-      {
-        supportPopup ?
-          <div className="support-container">
-            <button className="close-btn" onClick={() => setSupportPopup(false)}></button>
-            <div className="support-content">
-            <button className="btn-close" onClick={() => setSupportPopup(false)}>X</button>
-              <div className="content">
-                <img src={supportImg} className="mb-5" alt="support" />
-                <div className="bottom text-center">
-                  <h4>Need Help ?</h4>
-                  <p>Contact us for any Queries</p>
-                  <h2 className="mb-4 mt-4">01997766489</h2>
-                  <a href="tel:8801997766489" className="glowing-btn">
-                    <svg viewBox="0 0 512 512"><path d="M511.2 387l-23.25 100.8c-3.266 14.25-15.79 24.22-30.46 24.22C205.2 512 0 306.8 0 54.5c0-14.66 9.969-27.2 24.22-30.45l100.8-23.25C139.7-2.602 154.7 5.018 160.8 18.92l46.52 108.5c5.438 12.78 1.77 27.67-8.98 36.45L144.5 207.1c33.98 69.22 90.26 125.5 159.5 159.5l44.08-53.8c8.688-10.78 23.69-14.51 36.47-8.975l108.5 46.51C506.1 357.2 514.6 372.4 511.2 387z" /></svg>
-                    Let's talk
-                  </a>
-                </div>
+      {supportPopup ? (
+        <div className="support-container">
+          <button
+            className="close-btn"
+            onClick={() => setSupportPopup(false)}
+          ></button>
+          <div className="support-content">
+            <button
+              className="btn-close"
+              onClick={() => setSupportPopup(false)}
+            >
+              X
+            </button>
+            <div className="content">
+              <img src={supportImg} className="mb-5" alt="support" />
+              <div className="bottom text-center">
+                <h4>Need Help ?</h4>
+                <p>Contact us for any Queries</p>
+                <h2 className="mb-4 mt-4">+880 1729058150</h2>
+                <a href="tel:88+880 1729058150" className="glowing-btn">
+                  <svg viewBox="0 0 512 512">
+                    <path d="M511.2 387l-23.25 100.8c-3.266 14.25-15.79 24.22-30.46 24.22C205.2 512 0 306.8 0 54.5c0-14.66 9.969-27.2 24.22-30.45l100.8-23.25C139.7-2.602 154.7 5.018 160.8 18.92l46.52 108.5c5.438 12.78 1.77 27.67-8.98 36.45L144.5 207.1c33.98 69.22 90.26 125.5 159.5 159.5l44.08-53.8c8.688-10.78 23.69-14.51 36.47-8.975l108.5 46.51C506.1 357.2 514.6 372.4 511.2 387z" />
+                  </svg>
+                  Let's talk
+                </a>
               </div>
             </div>
           </div>
-          : null
-      }
+        </div>
+      ) : null}
     </>
   );
 }

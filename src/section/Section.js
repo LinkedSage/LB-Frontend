@@ -30,7 +30,7 @@ export default function Section() {
       <Route exact path = '/card-application/:id' component={CardApplication}/>
       <Route exact path = '/personal-loan-application/:id' component={PersonalLoanApplication}/>
       <Route exact path = '/home-loan-application/:id' component={HomeLoanApplication}/>
-      <Route exact path = '/car-loan-application/:id' component={AutoLoanApplication}/>
+      <Route exact path = '/auto-loan-application/:id' component={AutoLoanApplication}/>
 
 
       <Route exact path = '/coming-soon' component={ComingSoon} />

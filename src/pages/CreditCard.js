@@ -5,7 +5,6 @@ import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
 import { CadrDetails } from "../Components/CadrDetails";
 import { CardDetailsPhone } from "../Components/CardDetailsPhone";
-
 import { useLocation } from "react-router-dom";
 
 export default function CreditCard(data) {
@@ -22,7 +21,7 @@ export default function CreditCard(data) {
 
   useEffect(async () => {
     let result;
-
+    console.log(location);
     if (location.state && location.state.profession && location.state.salary) {
       result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/cards?profession=${location.state.profession}&salary=${location.state.salary}`
@@ -32,7 +31,7 @@ export default function CreditCard(data) {
     } else {
       setProfessionSalary(true);
     }
-  }, []);
+  }, [location.state]);
 
   const currency = [
     { value: "Dual", label: "Dual" },
@@ -215,7 +214,11 @@ export default function CreditCard(data) {
     } else {
       salaryId.classList.remove("empty");
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/cards?profession=${profession}&salary=${salary}`
+        `${
+          process.env.REACT_APP_API_URL
+        }/cards?profession=${profession}&salary=${salary}&&bank=${
+          location.state&&location.state.bank || ""
+        }`
       );
       setCardList(result.data);
       setCardShow(result.data.data);

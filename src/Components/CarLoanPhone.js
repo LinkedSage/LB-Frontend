@@ -91,7 +91,7 @@ export const CarLoanPhone = ({ cardDetails }) => {
           <Link
             id="apply-now-btn" onClick={() => cardNavButtonFun(0)}
             to={{
-              pathname: `/car-loan-application/${cardDetails._id}`,
+              pathname: `/auto-loan-application/${cardDetails._id}`,
               state: { cardDetails },
             }}
           >

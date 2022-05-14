@@ -319,8 +319,9 @@ export default function Home() {
                   <span className="sub-title">Wide Choice</span>
                 </p>
                 <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
+                  There's variety of cards and loans available from different
+                  national and international banks.You can choose one by your
+                  own.
                 </p>
               </div>
               <div className="align-items-center pt-3">
@@ -329,8 +330,8 @@ export default function Home() {
                   <span className="sub-title">Safe & Secure</span>
                 </p>
                 <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
+                  Your Shared information is 100% encrypted by our System and we
+                  are always bound to keep these secret.
                 </p>
               </div>
               <div className="align-items-center pt-3">
@@ -338,10 +339,7 @@ export default function Home() {
                   <img src={support}></img>
                   <span className="sub-title">24*7 Supporrt</span>
                 </p>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                </p>
+                <p>24X7 hours support by our genious Telesells agent. </p>
               </div>
               <div className="vl"></div>
             </div>

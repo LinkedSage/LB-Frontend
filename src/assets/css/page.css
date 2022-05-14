@@ -73,6 +73,15 @@ h6,
 .h6 {
   font-size: 0.75rem;
 }
+svg {
+  fill: var(--primary);
+}
+.empty-card-msg svg {
+  width: 50px;
+}
+a p {
+  color: var(--black);
+}
 ._title {
   position: relative;
   z-index: 1;
@@ -582,16 +591,6 @@ input::-webkit-inner-spin-button {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 /* coming soon page css  */
 .coming-soon .page {
   background: #f1f1f1;
@@ -601,16 +600,17 @@ input::-webkit-inner-spin-button {
 
 .coming-soon .col {
   flex: 1;
-  height:calc(100vh - 150px);
+  height: calc(100vh - 150px);
   position: relative;
 }
 
-.coming-soon  .countdown-col {
-  background: url(https://fadzrinmadu.github.io/hosted-assets/responsive-coming-soon-page-with-awesome-newsletter-html-css-and-js/bg.png) no-repeat center;
+.coming-soon .countdown-col {
+  background: url(https://fadzrinmadu.github.io/hosted-assets/responsive-coming-soon-page-with-awesome-newsletter-html-css-and-js/bg.png)
+    no-repeat center;
   background-size: cover;
 }
 
-.coming-soon  .time {
+.coming-soon .time {
   color: #fff;
   text-transform: uppercase;
   width: 90%;
@@ -618,18 +618,18 @@ input::-webkit-inner-spin-button {
   justify-content: center;
 }
 
-.coming-soon  .middle {
+.coming-soon .middle {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
-.coming-soon  .middle h2{
+.coming-soon .middle h2 {
   color: #fff;
 }
 
-.coming-soon  .time span {
+.coming-soon .time span {
   padding: 0 14px;
   font-size: 13px;
 }
@@ -647,7 +647,8 @@ input::-webkit-inner-spin-button {
   font-size: 14px;
 }
 
-.coming-soon .newslatter input, .coming-soon .newslatter button {
+.coming-soon .newslatter input,
+.coming-soon .newslatter button {
   display: block;
   margin: 12px auto;
   width: 100%;
@@ -669,7 +670,6 @@ input::-webkit-inner-spin-button {
 .coming-soon .newslatter-button:hover {
   opacity: 0.7;
 }
-
 
 @media screen and (max-width: 900px) {
   .col {

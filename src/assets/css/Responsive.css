@@ -219,7 +219,7 @@
   .profession-salary .row form {
     background: var(--white);
     padding: 10px;
-    border: 35px solid var(--primary);
+    border: 25px solid var(--primary);
   }
   .profession-salary .row form select,
   .profession-salary .row form input {
@@ -278,6 +278,109 @@
     position: absolute;
     max-height: 100%;
     top: 31px;
+  }
+  /* .filter-section{
+width: auto;
+  } */
+  .filter-section .filter {
+    width: auto;
+  }
+  .phone-single-card .h4 {
+    font-size: 12px !important;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+  .phone-single-card .card-nav a {
+    padding: 2px 0;
+    font-size: 14px;
+  }
+  .phone-single-card .bottom {
+    margin: 0 !important;
+  }
+  .filter-section .card-search,
+  .filter-section .single-dropdown {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  .single-dropdown div div div div:first-child {
+    font-size: 12px;
+  }
+  .single-dropdown div div {
+    font-size: 8px;
+    min-height: auto;
+  }
+  #credit-card-page .card-search input {
+    padding: 2px 5px;
+  }
+  .pc-card-filter {
+    display: none;
+  }
+  .phone-card-section-container {
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: -11px;
+    background: var(--off-white);
+  }
+  .sticky-card-section-container {
+    position: fixed;
+    margin-top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  #navbar-main {
+    margin-top: -10px;
+  }
+  .application-form {
+    padding: 0;
+  }
+  .application-form .right,
+  .application-form .left div {
+    border: 0;
+    border-top: 1px solid var(--white);
+    padding: 0 15px;
+    border-radius: 0;
+  }
+  .application-form form .col-md-4 {
+    width: 140px !important;
+  }
+  .application-form form .col-md-8 {
+    width: 220px !important;
+  }
+  .application-form .form-group:first-child {
+    margin-top: 10px !important;
+  }
+  .application-form .form-group {
+    margin-bottom: 0 !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+  }
+  .application-form .form-group .select-btn p {
+    padding: 14px 0px 15px 5px;
+  }
+  .application-form .glow-on-hover {
+    width: 100% !important;
+  }
+  #copy-right {
+    padding-bottom: 65px !important;
+  }
+  ._container {
+    min-height: 465px;
+    height: 524px;
+  }
+
+  ._container .panel {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  ._container .signin-signup {
+    top: 465px;
+  }
+  ._container .title {
+    display: none;
+  }
+  #navbar-main {
+    border-bottom: 2px solid var(--yellow);
   }
   /* Edited By Dev-Sharif ---------END */
 }

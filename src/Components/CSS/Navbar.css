@@ -50,7 +50,7 @@
 }
 .right-nav li a img {
   height: 20px;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 }
 .right-nav .dropdown {
   background: var(--primary);
@@ -165,3 +165,28 @@
 .nav-menu-sec .close-btn button:hover {
   border-bottom-left-radius: 15px;
 }
+
+/* Edited By Sharif */
+
+/* .sticky-navbar-main {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  z-index: 11;
+} */
+.sticky-card-section-container {
+  position: fixed;
+  width: 100%;
+  /* top: 67px; */
+  top: 0px;
+  left: 0;
+  opacity: 1;
+  z-index: 11;
+  background-color: var(--off-white);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray);
+}
+/* Edited By Sharif */

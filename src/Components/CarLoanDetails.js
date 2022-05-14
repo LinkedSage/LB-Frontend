@@ -72,7 +72,7 @@ export const CarLoanDetails = ({cardDetails}) => {
         <Link
           className="mb-2 glow-on-hover"
           to={{
-            pathname: `/car-loan-application/${cardDetails._id}`,
+            pathname: `/auto-loan-application/${cardDetails._id}`,
             state: { cardDetails },
           }}
         >

@@ -42,7 +42,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
       <div className="phone-filter-icon">
         
       </div>
-      <div className="top p-3 d-flex">
+      <div className="top p-1 d-flex">
         <img src={cardDetails.image_url} alt="card image" />
         <div className="pl-3">
           <p className="h4">{cardDetails.name}</p>

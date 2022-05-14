@@ -17,6 +17,7 @@ export default function ResetPassword() {
     const [getOtp, setGetOtp] = useState();
     let values = {}
     useEffect(async () => {
+        console.log("xxxxxxx",currentUser)
         if(currentUser&&currentUser.data){ currentUser = currentUser.data
         setPhoneEmail(currentUser.phone || currentUser.email)}
     }, []);
@@ -92,12 +93,7 @@ export default function ResetPassword() {
                             }}>
                                 <div className="row form-group  mt-5">
                                     <div className="col-md-4">
-                                        {
-                                            currentUser && currentUser.phone?
-                                            <label>Phone No.</label>
-                                            :
-                                            <label>Email</label>
-                                        }
+                                            <label>Email / Phone No.</label>
                                         
                                     </div>
                                     <div className="col-md-8">

@@ -61,9 +61,12 @@ export default function ResetPassword() {
             else values.email = phoneEmail
             resetPassword(values)
             .then((res) => {
-                if (res.status === 200) {
+                console.log("sssssssssss",res)
+                if (res.data.status === 200) {
                     notification('success',res.data.message)
-                    window.location.href = "/"
+                    setTimeout(() => {
+                        window.location.href = "/";
+                      }, 1000);
                 }
                 else{
                     notification('warning', res.data.message)

@@ -3,7 +3,6 @@ import { useLocation, useHistory } from "react-router-dom";
 import "../Components/CSS/SignInUp.css";
 import log from "../assets/images/log.svg";
 import register from "../assets/images/register.svg";
-import phone from "../assets/images/icons/phone-solid-1.png";
 import lock from "../assets/images/icons/lock-solid.svg";
 import { onSubmitLogin, onSubmitSignup, verifyOTP } from "../helpers/API/Auth";
 import { ToastContainer } from "react-toastify";

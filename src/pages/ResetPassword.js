@@ -8,7 +8,7 @@ import Axios from '../Axios'
 
 export default function ResetPassword() {
 
-    const currentUser = getCurrentUser().data;
+    let currentUser = getCurrentUser();
 
     const [otp, setOtp] = useState();
     const [password, setPassword] = useState();
@@ -17,7 +17,8 @@ export default function ResetPassword() {
     const [getOtp, setGetOtp] = useState();
     let values = {}
     useEffect(async () => {
-        setPhoneEmail(currentUser.phone || currentUser.email)
+        if(currentUser&&currentUser.data){ currentUser = currentUser.data
+        setPhoneEmail(currentUser.phone || currentUser.email)}
     }, []);
 
 
@@ -61,6 +62,7 @@ export default function ResetPassword() {
             .then((res) => {
                 if (res.status === 200) {
                     notification('success',res.data.message)
+                    window.location.href = "/"
                 }
                 else{
                     notification('warning', res.data.message)
@@ -91,7 +93,7 @@ export default function ResetPassword() {
                                 <div className="row form-group  mt-5">
                                     <div className="col-md-4">
                                         {
-                                            currentUser.phone?
+                                            currentUser && currentUser.phone?
                                             <label>Phone No.</label>
                                             :
                                             <label>Email</label>
@@ -100,16 +102,30 @@ export default function ResetPassword() {
                                     </div>
                                     <div className="col-md-8">
                                         <div className="input-field">
-                                            <input
+                                            {
+                                                currentUser && (currentUser.phone || currentUser.email)?
+                                                <input
                                                 id="phoneEmail"
                                                 type="text"
                                                 placeholder="Please Enter Your Response"
-                                                defaultValue={currentUser.phone || currentUser.email}
+                                                defaultValue={currentUser.phone || currentUser.email || ''}
                                                 onChange={(e) => {
                                                     setPhoneEmail(e.target.value);
                                                 }}
                                                 required
                                             />
+                                            :
+                                            <input
+                                                id="phoneEmail"
+                                                type="text"
+                                                placeholder="Please Enter Your Response"
+                                                onChange={(e) => {
+                                                    setPhoneEmail(e.target.value);
+                                                }}
+                                                required
+                                            />
+                                            }
+                                            
                                         </div>
                                     </div>
                                     <div className="col-md-4">

@@ -41,11 +41,22 @@
   .application-sec .application-table button{
 	  background: var(--primary);
 	  color: #fff;
+	  margin-left: 5px;
+	  padding: 2px 8px;
+	  border: transparent;
+	  cursor: pointer;
+  }
+  .application-sec .application-table .date-time{
+	max-width: 180px;
+	border: 1px solid #d6d6d6;
+	padding: 2px;
+	outline: none;
+
   }
   .application-sec .application-table button:hover{
 	  background-color: var(--hover);
   }
-  .datetime-sec{
+  /* .datetime-sec{
 	  position: fixed;
 	  top: 0;
 	  bottom: 0;
@@ -59,6 +70,7 @@
   }
   
   .datetime-sec .cls-btn{
+	  position: absolute;
 	  top: 0;
 	  bottom: 0;
 	  left: 0;
@@ -68,4 +80,4 @@
   }
   .datetime-sec .datetime-content{
 	z-index: 35;
-  }
+  } */

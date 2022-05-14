@@ -11,8 +11,8 @@ export default function UserDashboard() {
     const currentUser = getCurrentUser().data
     const [application, setApplication] = useState([])
     const [preloader, setPreloader] = useState(false)
-    const [showDateTime, setShowDateTime] = useState(false)
-    const [dateTime,SetDateTime] = useState()
+    const [showDateTime, setShowDateTime] = useState(true)
+    const [dateTime, SetDateTime] = useState()
     const [schedule, setSchedule] = useState({})
     let slNo = 0;
 
@@ -35,7 +35,7 @@ export default function UserDashboard() {
         setPreloader(false)
     }
 
-    function setScheduleFun(applicationId, type) {
+    function SetDateTimeFun(applicationId, type, key) {
         let temp = {
             id: applicationId,
             productType: type
@@ -44,60 +44,69 @@ export default function UserDashboard() {
         setShowDateTime(true)
     }
 
-    function SetDateTimeFun() {
-        console.log("datetime", dateTime,schedule)
-        if (schedule.productType === 'carLoan') {
-            setPreloader(true)
-            CarLoanApplications(schedule.id,dateTime)
-                .then((res) => {
-                    if (res.status === 200) {
-                        console.log(res.data)
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            setPreloader(false)
+    function setScheduleFun(id, type, key) {
+        let tempDateTime = document.getElementById(type + key).value
+
+        if (tempDateTime) {
+            console.log("datetime", typeof(tempDateTime), type, id)
+            if (type === 'carLoan') {
+                setPreloader(true)
+                CarLoanApplications(id, tempDateTime)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            notification('success', 'Schedule set successfully')
+                            getApplicationFun(currentUser._id)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                setPreloader(false)
+            }
+            if (type === 'homeLoan') {
+                setPreloader(true)
+                HomeloansApplication(id, tempDateTime)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            notification('success', 'Schedule set successfully')
+                            getApplicationFun(currentUser._id)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                setPreloader(false)
+            }
+            if (type === 'personalLoan') {
+                setPreloader(true)
+                PersonalLoanApplications(id, tempDateTime)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            notification('success', 'Schedule set successfully')
+                            getApplicationFun(currentUser._id)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                setPreloader(false)
+            }
+            if (type === 'creditCard') {
+                setPreloader(true)
+                CreditCardApplications(id, tempDateTime)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            notification('success', 'Schedule set successfully')
+                            getApplicationFun(currentUser._id)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                setPreloader(false)
+            }
         }
-        if (schedule.productType === 'homeLoan') {
-            setPreloader(true)
-            HomeloansApplication(schedule.id,dateTime)
-                .then((res) => {
-                    if (res.status === 200) {
-                        console.log(res.data)
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            setPreloader(false)
-        }
-        if (schedule.productType === 'personalLoan') {
-            setPreloader(true)
-            PersonalLoanApplications(schedule.id,dateTime)
-                .then((res) => {
-                    if (res.status === 200) {
-                        console.log(res.data)
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            setPreloader(false)
-        }
-        if (schedule.productType === 'creditCard') {
-            setPreloader(true)
-            CreditCardApplications(schedule.id,dateTime)
-                .then((res) => {
-                    if (res.status === 200) {
-                        console.log(res.data)
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            setPreloader(false)
-        }
+        else notification('warning', 'Field cannot be empty')
     }
 
     return (
@@ -136,7 +145,26 @@ export default function UserDashboard() {
                                                     <td>{item.carLoan.name}</td>
                                                     <td>{item.status}</td>
                                                     <td>
-                                                        <button className="btn" onClick={() => setScheduleFun(item._id, 'carLoan')}>Set Now</button>
+
+                                                        {
+                                                            item.doccument_collection_schedule ?
+                                                                <>{item.doccument_collection_schedule}</>
+                                                                :
+                                                                <div>
+                                                                    <input
+                                                                        id={"carLoan" + key}
+                                                                        type='datetime-local'
+                                                                        step="any"
+                                                                        className='date-time'
+                                                                        required
+                                                                    // onChange={(e) => {
+                                                                    //     SetDateTimeFunction(e.target.value,item._id);
+                                                                    // }}
+                                                                    />
+                                                                    <button className="btn" onClick={() => setScheduleFun(item._id, 'carLoan', key)}>Set Now</button>
+                                                                </div>
+                                                        }
+                                                        {/* <button className="btn" onClick={() => setScheduleFun(item._id, 'carLoan')}>Set Now</button> */}
                                                     </td>
                                                     <td>
                                                         <Link to='/user-profile'>Update profile for quicker services</Link>
@@ -155,7 +183,25 @@ export default function UserDashboard() {
                                                     <td>{item.card.name}</td>
                                                     <td>{item.status}</td>
                                                     <td>
-                                                        <button className="btn" onClick={() => setScheduleFun(item._id, 'caeditCard')}>Set Now</button>
+                                                        {
+                                                            item.doccument_collection_schedule ?
+                                                                <>{item.doccument_collection_schedule}</>
+                                                                :
+                                                                <div>
+                                                                    <input
+                                                                        id={"creditCard" + key}
+                                                                        type='datetime-local'
+                                                                        step="any"
+                                                                        className='date-time'
+
+                                                                        required
+                                                                    // onChange={(e) => {
+                                                                    //     SetDateTimeFunction(e.target.value,item._id);
+                                                                    // }}
+                                                                    />
+                                                                    <button className="bt" onClick={() => setScheduleFun(item._id, 'creditCard', key)}>Set </button>
+                                                                </div>
+                                                        }
                                                     </td>
                                                     <td>
                                                         <Link to='/user-profile'>Update profile for quicker services</Link>
@@ -174,7 +220,24 @@ export default function UserDashboard() {
                                                     <td>{item.homeLoan.name}</td>
                                                     <td>{item.status}</td>
                                                     <td>
-                                                        <button className="btn" onClick={() => setScheduleFun(item._id, 'homeLoan')}>Set Now</button>
+                                                        {
+                                                            item.doccument_collection_schedule ?
+                                                                <>{item.doccument_collection_schedule}</>
+                                                                :
+                                                                <div>
+                                                                    <input
+                                                                        id={"homeLoan" + key}
+                                                                        type='datetime-local'
+                                                                        step="any"
+                                                                        className='date-time'
+                                                                        required
+                                                                    // onChange={(e) => {
+                                                                    //     SetDateTimeFunction(e.target.value,item._id);
+                                                                    // }}
+                                                                    />
+                                                                    <button className="bt" onClick={() => setScheduleFun(item._id, 'homeLoan', key)}>Set </button>
+                                                                </div>
+                                                        }
                                                     </td>
                                                     <td>
                                                         <Link to='/user-profile'>Update profile for quicker services</Link>
@@ -193,7 +256,24 @@ export default function UserDashboard() {
                                                     <td>{item.personalLoan.name}</td>
                                                     <td>{item.status}</td>
                                                     <td>
-                                                        <button className="btn" onClick={() => setScheduleFun(item._id, 'personalLoan')}>Set Now</button>
+                                                        {
+                                                            item.doccument_collection_schedule ?
+                                                                <>{item.doccument_collection_schedule}</>
+                                                                :
+                                                                <div>
+                                                                    <input
+                                                                        id={"personalLoan" + key}
+                                                                        type='datetime-local'
+                                                                        className='date-time'
+                                                                        step="any"
+                                                                        required
+                                                                    // onChange={(e) => {
+                                                                    //     SetDateTimeFunction(e.target.value,item._id);
+                                                                    // }}
+                                                                    />
+                                                                    <button className="bt" onClick={() => setScheduleFun(item._id, 'personalLoan', key)}>Set </button>
+                                                                </div>
+                                                        }
                                                     </td>
                                                     <td>
                                                         <Link to='/user-profile'>Update profile for quicker services</Link>
@@ -203,14 +283,14 @@ export default function UserDashboard() {
                                         })
                                     }
 
-                                    {
+                                    {/* {
                                         showDateTime ?
                                             <div className="datetime-sec">
                                                 <button className="cls-btn" onClick={() => setShowDateTime(false)}></button>
                                                 <div className="datetime-content">
                                                     <input
                                                         id="datetime"
-                                                        type='datetime-local'
+                                                        type='datetime-local' step="any" className='date-time'
                                                         onChange={(e) => {
                                                             SetDateTime(e.target.value);
                                                         }}
@@ -219,7 +299,7 @@ export default function UserDashboard() {
                                                 </div>
                                             </div>
                                             : null
-                                    }
+                                    } */}
 
 
                                 </table>

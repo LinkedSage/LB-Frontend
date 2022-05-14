@@ -8,6 +8,10 @@ import wc from "../assets/images/icons/wide choice.png";
 import secure from "../assets/images/icons/secure.png";
 import support from "../assets/images/icons/support.png";
 import PreloaderPage from '../Components/PreloaderSection'
+import Axios from '../Axios'
+import { ToastContainer } from "react-toastify";
+import { notification } from "../helpers/Confirm/ConfirmAction";
+
 export default function Home() {
   let history = useHistory();
 
@@ -60,7 +64,7 @@ export default function Home() {
     document.getElementById("salary").classList.remove("empty");
   }
 
-  function sendMsgFun() {
+  async function sendMsgFun() {
     if (phoneNo && name && salary1) {
       let values = {
         phone: phoneNo,
@@ -69,11 +73,15 @@ export default function Home() {
         profession: profession1,
       };
       console.log("value", values);
+      const result = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/querys`);
+        if(result.data && result.data.status)
+          notification('success','Application submited successfully')
+        else 
+          notification('fail','Application submited Failed')
     }
+   
   }
-  let f= true;
-
-  if(f)
   return (
     <section id="homePage">
       {/* Hero area start */}
@@ -353,7 +361,7 @@ export default function Home() {
                 <hr />
               </div>
               <form onSubmit={(e) => {
-                e.preventDefault();
+                // e.preventDefault();
                 sendMsgFun()
               }}>
                 <div className="help-us-form d-flex flex-wrap justify-content-between mt-5">
@@ -443,8 +451,4 @@ export default function Home() {
 
     </section>
   );
-
-  else return(
-    <PreloaderPage />
-  )
 }

@@ -43,25 +43,25 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
         <img src={cardDetails.image_url} alt="card image" />
         <div className="pl-3">
           <p className="h4">{cardDetails.name}</p>
-          <p>{cardDetails.bank[0].name}</p>
+          <p className="mb-0">{cardDetails.bank[0].name}</p>
         </div>
       </div>
-      <div className="middle d-flex justify-content-center align-items-center flex-wrap mb-3">
+      <div className="middle d-flex justify-content-center align-items-center flex-wrap">
         <div>
           <p className="h4">Interest Rate</p>
-          <p>{cardDetails.interest_rate}</p>
+          <p className="mb-0">{cardDetails.interest_rate}</p>
         </div>
         <div>
           <p className="h4">Max Tenor</p>
-          <p>{cardDetails.max_tenor}</p>
+          <p className="mb-0">{cardDetails.max_tenor}</p>
         </div>
         <div>
           <p className="h4">Min Tenor</p>
-          <p>{cardDetails.min_tenor}</p>
+          <p className="mb-0">{cardDetails.min_tenor}</p>
         </div>
         <div>
           <p className="h4">Eligibility</p>
-          <p>
+          <p className="mb-0">
             {
               cardDetails.eligibility.business.is_available ?
                 <span className="pr-2">Businessman</span>

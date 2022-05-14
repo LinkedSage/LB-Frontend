@@ -4,7 +4,7 @@ export default function CommingSoon() {
 
 
     useEffect(() => {
-        let comingDate = new Date('May 8, 2022 12:00:00')
+        let comingDate = new Date('june 1, 2022 00:00:00')
 
         let d = document.getElementById('days')
         let h = document.getElementById('hours')

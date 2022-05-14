@@ -73,8 +73,8 @@ export default function SignInUp() {
           } else {            
             notification("success", "Login Successfully. Redirecting.. ");
             setTimeout(() => {
-              window.location.href = "/";
-            }, 1500);
+              window.location.href = "/user-dashboard";
+            }, 1000);
           }
         } else {
           notification("fail", res.message);

@@ -1,10 +1,13 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+import { getCookies } from "../helpers/Cookies/Cookies";
 
 function ProtectedRoute({ component: Component, ...restOfProps }) {
-  // const isAuthenticated = localStorage.getItem("token");
-  console.log("this", isAuthenticated);
-  const isAuthenticated = false
+
+  let currentUser = getCookies('data')
+  console.log("cccccccccc",currentUser)
+  let isAuthenticated = false
+  if(currentUser) isAuthenticated = true
 
   return (
 

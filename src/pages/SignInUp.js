@@ -66,9 +66,10 @@ export default function SignInUp() {
         if (res.status === 200) {
           setUserData(res.data);
           if (!res.data.is_verified) {
+            
             setSigninOTP(false);
             notification("", "Please verify OTP..");
-          } else {
+          } else {            
             notification("success", "Login Successfully. Redirecting.. ");
             setTimeout(() => {
               window.location.href = "/";

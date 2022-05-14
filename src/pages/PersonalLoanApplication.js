@@ -15,11 +15,12 @@ import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById } from "../helpers/API/Product";
+import Preloader from "../Components/PreloaderPage";
 
 export default function Home() {
   let location = useLocation();
   // let cardInfo = []
-  const[userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({})
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
@@ -35,6 +36,7 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
+  const [preloader, setPreloader] = useState(false)
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -63,17 +65,20 @@ export default function Home() {
   useEffect(() => {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
-      
+
       if (temp && temp.phone) setPhone(temp.phone);
       if (temp && temp.email) setEmail(temp.email);
       if (temp && temp.name) setName(temp.name);
-      if (temp && temp.employeement_information && temp.employeement_information.profession )
+      if (temp && temp.employeement_information && temp.employeement_information.profession)
         setProfessionFun(temp.employeement_information.profession);
       if (temp && temp.city) setCityFun(temp.city);
     }
-
-    if (location.state && location.state.cardDetails)
+    setPreloader(true)
+    if (location.state && location.state.cardDetails){
       setCardInfo(location.state.cardDetails);
+      if(location.state.cardDetails.state)
+      setSalary(location.state.cardDetails.state.salary)
+    }
     else {
       let value = location.pathname.split("/");
       getCardById(value[2])
@@ -84,24 +89,25 @@ export default function Home() {
           console.log(err);
         });
     }
+    setPreloader(false)
   }, []);
   useEffect(() => {
-    console.log("cardInfo,cardInfo",cardInfo)
+    console.log("cardInfo,cardInfo", cardInfo)
     if (cardInfo && cardInfo.state && cardInfo.state.profession)
       setProfession(cardInfo.state.profession);
     if (cardInfo && cardInfo.state && cardInfo.state.salary)
       setSalary(cardInfo.state.salary);
   }, [cardInfo]);
-
   function validationFun(fieldValue, fieldId) {
     if (fieldValue) document.getElementById(fieldId).classList.remove("empty");
     else document.getElementById(fieldId).classList.add("empty");
   }
 
   function checkIsExist(value) {
+    setPreloader(true)
     isExistUser(value)
       .then((res) => {
-        console.log("rres",res)
+        console.log("rres", res)
         if (res.status === 200) {
           setExistUser(res.data);
           notification("warning", "User Exist please login");
@@ -125,6 +131,8 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+
+    setPreloader(false)
   }
 
   function applicationFormSubmit() {
@@ -198,6 +206,7 @@ export default function Home() {
         }
       }
     }
+
   }
   function setCityFun(e) {
     setCity(e);
@@ -270,9 +279,10 @@ export default function Home() {
       };
       document.getElementById("otp").classList.remove("empty");
 
+      setPreloader(true)
       verifyOTP(values)
         .then((res) => {
-          console.log("xxx",res);
+          console.log("xxx", res);
           if (res.status === 200) {
             let value = {
               _id: res.userData._id,
@@ -288,6 +298,8 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         });
+
+      setPreloader(false)
       //
     } else document.getElementById("otp").classList.add("empty");
   }
@@ -295,20 +307,22 @@ export default function Home() {
   function applicationSubmitFun(value) {
     let tempValue = userData
     console.log("cccaaaaaaaa", tempValue);
-    userUpdate(tempValue,value)
+
+    setPreloader(true)
+    userUpdate(tempValue, value)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
 
-      personalLoanApplicationAdd(value)
+    personalLoanApplicationAdd(value)
       .then((res1) => {
         if (res1.status === 200) {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
           setTimeout(() => {
-            
-           }, 1000);
+            window.location.href = "/user-dashboard";
+          }, 1000);
         } else {
           notification("fail", res1.message);
         }
@@ -316,6 +330,8 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+
+    setPreloader(false)
   }
 
   function loginFun() {
@@ -324,6 +340,8 @@ export default function Home() {
       password: password,
     };
     if (password) {
+
+      setPreloader(true)
       onSubmitLogin(values)
         .then((res) => {
           if (res.status === 200) {
@@ -347,11 +365,17 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         });
+
+      setPreloader(false)
     }
   }
 
   return (
     <section id="application-page">
+      {
+        preloader ?
+          <Preloader /> : null
+      }
       <ToastContainer></ToastContainer>
       <div className="application-form">
         <div className="container">
@@ -726,7 +750,7 @@ export default function Home() {
       ) : null}
       {signinPopup ? (
         <div className="popup-container">
-            <button
+          <button
             className="closs-details"
             onClick={() => setSigninPopup(false)}
           ></button>

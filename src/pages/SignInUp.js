@@ -9,6 +9,7 @@ import { onSubmitLogin, onSubmitSignup, verifyOTP } from "../helpers/API/Auth";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import {getCurrentUserData} from '../helpers/Cookies/Cookies'
+import { Link } from "react-router-dom";
 
 export default function SignInUp() {
   // const history = useHistory();
@@ -66,7 +67,7 @@ export default function SignInUp() {
         if (res.status === 200) {
           setUserData(res.data);
           if (!res.data.is_verified) {
-            
+
             setSigninOTP(false);
             notification("", "Please verify OTP..");
           } else {            
@@ -238,7 +239,8 @@ export default function SignInUp() {
                       required
                     />
                   </div>
-                  <input type="submit" value="Login" className="btn solid" />
+                  <input type="submit" value="Login" className="btn solid" /> 
+                  <Link to='/reset-password'>Forget Password</Link>
                 </form>
               ) : (
                 <form className="sign-in-form">

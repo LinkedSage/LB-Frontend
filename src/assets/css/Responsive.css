@@ -123,6 +123,10 @@
   .right-nav .nav-menu a {
     font-size: 14px;
   }
+  .application-form .right{
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  } 
 }
 
 @media screen and (max-width: 481px) {

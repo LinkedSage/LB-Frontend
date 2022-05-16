@@ -27,7 +27,7 @@ export default function CreditCard(data) {
       console.log(location.state, result.data.data);
       setCardList(result.data);
       setCardShow(result.data.data);
-      setPreloader(true)
+      setPreloader(false)
     } else {
       setProfessionSalary(true);
     }

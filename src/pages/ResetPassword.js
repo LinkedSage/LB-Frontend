@@ -14,7 +14,6 @@ export default function ResetPassword() {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState(false);
     const [phoneEmail,setPhoneEmail] = useState()
-    const [getOtp, setGetOtp] = useState();
     let values = {}
     useEffect(async () => {
         console.log("xxxxxxx",currentUser)
@@ -96,8 +95,7 @@ export default function ResetPassword() {
                             }}>
                                 <div className="row form-group  mt-5">
                                     <div className="col-md-4">
-                                            <label>Email / Phone No.</label>
-                                        
+                                            <label>Email / Phone No.</label>                                        
                                     </div>
                                     <div className="col-md-8">
                                         <div className="input-field">

@@ -170,7 +170,7 @@ export default function Home() {
             <div className="application-form profile-form">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-md-8 right">
+                        <div className="col-md-8 right pt-5 pb-5">
                             <h3>Profile Information</h3>
                             <div className="group-info mt-5">
                                 <div className="pl-3 pr-3 d-flex justify-content-between align-items-center form-grp">

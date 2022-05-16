@@ -149,7 +149,8 @@
   #copy-right {
     padding-bottom: 80px !important;
   }
-
+}
+@media screen and (max-width: 481px) {
   /* Edited By Dev-Sharif ---------START */
   .left-nav .logo {
     padding-left: 10px;
@@ -385,6 +386,9 @@ width: auto;
   }
   #navbar-main {
     border-bottom: 2px solid var(--yellow);
+  }
+  .nav-menu-sec .nav-link-show {
+    height: calc(100vh - 65px);
   }
   /* Edited By Dev-Sharif ---------END */
 }

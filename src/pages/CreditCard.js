@@ -6,7 +6,7 @@ import "../Components/CSS/CreditCard.css";
 import { CadrDetails } from "../Components/CadrDetails";
 import { CardDetailsPhone } from "../Components/CardDetailsPhone";
 import { useLocation } from "react-router-dom";
-import PreloaderPage from '../Components/PreloaderPage'
+import PreloaderPage from "../Components/PreloaderPage";
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -19,7 +19,7 @@ export default function CreditCard(data) {
   const [salary, setSalary] = useState();
   const [profession, setProfession] = useState("salaried");
   const [professionSalary, setProfessionSalary] = useState(false);
-  const [preloader,setPreloader] = useState(false)
+  const [preloader, setPreloader] = useState(false);
 
   useEffect(async () => {
     let result;
@@ -219,24 +219,20 @@ export default function CreditCard(data) {
         `${
           process.env.REACT_APP_API_URL
         }/cards?profession=${profession}&salary=${salary}&&bank=${
-          location.state&&location.state.bank || ""
+          (location.state && location.state.bank) || ""
         }`
       );
       setCardList(result.data);
       setCardShow(result.data.data);
 
       setProfessionSalary(false);
-      setPreloader(false)
+      setPreloader(false);
     }
   }
 
   return (
     <section id="credit-card-page">
-      {
-        preloader?
-        <PreloaderPage />
-        :null
-      }
+      {preloader ? <PreloaderPage /> : null}
       <ToastContainer></ToastContainer>
       {professionSalary ? (
         <div className="profession-salary">
@@ -295,7 +291,7 @@ export default function CreditCard(data) {
       ) : (
         <>
           <div className="card-section">
-            <div class=" phone-show container card-section-container phone-card-section-container">
+            <div class="phone-show container card-section-container phone-card-section-container">
               <div className="row">
                 <div className="mobile-view w-100 flex d-flex align-items-center justify-content-around filter-section ">
                   <div className="filter">

@@ -7,8 +7,8 @@ import { _trendingProduct } from "../helpers/Data/Products";
 import wc from "../assets/images/icons/wide choice.png";
 import secure from "../assets/images/icons/secure.png";
 import support from "../assets/images/icons/support.png";
-import PreloaderPage from '../Components/PreloaderSection'
-import Axios from '../Axios'
+import PreloaderPage from "../Components/PreloaderSection";
+import Axios from "../Axios";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 
@@ -70,14 +70,14 @@ export default function Home() {
         profession: profession1,
       };
       console.log("value", values);
-      const result = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/querys`);
-        if(result.data && result.data.status)
-          notification('success','Application submited successfully')
-        else 
-          notification('fail','Application submited Failed')
+      const result = await Axios.post(
+        `${process.env.REACT_APP_API_URL}/querys`,
+        values
+      );
+      if (result.data && result.data.status)
+        notification("success", "Query submited successfully");
+      else notification("fail", "Query submited Failed");
     }
-   
   }
   return (
     <section id="homePage">
@@ -360,7 +360,7 @@ export default function Home() {
               </div>
               <form
                 onSubmit={(e) => {
-                  // e.preventDefault();
+                  e.preventDefault();
                   sendMsgFun();
                 }}
               >

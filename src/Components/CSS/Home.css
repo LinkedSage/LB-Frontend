@@ -2,8 +2,14 @@
 #homePage .hero-area-bg-color {
   background: rgb(56, 56, 56);
 }
+
+/* background: url("../../assets/images/hero-banner2.jpeg");
+background-size: cover;
+background-position: right bottom;
+background-repeat: no-repeat;
+min-height: calc(100vh ); */
 #homePage .hero-area {
-  background: url("../../assets/images/hero-banner-7.png"),
+  background: url("../../assets/images/hero-banner-77.png"),
     linear-gradient(to right, #fbab15 20%, #0b4376 80%);
   background-size: contain;
   background-position: right bottom;

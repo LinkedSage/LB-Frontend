@@ -180,7 +180,13 @@ export default function UserDashboard() {
                                                 <tr>
                                                     <td>{slNo}.</td>
                                                     <td>Credit Card</td>
-                                                    <td>{item.card.name}</td>
+                                                    {
+                                                        item.card && item.card.name?
+                                                        <td>{item.card.name}</td>
+                                                        :
+                                                        <td>Undefined</td>
+                                                    }
+                                                    
                                                     <td>{item.status}</td>
                                                     <td>
                                                         {

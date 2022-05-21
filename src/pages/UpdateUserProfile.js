@@ -30,6 +30,7 @@ export default function Home() {
     }, [])
 
     function setDefaultValues(){
+        console.log("dddddddd",currentUser)
         let tempUser = {};
         Object.keys(currentUser).forEach(key => {
             if (key === 'nid_front_image_url'|| key === 'nid_back_image_url' || key === 'account_statement_pdf_url' || key === 'payslip_pdf_url' || key === 'image_url' ) { }

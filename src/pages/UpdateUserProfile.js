@@ -24,10 +24,15 @@ export default function Home() {
     const [sendNIDBack, setSendNIDBack] = useState()
     const [NIDBack, setNIDBack] = useState()
     const [organization,setOrganization] = useState({})
+    const [professionDefault,setProfessionDefault] = useState({})
 
     useEffect(() => {
         setDefaultValues();
     }, [])
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
     function setDefaultValues(){
         console.log("dddddddd",currentUser)
@@ -36,8 +41,14 @@ export default function Home() {
             if (key === 'nid_front_image_url'|| key === 'nid_back_image_url' || key === 'account_statement_pdf_url' || key === 'payslip_pdf_url' || key === 'image_url' ) { }
             else  tempUser[key] = currentUser[key];
         });
+        console.log("dddddddd",currentUser.employeement_information)
         setPersonalInfo(tempUser);
-        setFinansialInfo(tempUser)
+
+        setFinansialInfo(tempUser.employeement_information)
+        if(tempUser.employeement_information && tempUser.employeement_information.profession)setProfessionDefault({label:capitalizeFirstLetter(tempUser.employeement_information.profession), value:tempUser.employeement_information.profession})
+
+
+
         if(tempUser && tempUser.employeement_information && tempUser.employeement_information.company_name)
         setOrganization({label:tempUser.employeement_information.company_name,value:tempUser.employeement_information.company_name})
         if(currentUser && currentUser.nid_back_image_url) {
@@ -164,6 +175,18 @@ export default function Home() {
                 console.log(err);
             });
     }
+    const professionOption = [
+        {
+            label:'Salaried',
+            value:'salaried'
+        },{
+            label:'Business',
+            value:'business'
+        },{
+            label:'Doctor',
+            value:'doctor'
+        }
+    ]
 
     return (
         <section id="profile-page">
@@ -355,22 +378,20 @@ export default function Home() {
                                                 </div>
                                                 <div className="col-md-8">
                                                     <div className="input-field">
-                                                        <select
-                                                            placeholder="Profession"
+
+
+                                                    <Select
+                                                            id="Organization"   
+                                                            defaultValue={professionDefault}    
                                                             onChange={(e) => {
                                                                 setFinansialInfo(prevState => ({
                                                                     ...prevState,
-                                                                    profession: e.target.value
+                                                                    profession: e.value
                                                                 }));
                                                             }}
-                                                        >
-                                                            <option selected value="salaried">
-                                                                Salaried
-                                                            </option>
-                                                            <option value="business">Business</option>
-                                                            <option value="doctor">Doctor</option>
-                                                            <option value="landLord">Land Lord</option>
-                                                        </select>
+                                                            options={professionOption}
+                                                            placeholder="Profession"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,7 +425,7 @@ export default function Home() {
                                                         <input
                                                             id="salary"
                                                             type="number"                                                            
-                                                            defaultValue={financialInfo.employeement_information.salary_amount}
+                                                            defaultValue={financialInfo&&financialInfo.salary_amount}
                                                             placeholder="Enter Your Salary"
                                                             onChange={(e) => {
                                                                 setFinansialInfo(prevState => ({
@@ -425,7 +446,7 @@ export default function Home() {
                                                         <input
                                                             id="los"
                                                             type="number"                                                            
-                                                            defaultValue={financialInfo.employeement_information.total_job_experience}
+                                                            defaultValue={financialInfo&&financialInfo.total_job_experience}
                                                             placeholder="Length of Service"
                                                             onChange={(e) => {
                                                                 setFinansialInfo(prevState => ({
@@ -517,11 +538,14 @@ export default function Home() {
                                             <div className="row form-group-nid mt-3">
                                                 <div className="col-md-6">
                                                     <label>Bank Statement</label>
+                                                    {
+                                                        console.log("xxx.com",documents,paySlip)
+                                                    }
                                                     <label for='iframe' className="input-preview-front">
                                                         {
                                                             documents ?
                                                                 <iframe
-                                                                    src={documents}
+                                                                    src='http://www.africau.edu/images/default/sample.pdf'
                                                                     frameBorder="0"
                                                                     scrolling="auto"
                                                                     height="100%"

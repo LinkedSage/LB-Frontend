@@ -62,9 +62,10 @@ export default function Navbar() {
           .getElementsByClassName("card-section-container")[0]
           .classList.add("sticky-card-section-container");
     } else {
-      document
-        .getElementById("navbar-main")
-        .classList.remove("sticky-navbar-main");
+      document.getElementById("navbar-main") &&
+        document
+          .getElementById("navbar-main")
+          .classList.remove("sticky-navbar-main");
       document.getElementsByClassName("card-section-container")[0] &&
         document
           .getElementsByClassName("card-section-container")[0]

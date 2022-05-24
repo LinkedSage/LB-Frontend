@@ -20,7 +20,7 @@ import PreloaderPage from "../Components/PreloaderPage";
 export default function Home() {
   let location = useLocation();
   // let cardInfo = []
-  const[userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({})
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
@@ -36,7 +36,7 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
-  const [preloader,setPreloader] =useState(false)
+  const [preloader, setPreloader] = useState(false)
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -87,7 +87,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    console.log("cardInfo,cardInfo",cardInfo)
+    console.log("cardInfo,cardInfo", cardInfo)
     if (cardInfo && cardInfo.state && cardInfo.state.profession)
       setProfession(cardInfo.state.profession);
     if (cardInfo && cardInfo.state && cardInfo.state.salary)
@@ -126,34 +126,24 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-      setPreloader(false)
+    setPreloader(false)
   }
 
   function applicationFormSubmit() {
     let value = {
       name: name,
       phone: phone,
-      city: city,
-      profession: profession,
-      salary: salary,
-      email: email,
-    };
-    if (profession === "salaried") value["organization"] = organization;
-    console.log("saDDSA",value)
-    setUserData({
-      name: name,
-      phone: phone,
-      city: city,
-      profession: profession,
-      salary: salary,
-      email: email,
       employeement_information: {
         profession: profession,
         salary_amount: salary,
         job_location: city,
-        companyName: organization || "",
+        company_name: organization || "",
       },
-    })
+      email: email,
+    };
+    if (profession === "salaried") value["organization"] = organization;
+    console.log("saDDSA", value)
+    setUserData(value)
 
     validationFun(name, "name");
     validationFun(phone, "phone");
@@ -176,7 +166,7 @@ export default function Home() {
         token: token,
       };
       console.log("vallue", values);
-      applicationSubmitFun(value,values);
+      applicationSubmitFun(value, values);
     } else {
       if (
         name &&
@@ -274,7 +264,7 @@ export default function Home() {
 
       verifyOTP(values)
         .then((res) => {
-          console.log("xxx",res);
+          console.log("xxx", res);
           if (res.status === 200) {
             let value = {
               _id: res.userData._id,
@@ -282,7 +272,7 @@ export default function Home() {
               token: res.data,
             };
             setOTPPopup(true);
-            applicationSubmitFun(value);
+            applicationSubmitFun(userData , value);
           } else {
             notification("fail", res.message);
           }
@@ -294,10 +284,10 @@ export default function Home() {
     } else document.getElementById("otp").classList.add("empty");
   }
 
-  function applicationSubmitFun(updatedData,value) {
+  function applicationSubmitFun(updatedData, value) {
     setPreloader(true)
-    console.log("cccaaaaaaaa", updatedData,value);
-    userUpdate(updatedData,value)
+    console.log("cccaaaaaaaa", updatedData, value);
+    userUpdate(updatedData, value)
       .then((res) => {
         console.log(res);
       })
@@ -357,9 +347,9 @@ export default function Home() {
     <section id="application-page">
       <ToastContainer></ToastContainer>
       {
-        preloader?
-        <PreloaderPage />
-        :null
+        preloader ?
+          <PreloaderPage />
+          : null
       }
       <div className="application-form">
         <div className="container">

@@ -12,6 +12,7 @@
   position: fixed;
   top: 40vh;
   right: 0;
+  z-index: 1;
 }
 #product-details-page .button-group {
   display: flex;

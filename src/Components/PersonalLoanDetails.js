@@ -62,18 +62,22 @@ export const PersonalLoanDetails = ({ cardDetails }) => {
       <div className="text-center eligible-for w-220 pl-2 pr-2">
         <p className="h5">Eligible For</p>
         {cardDetails.eligibility &&
+        cardDetails.eligibility.salaried &&
         cardDetails.eligibility.salaried.is_available ? (
           <p>Salaried</p>
         ) : null}
         {cardDetails.eligibility &&
+        cardDetails.eligibility.business &&
         cardDetails.eligibility.business.is_available ? (
           <p>Businessman</p>
         ) : null}
         {cardDetails.eligibility &&
+        cardDetails.eligibility.doctor &&
         cardDetails.eligibility.doctor.is_available ? (
           <p>Doctor</p>
         ) : null}
         {cardDetails.eligibility &&
+        cardDetails.eligibility.landlord &&
         cardDetails.eligibility.landlord.is_available ? (
           <p>Landlord</p>
         ) : null}

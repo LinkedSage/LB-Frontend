@@ -139,6 +139,13 @@ export default function Home() {
   }
 
   function applicationFormSubmit() {
+    if (!cardInfo.eligibility[profession].is_available) {
+      notification("warning", "Profession requirement doesn't match");
+      return;
+    } else if (cardInfo.eligibility[profession].min_monthly_income > salary) {
+      notification("warning", "Salary requirement doesn't match");
+      return;
+    }
     let value = {
       name: name,
       phone: phone,

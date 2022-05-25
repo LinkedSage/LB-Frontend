@@ -3,23 +3,21 @@ import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
 export const PersonalLoanPhone = ({ cardDetails }) => {
-  console.log("sssssss", cardDetails)
-
+  console.log("sssssss", cardDetails);
 
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
-
   function cardNavButtonFun(e) {
-    let btn1 = document.getElementById('apply-now-btn')
-    let btn2 = document.getElementById('more-details-btn')
+    let btn1 = document.getElementById("apply-now-btn");
+    let btn2 = document.getElementById("more-details-btn");
     if (e === 0) {
-      btn1.classList.add('active-left')
-      btn2.classList.remove('active-right')
+      btn1.classList.add("active-left");
+      btn2.classList.remove("active-right");
     }
     if (e === 1) {
-      btn1.classList.remove('active-left')
-      btn2.classList.add('active-right')
+      btn1.classList.remove("active-left");
+      btn2.classList.add("active-right");
       MoreDetails(cardDetails._id);
     }
   }
@@ -33,12 +31,9 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
       setMoreDetails(result.data.data);
   }
 
-
   return (
     <div className="phone-single-card">
-      <div className="phone-filter-icon">
-
-      </div>
+      <div className="phone-filter-icon"></div>
       <div className="top p-3 d-flex">
         <img src={cardDetails.image_url} alt="card image" />
         <div className="pl-3">
@@ -62,34 +57,34 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
         <div>
           <p className="h4">Eligibility</p>
           <p className="mb-0">
-            {
-              cardDetails.eligibility.business.is_available ?
-                <span className="pr-2">Businessman</span>
-                : null
-            }
-            {
-              cardDetails.eligibility.doctor.is_available ?
-                <span className="pr-2">Doctor</span>
-                : null
-            }
-            {
-              cardDetails.eligibility.landlord.is_available ?
-                <span className="pr-2">Landlord</span>
-                : null
-            }
-            {
-              cardDetails.eligibility.salaried.is_available ?
-                <span className="pr-2">Salaried</span>
-                : null
-            }
+            {cardDetails.eligibility &&
+            cardDetails.eligibility.business &&
+            cardDetails.eligibility.business.is_available ? (
+              <span className="pr-2">Businessman</span>
+            ) : null}
+            {cardDetails.eligibility &&
+            cardDetails.eligibility.doctor &&
+            cardDetails.eligibility.doctor.is_available ? (
+              <span className="pr-2">Doctor</span>
+            ) : null}
+            {cardDetails.eligibility &&
+            cardDetails.eligibility.landlord &&
+            cardDetails.eligibility.landlord.is_available ? (
+              <span className="pr-2">Landlord</span>
+            ) : null}
+            {cardDetails.eligibility &&
+            cardDetails.eligibility.salaried &&
+            cardDetails.eligibility.salaried.is_available ? (
+              <span className="pr-2">Salaried</span>
+            ) : null}
           </p>
         </div>
       </div>
       <div className="bottom mb-3">
         <div className="card-nav">
-
           <Link
-            id="apply-now-btn" onClick={() => cardNavButtonFun(0)}
+            id="apply-now-btn"
+            onClick={() => cardNavButtonFun(0)}
             to={{
               pathname: `/personal-loan-application/${cardDetails._id}`,
               state: { cardDetails },
@@ -97,9 +92,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
           >
             Apply Now
           </Link>
-          <Link
-            id="more-details-btn" onClick={() => cardNavButtonFun(1)}
-          >
+          <Link id="more-details-btn" onClick={() => cardNavButtonFun(1)}>
             More Details
           </Link>
         </div>
@@ -114,7 +107,9 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
           <button
             className="close-details-phn"
             onClick={() => setPopupStatus(false)}
-          >X</button>
+          >
+            X
+          </button>
           <div
             id="_close_details_btn"
             className="more-details"
@@ -158,7 +153,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-                moreDetails[0].required_documents.essential_documents ? (
+              moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -179,7 +174,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-                moreDetails[0].required_documents.reference_documents ? (
+              moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -201,7 +196,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-                moreDetails[0].required_documents.notes ? (
+              moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">

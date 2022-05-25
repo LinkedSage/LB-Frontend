@@ -20,7 +20,7 @@ import PreloaderPage from "../Components/PreloaderPage";
 export default function Home() {
   let location = useLocation();
   // let cardInfo = []
-  const[userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
@@ -36,7 +36,7 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
-  const [preloader,setPreloader] =useState(false)
+  const [preloader, setPreloader] = useState(false);
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -68,7 +68,11 @@ export default function Home() {
       if (temp && temp.phone) setPhone(temp.phone);
       if (temp && temp.email) setEmail(temp.email);
       if (temp && temp.name) setName(temp.name);
-      if (temp && temp.employeement_information && temp.employeement_information.profession)
+      if (
+        temp &&
+        temp.employeement_information &&
+        temp.employeement_information.profession
+      )
         setProfessionFun(temp.employeement_information.profession);
       if (temp && temp.city) setCityFun(temp.city);
     }
@@ -87,7 +91,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    console.log("cardInfo,cardInfo",cardInfo)
+    console.log("cardInfo,cardInfo", cardInfo);
     if (cardInfo && cardInfo.state && cardInfo.state.profession)
       setProfession(cardInfo.state.profession);
     if (cardInfo && cardInfo.state && cardInfo.state.salary)
@@ -100,7 +104,7 @@ export default function Home() {
   }
 
   function checkIsExist(value) {
-    setPreloader(true)
+    setPreloader(true);
     isExistUser(value)
       .then((res) => {
         if (res.status === 200) {
@@ -126,10 +130,17 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-      setPreloader(false)
+    setPreloader(false);
   }
 
   function applicationFormSubmit() {
+    if (!cardInfo.eligibility[profession].is_available) {
+      notification("warning", "Profession requirement doesn't match");
+      return;
+    } else if (cardInfo.eligibility[profession].min_monthly_income > salary) {
+      notification("warning", "Salary requirement doesn't match");
+      return;
+    }
     let value = {
       name: name,
       phone: phone,
@@ -139,7 +150,7 @@ export default function Home() {
       email: email,
     };
     if (profession === "salaried") value["organization"] = organization;
-    console.log("saDDSA",value)
+    console.log("saDDSA", value);
     setUserData({
       name: name,
       phone: phone,
@@ -153,7 +164,7 @@ export default function Home() {
         job_location: city,
         companyName: organization || "",
       },
-    })
+    });
 
     validationFun(name, "name");
     validationFun(phone, "phone");
@@ -176,7 +187,7 @@ export default function Home() {
         token: token,
       };
       console.log("vallue", values);
-      applicationSubmitFun(value,values);
+      applicationSubmitFun(value, values);
     } else {
       if (
         name &&
@@ -274,7 +285,7 @@ export default function Home() {
 
       verifyOTP(values)
         .then((res) => {
-          console.log("xxx",res);
+          console.log("xxx", res);
           if (res.status === 200) {
             let value = {
               _id: res.userData._id,
@@ -294,10 +305,10 @@ export default function Home() {
     } else document.getElementById("otp").classList.add("empty");
   }
 
-  function applicationSubmitFun(updatedData,value) {
-    setPreloader(true)
-    console.log("cccaaaaaaaa", updatedData,value);
-    userUpdate(updatedData,value)
+  function applicationSubmitFun(updatedData, value) {
+    setPreloader(true);
+    console.log("cccaaaaaaaa", updatedData, value);
+    userUpdate(updatedData, value)
       .then((res) => {
         console.log(res);
       })
@@ -318,7 +329,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-    setPreloader(false)
+    setPreloader(false);
   }
 
   function loginFun() {
@@ -356,11 +367,7 @@ export default function Home() {
   return (
     <section id="application-page">
       <ToastContainer></ToastContainer>
-      {
-        preloader?
-        <PreloaderPage />
-        :null
-      }
+      {preloader ? <PreloaderPage /> : null}
       <div className="application-form">
         <div className="container">
           <div className="row justify-content-center">

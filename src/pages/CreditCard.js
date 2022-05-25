@@ -64,8 +64,8 @@ export default function CreditCard(data) {
   const anualFeesKey = [
     "img",
     "Lounge Access Fee",
-    "Int. Lounge Access Fee",
     "Free Guest Allowed",
+    "Int. Lounge Access Fee",
     "Int. Free Guest Allowed",
   ];
   const withdrawalKey = [
@@ -461,11 +461,11 @@ export default function CreditCard(data) {
                           item.free_guest_allowed
                             ? item.free_guest_allowed + " person/s"
                             : "---",
-                          item.int_free_guest_allowed
-                            ? item.int_free_guest_allowed + " person/s"
-                            : "---",
                           item.int_lounge_access_fee
                             ? item.int_lounge_access_fee + " BDT."
+                            : "---",
+                          item.int_free_guest_allowed
+                            ? item.int_free_guest_allowed + " person/s"
                             : "---",
                         ];
                         let withdrawalData = [

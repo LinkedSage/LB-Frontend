@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Preloader from "../Components/PreloaderPage";
 import PreloaderSec from "../Components/PreloaderSection";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CreditCardDetails() {
   let location = useLocation();
@@ -84,9 +85,9 @@ function CreditCardDetails() {
               <div className="product_text">
                 <h1 className="product_titel">{cardInfo.name}</h1>
                 <div className="product_description mb-3">
-                  Enter the world of benefits and rewards with Standard
-                  Chartered Silver Credit Card and delight yourself with
-                  unbeatable rewards and benefits.
+                  Enter the world of benefits and rewards with{" "}
+                  <b>{cardInfo.bank[0].name}</b> Credit Card and delight
+                  yourself with unbeatable rewards and benefits.
                 </div>
                 <div className="bullet_point_section d-flex">
                   <div className="d-flex">
@@ -118,7 +119,9 @@ function CreditCardDetails() {
               </div>
             </div>
             <div className="fixed-btn">
-              <button className="glowing-btn">Apply Now</button>
+              <button className="glowing-btn">
+                <Link to={`/card-application/${cardInfo._id}`}>Apply Now</Link>
+              </button>
             </div>
           </div>
 
@@ -200,83 +203,138 @@ function CreditCardDetails() {
               {cardInfo.eligibility &&
               cardInfo.eligibility.salaried &&
               cardInfo.eligibility.salaried.is_available ? (
-                <div>
+                <div className="col-md-4">
                   <p>
-                    Salaried Person with minimum monthly income:{" "}
-                    {cardInfo.eligibility.salaried.min_monthly_income}
+                    <b>Salaried Person</b> with minimum monthly income:{" "}
+                    <b>
+                      {cardInfo.eligibility.salaried.min_monthly_income} BDT.
+                    </b>
                   </p>
                 </div>
               ) : null}
               {cardInfo.eligibility &&
               cardInfo.eligibility.business &&
               cardInfo.eligibility.business.is_available ? (
-                <div>
+                <div className="col-md-4">
                   <p>
-                    Businessman with minimum monthly income:{" "}
-                    {cardInfo.eligibility.business.min_monthly_income}
+                    <b>Businessman</b> with minimum monthly income:{" "}
+                    <b>
+                      {cardInfo.eligibility.business.min_monthly_income} BDT.
+                    </b>
                   </p>
                 </div>
               ) : null}
               {cardInfo.eligibility &&
               cardInfo.eligibility.doctor &&
               cardInfo.eligibility.doctor.is_available ? (
-                <div>
+                <div className="col-md-4">
                   <p>
-                    Doctor with minimum monthly income:{" "}
-                    {cardInfo.eligibility.doctor.min_monthly_income}
+                    <b>Doctor</b> with minimum monthly income:{" "}
+                    <b>{cardInfo.eligibility.doctor.min_monthly_income} BDT.</b>
                   </p>
                 </div>
               ) : null}
             </div>
           ) : rDocument ? (
             <div className="row pt-5 pb-3">
-              {cardInfo.required_documents.map((docs) => (
-                <div className="col-md-4">
-                  <h4>Free Annual Fee</h4>
-                  <p>{cardInfo.free_anual_fee}</p>
-                </div>
-              ))}
+              {Object.keys(cardInfo.required_documents).map(
+                (keyName, keyIndex) => (
+                  <div className="col-md-4">
+                    <h4>
+                      {keyName
+                        .split("_")
+                        .map((s) => s.toUpperCase())
+                        .join(" ")}
+                    </h4>
+                    {cardInfo.required_documents[keyName].map((a) => (
+                      <li>{a}</li>
+                    ))}
+                  </div>
+                  // use keyName to get current key's name
+                  // and a[keyName] to get its value
+                )
+              )}
             </div>
           ) : null}
 
           <div className="row mt-5">
             <div className="col-md-7">
-              <h2 className="mb-3">Key Features & Benefits</h2>
-              <div>
-                <h4>Title 1</h4>
-                <p>
-                  {" "}
-                  Enter the world of benefits and rewards with Standard
-                  Chartered Silver Credit Card and delight yourself with
-                  unbeatable rewards and benefits.
-                </p>
-              </div>
-              <div>
-                <h4>Title 2</h4>
-                <p>
-                  {" "}
-                  Enter the world of benefits and rewards with Standard
-                  Chartered Silver Credit Card and delight yourself with
-                  unbeatable rewards and benefits.
-                </p>
-              </div>
-              <div>
-                <h4>Title 3</h4>
-                <p>
-                  {" "}
-                  Enter the world of benefits and rewards with Standard
-                  Chartered Silver Credit Card and delight yourself with
-                  unbeatable rewards and benefits.
-                </p>
-              </div>
-              <div>
-                <h4>Title 4</h4>
-                <p>
-                  {" "}
-                  Enter the world of benefits and rewards with Standard
-                  Chartered Silver Credit Card and delight yourself with
-                  unbeatable rewards and benefits.
-                </p>
+              <h2 className="fee_charges mb-3">Fees & Charges</h2>
+              <div className="fee_charge_table ">
+                <table className="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Fee Type</th>
+                      <th scope="col">Charges</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>free_anual_fee</td>
+                      <td>{cardInfo.free_anual_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>regular_anual_fee</td>
+                      <td>{cardInfo.regular_anual_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>anual_fee_waived_rewards</td>
+                      <td>{cardInfo.anual_fee_waived_rewards}</td>
+                    </tr>
+                    <tr>
+                      <td>interest_per_day</td>
+                      <td>{cardInfo.interest_per_day}</td>
+                    </tr>
+                    <tr>
+                      <td>interest_free_period</td>
+                      <td>{cardInfo.interest_free_period}</td>
+                    </tr>
+                    <tr>
+                      <td>late_payment_fee</td>
+                      <td>{cardInfo.late_payment_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>lounge_access_fee</td>
+                      <td>{cardInfo.lounge_access_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>free_guest_allowed</td>
+                      <td>{cardInfo.free_guest_allowed}</td>
+                    </tr>
+                    <tr>
+                      <td>int_lounge_access_fee</td>
+                      <td>{cardInfo.int_lounge_access_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>int_free_guest_allowed</td>
+                      <td>{cardInfo.int_free_guest_allowed}</td>
+                    </tr>
+                    <tr>
+                      <td>max_card_limit</td>
+                      <td>{cardInfo.max_card_limit}</td>
+                    </tr>
+                    <tr>
+                      <td>free_supplementary_card</td>
+                      <td>{cardInfo.free_supplementary_card}</td>
+                    </tr>
+                    <tr>
+                      <td>max_supplementary_card</td>
+                      <td>{cardInfo.max_supplementary_card}</td>
+                    </tr>
+                    <tr>
+                      <td>international_bank_atm_fee</td>
+                      <td>{cardInfo.international_bank_atm_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>other_bank_atm_fee</td>
+                      <td>{cardInfo.other_bank_atm_fee}</td>
+                    </tr>
+                    <tr>
+                      <td>own_bank_atm_fee</td>
+                      <td>{cardInfo.own_bank_atm_fee}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <div className="col-md-1">
@@ -284,50 +342,24 @@ function CreditCardDetails() {
             </div>
             <div className="col-md-4">
               <h2>How to Apply?</h2>
-              <ul className="mt-2">
-                <li>- Step 1</li>
-                <li>- Step 2</li>
-                <li>- Step 3</li>
-              </ul>
+              <ol className="mt-2">
+                <li className="mb-2">
+                  🔎 Search your desired 💳 Credit Card according to your
+                  financial position.
+                </li>
+                <li className="mb-2">
+                  Submit 📝 Application for the dselected 💳 Credit Card.
+                </li>
+                <li className="mb-2">
+                  Set an 📅 appoinment for necssery 📄 doccument collection.
+                </li>
+                <li className="mb-2">✔️ All Done.</li>
+              </ol>
               <div className="w-100 text-center pt-5">
                 <button className="glowing-btn eligibility-btn">
                   Check Eligibility
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="fee_charges mt-5">
-            <h2 className="fee_charges mb-3">Fees & Charges</h2>
-            <div className="fee_charge_table ">
-              <table className="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Fee Type</th>
-                    {/* <div className="col-md-1">
-                      <div className="vl-line2"></div>
-                    </div> */}
-                    <th scope="col">Charges</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                  </tr>
-                  <tr>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                  </tr>
-                  <tr>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                  </tr>
-                  <tr>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </div>
         </div>

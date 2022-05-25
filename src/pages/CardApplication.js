@@ -11,23 +11,32 @@ import {
   userUpdate,
 } from "../helpers/API/Auth";
 import { cardApplicationAdd } from "../helpers/API/Application";
-import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
+import {
+  getCookies,
+  getCurrentUser,
+  setCookies,
+} from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById } from "../helpers/API/Product";
 import PreloaderPage from "../Components/PreloaderPage";
+import { useHistory } from "react-router-dom";
+import { bake_cookie, read_cookie } from "sfcookies";
 
 export default function Home() {
   let location = useLocation();
+  const history = useHistory();
   // let cardInfo = []
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
+  const [bdjobsphone, setBdjobsPhone] = useState();
+  const [bdjobsemail, setBdjobsEmail] = useState();
   const [city, setCity] = useState("Select Division");
   const [profession, setProfession] = useState("salaried");
-  const [organization, setOrganization] = useState({});
+  const [organization, setOrganization] = useState();
   const [salary, setSalary] = useState();
   const [cityList, setCityList] = useState(false);
   const [professionList, setProfessionList] = useState(false);
@@ -36,7 +45,8 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
-  const [preloader, setPreloader] = useState(false)
+  const [preloader, setPreloader] = useState(false);
+  const [checkBdjobsInfo, setcheckBdjobsInfo] = useState();
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -63,6 +73,21 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (new URLSearchParams(location.search).get("ref_name")) {
+      console.log("hello");
+      bake_cookie(
+        "ref_name",
+        new URLSearchParams(location.search).get("ref_name")
+      );
+    }
+    if (new URLSearchParams(location.search).get("ref_id")) {
+      bake_cookie("ref_id", new URLSearchParams(location.search).get("ref_id"));
+    }
+    if (new URLSearchParams(location.search).get("ref_name") == "bdjobs") {
+      setcheckBdjobsInfo(true);
+    }
+  }, []);
+  useEffect(() => {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
       if (temp && temp.phone) setPhone(temp.phone);
@@ -71,10 +96,23 @@ export default function Home() {
       if (
         temp &&
         temp.employeement_information &&
+        temp.employeement_information.salary_amount
+      )
+        setSalary(temp.employeement_information.salary_amount);
+      if (
+        temp &&
+        temp.employeement_information &&
+        temp.employeement_information.company_name
+      ) {
+        setOrganization(temp.employeement_information.company_name);
+      }
+      if (
+        temp &&
+        temp.employeement_information &&
         temp.employeement_information.profession
       )
-        setProfessionFun(temp.employeement_information.profession);
-      if (temp && temp.city) setCityFun(temp.city);
+        setProfession(temp.employeement_information.profession);
+      if (temp && temp.city) setCity(temp.city);
     }
 
     if (location.state && location.state.cardDetails)
@@ -91,7 +129,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    console.log("cardInfo,cardInfo", cardInfo)
+    console.log("cardInfo,cardInfo", cardInfo);
     if (cardInfo && cardInfo.state && cardInfo.state.profession)
       setProfession(cardInfo.state.profession);
     if (cardInfo && cardInfo.state && cardInfo.state.salary)
@@ -130,14 +168,19 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-    setPreloader(false)
+    setPreloader(false);
   }
 
+  function _checkBdjobsInfo() {
+    setcheckBdjobsInfo(false);
+  }
   function applicationFormSubmit() {
     if (!cardInfo.eligibility[profession].is_available) {
+      history.push("/credit-card");
       notification("warning", "Profession requirement doesn't match");
       return;
     } else if (cardInfo.eligibility[profession].min_monthly_income > salary) {
+      history.push("/credit-card", { profession: profession, salary: salary });
       notification("warning", "Salary requirement doesn't match");
       return;
     }
@@ -153,8 +196,8 @@ export default function Home() {
       email: email,
     };
     if (profession === "salaried") value["organization"] = organization;
-    console.log("saDDSA", value)
-    setUserData(value)
+    console.log("saDDSA", value);
+    setUserData(value);
 
     validationFun(name, "name");
     validationFun(phone, "phone");
@@ -283,7 +326,7 @@ export default function Home() {
               token: res.data,
             };
             setOTPPopup(true);
-            applicationSubmitFun(userData , value);
+            applicationSubmitFun(userData, value);
           } else {
             notification("fail", res.message);
           }
@@ -296,7 +339,7 @@ export default function Home() {
   }
 
   function applicationSubmitFun(updatedData, value) {
-    setPreloader(true)
+    setPreloader(true);
     console.log("cccaaaaaaaa", updatedData, value);
     userUpdate(updatedData, value)
       .then((res) => {
@@ -357,279 +400,344 @@ export default function Home() {
   return (
     <section id="application-page">
       <ToastContainer></ToastContainer>
-      {
-        preloader ?
-          <PreloaderPage />
-          : null
-      }
-      <div className="application-form">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-8 right ">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  applicationFormSubmit();
-                }}
-              >
-                <div className="row form-group  mt-4">
-                  <div className="col-md-4">
-                    <label>Name*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        id="name"
-                        type="text"
-                        placeholder="Name"
-                        defaultValue={name}
-                        onChange={(e) => {
-                          setNameFun(e.target.value);
-                        }}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>City*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <button
-                        id="city"
-                        type="button"
-                        className="select-btn d-flex align-items-center"
-                        onClick={openCityListFun}
-                      >
-                        <span id="city-arrow">
-                          <svg viewBox="0 0 256 512">
-                            <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
-                          </svg>
-                        </span>
-                        <p className="h-100">{city}</p>
-                      </button>
-                      {cityList ? (
-                        <div className="city-list">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Dhaka");
-                            }}
-                          >
-                            Dhaka
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Chitagong");
-                            }}
-                          >
-                            Chitagong
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Sylhet");
-                            }}
-                          >
-                            Sylhet
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Rajshahi");
-                            }}
-                          >
-                            Rajshahi
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Khulna");
-                            }}
-                          >
-                            Khulna
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Rangpur");
-                            }}
-                          >
-                            Rangpur
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Barisal");
-                            }}
-                          >
-                            Barisal
-                          </button>
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Phone No.*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        defaultValue={phone}
-                        placeholder="Phone no."
-                        // pattern="[0-9]{11}"
-                        pattern="^(\+?880|0)1[13456789][0-9]{8}"
-                        required
-                        onChange={(e) => {
-                          setPhoneFun(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Email*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        defaultValue={email}
-                        placeholder="Email"
-                        required
-                        onChange={(e) => {
-                          setEmailFun(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Profession*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <button
-                        id="profession"
-                        type="button"
-                        className="select-btn d-flex align-items-center"
-                        onClick={openProfessionFun}
-                      >
-                        <span id="profession-arrow">
-                          <svg viewBox="0 0 256 512">
-                            <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
-                          </svg>
-                        </span>
-                        <p className="h-100">{profession}</p>
-                      </button>
-                      {professionList ? (
-                        <div className="city-list">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("salaried");
-                            }}
-                          >
-                            Salaried
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("business");
-                            }}
-                          >
-                            Businessman
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("doctor");
-                            }}
-                          >
-                            Doctor
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("landLord");
-                            }}
-                          >
-                            Land Lord
-                          </button>
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-                {profession === "salaried" ? (
+      {preloader ? <PreloaderPage /> : null}
+      {checkBdjobsInfo ? (
+        <div className="application-form">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-8 right ">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    _checkBdjobsInfo();
+                  }}
+                >
                   <div className="row form-group">
                     <div className="col-md-4">
-                      <label>Organization*</label>
+                      <label>Email*</label>
                     </div>
                     <div className="col-md-8">
                       <div className="input-field">
-                        <Select
-                          id="Organization"
+                        <input
+                          type="email"
+                          placeholder="Email"
+                          required
                           onChange={(e) => {
-                            setOrganizationFun(e.value);
+                            setBdjobsEmail(e.target.value);
                           }}
-                          options={companyName}
-                          placeholder="Organization"
                         />
                       </div>
                     </div>
                   </div>
-                ) : null}
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Salary*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        id="salary"
-                        type="number"
-                        placeholder="Salary"
-                        defaultValue={salary}
-                        onChange={(e) => {
-                          setSalaryFun(e.target.value);
-                        }}
-                        required
-                      />
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Phone No.*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          type="tel"
+                          placeholder="Phone no."
+                          // pattern="[0-9]{11}"
+                          pattern="^(\+?880|0)1[13456789][0-9]{8}"
+                          required
+                          onChange={(e) => {
+                            setBdjobsPhone(e.target.value);
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="row form-group pt-4 pb-5">
-                  <div className="col-md-4"></div>
-                  <div className="col-md-8 text-center application">
-                    <button
-                      type="submit"
-                      className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
-                    >
-                      Submit
-                    </button>
+
+                  <div className="row form-group pt-4 pb-5">
+                    <div className="col-md-4"></div>
+                    <div className="col-md-8 text-center application">
+                      <button
+                        type="submit"
+                        className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                      >
+                        Submit
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="application-form">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-8 right ">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    applicationFormSubmit();
+                  }}
+                >
+                  <div className="row form-group  mt-4">
+                    <div className="col-md-4">
+                      <label>Name*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          id="name"
+                          type="text"
+                          placeholder="Name"
+                          defaultValue={name}
+                          onChange={(e) => {
+                            setNameFun(e.target.value);
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>City*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <button
+                          id="city"
+                          type="button"
+                          className="select-btn d-flex align-items-center"
+                          onClick={openCityListFun}
+                        >
+                          <span id="city-arrow">
+                            <svg viewBox="0 0 256 512">
+                              <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
+                            </svg>
+                          </span>
+                          <p className="h-100">{city}</p>
+                        </button>
+                        {cityList ? (
+                          <div className="city-list">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Dhaka");
+                              }}
+                            >
+                              Dhaka
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Chitagong");
+                              }}
+                            >
+                              Chitagong
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Sylhet");
+                              }}
+                            >
+                              Sylhet
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Rajshahi");
+                              }}
+                            >
+                              Rajshahi
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Khulna");
+                              }}
+                            >
+                              Khulna
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Rangpur");
+                              }}
+                            >
+                              Rangpur
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Barisal");
+                              }}
+                            >
+                              Barisal
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Phone No.*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          defaultValue={phone}
+                          placeholder="Phone no."
+                          // pattern="[0-9]{11}"
+                          pattern="^(\+?880|0)1[13456789][0-9]{8}"
+                          required
+                          onChange={(e) => {
+                            setPhoneFun(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Email*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          defaultValue={email}
+                          placeholder="Email"
+                          required
+                          onChange={(e) => {
+                            setEmailFun(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Profession*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <button
+                          id="profession"
+                          type="button"
+                          className="select-btn d-flex align-items-center"
+                          onClick={openProfessionFun}
+                        >
+                          <span id="profession-arrow">
+                            <svg viewBox="0 0 256 512">
+                              <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
+                            </svg>
+                          </span>
+                          <p className="h-100">{profession}</p>
+                        </button>
+                        {professionList ? (
+                          <div className="city-list">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("salaried");
+                              }}
+                            >
+                              Salaried
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("business");
+                              }}
+                            >
+                              Businessman
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("doctor");
+                              }}
+                            >
+                              Doctor
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("landLord");
+                              }}
+                            >
+                              Land Lord
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                  {profession === "salaried" ? (
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Organization*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <Select
+                            id="Organization"
+                            value={[
+                              { label: organization, value: organization },
+                            ]}
+                            onChange={(e) => {
+                              setOrganizationFun(e.value);
+                            }}
+                            options={companyName}
+                            placeholder={"Organization"}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Salary*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          id="salary"
+                          type="number"
+                          placeholder="Salary"
+                          defaultValue={salary}
+                          onChange={(e) => {
+                            setSalaryFun(e.target.value);
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row form-group pt-4 pb-5">
+                    <div className="col-md-4"></div>
+                    <div className="col-md-8 text-center application">
+                      <button
+                        type="submit"
+                        className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {otpPopup ? (
         <div className="popup-container">

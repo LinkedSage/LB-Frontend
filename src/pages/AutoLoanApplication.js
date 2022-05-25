@@ -14,21 +14,20 @@ import { CarLoanApplicationAdd } from "../helpers/API/Application";
 import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
-import { getCardById } from "../helpers/API/Product";
+import { getAutoLoanById, getCardById } from "../helpers/API/Product";
 import PreloaderPage from "../Components/PreloaderPage";
-
 
 export default function Home() {
   let location = useLocation();
   // let cardInfo = []
-  const[userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [city, setCity] = useState("Select Division");
   const [profession, setProfession] = useState("salaried");
-  const [organization, setOrganization] = useState({});
+  const [organization, setOrganization] = useState();
   const [salary, setSalary] = useState();
   const [cityList, setCityList] = useState(false);
   const [professionList, setProfessionList] = useState(false);
@@ -37,7 +36,7 @@ export default function Home() {
   const [signinPopup, setSigninPopup] = useState(false);
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
-  const [preloader,setPreloader] = useState(false)
+  const [preloader, setPreloader] = useState(false);
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -76,6 +75,13 @@ export default function Home() {
       if (temp && temp.name) setName(temp.name);
       if (temp && temp.employeement_information.profession)
         setProfessionFun(temp.employeement_information.profession);
+
+      if (temp && temp.employeement_information.salary_amount)
+        setSalary(temp.employeement_information.salary_amount);
+
+      if (temp && temp.employeement_information.company_name)
+        setOrganization(temp.employeement_information.company_name);
+
       if (temp && temp.city) setCityFun(temp.city);
     }
 
@@ -83,7 +89,7 @@ export default function Home() {
       setCardInfo(location.state.cardDetails);
     else {
       let value = location.pathname.split("/");
-      getCardById(value[2])
+      getAutoLoanById(value[2])
         .then((res) => {
           setCardInfo(res.data[0]);
         })
@@ -93,7 +99,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    console.log("cardInfo,cardInfo",cardInfo)
+    console.log("cardInfo,cardInfo", cardInfo);
     if (cardInfo && cardInfo.state && cardInfo.state.profession)
       setProfession(cardInfo.state.profession);
     if (cardInfo && cardInfo.state && cardInfo.state.salary)
@@ -106,7 +112,7 @@ export default function Home() {
   }
 
   function checkIsExist(value) {
-    setPreloader(true)
+    setPreloader(true);
     isExistUser(value)
       .then((res) => {
         if (res.status === 200) {
@@ -132,7 +138,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-      setPreloader(false)
+    setPreloader(false);
   }
 
   function applicationFormSubmit() {
@@ -156,7 +162,7 @@ export default function Home() {
     };
     if (profession === "salaried") value["organization"] = organization;
 
-    setUserData(value)
+    setUserData(value);
 
     validationFun(name, "name");
     validationFun(phone, "phone");
@@ -275,10 +281,10 @@ export default function Home() {
       };
       document.getElementById("otp").classList.remove("empty");
 
-      setPreloader(true)
+      setPreloader(true);
       verifyOTP(values)
         .then((res) => {
-          console.log("xxx",res);
+          console.log("xxx", res);
           if (res.status === 200) {
             let value = {
               _id: res.userData._id,
@@ -294,31 +300,31 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         });
-      
-    setPreloader(false)
+
+      setPreloader(false);
       //
     } else document.getElementById("otp").classList.add("empty");
   }
 
   function applicationSubmitFun(value) {
-    let tempValue = userData
+    let tempValue = userData;
     console.log("cccaaaaaaaa", tempValue);
-    
-    setPreloader(true)
-    userUpdate(tempValue,value)
+
+    setPreloader(true);
+    userUpdate(tempValue, value)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
 
-      CarLoanApplicationAdd(value)
+    CarLoanApplicationAdd(value)
       .then((res1) => {
         if (res1.status === 200) {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
           setTimeout(() => {
             window.location.href = "/user-dashboard";
-           }, 1000);
+          }, 1000);
         } else {
           notification("fail", res1.message);
         }
@@ -326,7 +332,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-      
+
     // setPreloader(false)
   }
 
@@ -588,6 +594,7 @@ export default function Home() {
                       <div className="input-field">
                         <Select
                           id="Organization"
+                          value={[{ label: organization, value: organization }]}
                           onChange={(e) => {
                             setOrganizationFun(e.value);
                           }}

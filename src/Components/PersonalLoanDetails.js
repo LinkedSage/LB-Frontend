@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const PersonalLoanDetails = ({cardDetails}) => {
-  console.log("aaaa",cardDetails)
+export const PersonalLoanDetails = ({ cardDetails }) => {
+  console.log("aaaa", cardDetails);
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -38,34 +38,45 @@ export const PersonalLoanDetails = ({cardDetails}) => {
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Loan Amount</p>
-        <p>{cardDetails.max_loan_amount}</p>
+        <p>
+          {cardDetails.max_loan_amount
+            ? cardDetails.max_loan_amount + " BDT."
+            : "---"}
+        </p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Tenor</p>
-        <p>{cardDetails.max_tenor}</p>
+        <p>{cardDetails.max_tenor ? cardDetails.max_tenor : "---"}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Duration</p>
-        <p>{cardDetails.max_duration}</p>
+        <p>
+          {cardDetails.max_duration
+            ? cardDetails.max_duration + " Yrs."
+            : "---"}
+        </p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center eligible-for w-220 pl-2 pr-2">
         <p className="h5">Eligible For</p>
-        {
-          cardDetails.eligibility && cardDetails.eligibility.salaried.is_available?
-          <p>Salaried</p>:null
-        }{
-          cardDetails.eligibility && cardDetails.eligibility.business.is_available?
-          <p>Businessman</p>:null
-        }{
-          cardDetails.eligibility && cardDetails.eligibility.doctor.is_available?
-          <p>Doctor</p>:null
-        }{
-          cardDetails.eligibility && cardDetails.eligibility.landlord.is_available?
-          <p>Landlord</p>:null
-        }
+        {cardDetails.eligibility &&
+        cardDetails.eligibility.salaried.is_available ? (
+          <p>Salaried</p>
+        ) : null}
+        {cardDetails.eligibility &&
+        cardDetails.eligibility.business.is_available ? (
+          <p>Businessman</p>
+        ) : null}
+        {cardDetails.eligibility &&
+        cardDetails.eligibility.doctor.is_available ? (
+          <p>Doctor</p>
+        ) : null}
+        {cardDetails.eligibility &&
+        cardDetails.eligibility.landlord.is_available ? (
+          <p>Landlord</p>
+        ) : null}
       </div>
       <div className="vl-line"></div>
       <div className="text-center d-flex flex-column lst-child  w-150 pl-2 pr-2">
@@ -127,7 +138,7 @@ export const PersonalLoanDetails = ({cardDetails}) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-                moreDetails[0].required_documents.essential_documents ? (
+              moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -148,7 +159,7 @@ export const PersonalLoanDetails = ({cardDetails}) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-                moreDetails[0].required_documents.reference_documents ? (
+              moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -170,7 +181,7 @@ export const PersonalLoanDetails = ({cardDetails}) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-                moreDetails[0].required_documents.notes ? (
+              moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">

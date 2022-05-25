@@ -52,7 +52,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
       <div className="middle d-flex justify-content-center align-items-center flex-wrap">
         <div>
           <p className="h4">Interest Free Period</p>
-          <p className="mb-0">{cardDetails.interest_free_period} days</p>
+          <p className="mb-0">{cardDetails.interest_free_period}</p>
         </div>
         <div>
           <p className="h4">Regular Anual Fee</p>
@@ -63,7 +63,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
           <p className="mb-0">{cardDetails.free_anual_fee}</p>
         </div>
         <div>
-          <p className="h4">Rewards Point</p>
+          <p className="h4">Rewards Points</p>
           <p className="mb-0">{cardDetails.anual_fee_waived_rewards}</p>
         </div>
       </div>

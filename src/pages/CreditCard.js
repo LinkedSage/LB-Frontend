@@ -57,9 +57,9 @@ export default function CreditCard(data) {
   const feesKey = [
     "img",
     "Interest Free Period",
-    "Regular Anual",
-    "Free anual",
-    "Rewards Point",
+    "Regular Anual Fee",
+    "Free Anual Fee",
+    "Eligible For",
   ];
   const anualFeesKey = [
     "img",
@@ -71,9 +71,9 @@ export default function CreditCard(data) {
   const withdrawalKey = [
     "img",
     "Max Card Limit",
-    "Free Supply Card",
-    "Max Supply Card",
-    "Eligible For",
+    "Free Supplementary Card",
+    "Max Supplementary Card",
+    "Reward Points",
   ];
 
   function handleChangeCurrency(e) {
@@ -442,24 +442,42 @@ export default function CreditCard(data) {
                         if (location.state) item.state = location.state;
                         let feesData = [
                           item.image_url,
-                          item.interest_free_period,
-                          item.regular_anual_fee,
-                          item.free_anual_fee,
-                          item.anual_fee_waived_rewards,
+                          item.interest_free_period
+                            ? item.interest_free_period + " Days"
+                            : "---",
+                          item.regular_anual_fee
+                            ? item.regular_anual_fee + " BDT."
+                            : "---",
+                          item.free_anual_fee
+                            ? item.free_anual_fee + " BDT."
+                            : "---",
+                          item.eligibility,
                         ];
                         let anualFeesData = [
                           item.image_url,
-                          item.lounge_access_fee,
-                          item.free_guest_allowed,
-                          item.int_free_guest_allowed,
-                          item.int_lounge_access_fee,
+                          item.lounge_access_fee
+                            ? item.lounge_access_fee + " BDT."
+                            : "---",
+                          item.free_guest_allowed
+                            ? item.free_guest_allowed + " person/s"
+                            : "---",
+                          item.int_free_guest_allowed
+                            ? item.int_free_guest_allowed + " person/s"
+                            : "---",
+                          item.int_lounge_access_fee
+                            ? item.int_lounge_access_fee + " BDT."
+                            : "---",
                         ];
                         let withdrawalData = [
                           item.image_url,
-                          item.max_card_limit,
+                          item.max_card_limit
+                            ? item.max_card_limit + " BDT."
+                            : "---",
                           item.free_supplementary_card,
                           item.max_supplementary_card,
-                          item.eligibility,
+                          item.anual_fee_waived_rewards
+                            ? item.anual_fee_waived_rewards + " points"
+                            : "---",
                         ];
                         return (
                           <div

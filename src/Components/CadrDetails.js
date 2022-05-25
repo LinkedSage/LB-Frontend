@@ -20,7 +20,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
     const result = await Axios.get(
       `${process.env.REACT_APP_API_URL}/cards/${e}/required-documents`
     );
-    console.log(result.data.data)
+    console.log(result.data.data);
     if (result && result.data && result.data.data)
       setMoreDetails(result.data.data);
   }
@@ -38,7 +38,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">{title[1]}</p>
-        <p>{data[1]} days</p>
+        <p>{data[1]}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
@@ -59,8 +59,10 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
               <p>Salaried</p>
             ) : data[4].doctor && data[4].doctor.is_available ? (
               <p>Doctor</p>
-            ) : (
+            ) : data[4].doctor && data[4].business.is_available ? (
               <p>Businessman</p>
+            ) : (
+              <p>---</p>
             )}
           </>
         ) : (
@@ -119,27 +121,36 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
               {/* <div className="hr"></div> */}
               <div className="left-bottom">
                 <h4 className="_title">Eligibility</h4>
-                {
-                  moreDetails[0].eligibility && moreDetails[0].eligibility.salaried && moreDetails[0].eligibility.salaried.is_available?
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.salaried &&
+                moreDetails[0].eligibility.salaried.is_available ? (
                   <div>
-                   <p>Salaried Person with minimum monthly income: {moreDetails[0].eligibility.salaried.min_monthly_income}</p>
+                    <p>
+                      Salaried Person with minimum monthly income:{" "}
+                      {moreDetails[0].eligibility.salaried.min_monthly_income}
+                    </p>
                   </div>
-                  :null
-                }
-                {
-                  moreDetails[0].eligibility && moreDetails[0].eligibility.business && moreDetails[0].eligibility.business.is_available?
+                ) : null}
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.business &&
+                moreDetails[0].eligibility.business.is_available ? (
                   <div>
-                   <p>Businessman with minimum monthly income: {moreDetails[0].eligibility.business.min_monthly_income}</p>
+                    <p>
+                      Businessman with minimum monthly income:{" "}
+                      {moreDetails[0].eligibility.business.min_monthly_income}
+                    </p>
                   </div>
-                  :null
-                }
-                {
-                  moreDetails[0].eligibility && moreDetails[0].eligibility.doctor && moreDetails[0].eligibility.doctor.is_available?
+                ) : null}
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.doctor &&
+                moreDetails[0].eligibility.doctor.is_available ? (
                   <div>
-                   <p>Doctor with minimum monthly income: {moreDetails[0].eligibility.doctor.min_monthly_income}</p>
+                    <p>
+                      Doctor with minimum monthly income:{" "}
+                      {moreDetails[0].eligibility.doctor.min_monthly_income}
+                    </p>
                   </div>
-                  :null
-                }
+                ) : null}
               </div>
             </div>
             <div className="vl"></div>

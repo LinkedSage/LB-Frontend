@@ -40,17 +40,25 @@ export const HomeLoanDetails = ({cardDetails}) => {
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Loan Amount</p>
-        <p>{cardDetails.max_loan_amount}</p>
+        <p>
+          {cardDetails.max_loan_amount
+            ? cardDetails.max_loan_amount + " BDT."
+            : "---"}
+        </p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Tenor</p>
-        <p>{cardDetails.max_tenor}</p>
+        <p>{cardDetails.max_tenor ? cardDetails.max_tenor : "---"}</p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Duration</p>
-        <p>{cardDetails.max_duration}</p>
+        <p>
+          {cardDetails.max_duration
+            ? cardDetails.max_duration + " Yrs."
+            : "---"}
+        </p>
       </div>
       <div className="vl-line-1"></div>
       <div className="text-center eligible-for w-220 pl-2 pr-2">

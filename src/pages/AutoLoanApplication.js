@@ -146,27 +146,17 @@ export default function Home() {
     let value = {
       name: name,
       phone: phone,
-      city: city,
-      profession: profession,
-      salary: salary,
-      email: email,
-    };
-    if (profession === "salaried") value["organization"] = organization;
-
-    setUserData({
-      name: name,
-      phone: phone,
-      city: city,
-      profession: profession,
-      salary: salary,
-      email: email,
       employeement_information: {
         profession: profession,
         salary_amount: salary,
         job_location: city,
-        companyName: organization || "",
+        company_name: organization || "",
       },
-    })
+      email: email,
+    };
+    if (profession === "salaried") value["organization"] = organization;
+
+    setUserData(value)
 
     validationFun(name, "name");
     validationFun(phone, "phone");

@@ -403,65 +403,67 @@ export default function Home() {
       <ToastContainer></ToastContainer>
       {preloader ? <PreloaderPage /> : null}
       {checkBdjobsInfo ? (
-        <div className="application-form">
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-md-8 right ">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    _checkBdjobsInfo();
-                  }}
-                >
-                  <div className="row form-group">
-                    <div className="col-md-4">
-                      <label>Email*</label>
-                    </div>
-                    <div className="col-md-8">
-                      <div className="input-field">
-                        <input
-                          type="email"
-                          placeholder="Email"
-                          required
-                          onChange={(e) => {
-                            setBdjobsEmail(e.target.value);
-                          }}
-                        />
+        <div>
+          <div className="application-form">
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-md-8 right ">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      _checkBdjobsInfo();
+                    }}
+                  >
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Email*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <input
+                            type="email"
+                            placeholder="Email"
+                            required
+                            onChange={(e) => {
+                              setBdjobsEmail(e.target.value);
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="row form-group">
-                    <div className="col-md-4">
-                      <label>Phone No.*</label>
-                    </div>
-                    <div className="col-md-8">
-                      <div className="input-field">
-                        <input
-                          type="tel"
-                          placeholder="Phone no."
-                          // pattern="[0-9]{11}"
-                          pattern="^(\+?880|0)1[13456789][0-9]{8}"
-                          required
-                          onChange={(e) => {
-                            setBdjobsPhone(e.target.value);
-                          }}
-                        />
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Phone No.*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <input
+                            type="tel"
+                            placeholder="Phone no."
+                            // pattern="[0-9]{11}"
+                            pattern="^(\+?880|0)1[13456789][0-9]{8}"
+                            required
+                            onChange={(e) => {
+                              setBdjobsPhone(e.target.value);
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="row form-group pt-4 pb-5">
-                    <div className="col-md-4"></div>
-                    <div className="col-md-8 text-center application">
-                      <button
-                        type="submit"
-                        className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
-                      >
-                        Submit
-                      </button>
+                    <div className="row form-group pt-4 pb-5">
+                      <div className="col-md-4"></div>
+                      <div className="col-md-8 text-center application">
+                        <button
+                          type="submit"
+                          className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                        >
+                          Submit
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

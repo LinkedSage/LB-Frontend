@@ -106,3 +106,11 @@ export const resetPassword = async (values) => {
 }
 
 
+export const bdJobsDataFetch = async (values) => {
+    console.log("vvvv", values) 
+    const result = await Axios.post(
+        `${process.env.REACT_APP_API_URL}/bdjobs/get`,values);
+    return result
+}
+
+

@@ -9,6 +9,7 @@ import {
   verifyOTP,
   onSubmitLogin,
   userUpdate,
+  bdJobsDataFetch,
 } from "../helpers/API/Auth";
 import { cardApplicationAdd } from "../helpers/API/Application";
 import {
@@ -34,6 +35,7 @@ export default function Home() {
   const [email, setEmail] = useState();
   const [bdjobsphone, setBdjobsPhone] = useState();
   const [bdjobsemail, setBdjobsEmail] = useState();
+  const [bdJobsUserInfo, setBdJobsUserInfo] = useState();
   const [city, setCity] = useState("Select Division");
   const [profession, setProfession] = useState("salaried");
   const [organization, setOrganization] = useState();
@@ -88,6 +90,18 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
+    console.log("read_cookie('ref_id')", read_cookie('ref_id'))
+    setInitialValue();
+  }, []);
+  useEffect(() => {
+    console.log("cardInfo,cardInfo", cardInfo);
+    if (cardInfo && cardInfo.state && cardInfo.state.profession)
+      setProfession(cardInfo.state.profession);
+    if (cardInfo && cardInfo.state && cardInfo.state.salary)
+      setSalary(cardInfo.state.salary);
+  }, [cardInfo]);
+
+  function setInitialValue(bdJobsUser) {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
       if (temp && temp.phone) setPhone(temp.phone);
@@ -114,6 +128,20 @@ export default function Home() {
         setProfession(temp.employeement_information.profession);
       if (temp && temp.city) setCity(temp.city);
     }
+    else {
+      if (bdJobsUser) {
+        let tempname
+        console.log("bd2", bdJobsUser)
+        if (bdjobsphone) setPhone(bdjobsphone);
+        if (bdjobsphone) setEmail(bdjobsemail);
+        if (bdJobsUser.CustomerFirstName) tempname = bdJobsUser.CustomerFirstName;
+        if (bdJobsUser.CustomerLastName) tempname = tempname + ' ' + bdJobsUser.CustomerLastName;
+        setName(tempname)
+        if (bdJobsUser.CurrentSalaryAmount) setSalary(bdJobsUser.CurrentSalaryAmount);
+        if (bdJobsUser.CompanyName) setOrganization(bdJobsUser.CompanyName);
+        if (bdJobsUser.PresentAddressDistrictName) setCity(bdJobsUser.PresentAddressDistrictName);
+      }
+    }
 
     if (location.state && location.state.cardDetails)
       setCardInfo(location.state.cardDetails);
@@ -121,20 +149,14 @@ export default function Home() {
       let value = location.pathname.split("/");
       getCardById(value[2])
         .then((res) => {
+          console.log("card", res)
           setCardInfo(res.data[0]);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, []);
-  useEffect(() => {
-    console.log("cardInfo,cardInfo", cardInfo);
-    if (cardInfo && cardInfo.state && cardInfo.state.profession)
-      setProfession(cardInfo.state.profession);
-    if (cardInfo && cardInfo.state && cardInfo.state.salary)
-      setSalary(cardInfo.state.salary);
-  }, [cardInfo]);
+  }
 
   function validationFun(fieldValue, fieldId) {
     if (fieldValue) document.getElementById(fieldId).classList.remove("empty");
@@ -172,15 +194,39 @@ export default function Home() {
   }
 
   function _checkBdjobsInfo() {
+    let tempValue = {
+      email: bdjobsemail,
+      phone: bdjobsphone
+    }
+    setPreloader(true);
+    bdJobsDataFetch(tempValue)
+      .then((res) => {
+        console.log("ressssss", res)
+        if (res.data.status === 200) {
+          console.log("bd1", res.data.data)
+          setBdJobsUserInfo(res.data.data)
+          setInitialValue(res.data.data);
+          setPreloader(false);
+        } else {
+          notification("warning", res.data.message);
+          setPreloader(false);
+        }
+
+      })
+      .catch((err) => {
+        console.log(err);
+        setPreloader(false);
+      });
+
 
     setcheckBdjobsInfo(false);
   }
   function applicationFormSubmit() {
-    if (!cardInfo.eligibility[profession].is_available) {
+    if (cardInfo && cardInfo.eligibility[profession] && !cardInfo.eligibility[profession].is_available) {
       history.push("/credit-card");
       notification("warning", "Profession requirement doesn't match");
       return;
-    } else if (cardInfo.eligibility[profession].min_monthly_income > salary) {
+    } else if (cardInfo && cardInfo.eligibility[profession] && cardInfo.eligibility[profession].min_monthly_income > salary) {
       history.push("/credit-card", { profession: profession, salary: salary });
       notification("warning", "Salary requirement doesn't match");
       return;
@@ -341,6 +387,13 @@ export default function Home() {
 
   function applicationSubmitFun(updatedData, value) {
     setPreloader(true);
+    if (bdJobsUserInfo) {
+      updatedData.is_bdjobs_verified = true
+      updatedData.info_from_bdjobs = bdJobsUserInfo
+    }
+    // let vv = value
+    if (read_cookie('ref_id'))
+      value.referrer = read_cookie('ref_id')
     console.log("cccaaaaaaaa", updatedData, value);
     userUpdate(updatedData, value)
       .then((res) => {
@@ -384,7 +437,7 @@ export default function Home() {
                 token: token,
               };
               console.log("value", value);
-              applicationSubmitFun(value);
+              applicationSubmitFun(userData, value);
             } else {
               setOTPPopup(true);
             }
@@ -489,7 +542,7 @@ export default function Home() {
                           id="name"
                           type="text"
                           placeholder="Name"
-                          defaultValue={"name"}
+                          defaultValue={name}
                           onChange={(e) => {
                             setNameFun(e.target.value);
                           }}

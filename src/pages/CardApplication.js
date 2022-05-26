@@ -172,6 +172,7 @@ export default function Home() {
   }
 
   function _checkBdjobsInfo() {
+
     setcheckBdjobsInfo(false);
   }
   function applicationFormSubmit() {
@@ -486,7 +487,7 @@ export default function Home() {
                           id="name"
                           type="text"
                           placeholder="Name"
-                          defaultValue={name}
+                          defaultValue={"name"}
                           onChange={(e) => {
                             setNameFun(e.target.value);
                           }}

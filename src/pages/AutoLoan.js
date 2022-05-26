@@ -148,7 +148,7 @@ export default function CreditCard(data) {
     } else {
       salaryId.classList.remove("empty");
       const result = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/personalloans?profession=${profession}&salary=${salary}`
+        `${process.env.REACT_APP_API_URL}/carloans?profession=${profession}&salary=${salary}`
       );
       setCardList(result.data);
       setCardShow(result.data.data);

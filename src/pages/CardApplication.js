@@ -90,7 +90,7 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    console.log("read_cookie('ref_id')", read_cookie('ref_id'))
+    console.log("read_cookie('ref_id')", read_cookie("ref_id"));
     setInitialValue();
   }, []);
   useEffect(() => {
@@ -127,19 +127,22 @@ export default function Home() {
       )
         setProfession(temp.employeement_information.profession);
       if (temp && temp.city) setCity(temp.city);
-    }
-    else {
+    } else {
       if (bdJobsUser) {
-        let tempname
-        console.log("bd2", bdJobsUser)
+        let tempname;
+        console.log("bd2", bdJobsUser);
         if (bdjobsphone) setPhone(bdjobsphone);
         if (bdjobsphone) setEmail(bdjobsemail);
-        if (bdJobsUser.CustomerFirstName) tempname = bdJobsUser.CustomerFirstName;
-        if (bdJobsUser.CustomerLastName) tempname = tempname + ' ' + bdJobsUser.CustomerLastName;
-        setName(tempname)
-        if (bdJobsUser.CurrentSalaryAmount) setSalary(bdJobsUser.CurrentSalaryAmount);
+        if (bdJobsUser.CustomerFirstName)
+          tempname = bdJobsUser.CustomerFirstName;
+        if (bdJobsUser.CustomerLastName)
+          tempname = tempname + " " + bdJobsUser.CustomerLastName;
+        setName(tempname);
+        if (bdJobsUser.CurrentSalaryAmount)
+          setSalary(bdJobsUser.CurrentSalaryAmount);
         if (bdJobsUser.CompanyName) setOrganization(bdJobsUser.CompanyName);
-        if (bdJobsUser.PresentAddressDistrictName) setCity(bdJobsUser.PresentAddressDistrictName);
+        if (bdJobsUser.PresentAddressDistrictName)
+          setCity(bdJobsUser.PresentAddressDistrictName);
       }
     }
 
@@ -149,7 +152,7 @@ export default function Home() {
       let value = location.pathname.split("/");
       getCardById(value[2])
         .then((res) => {
-          console.log("card", res)
+          console.log("card", res);
           setCardInfo(res.data[0]);
         })
         .catch((err) => {
@@ -196,37 +199,43 @@ export default function Home() {
   function _checkBdjobsInfo() {
     let tempValue = {
       email: bdjobsemail,
-      phone: bdjobsphone
-    }
+      phone: bdjobsphone,
+    };
     setPreloader(true);
     bdJobsDataFetch(tempValue)
       .then((res) => {
-        console.log("ressssss", res)
+        console.log("ressssss", res);
         if (res.data.status === 200) {
-          console.log("bd1", res.data.data)
-          setBdJobsUserInfo(res.data.data)
+          console.log("bd1", res.data.data);
+          setBdJobsUserInfo(res.data.data);
           setInitialValue(res.data.data);
           setPreloader(false);
         } else {
           notification("warning", res.data.message);
           setPreloader(false);
         }
-
       })
       .catch((err) => {
         console.log(err);
         setPreloader(false);
       });
 
-
     setcheckBdjobsInfo(false);
   }
   function applicationFormSubmit() {
-    if (cardInfo && cardInfo.eligibility[profession] && !cardInfo.eligibility[profession].is_available) {
+    if (
+      cardInfo &&
+      cardInfo.eligibility[profession] &&
+      !cardInfo.eligibility[profession].is_available
+    ) {
       history.push("/credit-card");
       notification("warning", "Profession requirement doesn't match");
       return;
-    } else if (cardInfo && cardInfo.eligibility[profession] && cardInfo.eligibility[profession].min_monthly_income > salary) {
+    } else if (
+      cardInfo &&
+      cardInfo.eligibility[profession] &&
+      cardInfo.eligibility[profession].min_monthly_income > salary
+    ) {
       history.push("/credit-card", { profession: profession, salary: salary });
       notification("warning", "Salary requirement doesn't match");
       return;
@@ -388,12 +397,11 @@ export default function Home() {
   function applicationSubmitFun(updatedData, value) {
     setPreloader(true);
     if (bdJobsUserInfo) {
-      updatedData.is_bdjobs_verified = true
-      updatedData.info_from_bdjobs = bdJobsUserInfo
+      updatedData.is_bdjobs_verified = true;
+      updatedData.info_from_bdjobs = bdJobsUserInfo;
     }
     // let vv = value
-    if (read_cookie('ref_id'))
-      value.referrer = read_cookie('ref_id')
+    if (read_cookie("ref_id")) value.referrer = read_cookie("ref_id");
     console.log("cccaaaaaaaa", updatedData, value);
     userUpdate(updatedData, value)
       .then((res) => {
@@ -407,7 +415,7 @@ export default function Home() {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
           setTimeout(() => {
-            window.location.href = "/user-dashboard";
+            // window.location.href = "/user-dashboard";
           }, 1000);
         } else {
           notification("fail", res1.message);

@@ -9,12 +9,14 @@ import {
   verifyOTP,
   onSubmitLogin,
   userUpdate,
+  bdJobsDataFetch,
 } from "../helpers/API/Auth";
 import { CarLoanApplicationAdd } from "../helpers/API/Application";
 import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
 import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getAutoLoanById, getCardById } from "../helpers/API/Product";
+import { bake_cookie, read_cookie } from "sfcookies";
 import PreloaderPage from "../Components/PreloaderPage";
 
 export default function Home() {
@@ -37,6 +39,10 @@ export default function Home() {
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
   const [preloader, setPreloader] = useState(false);
+  const [bdjobsphone, setBdjobsPhone] = useState();
+  const [bdjobsemail, setBdjobsEmail] = useState();
+  const [bdJobsUserInfo, setBdJobsUserInfo] = useState();
+  const [checkBdjobsInfo, setcheckBdjobsInfo] = useState(false);
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -62,14 +68,41 @@ export default function Home() {
     }
   }
 
+
+  
   useEffect(() => {
+    console.log("hello");
+    if (new URLSearchParams(location.search).get("ref_name")) {
+      bake_cookie(
+        "ref_name",
+        new URLSearchParams(location.search).get("ref_name")
+      );
+    }
+    if (new URLSearchParams(location.search).get("ref_id")) {
+      bake_cookie("ref_id", new URLSearchParams(location.search).get("ref_id"));
+    }
+    if (new URLSearchParams(location.search).get("ref_name") == "bdjobs") {
+      setcheckBdjobsInfo(true);
+    }
+  }, []);
+  
+
+  useEffect(() => {
+    setInitialValue();
+    console.log("read_cookie('ref_id')", read_cookie("ref_id"));
+  }, []);
+  useEffect(() => {
+    console.log("cardInfo,cardInfo", cardInfo);
+    if (cardInfo && cardInfo.state && cardInfo.state.profession)
+      setProfession(cardInfo.state.profession);
+    if (cardInfo && cardInfo.state && cardInfo.state.salary)
+      setSalary(cardInfo.state.salary);
+  }, [cardInfo]);
+
+  
+  function setInitialValue(bdJobsUser) {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
-      console.log(
-        "aaaaaaaaaaa",
-        temp,
-        temp.employeement_information.job_location
-      );
       if (temp && temp.phone) setPhone(temp.phone);
       if (temp && temp.email) setEmail(temp.email);
       if (temp && temp.name) setName(temp.name);
@@ -83,6 +116,23 @@ export default function Home() {
         setOrganization(temp.employeement_information.company_name);
 
       if (temp && temp.city) setCityFun(temp.city);
+    } else {
+      if (bdJobsUser) {
+        let tempname;
+        console.log("bd2", bdJobsUser);
+        if (bdjobsphone) setPhone(bdjobsphone);
+        if (bdjobsphone) setEmail(bdjobsemail);
+        if (bdJobsUser.CustomerFirstName)
+          tempname = bdJobsUser.CustomerFirstName;
+        if (bdJobsUser.CustomerLastName)
+          tempname = tempname + " " + bdJobsUser.CustomerLastName;
+        setName(tempname);
+        if (bdJobsUser.CurrentSalaryAmount)
+          setSalary(bdJobsUser.CurrentSalaryAmount);
+        if (bdJobsUser.CompanyName) setOrganization(bdJobsUser.CompanyName);
+        if (bdJobsUser.PresentAddressDistrictName)
+          setCity(bdJobsUser.PresentAddressDistrictName);
+      }
     }
 
     if (location.state && location.state.cardDetails)
@@ -97,14 +147,8 @@ export default function Home() {
           console.log(err);
         });
     }
-  }, []);
-  useEffect(() => {
-    console.log("cardInfo,cardInfo", cardInfo);
-    if (cardInfo && cardInfo.state && cardInfo.state.profession)
-      setProfession(cardInfo.state.profession);
-    if (cardInfo && cardInfo.state && cardInfo.state.salary)
-      setSalary(cardInfo.state.salary);
-  }, [cardInfo]);
+  }
+
 
   function validationFun(fieldValue, fieldId) {
     if (fieldValue) document.getElementById(fieldId).classList.remove("empty");
@@ -142,10 +186,12 @@ export default function Home() {
   }
 
   function applicationFormSubmit() {
-    if (!cardInfo.eligibility[profession].is_available) {
+    if (cardInfo &&
+      cardInfo.eligibility[profession] && !cardInfo.eligibility[profession].is_available) {
       notification("warning", "Profession requirement doesn't match");
       return;
-    } else if (cardInfo.eligibility[profession].min_monthly_income > salary) {
+    } else if ( cardInfo &&
+      cardInfo.eligibility[profession] &&cardInfo.eligibility[profession].min_monthly_income > salary) {
       notification("warning", "Salary requirement doesn't match");
       return;
     }
@@ -184,8 +230,8 @@ export default function Home() {
         cardId: cardInfo._id,
         token: token,
       };
-      console.log("value", values);
-      applicationSubmitFun(values);
+      console.log("value", values);      
+      applicationSubmitFun(value, values);
     } else {
       if (
         name &&
@@ -292,7 +338,7 @@ export default function Home() {
               token: res.data,
             };
             setOTPPopup(true);
-            applicationSubmitFun(value);
+            applicationSubmitFun(userData, value);
           } else {
             notification("fail", res.message);
           }
@@ -353,8 +399,7 @@ export default function Home() {
                 cardId: cardInfo._id,
                 token: token,
               };
-              console.log("value", value);
-              applicationSubmitFun(value);
+              applicationSubmitFun(userData, value);
             } else {
               setOTPPopup(true);
             }
@@ -368,9 +413,105 @@ export default function Home() {
     }
   }
 
+  
+  function _checkBdjobsInfo() {
+    let tempValue = {
+      email: bdjobsemail,
+      phone: bdjobsphone,
+    };
+    setPreloader(true);
+    bdJobsDataFetch(tempValue)
+      .then((res) => {
+        console.log("ressssss", res);
+        if (res.data.status === 200) {
+          console.log("bd1", res.data.data);
+          setBdJobsUserInfo(res.data.data);
+          setInitialValue(res.data.data);
+          setPreloader(false);
+        } else {
+          notification("warning", res.data.message);
+          setPreloader(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setPreloader(false);
+      });
+
+    setcheckBdjobsInfo(false);
+  }
+
   return (
     <section id="application-page">
       <ToastContainer></ToastContainer>
+      {preloader ? <PreloaderPage /> : null}
+      {checkBdjobsInfo ? (
+        <div>
+          <div className="application-form">
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-md-8 right ">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      _checkBdjobsInfo();
+                    }}
+                  >
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Email*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <input
+                            type="email"
+                            placeholder="Email"
+                            required
+                            onChange={(e) => {
+                              setBdjobsEmail(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Phone No.*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <input
+                            type="tel"
+                            placeholder="Phone no."
+                            // pattern="[0-9]{11}"
+                            pattern="^(\+?880|0)1[13456789][0-9]{8}"
+                            required
+                            onChange={(e) => {
+                              setBdjobsPhone(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row form-group pt-4 pb-5">
+                      <div className="col-md-4"></div>
+                      <div className="col-md-8 text-center application">
+                        <button
+                          type="submit"
+                          className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) :(
       <div className="application-form">
         <div className="container">
           <div className="row justify-content-center">
@@ -640,6 +781,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      )}
 
       {otpPopup ? (
         <div className="popup-container">

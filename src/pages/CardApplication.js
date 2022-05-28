@@ -36,6 +36,7 @@ export default function Home() {
   const [bdjobsphone, setBdjobsPhone] = useState();
   const [bdjobsemail, setBdjobsEmail] = useState();
   const [bdJobsUserInfo, setBdJobsUserInfo] = useState();
+  const [checkBdjobsInfo, setcheckBdjobsInfo] = useState();
   const [city, setCity] = useState("Select Division");
   const [profession, setProfession] = useState("salaried");
   const [organization, setOrganization] = useState();
@@ -48,7 +49,6 @@ export default function Home() {
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
   const [preloader, setPreloader] = useState(false);
-  const [checkBdjobsInfo, setcheckBdjobsInfo] = useState();
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -89,6 +89,7 @@ export default function Home() {
       setcheckBdjobsInfo(true);
     }
   }, []);
+
   useEffect(() => {
     console.log("read_cookie('ref_id')", read_cookie("ref_id"));
     setInitialValue();

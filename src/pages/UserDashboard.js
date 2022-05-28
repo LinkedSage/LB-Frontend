@@ -24,6 +24,7 @@ export default function UserDashboard() {
 
   useEffect(() => {
     getApplicationFun(currentUser._id);
+    console.log("currentUser",currentUser)
   }, []);
 
   function getApplicationFun(values) {

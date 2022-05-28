@@ -75,23 +75,12 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (new URLSearchParams(location.search).get("ref_name")) {
-      console.log("hello");
-      bake_cookie(
-        "ref_name",
-        new URLSearchParams(location.search).get("ref_name")
-      );
-    }
-    if (new URLSearchParams(location.search).get("ref_id")) {
-      bake_cookie("ref_id", new URLSearchParams(location.search).get("ref_id"));
-    }
-    if (new URLSearchParams(location.search).get("ref_name") == "bdjobs") {
+    if (read_cookie("ref_name") == "bdjobs") {
       setcheckBdjobsInfo(true);
     }
   }, []);
 
   useEffect(() => {
-    console.log("read_cookie('ref_id')", read_cookie("ref_id"));
     setInitialValue();
   }, []);
   useEffect(() => {
@@ -402,7 +391,8 @@ export default function Home() {
       updatedData.info_from_bdjobs = bdJobsUserInfo;
     }
     // let vv = value
-    if (read_cookie("ref_id")) value.referrer = read_cookie("ref_id");
+    if (read_cookie("ref_id") && read_cookie("ref_id").length > 0)
+      value.referrer = read_cookie("ref_id");
     console.log("cccaaaaaaaa", updatedData, value);
     userUpdate(updatedData, value)
       .then((res) => {
@@ -416,11 +406,18 @@ export default function Home() {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
           setTimeout(() => {
-            // window.location.href = "/user-dashboard";
+            window.location.href = "/user-dashboard";
           }, 1000);
-        } else {
+        } else if(res1.status === 409) {          
+          notification("fail", res1.message);
+          setTimeout(() => {
+            window.location.href = "/user-dashboard";
+          }, 1000);
+        }
+        else{
           notification("fail", res1.message);
         }
+        
       })
       .catch((err) => {
         console.log(err);
@@ -476,6 +473,9 @@ export default function Home() {
                       _checkBdjobsInfo();
                     }}
                   >
+                    <h4 className="w-100 text-center pt-2 pb-4">
+                      <sup>***</sup>Enter your BDJOBS Information
+                    </h4>
                     <div className="row form-group">
                       <div className="col-md-4">
                         <label>Email*</label>
@@ -484,7 +484,7 @@ export default function Home() {
                         <div className="input-field">
                           <input
                             type="email"
-                            placeholder="Email"
+                            placeholder="BDJOBS Email"
                             required
                             onChange={(e) => {
                               setBdjobsEmail(e.target.value);
@@ -501,7 +501,7 @@ export default function Home() {
                         <div className="input-field">
                           <input
                             type="tel"
-                            placeholder="Phone no."
+                            placeholder="BDJOBS Phone no."
                             // pattern="[0-9]{11}"
                             pattern="^(\+?880|0)1[13456789][0-9]{8}"
                             required

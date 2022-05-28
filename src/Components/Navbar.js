@@ -45,11 +45,13 @@ export default function Navbar() {
     }, delayInMilliseconds);
   }
   function signOutFun() {
+    console.log("hgggggggggg");
     notification("success", "Logout Successfully. Redirecting...");
-    // setTimeout(function () {
-    removeCookies("data", "/");
-    history.push("/");
-    // }, 1500);
+    setTimeout(function () {
+      removeCookies("data", "/");
+      window.location.href = "/";
+      hideNavMenu();
+    }, 0);
   }
 
   window.addEventListener("scroll", (event) => {
@@ -242,7 +244,7 @@ export default function Navbar() {
                         <li>
                           <a
                             className="hover-effect-black"
-                            href=""
+                            href="#"
                             onClick={signOutFun}
                           >
                             <span className="hero-icon mr-2">

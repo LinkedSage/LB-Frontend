@@ -177,7 +177,7 @@ export default function CreditCard(data) {
             <div className="row">
               <form className="p-3">
                 <h3 className="w-100 text-center">
-                  Find your best {' '}<span className="h2">Loan</span>
+                  Find your best &nbsp;<span className="h2">Loan</span>
                 </h3>
                 <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
                   <div class="select mb-4">

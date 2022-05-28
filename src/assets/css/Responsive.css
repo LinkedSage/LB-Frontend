@@ -123,10 +123,10 @@
   .right-nav .nav-menu a {
     font-size: 14px;
   }
-  .application-form .right{
+  .application-form .right {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
-  } 
+  }
 }
 
 @media screen and (max-width: 481px) {
@@ -389,6 +389,28 @@ width: auto;
   }
   .nav-menu-sec .nav-link-show {
     height: calc(100vh - 65px);
+  }
+  #product-details-page .button-group {
+    /* margin: auto; */
+    width: 100vw;
+    padding-top: 5px !important;
+  }
+  #product-details-page .button-group button {
+    width: 25%;
+    font-size: 12px;
+  }
+  #product-details-page .container .product_titel {
+    font-size: 18px;
+  }
+  #product-details-page .container .hero-row {
+    flex-wrap: wrap-reverse;
+  }
+  #product-details-page .container ol {
+    width: 90%;
+    margin: auto;
+  }
+  #product-details-page .container {
+    padding-top: 5px;
   }
   /* Edited By Dev-Sharif ---------END */
 }

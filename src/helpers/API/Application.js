@@ -2,11 +2,12 @@ import Axios from "../../Axios";
 import axios from "axios";
 
 export const cardApplicationAdd = async (values) => {
-  console.log("application", values);
+  console.log("application1", values);
   let temp = {
     cardId: values.cardId,
   };
   if (values.referrer) temp.referrer = values.referrer;
+  console.log("application2", values);
   const result = await axios.post(
     `${process.env.REACT_APP_API_URL}/creditcardapplications/user/${values._id}`,
     temp,

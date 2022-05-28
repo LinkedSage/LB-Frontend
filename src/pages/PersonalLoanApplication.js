@@ -9,6 +9,7 @@ import {
   verifyOTP,
   onSubmitLogin,
   userUpdate,
+  bdJobsDataFetch,
 } from "../helpers/API/Auth";
 import { personalLoanApplicationAdd } from "../helpers/API/Application";
 import { getCookies, getCurrentUser } from "../helpers/Cookies/Cookies";
@@ -16,9 +17,12 @@ import { ToastContainer } from "react-toastify";
 import { notification } from "../helpers/Confirm/ConfirmAction";
 import { getCardById, getPersonalLoanById } from "../helpers/API/Product";
 import Preloader from "../Components/PreloaderPage";
+import { read_cookie } from "sfcookies";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
   let location = useLocation();
+  let history = useHistory();
   // let cardInfo = []
   const [userData, setUserData] = useState({});
   const [cardInfo, setCardInfo] = useState();
@@ -37,6 +41,11 @@ export default function Home() {
   const [existUser, setExistUser] = useState();
   const [password, setPassword] = useState();
   const [preloader, setPreloader] = useState(false);
+
+  const [bdjobsphone, setBdjobsPhone] = useState();
+  const [bdjobsemail, setBdjobsEmail] = useState();
+  const [bdJobsUserInfo, setBdJobsUserInfo] = useState();
+  const [checkBdjobsInfo, setcheckBdjobsInfo] = useState();
 
   function OTPInput() {
     const inputs = document.querySelectorAll("#otp > *[id]");
@@ -62,6 +71,74 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    console.log("xxxxxxxxxxxxxxx", read_cookie("ref_id"));
+    if (read_cookie("ref_name") == "bdjobs") {
+      setcheckBdjobsInfo(true);
+    }
+  }, []);
+  useEffect(() => {
+    setInitialValue();
+  }, []);
+  function setInitialValue(bdJobsUser) {
+    if (getCookies("data")) {
+      let temp = getCurrentUser().data;
+      if (temp && temp.phone) setPhone(temp.phone);
+      if (temp && temp.email) setEmail(temp.email);
+      if (temp && temp.name) setName(temp.name);
+      if (
+        temp &&
+        temp.employeement_information &&
+        temp.employeement_information.salary_amount
+      )
+        setSalary(temp.employeement_information.salary_amount);
+      if (
+        temp &&
+        temp.employeement_information &&
+        temp.employeement_information.company_name
+      ) {
+        setOrganization(temp.employeement_information.company_name);
+      }
+      if (
+        temp &&
+        temp.employeement_information &&
+        temp.employeement_information.profession
+      )
+        setProfession(temp.employeement_information.profession);
+      if (temp && temp.city) setCity(temp.city);
+    } else {
+      if (bdJobsUser) {
+        let tempname;
+        console.log("bd2", bdJobsUser);
+        if (bdjobsphone) setPhone(bdjobsphone);
+        if (bdjobsphone) setEmail(bdjobsemail);
+        if (bdJobsUser.CustomerFirstName)
+          tempname = bdJobsUser.CustomerFirstName;
+        if (bdJobsUser.CustomerLastName)
+          tempname = tempname + " " + bdJobsUser.CustomerLastName;
+        setName(tempname);
+        if (bdJobsUser.CurrentSalaryAmount)
+          setSalary(bdJobsUser.CurrentSalaryAmount);
+        if (bdJobsUser.CompanyName) setOrganization(bdJobsUser.CompanyName);
+        if (bdJobsUser.PresentAddressDistrictName)
+          setCity(bdJobsUser.PresentAddressDistrictName);
+      }
+    }
+
+    if (location.state && location.state.cardDetails)
+      setCardInfo(location.state.cardDetails);
+    else {
+      let value = location.pathname.split("/");
+      getPersonalLoanById(value[2])
+        .then((res) => {
+          console.log("card", res);
+          setCardInfo(res.data[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   useEffect(() => {
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
@@ -149,12 +226,44 @@ export default function Home() {
 
     setPreloader(false);
   }
+  function _checkBdjobsInfo() {
+    let tempValue = {
+      email: bdjobsemail,
+      phone: bdjobsphone,
+    };
+    setPreloader(true);
+    bdJobsDataFetch(tempValue)
+      .then((res) => {
+        console.log("ressssss", res);
+        if (res.data.status === 200) {
+          console.log("bd1", res.data.data);
+          setBdJobsUserInfo(res.data.data);
+          setInitialValue(res.data.data);
+          setPreloader(false);
+        } else {
+          notification("warning", res.data.message);
+          setPreloader(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setPreloader(false);
+      });
 
+    setcheckBdjobsInfo(false);
+  }
   function applicationFormSubmit() {
-    if (!cardInfo.eligibility[profession].is_available) {
+    if (cardInfo && !cardInfo.eligibility[profession].is_available) {
       notification("warning", "Profession requirement doesn't match");
       return;
-    } else if (cardInfo.eligibility[profession].min_monthly_income > salary) {
+    } else if (
+      cardInfo &&
+      cardInfo.eligibility[profession].min_monthly_income > salary
+    ) {
+      history.push("/personal-loan", {
+        profession: profession,
+        salary: salary,
+      });
       notification("warning", "Salary requirement doesn't match");
       return;
     }
@@ -194,7 +303,7 @@ export default function Home() {
         token: token,
       };
       console.log("value", values);
-      applicationSubmitFun(values);
+      applicationSubmitFun(value, values);
     } else {
       if (
         name &&
@@ -301,7 +410,7 @@ export default function Home() {
               token: res.data,
             };
             setOTPPopup(true);
-            applicationSubmitFun(value);
+            applicationSubmitFun(userData, value);
           } else {
             notification("fail", res.message);
           }
@@ -315,12 +424,18 @@ export default function Home() {
     } else document.getElementById("otp").classList.add("empty");
   }
 
-  function applicationSubmitFun(value) {
-    let tempValue = userData;
-    console.log("cccaaaaaaaa", tempValue);
-
+  function applicationSubmitFun(updatedData, value) {
+    // let tempValue = userData;
     setPreloader(true);
-    userUpdate(tempValue, value)
+    if (bdJobsUserInfo) {
+      updatedData.is_bdjobs_verified = true;
+      updatedData.info_from_bdjobs = bdJobsUserInfo;
+    }
+    console.log("cccaaaaaaaa1", updatedData, value);
+    if (read_cookie("ref_id") && read_cookie("ref_id").length > 0)
+      value.referrer = read_cookie("ref_id");
+    console.log("cccaaaaaaaa2", updatedData, value);
+    userUpdate(updatedData, value)
       .then((res) => {
         console.log(res);
       })
@@ -364,7 +479,7 @@ export default function Home() {
                 token: token,
               };
               console.log("value", value);
-              applicationSubmitFun(value);
+              applicationSubmitFun(userData, value);
             } else {
               setOTPPopup(true);
             }
@@ -384,275 +499,348 @@ export default function Home() {
     <section id="application-page">
       {preloader ? <Preloader /> : null}
       <ToastContainer></ToastContainer>
-      <div className="application-form">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-8 right ">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  applicationFormSubmit();
-                }}
-              >
-                <div className="row form-group  mt-4">
-                  <div className="col-md-4">
-                    <label>Name*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        id="name"
-                        type="text"
-                        placeholder="Name"
-                        defaultValue={name}
-                        onChange={(e) => {
-                          setNameFun(e.target.value);
-                        }}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>City*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <button
-                        id="city"
-                        type="button"
-                        className="select-btn d-flex align-items-center"
-                        onClick={openCityListFun}
-                      >
-                        <span id="city-arrow">
-                          <svg viewBox="0 0 256 512">
-                            <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
-                          </svg>
-                        </span>
-                        <p className="h-100">{city}</p>
-                      </button>
-                      {cityList ? (
-                        <div className="city-list">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Dhaka");
+      {checkBdjobsInfo ? (
+        <div>
+          <div className="application-form">
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-md-8 right ">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      _checkBdjobsInfo();
+                    }}
+                  >
+                    <h4 className="w-100 text-center pt-2 pb-4">
+                      <sup>***</sup>Enter your BDJOBS Information
+                    </h4>
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Email*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <input
+                            type="email"
+                            placeholder="BDJOBS Email"
+                            required
+                            onChange={(e) => {
+                              setBdjobsEmail(e.target.value);
                             }}
-                          >
-                            Dhaka
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Chitagong");
-                            }}
-                          >
-                            Chitagong
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Sylhet");
-                            }}
-                          >
-                            Sylhet
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Rajshahi");
-                            }}
-                          >
-                            Rajshahi
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Khulna");
-                            }}
-                          >
-                            Khulna
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Rangpur");
-                            }}
-                          >
-                            Rangpur
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCityFun("Barisal");
-                            }}
-                          >
-                            Barisal
-                          </button>
+                          />
                         </div>
-                      ) : null}
+                      </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Phone No.*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        defaultValue={phone}
-                        placeholder="Phone no."
-                        // pattern="[0-9]{11}"
-                        pattern="^(\+?880|0)1[13456789][0-9]{8}"
-                        required
-                        onChange={(e) => {
-                          setPhoneFun(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Email*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        defaultValue={email}
-                        placeholder="Email"
-                        required
-                        onChange={(e) => {
-                          setEmailFun(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Profession*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <button
-                        id="profession"
-                        type="button"
-                        className="select-btn d-flex align-items-center"
-                        onClick={openProfessionFun}
-                      >
-                        <span id="profession-arrow">
-                          <svg viewBox="0 0 256 512">
-                            <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
-                          </svg>
-                        </span>
-                        <p className="h-100">{profession}</p>
-                      </button>
-                      {professionList ? (
-                        <div className="city-list">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("salaried");
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Phone No.*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <input
+                            type="tel"
+                            placeholder="BDJOBS Phone no."
+                            // pattern="[0-9]{11}"
+                            pattern="^(\+?880|0)1[13456789][0-9]{8}"
+                            required
+                            onChange={(e) => {
+                              setBdjobsPhone(e.target.value);
                             }}
-                          >
-                            Salaried
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("business");
-                            }}
-                          >
-                            Businessman
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("doctor");
-                            }}
-                          >
-                            Doctor
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setProfessionFun("landLord");
-                            }}
-                          >
-                            Land Lord
-                          </button>
+                          />
                         </div>
-                      ) : null}
+                      </div>
                     </div>
-                  </div>
+
+                    <div className="row form-group pt-4 pb-5">
+                      <div className="col-md-4"></div>
+                      <div className="col-md-8 text-center application">
+                        <button
+                          type="submit"
+                          className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                {profession === "salaried" ? (
-                  <div className="row form-group">
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="application-form">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-8 right ">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    applicationFormSubmit();
+                  }}
+                >
+                  <div className="row form-group  mt-4">
                     <div className="col-md-4">
-                      <label>Organization*</label>
+                      <label>Name*</label>
                     </div>
                     <div className="col-md-8">
                       <div className="input-field">
-                        <Select
-                          id="Organization"
-                          value={[{ label: organization, value: organization }]}
+                        <input
+                          id="name"
+                          type="text"
+                          placeholder="Name"
+                          defaultValue={name}
                           onChange={(e) => {
-                            setOrganizationFun(e.value);
+                            setNameFun(e.target.value);
                           }}
-                          options={companyName}
-                          placeholder="Organization"
+                          required
                         />
                       </div>
                     </div>
                   </div>
-                ) : null}
-                <div className="row form-group">
-                  <div className="col-md-4">
-                    <label>Salary*</label>
-                  </div>
-                  <div className="col-md-8">
-                    <div className="input-field">
-                      <input
-                        id="salary"
-                        type="number"
-                        placeholder="Salary"
-                        defaultValue={salary}
-                        onChange={(e) => {
-                          setSalaryFun(e.target.value);
-                        }}
-                        required
-                      />
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>City*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <button
+                          id="city"
+                          type="button"
+                          className="select-btn d-flex align-items-center"
+                          onClick={openCityListFun}
+                        >
+                          <span id="city-arrow">
+                            <svg viewBox="0 0 256 512">
+                              <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
+                            </svg>
+                          </span>
+                          <p className="h-100">{city}</p>
+                        </button>
+                        {cityList ? (
+                          <div className="city-list">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Dhaka");
+                              }}
+                            >
+                              Dhaka
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Chitagong");
+                              }}
+                            >
+                              Chitagong
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Sylhet");
+                              }}
+                            >
+                              Sylhet
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Rajshahi");
+                              }}
+                            >
+                              Rajshahi
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Khulna");
+                              }}
+                            >
+                              Khulna
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Rangpur");
+                              }}
+                            >
+                              Rangpur
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCityFun("Barisal");
+                              }}
+                            >
+                              Barisal
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="row form-group pt-4 pb-5">
-                  <div className="col-md-4"></div>
-                  <div className="col-md-8 text-center application">
-                    <button
-                      type="submit"
-                      className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
-                    >
-                      Submit
-                    </button>
+
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Phone No.*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          defaultValue={phone}
+                          placeholder="Phone no."
+                          // pattern="[0-9]{11}"
+                          pattern="^(\+?880|0)1[13456789][0-9]{8}"
+                          required
+                          onChange={(e) => {
+                            setPhoneFun(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </form>
+
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Email*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          defaultValue={email}
+                          placeholder="Email"
+                          required
+                          onChange={(e) => {
+                            setEmailFun(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Profession*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <button
+                          id="profession"
+                          type="button"
+                          className="select-btn d-flex align-items-center"
+                          onClick={openProfessionFun}
+                        >
+                          <span id="profession-arrow">
+                            <svg viewBox="0 0 256 512">
+                              <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
+                            </svg>
+                          </span>
+                          <p className="h-100">{profession}</p>
+                        </button>
+                        {professionList ? (
+                          <div className="city-list">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("salaried");
+                              }}
+                            >
+                              Salaried
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("business");
+                              }}
+                            >
+                              Businessman
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("doctor");
+                              }}
+                            >
+                              Doctor
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setProfessionFun("landLord");
+                              }}
+                            >
+                              Land Lord
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                  {profession === "salaried" ? (
+                    <div className="row form-group">
+                      <div className="col-md-4">
+                        <label>Organization*</label>
+                      </div>
+                      <div className="col-md-8">
+                        <div className="input-field">
+                          <Select
+                            id="Organization"
+                            value={[
+                              { label: organization, value: organization },
+                            ]}
+                            onChange={(e) => {
+                              setOrganizationFun(e.value);
+                            }}
+                            options={companyName}
+                            placeholder="Organization"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                  <div className="row form-group">
+                    <div className="col-md-4">
+                      <label>Salary*</label>
+                    </div>
+                    <div className="col-md-8">
+                      <div className="input-field">
+                        <input
+                          id="salary"
+                          type="number"
+                          placeholder="Salary"
+                          defaultValue={salary}
+                          onChange={(e) => {
+                            setSalaryFun(e.target.value);
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row form-group pt-4 pb-5">
+                    <div className="col-md-4"></div>
+                    <div className="col-md-8 text-center application">
+                      <button
+                        type="submit"
+                        className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {otpPopup ? (
         <div className="popup-container">

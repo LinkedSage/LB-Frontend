@@ -19,6 +19,7 @@ import { getCardById, getPersonalLoanById } from "../helpers/API/Product";
 import Preloader from "../Components/PreloaderPage";
 import { read_cookie } from "sfcookies";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   let location = useLocation();
@@ -446,6 +447,11 @@ export default function Home() {
         if (res1.status === 200) {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
+          setTimeout(() => {
+            window.location.href = "/user-dashboard";
+          }, 1000);
+        } else if (res1.status === 409) {
+          notification("fail", res1.message);
           setTimeout(() => {
             window.location.href = "/user-dashboard";
           }, 1000);
@@ -999,6 +1005,9 @@ export default function Home() {
                     <button type="submit" class="btn btn-danger px-4 validate">
                       Login
                     </button>
+                    <br />
+                    <br />
+                    <Link to="/reset-password">Forgot Password?</Link>
                   </div>
                 </form>
               </div>

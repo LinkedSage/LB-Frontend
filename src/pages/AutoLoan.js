@@ -5,7 +5,7 @@ import Axios from "../Axios";
 import "../Components/CSS/CreditCard.css";
 import { CarLoanPhone } from "../Components/CarLoanPhone";
 import { useLocation } from "react-router-dom";
-import PreloaderPage from '../Components/PreloaderPage'
+import PreloaderPage from "../Components/PreloaderPage";
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -17,17 +17,19 @@ export default function CreditCard(data) {
   const [salary, setSalary] = useState();
   const [profession, setProfession] = useState("salaried");
   const [professionSalary, setProfessionSalary] = useState(false);
-  const [preloader, setPreloader] = useState(false)
+  const [preloader, setPreloader] = useState(false);
 
   useEffect(async () => {
     if (location.state && location.state.profession && location.state.salary) {
-      setPreloader(true)
-      let result = await Axios.get(`${process.env.REACT_APP_API_URL}/carloans?profession=${location.state.profession}&salary=${location.state.salary}`);
+      setPreloader(true);
+      let result = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/carloans?profession=${location.state.profession}&salary=${location.state.salary}`
+      );
 
       console.log(location.state, result.data.data);
       setCardList(result.data);
       setCardShow(result.data.data);
-      setPreloader(false)
+      setPreloader(false);
     } else {
       setProfessionSalary(true);
     }
@@ -159,11 +161,7 @@ export default function CreditCard(data) {
 
   return (
     <section id="credit-card-page">
-      {
-        preloader?
-        <PreloaderPage />
-        :null
-      }
+      {preloader ? <PreloaderPage /> : null}
       <ToastContainer></ToastContainer>
       {professionSalary ? (
         <div className="profession-salary">
@@ -171,7 +169,7 @@ export default function CreditCard(data) {
             <div className="row">
               <form className="p-3">
                 <h3 className="w-100 text-center">
-                  Find your best <span className="h2">Car Loan</span>
+                  Find your best &nbsp;<span className="h2">Car Loan</span>
                 </h3>
                 <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
                   <div class="select mb-4">

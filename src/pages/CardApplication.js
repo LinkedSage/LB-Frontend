@@ -23,6 +23,7 @@ import { getCardById } from "../helpers/API/Product";
 import PreloaderPage from "../Components/PreloaderPage";
 import { useHistory } from "react-router-dom";
 import { bake_cookie, read_cookie } from "sfcookies";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   let location = useLocation();
@@ -405,7 +406,12 @@ export default function Home() {
           setOTPPopup(false);
           notification("success", "Application submited successfully...");
           setTimeout(() => {
-            // window.location.href = "/user-dashboard";
+            window.location.href = "/user-dashboard";
+          }, 1000);
+        } else if (res1.status === 409) {
+          notification("fail", res1.message);
+          setTimeout(() => {
+            window.location.href = "/user-dashboard";
           }, 1000);
         } else {
           notification("fail", res1.message);
@@ -953,6 +959,8 @@ export default function Home() {
                     <button type="submit" class="btn btn-danger px-4 validate">
                       Login
                     </button>
+                    <br /><br />
+                    <Link to="/reset-password">Forgot Password?</Link>
                   </div>
                 </form>
               </div>

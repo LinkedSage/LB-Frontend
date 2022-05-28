@@ -80,7 +80,7 @@ function CreditCardDetails() {
     return (
       <section id="product-details-page" className="product-details">
         <div className="container ptb-50">
-          <div className="row">
+          <div className="row hero-row">
             <div className="col-md-8 ">
               <div className="product_text">
                 <h1 className="product_titel">{cardInfo.name}</h1>
@@ -337,7 +337,7 @@ function CreditCardDetails() {
                 </table>
               </div>
             </div>
-            <div className="col-md-1">
+            <div className="col-md-1 d-none d-sm-none d-md-block">
               <div className="vl"></div>
             </div>
             <div className="col-md-4">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { companyName } from "../helpers/Data/CompanyName";
-import Select from "react-select";
+import Select from "react-select/creatable";
 import "../Components/CSS/Application.css";
 import {
   isExistUser,

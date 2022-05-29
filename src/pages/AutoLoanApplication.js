@@ -791,9 +791,9 @@ export default function Home() {
 
       {otpPopup ? (
         <div className="popup-container">
-          <div class="container height-100 d-flex justify-content-center align-items-center">
-            <div class="position-relative">
-              <div class="card p-2 text-center">
+          <div className="container height-100 d-flex justify-content-center align-items-center">
+            <div className="position-relative">
+              <div className="card p-2 text-center">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -825,11 +825,11 @@ export default function Home() {
                   </div>
                   <div
                     id="otp"
-                    class="inputs d-flex flex-row justify-content-center mt-2"
+                    className="inputs d-flex flex-row justify-content-center mt-2"
                   >
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="first"
                       maxlength="1"
@@ -837,7 +837,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="second"
                       maxlength="1"
@@ -845,7 +845,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="third"
                       maxlength="1"
@@ -853,7 +853,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="fourth"
                       maxlength="1"
@@ -861,7 +861,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="fifth"
                       maxlength="1"
@@ -869,15 +869,15 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="sixth"
                       maxlength="1"
                       onChange={OTPInput}
                     />
                   </div>
-                  <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4 validate">
+                  <div className="mt-4">
+                    <button type="submit" className="btn btn-danger px-4 validate">
                       Validate
                     </button>
                   </div>
@@ -889,9 +889,9 @@ export default function Home() {
       ) : null}
       {signinPopup ? (
         <div className="popup-container">
-          <div class="container height-100 d-flex justify-content-center align-items-center">
-            <div class="position-relative">
-              <div class="card p-2 text-center">
+          <div className="container height-100 d-flex justify-content-center align-items-center">
+            <div className="position-relative">
+              <div className="card p-2 text-center">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -903,12 +903,12 @@ export default function Home() {
                   </h6>
                   <div
                     id="otp1"
-                    class="inputs align-items-center d-flex flex-row justify-content-center mt-2"
+                    className="inputs align-items-center d-flex flex-row justify-content-center mt-2"
                   >
-                    <label class="text-center w-25">Username</label>
+                    <label className="text-center w-25">Username</label>
                     <input
                       type="text"
-                      class="m-2 text-center form-control rounded w-75"
+                      className="m-2 text-center form-control rounded w-75"
                       id="phn-mail"
                       placeholder="Phone no. or Email"
                       disabled
@@ -919,12 +919,12 @@ export default function Home() {
                   </div>
                   <div
                     id="otp"
-                    class="inputs align-items-center d-flex flex-row justify-content-center mt-2"
+                    className="inputs align-items-center d-flex flex-row justify-content-center mt-2"
                   >
-                    <label class="text-center w-25">Password</label>
+                    <label className="text-center w-25">Password</label>
                     <input
                       type="password"
-                      class="m-2 text-center form-control rounded w-75"
+                      className="m-2 text-center form-control rounded w-75"
                       id="password"
                       placeholder="Password"
                       minlength="6"
@@ -934,8 +934,8 @@ export default function Home() {
                       required
                     />
                   </div>
-                  <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4 validate">
+                  <div className="mt-4">
+                    <button type="submit" className="btn btn-danger px-4 validate">
                       Login
                     </button>
                     <br /><br />

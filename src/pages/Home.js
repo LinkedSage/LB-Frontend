@@ -89,7 +89,7 @@ export default function Home() {
             <div className="col-md-12 pl-5 pt-100">
               <h1 className="h1">Search for</h1>
               <div className="d-flex mt-3">
-                <div class="select mr-4">
+                <div className="select mr-4">
                   <select
                     placeholder="Profession"
                     onChange={(e) => {
@@ -104,7 +104,7 @@ export default function Home() {
                     <option value="landLord">Land Lord</option>
                   </select>
                 </div>
-                <div class="input-container">
+                <div className="input-container">
                   <input
                     id="salary"
                     type="number"
@@ -114,7 +114,7 @@ export default function Home() {
                       setSalaryFun(e.target.value);
                     }}
                   ></input>
-                  <label class="label" for="salary">
+                  <label className="label" for="salary">
                     Salary*
                   </label>
                 </div>
@@ -365,7 +365,7 @@ export default function Home() {
                 }}
               >
                 <div className="help-us-form d-flex flex-wrap justify-content-between mt-5">
-                  <div class="input-container w-100">
+                  <div className="input-container w-100">
                     <input
                       id="name"
                       type="text"
@@ -374,11 +374,11 @@ export default function Home() {
                         setName(e.target.value);
                       }}
                     />
-                    <label class="label" for="name">
+                    <label className="label" for="name">
                       Your Name*
                     </label>
                   </div>
-                  <div class="select w-200 mt-4">
+                  <div className="select w-200 mt-4">
                     <select
                       placeholder="Profession"
                       onChange={(e) => {
@@ -393,7 +393,7 @@ export default function Home() {
                       <option value="landLord">Land Lord</option>
                     </select>
                   </div>
-                  <div class="input-container w-200 mt-4">
+                  <div className="input-container w-200 mt-4">
                     <input
                       id="salary1"
                       type="number"
@@ -402,11 +402,11 @@ export default function Home() {
                         setSalary1(e.target.value);
                       }}
                     />
-                    <label class="label" for="salary1">
+                    <label className="label" for="salary1">
                       Salary*
                     </label>
                   </div>
-                  <div class="input-container mt-4 w-100">
+                  <div className="input-container mt-4 w-100">
                     <input
                       id="phoneNo"
                       type="tel"
@@ -416,7 +416,7 @@ export default function Home() {
                         setPhoneNo(e.target.value);
                       }}
                     />
-                    <label class="label" for="phoneNo">
+                    <label className="label" for="phoneNo">
                       Phone No.*
                     </label>
                   </div>

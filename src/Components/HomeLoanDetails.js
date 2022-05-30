@@ -42,7 +42,7 @@ export const HomeLoanDetails = ({cardDetails}) => {
         <p className="h5">Max Loan Amount</p>
         <p>
           {cardDetails.max_loan_amount
-            ? cardDetails.max_loan_amount + " BDT."
+            ? cardDetails.max_loan_amount 
             : "---"}
         </p>
       </div>
@@ -56,7 +56,7 @@ export const HomeLoanDetails = ({cardDetails}) => {
         <p className="h5">Max Duration</p>
         <p>
           {cardDetails.max_duration
-            ? cardDetails.max_duration + " Yrs."
+            ? cardDetails.max_duration 
             : "---"}
         </p>
       </div>

@@ -442,40 +442,36 @@ export default function CreditCard(data) {
                         let feesData = [
                           item.image_url,
                           item.interest_free_period
-                            ? item.interest_free_period + " Days"
+                            ? item.interest_free_period
                             : "---",
                           item.regular_anual_fee
-                            ? item.regular_anual_fee + " BDT."
+                            ? item.regular_anual_fee
                             : "---",
-                          item.free_anual_fee
-                            ? item.free_anual_fee + " BDT."
-                            : "---",
+                          item.free_anual_fee ? item.free_anual_fee : "---",
                           item.eligibility,
                         ];
                         let anualFeesData = [
                           item.image_url,
                           item.lounge_access_fee
-                            ? item.lounge_access_fee + " BDT."
+                            ? item.lounge_access_fee
                             : "---",
                           item.free_guest_allowed
-                            ? item.free_guest_allowed + " person/s"
+                            ? item.free_guest_allowed
                             : "---",
                           item.int_lounge_access_fee
-                            ? item.int_lounge_access_fee + " BDT."
+                            ? item.int_lounge_access_fee
                             : "---",
                           item.int_free_guest_allowed
-                            ? item.int_free_guest_allowed + " person/s"
+                            ? item.int_free_guest_allowed
                             : "---",
                         ];
                         let withdrawalData = [
                           item.image_url,
-                          item.max_card_limit
-                            ? item.max_card_limit + " BDT."
-                            : "---",
+                          item.max_card_limit ? item.max_card_limit : "---",
                           item.free_supplementary_card,
                           item.max_supplementary_card,
                           item.anual_fee_waived_rewards
-                            ? item.anual_fee_waived_rewards + " points"
+                            ? item.anual_fee_waived_rewards
                             : "---",
                         ];
                         return (

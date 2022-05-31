@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import image_url from '../assets/images/sadiq_credit_card.png'
+import image_url from "../assets/images/sadiq_credit_card.png";
 import Axios from "../Axios";
 
 export const CardDetailsPhone = ({ cardDetails }) => {
-
-  
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
-
   function cardNavButtonFun(e) {
-    let btn1 = document.getElementById('apply-now-btn')
-    let btn2 = document.getElementById('more-details-btn')
+    let btn1 = document.getElementById("apply-now-btn");
+    let btn2 = document.getElementById("more-details-btn");
     if (e === 0) {
-      btn1.classList.add('active-left')
-      btn2.classList.remove('active-right')
+      btn1.classList.add("active-left");
+      btn2.classList.remove("active-right");
     }
     if (e === 1) {
-      btn1.classList.remove('active-left')
-      btn2.classList.add('active-right')
+      btn1.classList.remove("active-left");
+      btn2.classList.add("active-right");
       MoreDetails(cardDetails._id);
     }
   }
-  
+
   async function MoreDetails(e) {
     setPopupStatus(true);
     const result = await Axios.get(
@@ -36,12 +33,9 @@ export const CardDetailsPhone = ({ cardDetails }) => {
     setPopupStatus(false);
   }
 
-
   return (
     <div className="phone-single-card">
-      <div className="phone-filter-icon">
-        
-      </div>
+      <div className="phone-filter-icon"></div>
       <div className="top p-1 d-flex">
         <img src={cardDetails.image_url} alt="card image" />
         <div className="pl-3">
@@ -69,9 +63,9 @@ export const CardDetailsPhone = ({ cardDetails }) => {
       </div>
       <div className="bottom mb-3">
         <div className="card-nav">
-
           <Link
-            id="apply-now-btn" onClick={() => cardNavButtonFun(0)}
+            id="apply-now-btn"
+            onClick={() => cardNavButtonFun(0)}
             to={{
               pathname: `/card-application/${cardDetails._id}`,
               state: { cardDetails },
@@ -79,9 +73,7 @@ export const CardDetailsPhone = ({ cardDetails }) => {
           >
             Apply Now
           </Link>
-          <Link
-            id="more-details-btn" onClick={() => cardNavButtonFun(1)}
-          >
+          <Link id="more-details-btn" onClick={() => cardNavButtonFun(1)}>
             More Details
           </Link>
         </div>
@@ -96,7 +88,9 @@ export const CardDetailsPhone = ({ cardDetails }) => {
           <button
             className="close-details-phn"
             onClick={() => setPopupStatus(false)}
-          >X</button>
+          >
+            X
+          </button>
           <div
             id="_close_details_btn"
             className="more-details"
@@ -122,7 +116,45 @@ export const CardDetailsPhone = ({ cardDetails }) => {
               {/* <div className="hr"></div> */}
               <div className="left-bottom">
                 <h4 className="_title">Eligibility</h4>
-                <p>In publishing and graphic design</p>
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.salaried &&
+                moreDetails[0].eligibility.salaried.is_available ? (
+                  <div>
+                    <p>
+                      <b>Salaried</b> Person with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.salaried.min_monthly_income}
+                      </b>{" "}
+                      BDT.
+                    </p>
+                  </div>
+                ) : null}
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.business &&
+                moreDetails[0].eligibility.business.is_available ? (
+                  <div>
+                    <p>
+                      <b>Businessman</b> with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.business.min_monthly_income}
+                      </b>{" "}
+                      BDT.
+                    </p>
+                  </div>
+                ) : null}
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.doctor &&
+                moreDetails[0].eligibility.doctor.is_available ? (
+                  <div>
+                    <p>
+                      <b>Doctor</b> with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.doctor.min_monthly_income}
+                      </b>{" "}
+                      BDT.
+                    </p>
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className="vl"></div>

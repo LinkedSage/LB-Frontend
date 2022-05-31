@@ -119,15 +119,17 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                   })}
               </div>
               {/* <div className="hr"></div> */}
-              <div className="left-bottom">
+              {/* <div className="left-bottom">
                 <h4 className="_title">Eligibility</h4>
                 {moreDetails[0].eligibility &&
                 moreDetails[0].eligibility.salaried &&
                 moreDetails[0].eligibility.salaried.is_available ? (
                   <div>
                     <p>
-                      Salaried Person with minimum monthly income:{" "}
-                      {moreDetails[0].eligibility.salaried.min_monthly_income}
+                      <b>Salaried</b> Person with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.salaried.min_monthly_income}
+                      </b> BDT.
                     </p>
                   </div>
                 ) : null}
@@ -136,8 +138,10 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                 moreDetails[0].eligibility.business.is_available ? (
                   <div>
                     <p>
-                      Businessman with minimum monthly income:{" "}
-                      {moreDetails[0].eligibility.business.min_monthly_income}
+                      <b>Businessman</b> with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.business.min_monthly_income}
+                      </b> BDT.
                     </p>
                   </div>
                 ) : null}
@@ -146,12 +150,14 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                 moreDetails[0].eligibility.doctor.is_available ? (
                   <div>
                     <p>
-                      Doctor with minimum monthly income:{" "}
-                      {moreDetails[0].eligibility.doctor.min_monthly_income}
+                      <b>Doctor</b> with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.doctor.min_monthly_income}
+                      </b> BDT.
                     </p>
                   </div>
                 ) : null}
-              </div>
+              </div> */}
             </div>
             <div className="vl"></div>
             {/* <input
@@ -231,6 +237,45 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                   </div>
                 </>
               ) : null}
+              <div className="left-bottom">
+                <h4 className="_title">Eligibility</h4>
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.salaried &&
+                moreDetails[0].eligibility.salaried.is_available ? (
+                  <div>
+                    <p>
+                      <b>Salaried</b> Person with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.salaried.min_monthly_income}
+                      </b> BDT.
+                    </p>
+                  </div>
+                ) : null}
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.business &&
+                moreDetails[0].eligibility.business.is_available ? (
+                  <div>
+                    <p>
+                      <b>Businessman</b> with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.business.min_monthly_income}
+                      </b> BDT.
+                    </p>
+                  </div>
+                ) : null}
+                {moreDetails[0].eligibility &&
+                moreDetails[0].eligibility.doctor &&
+                moreDetails[0].eligibility.doctor.is_available ? (
+                  <div>
+                    <p>
+                      <b>Doctor</b> with minimum monthly income:{" "}
+                      <b>
+                        {moreDetails[0].eligibility.doctor.min_monthly_income}
+                      </b> BDT.
+                    </p>
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>

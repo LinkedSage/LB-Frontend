@@ -412,5 +412,8 @@ width: auto;
   #product-details-page .container {
     padding-top: 5px;
   }
+  .more-details .left-details {
+    max-width: 100%;
+  }
   /* Edited By Dev-Sharif ---------END */
 }

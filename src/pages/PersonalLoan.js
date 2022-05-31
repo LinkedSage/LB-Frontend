@@ -42,6 +42,7 @@ export default function CreditCard(data) {
   const cardNetwork = [
     { value: "Visa", label: "Visa" },
     { value: "Master", label: "Master" },
+    { value: "AMEX", label: "AMEX" },
   ];
   const cardType = [
     { value: "Silver", label: "Silver" },

@@ -29,6 +29,7 @@ export default function Home() {
   let location = useLocation();
   const history = useHistory();
   // let cardInfo = []
+  const [companies, setCompanies] = useState(companyName);
   const [userData, setUserData] = useState({});
   const [cardInfo, setCardInfo] = useState();
   const [name, setName] = useState();
@@ -38,6 +39,7 @@ export default function Home() {
   const [bdjobsemail, setBdjobsEmail] = useState();
   const [bdJobsUserInfo, setBdJobsUserInfo] = useState();
   const [checkBdjobsInfo, setcheckBdjobsInfo] = useState();
+  const [isBdjobsInfo, setisBdjobsInfo] = useState(false);
   const [city, setCity] = useState("Select Division");
   const [profession, setProfession] = useState("salaried");
   const [organization, setOrganization] = useState();
@@ -76,11 +78,10 @@ export default function Home() {
   }
 
   useEffect(() => {
+    window.scroll(0, 0);
     if (read_cookie("ref_name") == "bdjobs") {
       setcheckBdjobsInfo(true);
     }
-  }, []);
-  useEffect(() => {
     setInitialValue();
   }, []);
   useEffect(() => {
@@ -200,6 +201,7 @@ export default function Home() {
           setBdJobsUserInfo(res.data.data);
           setInitialValue(res.data.data);
           setPreloader(false);
+          setisBdjobsInfo(true);
         } else {
           notification("warning", res.data.message);
           setPreloader(false);
@@ -472,17 +474,19 @@ export default function Home() {
                     }}
                   >
                     <h4 className="w-100 text-center pt-2 pb-4">
-                      <sup>***</sup>Enter your BDJOBS Information
+                      <sup>***</sup>To continue with BDJOBS Information <br />
+                      please Enter your registered <b>BDJOBS Email</b> and{" "}
+                      <b>Phone Number</b>
                     </h4>
                     <div className="row form-group">
                       <div className="col-md-4">
-                        <label>Email*</label>
+                        <label>Email</label>
                       </div>
                       <div className="col-md-8">
                         <div className="input-field">
                           <input
                             type="email"
-                            placeholder="BDJOBS Email"
+                            placeholder="example@gmail.com"
                             required
                             onChange={(e) => {
                               setBdjobsEmail(e.target.value);
@@ -493,13 +497,13 @@ export default function Home() {
                     </div>
                     <div className="row form-group">
                       <div className="col-md-4">
-                        <label>Phone No.*</label>
+                        <label>Phone No.</label>
                       </div>
                       <div className="col-md-8">
                         <div className="input-field">
                           <input
                             type="tel"
-                            placeholder="BDJOBS Phone no."
+                            placeholder="Phone number"
                             // pattern="[0-9]{11}"
                             pattern="^(\+?880|0)1[13456789][0-9]{8}"
                             required
@@ -518,7 +522,7 @@ export default function Home() {
                           type="submit"
                           className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
                         >
-                          Submit
+                          Next
                         </button>
                       </div>
                     </div>
@@ -539,6 +543,36 @@ export default function Home() {
                     applicationFormSubmit();
                   }}
                 >
+                  {isBdjobsInfo ? (
+                    <div className="justify-content-center">
+                      <p className="h4">
+                        All informations are fetched from BdJOBS official.
+                      </p>
+
+                      <div className="row form-group pt-4 pb-5">
+                        <div className="col-md-8">
+                          <p className="h4">To Change click</p>
+                          <button
+                            onClick={(e) => {
+                              setisBdjobsInfo(false);
+                            }}
+                            className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                          >
+                            Modify
+                          </button>
+                        </div>
+                        <div className="col-md-4 text-center application">
+                          <p className="h4">Or click</p>
+                          <button
+                            type="submit"
+                            className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
                   <div className="row form-group  mt-4">
                     <div className="col-md-4">
                       <label>Name*</label>
@@ -755,10 +789,18 @@ export default function Home() {
                             value={[
                               { label: organization, value: organization },
                             ]}
+                            onInputChange={(e) => {
+                              var temp = companyName;
+                              temp.push({
+                                label: e,
+                                value: e,
+                              });
+                              setCompanies(temp);
+                            }}
                             onChange={(e) => {
                               setOrganizationFun(e.value);
                             }}
-                            options={companyName}
+                            options={companies}
                             placeholder={"Organization"}
                           />
                         </div>
@@ -791,7 +833,7 @@ export default function Home() {
                         type="submit"
                         className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
                       >
-                        Submit
+                        Next
                       </button>
                     </div>
                   </div>
@@ -894,8 +936,8 @@ export default function Home() {
                     />
                   </div>
                   <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4 validate">
-                      Validate
+                    <button type="submit" class="btn btn-danger px-4Confirm">
+                      Confirm
                     </button>
                   </div>
                 </form>
@@ -956,10 +998,11 @@ export default function Home() {
                     />
                   </div>
                   <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4 validate">
+                    <button type="submit" class="btn btn-danger px-4Confirm">
                       Login
                     </button>
-                    <br /><br />
+                    <br />
+                    <br />
                     <Link to="/reset-password">Forgot Password?</Link>
                   </div>
                 </form>

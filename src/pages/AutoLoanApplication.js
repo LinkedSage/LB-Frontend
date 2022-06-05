@@ -64,6 +64,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    window.scroll(0, 0);
     if (getCookies("data")) {
       let temp = getCurrentUser().data;
       console.log(
@@ -637,7 +638,7 @@ export default function Home() {
                       type="submit"
                       className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
                     >
-                      Submit
+                      Next
                     </button>
                   </div>
                 </div>
@@ -735,8 +736,8 @@ export default function Home() {
                     />
                   </div>
                   <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4 validate">
-                      Validate
+                    <button type="submit" class="btn btn-danger px-4Confirm">
+                     Confirm
                     </button>
                   </div>
                 </form>
@@ -793,10 +794,11 @@ export default function Home() {
                     />
                   </div>
                   <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4 validate">
+                    <button type="submit" class="btn btn-danger px-4Confirm">
                       Login
                     </button>
-                    <br /><br />
+                    <br />
+                    <br />
                     <Link to="/reset-password">Forgot Password?</Link>
                   </div>
                 </form>

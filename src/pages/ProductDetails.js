@@ -22,6 +22,7 @@ function ProductDetails() {
 
 
   useEffect(() => {
+    window.scroll(0, 0);
     let value = location.pathname.split('/')
     getCardById(value[2])
       .then((res) => {

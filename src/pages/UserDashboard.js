@@ -23,6 +23,7 @@ export default function UserDashboard() {
   let slNo = 0;
 
   useEffect(() => {
+    window.scroll(0, 0);
     getApplicationFun(currentUser._id);
   }, []);
 

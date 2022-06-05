@@ -16,6 +16,7 @@ export default function ResetPassword() {
   const [otpFlag, setOtpFlag] = useState(false);
   let values = {};
   useEffect(async () => {
+    window.scroll(0, 0);
     if (currentUser && currentUser.data) {
       currentUser = currentUser.data;
       setPhoneEmail(currentUser.phone || currentUser.email);
@@ -219,7 +220,7 @@ export default function ResetPassword() {
                       type="submit"
                       className="w-50 text-white h4 pb-3 pt-3 glow-on-hover"
                     >
-                      Submit
+                      Next
                     </button>
                   </div>
                 </div>

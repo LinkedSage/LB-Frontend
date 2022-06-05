@@ -23,7 +23,7 @@ export default function Home() {
   const [name, setName] = useState();
 
   useEffect(() => {
-    console.log("xzzxxzxz", localStorage.getItem("Name"));
+    window.scroll(0, 0);
   }, []);
 
   function creditCardFun(e) {

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import image_url from "../assets/images/sadiq_credit_card.png";
 import Axios from "../Axios";
 
 export const CardDetailsPhone = ({ cardDetails }) => {
+  const history = useHistory();
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -36,31 +38,39 @@ export const CardDetailsPhone = ({ cardDetails }) => {
   return (
     <div className="phone-single-card">
       <div className="phone-filter-icon"></div>
-      <div className="top p-1 d-flex">
-        <img src={cardDetails.image_url} alt="card image" />
-        <div className="pl-3">
-          <p className="h4">{cardDetails.name}</p>
-          <p>{cardDetails.bank[0].name}</p>
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          history.push(`/card-application/${cardDetails._id}`, cardDetails);
+        }}
+      >
+        <div className="top p-1 d-flex">
+          <img src={cardDetails.image_url} alt="card image" />
+          <div className="pl-3">
+            <p className="h4">{cardDetails.name}</p>
+            <p>{cardDetails.bank[0].name}</p>
+          </div>
+        </div>
+        <div className="middle d-flex justify-content-center align-items-center flex-wrap">
+          <div>
+            <p className="h4">Interest Free Period</p>
+            <p className="mb-0">{cardDetails.interest_free_period}</p>
+          </div>
+          <div>
+            <p className="h4">Regular Anual Fee</p>
+            <p className="mb-0">{cardDetails.regular_anual_fee}</p>
+          </div>
+          <div>
+            <p className="h4">Free Anual Fee</p>
+            <p className="mb-0">{cardDetails.free_anual_fee}</p>
+          </div>
+          <div>
+            <p className="h4">Rewards Points</p>
+            <p className="mb-0">{cardDetails.anual_fee_waived_rewards}</p>
+          </div>
         </div>
       </div>
-      <div className="middle d-flex justify-content-center align-items-center flex-wrap">
-        <div>
-          <p className="h4">Interest Free Period</p>
-          <p className="mb-0">{cardDetails.interest_free_period}</p>
-        </div>
-        <div>
-          <p className="h4">Regular Anual Fee</p>
-          <p className="mb-0">{cardDetails.regular_anual_fee}</p>
-        </div>
-        <div>
-          <p className="h4">Free Anual Fee</p>
-          <p className="mb-0">{cardDetails.free_anual_fee}</p>
-        </div>
-        <div>
-          <p className="h4">Rewards Points</p>
-          <p className="mb-0">{cardDetails.anual_fee_waived_rewards}</p>
-        </div>
-      </div>
+
       <div className="bottom mb-3">
         <div className="card-nav">
           <Link

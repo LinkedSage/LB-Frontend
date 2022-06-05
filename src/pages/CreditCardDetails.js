@@ -22,6 +22,7 @@ function CreditCardDetails() {
   var classList = [];
   let { id } = useParams();
   useEffect(() => {
+    window.scroll(0, 0);
     getCardById(id)
       .then((res) => {
         setCardInfo(res.data[0]);

@@ -6,11 +6,13 @@ import "../Components/CSS/CreditCard.css";
 import { CadrDetails } from "../Components/CadrDetails";
 import { CardDetailsPhone } from "../Components/CardDetailsPhone";
 import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 import PreloaderPage from "../Components/PreloaderPage";
 
 export default function CreditCard(data) {
   let location = useLocation();
-
+  const { bank } = queryString.parse(data.location.search);
+  console.log("asydhgashgdhg", location);
   const [currencyValue, setCurrencyValue] = useState();
   const [cardNetworkValue, setCardNetworkValue] = useState();
   const [cardTypeValue, setCardTypeValue] = useState();
@@ -21,6 +23,9 @@ export default function CreditCard(data) {
   const [professionSalary, setProfessionSalary] = useState(false);
   const [preloader, setPreloader] = useState(false);
 
+  useEffect(async () => {
+    window.scroll(0, 0);
+  }, []);
   useEffect(async () => {
     let result;
     console.log(location);
@@ -208,8 +213,9 @@ export default function CreditCard(data) {
 
   async function findCardFun(e) {
     e.preventDefault();
-    console.log(salary, profession);
-
+    if (bank && !location.state) {
+      location.state = { bank: bank };
+    }
     let salaryId = document.getElementById("salary");
     if ((!salary || (salary && salary < 0)) && profession) {
       salaryId.classList.add("empty");
@@ -239,21 +245,26 @@ export default function CreditCard(data) {
         <div className="profession-salary">
           <div className="container">
             <div className="row">
-              <form className="p-3">
+              <form
+                className="p-3"
+                onSubmit={(e) => {
+                  findCardFun(e);
+                }}
+              >
                 <h3 className="w-100 text-center">
                   Find your best &nbsp;<span className="h2">Credit Card</span>
                 </h3>
                 <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
                   <div class="select mb-4">
                     <select
+                      required
                       placeholder="Profession"
                       onChange={(e) => {
                         setProfession(e.target.value);
                       }}
                     >
-                      <option selected value="salaried">
-                        Salaried
-                      </option>
+                      <option value="">Select Your Profession</option>
+                      <option value="salaried">Salaried</option>
                       <option value="business">Business</option>
                       <option value="doctor">Doctor</option>
                       <option value="landLord">Land Lord</option>
@@ -270,18 +281,19 @@ export default function CreditCard(data) {
                       }}
                     ></input>
                     <label class="label" for="salary">
-                      Salary*
+                      Enter your Salary
                     </label>
                   </div>
                 </div>
                 <div className="text-center mt-4">
                   <button
                     className="h4 p-3 pl-5 pr-5 glow-on-hover"
-                    onClick={(e) => {
-                      findCardFun(e);
-                    }}
+                    // onClick={(e) => {
+                    //   findCardFun(e);
+                    // }}
+                    type="submit"
                   >
-                    Submit
+                    Next
                   </button>
                 </div>
               </form>

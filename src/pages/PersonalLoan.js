@@ -21,6 +21,9 @@ export default function CreditCard(data) {
   const [professionSalary, setProfessionSalary] = useState(false);
   const [preloader, setPreloader] = useState(false);
   useEffect(async () => {
+    window.scroll(0, 0);
+  }, []);
+  useEffect(async () => {
     console.log("state", location.state);
     if (location.state && location.state.profession && location.state.salary) {
       let result = await Axios.get(
@@ -218,7 +221,7 @@ export default function CreditCard(data) {
                       findCardFun(e);
                     }}
                   >
-                    Submit
+                    Next
                   </button>
                 </div>
               </form>

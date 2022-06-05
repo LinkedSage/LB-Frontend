@@ -11,7 +11,7 @@ import { userUpdate } from "../helpers/API/Auth";
 export default function Home() {
   var currentUser = getCurrentUser().data;
   var token = getCookies("data");
-
+  const [companies, setCompanies] = useState(companyName);
   const [hideShow, setHideShow] = useState([true, false, false, false]);
   const [sendFile, setSendFile] = useState();
   const [documents, setDocuments] = useState();
@@ -27,6 +27,7 @@ export default function Home() {
   const [professionDefault, setProfessionDefault] = useState({});
 
   useEffect(() => {
+    window.scroll(0, 0);
     setDefaultValues();
   }, []);
 
@@ -380,7 +381,7 @@ export default function Home() {
                           onClick={submitPersonal}
                           type="button"
                         >
-                          Submit
+                          Next{" "}
                         </button>
                       </div>
                     </div>
@@ -432,13 +433,21 @@ export default function Home() {
                           <Select
                             id="Organization"
                             defaultValue={organization}
+                            onInputChange={(e) => {
+                              var temp = companyName;
+                              temp.push({
+                                label: e,
+                                value: e,
+                              });
+                              setCompanies(temp);
+                            }}
                             onChange={(e) => {
                               setFinansialInfo((prevState) => ({
                                 ...prevState,
                                 company_name: e.value,
                               }));
                             }}
-                            options={companyName}
+                            options={companies}
                             placeholder="Organization"
                           />
                         </div>
@@ -497,7 +506,7 @@ export default function Home() {
                           type="button"
                           onClick={submitFinancialInfo}
                         >
-                          Submit
+                          Next
                         </button>
                       </div>
                     </div>
@@ -560,7 +569,7 @@ export default function Home() {
                           type="button"
                           onClick={submitNIDFrontBack}
                         >
-                          Submit
+                          Next{" "}
                         </button>
                       </div>
                     </div>
@@ -636,7 +645,7 @@ export default function Home() {
                           type="button"
                           onClick={submitFinancial}
                         >
-                          Submit
+                          Next
                         </button>
                       </div>
                     </div>

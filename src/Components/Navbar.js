@@ -409,7 +409,7 @@ export default function Navbar() {
                   </ul>
                   <ul>
                     <p className="h4 _title">HOME LOANS</p>
-                    <li>
+                    {/* <li>
                       <Link
                         className="hover-effect-black"
                         to={{
@@ -423,7 +423,7 @@ export default function Navbar() {
                         </span>
                         SCB Bank
                       </Link>
-                    </li>
+                    </li> */}
 
                     <li>
                       <Link
@@ -441,7 +441,7 @@ export default function Navbar() {
                       </Link>
                     </li>
                   </ul>
-                  <ul>
+                  {/* <ul>
                     <p className="h4 _title">AUTO LOANS</p>
                     <li>
                       <Link
@@ -474,7 +474,7 @@ export default function Navbar() {
                         City Bank
                       </Link>
                     </li>
-                  </ul>
+                  </ul> */}
 
                   <div className="close-btn">
                     <button onClick={hideNavMenu}>X</button>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const CardDetails = ({ title, data, cardDetails }) => {
+export const CardDetails = ({ title, data, cardDetails, addToCompare }) => {
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -38,8 +38,9 @@ export const CardDetails = ({ title, data, cardDetails }) => {
             alt="card image"
           />
         </div>
-        <div>
-          <Link
+        <div className="text-center">
+          <button className="btn" onClick={() => addToCompare(cardDetails)}>Add to Compare</button>
+          {/* <Link
             className="btn mb-2 glow-on-hover"
             to={{
               pathname: `/card-application/${cardDetails._id}`,
@@ -47,7 +48,7 @@ export const CardDetails = ({ title, data, cardDetails }) => {
             }}
           >
             Apply Now
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="vl-line"></div>

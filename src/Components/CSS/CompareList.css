@@ -3,10 +3,53 @@
     padding: 10px;
     width: 925px;
     position: fixed;
-    right: 64px;
+    left: 20%;
     bottom: 5px;
     border-radius: 5px;
     transition: all .3s linear;
     z-index: 99;
-    height: 200px;
+}
+
+.compare-now-btn{
+    height: 100px;
+}
+
+.close-compare-list{
+    position: absolute;
+    right: -19px;
+    top: -19px;
+    color:rgb(243, 59, 59);
+    cursor: pointer;
+}
+
+.close-compare-list svg{
+    height: 30px;
+    background-color: transparent;
+    fill: none;
+}
+
+.close-compare-list svg:hover {
+    background-color: red;
+    color: #ffffff;
+    border-radius: 50%;
+}
+
+.close-compare-item{
+    position: absolute;
+    right: 18px;
+    top: 4px;
+    color: rgb(243, 59, 59);
+    cursor: pointer;
+}
+
+.close-compare-item svg {
+    height: 20px;
+    background-color: transparent;
+    fill: none;
+}
+
+.close-compare-item svg:hover {
+    background-color: red;
+    color: #ffffff;
+    border-radius: 50%;
 }

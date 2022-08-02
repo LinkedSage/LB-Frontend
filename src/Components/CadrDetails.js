@@ -30,11 +30,26 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
 
   return (
     <>
-      <img
-        className="fst-child w-220 pl-2 pr-2"
-        src={data[0]}
-        alt="card image"
-      />
+      <div>
+        <div>
+          <img
+            className="fst-child w-220 pl-2 pr-2"
+            src={data[0]}
+            alt="card image"
+          />
+        </div>
+        <div>
+          <Link
+            className="mb-2 glow-on-hover"
+            to={{
+              pathname: `/card-application/${cardDetails._id}`,
+              state: { cardDetails },
+            }}
+          >
+            Apply Now
+          </Link>
+        </div>
+      </div>
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">{title[1]}</p>
@@ -247,7 +262,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                       <b>Salaried</b> Person with minimum monthly income:{" "}
                       <b>
                         {moreDetails[0].eligibility.salaried.min_monthly_income}
-                      </b> BDT.
+                      </b>{" "}
+                      BDT.
                     </p>
                   </div>
                 ) : null}
@@ -259,7 +275,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                       <b>Businessman</b> with minimum monthly income:{" "}
                       <b>
                         {moreDetails[0].eligibility.business.min_monthly_income}
-                      </b> BDT.
+                      </b>{" "}
+                      BDT.
                     </p>
                   </div>
                 ) : null}
@@ -271,7 +288,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                       <b>Doctor</b> with minimum monthly income:{" "}
                       <b>
                         {moreDetails[0].eligibility.doctor.min_monthly_income}
-                      </b> BDT.
+                      </b>{" "}
+                      BDT.
                     </p>
                   </div>
                 ) : null}

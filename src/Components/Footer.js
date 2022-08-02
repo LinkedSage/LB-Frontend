@@ -110,7 +110,7 @@ export default function Footer() {
                         TCB Home Loan
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         to={{
                           pathname: "/home-loan",
@@ -119,7 +119,7 @@ export default function Footer() {
                       >
                         SCB Home Loan
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         to={{
@@ -130,7 +130,7 @@ export default function Footer() {
                         TCB Auto Loan
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         to={{
                           pathname: "/auto-loan",
@@ -139,7 +139,7 @@ export default function Footer() {
                       >
                         SCB Auto Loan
                       </Link>
-                    </li>
+                    </li> */}
                   </>
                 ) : (
                   <li>

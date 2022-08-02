@@ -15,7 +15,7 @@ import { notification } from "../helpers/Confirm/ConfirmAction";
 export default function Home() {
   let history = useHistory();
 
-  const [profession, setProfession] = useState("salaried");
+  const [profession, setProfession] = useState("");
   const [salary, setSalary] = useState();
   const [profession1, setProfession1] = useState("salaried");
   const [salary1, setSalary1] = useState();
@@ -28,6 +28,11 @@ export default function Home() {
 
   function creditCardFun(e) {
     let salaryId = document.getElementById("salary");
+    if (profession == "") {
+      document.getElementById("profession").style.border = "2px solid red";
+      document.getElementById("profession").style.color = "red";
+      return;
+    }
     if (!salary || (salary && salary < 0)) {
       salaryId.classList.add("empty");
       salaryId.value = "";
@@ -91,14 +96,21 @@ export default function Home() {
               <div className="d-flex mt-3">
                 <div class="select mr-4">
                   <select
+                    id="profession"
+                    required
                     placeholder="Profession"
                     onChange={(e) => {
+                      document.getElementById("profession").style.border =
+                        "0px solid black";
+                      document.getElementById("profession").style.color =
+                        "black";
                       setProfession(e.target.value);
                     }}
                   >
-                    <option selected value="salaried">
-                      Salaried
+                    <option selected value="">
+                      *Select Your Profession
                     </option>
+                    <option value="salaried">Salaried</option>
                     <option value="business">Business</option>
                     <option value="doctor">Doctor</option>
                     <option value="landLord">Land Lord</option>

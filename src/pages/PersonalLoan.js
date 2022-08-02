@@ -184,7 +184,7 @@ export default function CreditCard(data) {
                   Find your best &nbsp;<span className="h2">Loan</span>
                 </h3>
                 <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
-                  <div class="select mb-4">
+                  <div className="select mb-4">
                     <select
                       placeholder="Profession"
                       onChange={(e) => {
@@ -199,7 +199,7 @@ export default function CreditCard(data) {
                       <option value="landLord">Land Lord</option>
                     </select>
                   </div>
-                  <div class="input-container">
+                  <div className="input-container">
                     <input
                       id="salary"
                       type="number"
@@ -209,7 +209,7 @@ export default function CreditCard(data) {
                         setSalary(e.target.value);
                       }}
                     ></input>
-                    <label class="label" for="salary">
+                    <label className="label" for="salary">
                       Salary*
                     </label>
                   </div>

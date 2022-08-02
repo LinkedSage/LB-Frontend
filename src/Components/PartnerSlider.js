@@ -10,8 +10,8 @@ import client7 from "../assets/images/partners/nfl.png";
 
 function PartnerSlider() {
   return (
-    <div class="__slider ">
-      <div class="__slide-track">
+    <div className="__slider ">
+      <div className="__slide-track">
         <div className="__slide">
           <img src={client1} alt="partner img" ></img>
         </div>

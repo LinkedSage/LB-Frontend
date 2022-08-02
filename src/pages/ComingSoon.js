@@ -43,9 +43,9 @@ export default function CommingSoon() {
 
     return (
         <div className="coming-soon">
-            <div class="page">
-                <div class="countdown-col col d-flex justify-content-center align-items-center">
-                    <div class=" middle">
+            <div className="page">
+                <div className="countdown-col col d-flex justify-content-center align-items-center">
+                    <div className=" middle">
                         <h2>Coming Soon....</h2>
                         <div className="time">
                             <span><div id="days">12</div> Days</span>

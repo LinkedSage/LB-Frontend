@@ -54,7 +54,7 @@ export default function Footer() {
 
             <div className="col-md-4">
               <p className="h3">Quick Links</p>
-              <div class="_sub-title">
+              <div className="_sub-title">
                 <hr />
               </div>
               <ul>
@@ -159,7 +159,7 @@ export default function Footer() {
             </div>
             <div className="col-md-4">
               <p className="h3">Follow Us On</p>
-              <div class="_sub-title">
+              <div className="_sub-title">
                 <hr />
               </div>
               <ul className="d-flex justify-content-start">

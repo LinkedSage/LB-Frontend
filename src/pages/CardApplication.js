@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { companyName } from "../helpers/Data/CompanyName";
-import Select from "react-select";
+import Select from "react-select/creatable";
 import "../Components/CSS/Application.css";
 import {
   isExistUser,
@@ -418,6 +418,7 @@ export default function Home() {
         } else {
           notification("fail", res1.message);
         }
+
       })
       .catch((err) => {
         console.log(err);
@@ -850,9 +851,9 @@ export default function Home() {
             className="closs-details"
             onClick={() => setOTPPopup(false)}
           ></button>
-          <div class="container height-100 d-flex justify-content-center align-items-center">
-            <div class="position-relative">
-              <div class="card p-2 text-center">
+          <div className="container height-100 d-flex justify-content-center align-items-center">
+            <div className="position-relative">
+              <div className="card p-2 text-center">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -884,11 +885,11 @@ export default function Home() {
                   </div>
                   <div
                     id="otp"
-                    class="inputs d-flex flex-row justify-content-center mt-2"
+                    className="inputs d-flex flex-row justify-content-center mt-2"
                   >
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="first"
                       maxlength="1"
@@ -896,7 +897,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="second"
                       maxlength="1"
@@ -904,7 +905,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="third"
                       maxlength="1"
@@ -912,7 +913,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="fourth"
                       maxlength="1"
@@ -920,7 +921,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="fifth"
                       maxlength="1"
@@ -928,7 +929,7 @@ export default function Home() {
                     />
                     <input
                       required
-                      class="m-2 text-center form-control rounded"
+                      className="m-2 text-center form-control rounded"
                       type="text"
                       id="sixth"
                       maxlength="1"
@@ -942,76 +943,79 @@ export default function Home() {
                   </div>
                 </form>
               </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-      {signinPopup ? (
-        <div className="popup-container">
-          <button
-            className="closs-details"
-            onClick={() => setSigninPopup(false)}
-          ></button>
-          <div class="container height-100 d-flex justify-content-center align-items-center">
-            <div class="position-relative">
-              <div class="card p-2 text-center">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    loginFun();
-                  }}
-                >
-                  <h6>
-                    To Continue with existng Account<br></br> Please Login
-                  </h6>
-                  <div
-                    id="otp1"
-                    class="inputs align-items-center d-flex flex-row justify-content-center mt-2"
+            </div >
+          </div >
+        </div >
+      ) : null
+      }
+      {
+        signinPopup ? (
+          <div className="popup-container">
+            <button
+              className="closs-details"
+              onClick={() => setSigninPopup(false)}
+            ></button>
+            <div className="container height-100 d-flex justify-content-center align-items-center">
+              <div className="position-relative">
+                <div className="card p-2 text-center">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      loginFun();
+                    }}
                   >
-                    <label class="text-center w-25">Username</label>
-                    <input
-                      type="text"
-                      class="m-2 text-center form-control rounded w-75"
-                      id="phn-mail"
-                      placeholder="Phone no. or Email"
-                      disabled
-                      value={
-                        existUser.phone ? existUser.phone : existUser.email
-                      }
-                    />
-                  </div>
-                  <div
-                    id="otp"
-                    class="inputs align-items-center d-flex flex-row justify-content-center mt-2"
-                  >
-                    <label class="text-center w-25">Password</label>
-                    <input
-                      type="password"
-                      class="m-2 text-center form-control rounded w-75"
-                      id="password"
-                      placeholder="Password"
-                      minlength="6"
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                      required
-                    />
-                  </div>
-                  <div class="mt-4">
-                    <button type="submit" class="btn btn-danger px-4Confirm">
-                      Login
-                    </button>
-                    <br />
-                    <br />
-                    <Link to="/reset-password">Forgot Password?</Link>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </section>
+                    <h6>
+                      To Continue with existng Account<br></br> Please Login
+                    </h6>
+                    <div
+                      id="otp1"
+                      className="inputs align-items-center d-flex flex-row justify-content-center mt-2"
+                    >
+                      <label className="text-center w-25">Username</label>
+                      <input
+                        type="text"
+                        className="m-2 text-center form-control rounded w-75"
+                        id="phn-mail"
+                        placeholder="Phone no. or Email"
+                        disabled
+                        value={
+                          existUser.phone ? existUser.phone : existUser.email
+                        }
+                      />
+                    </div>
+                    <div
+                      id="otp"
+                      className="inputs align-items-center d-flex flex-row justify-content-center mt-2"
+                    >
+                      <label className="text-center w-25">Password</label>
+                      <input
+                        type="password"
+                        className="m-2 text-center form-control rounded w-75"
+                        id="password"
+                        placeholder="Password"
+                        minlength="6"
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
+                        required
+                      />
+                    </div>
+                    <div class="mt-4">
+                      <button type="submit" class="btn btn-danger px-4Confirm">
+                        Login
+                      </button>
+                      <br />
+                      <br />
+                      <Link to="/reset-password">Forgot Password?</Link>
+                    </div>
+                  </form>
+                </div>
+              </div >
+            </div >
+          </div >
+        ) : null
+      }
+    </section >
   );
 }
 

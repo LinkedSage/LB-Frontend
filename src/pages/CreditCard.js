@@ -256,7 +256,7 @@ export default function CreditCard(data) {
                   Find your best &nbsp;<span className="h2">Credit Card</span>
                 </h3>
                 <div className="d-flex mt-3 content flex-column justify-content-center align-items-center">
-                  <div class="select mb-4">
+                  <div className="select mb-4">
                     <select
                       required
                       placeholder="Profession"
@@ -271,7 +271,7 @@ export default function CreditCard(data) {
                       <option value="landLord">Land Lord</option>
                     </select>
                   </div>
-                  <div class="input-container">
+                  <div className="input-container">
                     <input
                       id="salary"
                       type="number"
@@ -304,7 +304,7 @@ export default function CreditCard(data) {
       ) : (
         <>
           <div className="card-section">
-            <div class="phone-show container card-section-container phone-card-section-container">
+            <div className="phone-show container card-section-container phone-card-section-container">
               <div className="row">
                 <div className="mobile-view w-100 flex d-flex align-items-center justify-content-around filter-section ">
                   <div className="filter">
@@ -354,8 +354,8 @@ export default function CreditCard(data) {
                   </p>
                 </div>
               </div>
-              <div class="row">
-                <div class="mobile-view d-flex justify-content-around w-100 align-items-center pt-0">
+              <div className="row">
+                <div className="mobile-view d-flex justify-content-around w-100 align-items-center pt-0">
                   <div className="card-search">
                     <input
                       type="search"

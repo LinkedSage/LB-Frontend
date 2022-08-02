@@ -1,3 +1,4 @@
+/* Compare list css */
 .compare-list{
     background: #ffffff;
     padding: 10px;
@@ -52,4 +53,56 @@
     background-color: red;
     color: #ffffff;
     border-radius: 50%;
+}
+
+/* Compare list modal css */
+.modal-overlay{
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+    padding: 1.2rem;
+}
+
+.compare-list-modal{
+    max-width: 800px;
+    position: relative;
+    padding: 1.9rem 3rem;
+    background: #ffffff;
+    background-clip: padding-box;
+    box-shadow: 0 12px 15px 0 rgb(0 0 0 / 25%);
+    margin: auto;
+}
+
+.compare-list-modal-header{
+    padding: 20px;
+    text-align: center;
+}
+
+.compare-list-modal-body .details div:first-child{
+    padding: 5px 20px;
+    text-align: center;
+    border:1px dashed rgb(145, 145, 145) !important;
+}
+
+.compare-list-modal-body .details div {
+    padding: 5px 20px;
+    border: 1px dashed rgb(145, 145, 145);
+    border-top:0;
+}
+
+.compare-list-modal-body .details div:first-child img {
+    height: 100px;
+}
+
+.compare-list-modal-body .details div:first-child svg{
+    fill: none;
+    height: 100px;
 }

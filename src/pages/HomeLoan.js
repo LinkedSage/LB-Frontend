@@ -24,6 +24,7 @@ export default function CreditCard(data) {
     window.scroll(0, 0);
     setPreloader(true);
     if (location.state && location.state.profession && location.state.salary) {
+      setPreloader(true);
       let result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/homeloans?profession=${location.state.profession}&salary=${location.state.salary}`
       );
@@ -31,6 +32,7 @@ export default function CreditCard(data) {
       console.log(location.state, result.data.data);
       setCardList(result.data);
       setCardShow(result.data.data);
+      setPreloader(false);
     } else {
       setProfessionSalary(true);
     }
@@ -286,22 +288,22 @@ export default function CreditCard(data) {
                 <div className="row card-section-pc group-card pb-50 pt-3">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        item.state = location.state;
-                        return (
-                          <div
-                            key={key}
-                            className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
-                          >
-                            <p className="h4 text-center mb-3 text-uppercase">
-                              {item.name}
-                            </p>
+                      item.state = location.state;
+                      return (
+                        <div
+                          key={key}
+                          className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
+                        >
+                          <p className="h4 text-center mb-3 text-uppercase">
+                            {item.name}
+                          </p>
 
-                            <div className="description d-flex">
-                              <HomeLoanDetails cardDetails={item} />
-                            </div>
+                          <div className="description d-flex">
+                            <HomeLoanDetails cardDetails={item} />
                           </div>
-                        );
-                      })
+                        </div>
+                      );
+                    })
                     : null}
                 </div>
               </div>
@@ -310,9 +312,9 @@ export default function CreditCard(data) {
                 <div className="phone-card-group">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        item.state = location.state;
-                        return <HomeLoanPhone cardDetails={item} key={key} />;
-                      })
+                      item.state = location.state;
+                      return <HomeLoanPhone cardDetails={item} key={key} />;
+                    })
                     : null}
                   {/* <CardDetailsPhone data = 'hi' /> */}
                 </div>

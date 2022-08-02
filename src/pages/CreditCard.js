@@ -3,11 +3,12 @@ import { ToastContainer } from "react-toastify";
 import Axios from "../Axios";
 import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
-import { CadrDetails } from "../Components/CadrDetails";
+import { CardDetails } from "../Components/CardDetails";
 import { CardDetailsPhone } from "../Components/CardDetailsPhone";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import PreloaderPage from "../Components/PreloaderPage";
+import CompareList from "../Components/CompareList";
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -30,9 +31,11 @@ export default function CreditCard(data) {
     let result;
     console.log(location);
     if (location.state && location.state.profession && location.state.salary) {
+      setPreloader(true);
       result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/cards?profession=${location.state.profession}&salary=${location.state.salary}`
       );
+      setPreloader(false);
       setCardList(result.data);
       setCardShow(result.data.data);
     } else {
@@ -223,10 +226,8 @@ export default function CreditCard(data) {
     } else {
       salaryId.classList.remove("empty");
       const result = await Axios.get(
-        `${
-          process.env.REACT_APP_API_URL
-        }/cards?profession=${profession}&salary=${salary}&&bank=${
-          (location.state && location.state.bank) || ""
+        `${process.env.REACT_APP_API_URL
+        }/cards?profession=${profession}&salary=${salary}&&bank=${(location.state && location.state.bank) || ""
         }`
       );
       setCardList(result.data);
@@ -451,116 +452,116 @@ export default function CreditCard(data) {
                 <div className="row card-section-pc group-card pb-50 pt-3">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        if (location.state) item.state = location.state;
-                        let feesData = [
-                          item.image_url,
-                          item.interest_free_period
-                            ? item.interest_free_period
-                            : "---",
-                          item.regular_anual_fee
-                            ? item.regular_anual_fee
-                            : "---",
-                          item.free_anual_fee ? item.free_anual_fee : "---",
-                          item.eligibility,
-                        ];
-                        let anualFeesData = [
-                          item.image_url,
-                          item.lounge_access_fee
-                            ? item.lounge_access_fee
-                            : "---",
-                          item.free_guest_allowed
-                            ? item.free_guest_allowed
-                            : "---",
-                          item.int_lounge_access_fee
-                            ? item.int_lounge_access_fee
-                            : "---",
-                          item.int_free_guest_allowed
-                            ? item.int_free_guest_allowed
-                            : "---",
-                        ];
-                        let withdrawalData = [
-                          item.image_url,
-                          item.max_card_limit ? item.max_card_limit : "---",
-                          item.free_supplementary_card,
-                          item.max_supplementary_card,
-                          item.anual_fee_waived_rewards
-                            ? item.anual_fee_waived_rewards
-                            : "---",
-                        ];
-                        return (
-                          <div
-                            key={key}
-                            className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
-                          >
-                            <img
-                              className="bank-image w-160 pl-2 pr-2"
-                              src={item.bank[0].image_url}
-                              alt="card image"
-                            />
-                            <p className="h4 text-center mb-3 text-uppercase">
-                              {item.name}
-                            </p>
-                            <div className="btn__group text-center mb-3">
-                              <button
-                                className="active"
-                                id={"fees" + key}
-                                onClick={(e) => {
-                                  filterFun("fees", key, 0);
-                                }}
-                              >
-                                Fees & Charges
-                              </button>
-                              <button
-                                id={"anualFees" + key}
-                                onClick={(e) => {
-                                  filterFun("Anual Fees", key, 1);
-                                }}
-                              >
-                                Lounge Facility
-                              </button>
-                              <button
-                                id={"Withdrawal" + key}
-                                onClick={(e) => {
-                                  filterFun("Withdrawal", key, 2);
-                                }}
-                              >
-                                Other Details
-                              </button>
-                            </div>
-
-                            <div
-                              id={"feesID" + key}
-                              className="description d-flex"
+                      if (location.state) item.state = location.state;
+                      let feesData = [
+                        item.image_url,
+                        item.interest_free_period
+                          ? item.interest_free_period
+                          : "---",
+                        item.regular_anual_fee
+                          ? item.regular_anual_fee
+                          : "---",
+                        item.free_anual_fee ? item.free_anual_fee : "---",
+                        item.eligibility,
+                      ];
+                      let anualFeesData = [
+                        item.image_url,
+                        item.lounge_access_fee
+                          ? item.lounge_access_fee
+                          : "---",
+                        item.free_guest_allowed
+                          ? item.free_guest_allowed
+                          : "---",
+                        item.int_lounge_access_fee
+                          ? item.int_lounge_access_fee
+                          : "---",
+                        item.int_free_guest_allowed
+                          ? item.int_free_guest_allowed
+                          : "---",
+                      ];
+                      let withdrawalData = [
+                        item.image_url,
+                        item.max_card_limit ? item.max_card_limit : "---",
+                        item.free_supplementary_card,
+                        item.max_supplementary_card,
+                        item.anual_fee_waived_rewards
+                          ? item.anual_fee_waived_rewards
+                          : "---",
+                      ];
+                      return (
+                        <div
+                          key={key}
+                          className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
+                        >
+                          <img
+                            className="bank-image w-160 pl-2 pr-2"
+                            src={item.bank[0].image_url}
+                            alt="card image"
+                          />
+                          <p className="h4 text-center mb-3 text-uppercase">
+                            {item.name}
+                          </p>
+                          <div className="btn__group text-center mb-3">
+                            <button
+                              className="active"
+                              id={"fees" + key}
+                              onClick={(e) => {
+                                filterFun("fees", key, 0);
+                              }}
                             >
-                              <CadrDetails
-                                title={feesKey}
-                                data={feesData}
-                                cardDetails={item}
-                              />
-                            </div>
-                            <div
-                              id={"anualFeesID" + key}
-                              className="description d-none"
+                              Fees & Charges
+                            </button>
+                            <button
+                              id={"anualFees" + key}
+                              onClick={(e) => {
+                                filterFun("Anual Fees", key, 1);
+                              }}
                             >
-                              <CadrDetails
-                                title={anualFeesKey}
-                                data={anualFeesData}
-                                cardDetails={item}
-                              />
-                            </div>
-                            <div
-                              id={"withdrawalID" + key}
-                              className="description d-none"
+                              Lounge Facility
+                            </button>
+                            <button
+                              id={"Withdrawal" + key}
+                              onClick={(e) => {
+                                filterFun("Withdrawal", key, 2);
+                              }}
                             >
-                              <CadrDetails
-                                title={withdrawalKey}
-                                data={withdrawalData}
-                                cardDetails={item}
-                              />
-                            </div>
+                              Other Details
+                            </button>
                           </div>
-                        );
-                      })
+
+                          <div
+                            id={"feesID" + key}
+                            className="description d-flex"
+                          >
+                            <CardDetails
+                              title={feesKey}
+                              data={feesData}
+                              cardDetails={item}
+                            />
+                          </div>
+                          <div
+                            id={"anualFeesID" + key}
+                            className="description d-none"
+                          >
+                            <CardDetails
+                              title={anualFeesKey}
+                              data={anualFeesData}
+                              cardDetails={item}
+                            />
+                          </div>
+                          <div
+                            id={"withdrawalID" + key}
+                            className="description d-none"
+                          >
+                            <CardDetails
+                              title={withdrawalKey}
+                              data={withdrawalData}
+                              cardDetails={item}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })
                     : null}
                 </div>
               ) : (
@@ -585,14 +586,15 @@ export default function CreditCard(data) {
               <div className="phone-card-group">
                 {cardShow
                   ? cardShow.map((item, key) => {
-                      return <CardDetailsPhone cardDetails={item} key={key} />;
-                    })
+                    return <CardDetailsPhone cardDetails={item} key={key} />;
+                  })
                   : null}
               </div>
             </div>
           </div>
         </>
       )}
+      {/* <CompareList /> */}
     </section>
   );
 }

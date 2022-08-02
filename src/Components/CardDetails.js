@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const CadrDetails = ({ title, data, cardDetails }) => {
+export const CardDetails = ({ title, data, cardDetails }) => {
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -40,7 +40,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
         </div>
         <div>
           <Link
-            className="mb-2 glow-on-hover"
+            className="btn mb-2 glow-on-hover"
             to={{
               pathname: `/card-application/${cardDetails._id}`,
               state: { cardDetails },
@@ -189,7 +189,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.essential_documents ? (
+                moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -210,7 +210,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.reference_documents ? (
+                moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -232,7 +232,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.notes ? (
+                moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference Document Notes</h5>
                   <div className="_sub-title">
@@ -255,8 +255,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
               <div className="left-bottom">
                 <h4 className="_title">Eligibility</h4>
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.salaried &&
-                moreDetails[0].eligibility.salaried.is_available ? (
+                  moreDetails[0].eligibility.salaried &&
+                  moreDetails[0].eligibility.salaried.is_available ? (
                   <div>
                     <p>
                       <b>Salaried</b> Person with minimum monthly income:{" "}
@@ -268,8 +268,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                   </div>
                 ) : null}
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.business &&
-                moreDetails[0].eligibility.business.is_available ? (
+                  moreDetails[0].eligibility.business &&
+                  moreDetails[0].eligibility.business.is_available ? (
                   <div>
                     <p>
                       <b>Businessman</b> with minimum monthly income:{" "}
@@ -281,8 +281,8 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
                   </div>
                 ) : null}
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.doctor &&
-                moreDetails[0].eligibility.doctor.is_available ? (
+                  moreDetails[0].eligibility.doctor &&
+                  moreDetails[0].eligibility.doctor.is_available ? (
                   <div>
                     <p>
                       <b>Doctor</b> with minimum monthly income:{" "}

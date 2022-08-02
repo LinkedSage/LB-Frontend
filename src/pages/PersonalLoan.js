@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Axios from "../Axios";
 import Select from "react-select";
 import "../Components/CSS/CreditCard.css";
-import { CadrDetails } from "../Components/CadrDetails";
+import { CardDetails } from "../Components/CardDetails";
 import { PersonalLoanPhone } from "../Components/PersonalLoanPhone";
 import { useLocation } from "react-router-dom";
 import PreloaderPage from "../Components/PreloaderPage";
@@ -26,6 +26,7 @@ export default function CreditCard(data) {
   useEffect(async () => {
     console.log("state", location.state);
     if (location.state && location.state.profession && location.state.salary) {
+      setPreloader(true);
       let result = await Axios.get(
         `${process.env.REACT_APP_API_URL}/personalloans?profession=${location.state.profession}&salary=${location.state.salary}`
       );
@@ -33,6 +34,7 @@ export default function CreditCard(data) {
       console.log(location.state, result.data.data);
       setCardList(result.data);
       setCardShow(result.data.data);
+      setPreloader(false);
     } else {
       setProfessionSalary(true);
     }
@@ -157,10 +159,8 @@ export default function CreditCard(data) {
       // location.state.salary = salary;
       setPreloader(true);
       const result = await Axios.get(
-        `${
-          process.env.REACT_APP_API_URL
-        }/personalloans?profession=${profession}&salary=${salary}&&bank=${
-          (location.state && location.state.bank) || ""
+        `${process.env.REACT_APP_API_URL
+        }/personalloans?profession=${profession}&salary=${salary}&&bank=${(location.state && location.state.bank) || ""
         }`
       );
       setCardList(result.data);
@@ -303,21 +303,21 @@ export default function CreditCard(data) {
                 <div className="row card-section-pc group-card pb-50 pt-3">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        return (
-                          <div
-                            key={key}
-                            className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
-                          >
-                            <p className="h4 text-center mb-3 text-uppercase">
-                              {item.name}
-                            </p>
+                      return (
+                        <div
+                          key={key}
+                          className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
+                        >
+                          <p className="h4 text-center mb-3 text-uppercase">
+                            {item.name}
+                          </p>
 
-                            <div className="description d-flex">
-                              <PersonalLoanDetails cardDetails={item} />
-                            </div>
+                          <div className="description d-flex">
+                            <PersonalLoanDetails cardDetails={item} />
                           </div>
-                        );
-                      })
+                        </div>
+                      );
+                    })
                     : null}
                 </div>
               </div>
@@ -326,10 +326,10 @@ export default function CreditCard(data) {
                 <div className="phone-card-group">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        return (
-                          <PersonalLoanPhone cardDetails={item} key={key} />
-                        );
-                      })
+                      return (
+                        <PersonalLoanPhone cardDetails={item} key={key} />
+                      );
+                    })
                     : null}
                   {/* <CardDetailsPhone data = 'hi' /> */}
                 </div>

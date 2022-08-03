@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const CarLoanDetails = ({ cardDetails }) => {
+export const CarLoanDetails = ({ cardDetails, addToCompare, compareList, removeCompareItem }) => {
   console.log("aaaa", cardDetails);
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
@@ -28,19 +28,31 @@ export const CarLoanDetails = ({ cardDetails }) => {
     setPopupStatus(false);
   }
 
+  const isItemInCompareList = id => {
+    return compareList.some(item => item._id === id);
+  }
+
   return (
     <>
-      <img
-        className="fst-child w-220 pl-2 pr-2"
-        src={cardDetails.image_url}
-        alt="card image"
-      />
+      <div className="text-center">
+        <img
+          className="fst-child w-220 pl-2 pr-2"
+          src={cardDetails.image_url}
+          alt="card image"
+        />
+        {
+          isItemInCompareList(cardDetails._id) ?
+            <button className="btn btn-warning" onClick={() => removeCompareItem(cardDetails._id)}>Remove from Compare</button>
+            :
+            <button className="btn" onClick={() => addToCompare(cardDetails)}>Add to Compare</button>
+        }
+      </div>
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">
         <p className="h5">Max Loan Amount</p>
         <p>
           {cardDetails.max_loan_amount
-            ? cardDetails.max_loan_amount 
+            ? cardDetails.max_loan_amount
             : "---"}
         </p>
       </div>
@@ -54,7 +66,7 @@ export const CarLoanDetails = ({ cardDetails }) => {
         <p className="h5">Max Duration</p>
         <p>
           {cardDetails.max_duration
-            ? cardDetails.max_duration 
+            ? cardDetails.max_duration
             : "---"}
         </p>
       </div>
@@ -62,23 +74,23 @@ export const CarLoanDetails = ({ cardDetails }) => {
       <div className="text-center eligible-for w-220 pl-2 pr-2">
         <p className="h5">Eligible For</p>
         {cardDetails.eligibility &&
-        cardDetails.eligibility.salaried &&
-        cardDetails.eligibility.salaried.is_available ? (
+          cardDetails.eligibility.salaried &&
+          cardDetails.eligibility.salaried.is_available ? (
           <p>Salaried</p>
         ) : null}
         {cardDetails.eligibility &&
-        cardDetails.eligibility.business &&
-        cardDetails.eligibility.business.is_available ? (
+          cardDetails.eligibility.business &&
+          cardDetails.eligibility.business.is_available ? (
           <p>Businessman</p>
         ) : null}
         {cardDetails.eligibility &&
-        cardDetails.eligibility.doctor &&
-        cardDetails.eligibility.doctor.is_available ? (
+          cardDetails.eligibility.doctor &&
+          cardDetails.eligibility.doctor.is_available ? (
           <p>Doctor</p>
         ) : null}
         {cardDetails.eligibility &&
-        cardDetails.eligibility.landlord &&
-        cardDetails.eligibility.landlord.is_available ? (
+          cardDetails.eligibility.landlord &&
+          cardDetails.eligibility.landlord.is_available ? (
           <p>Landlord</p>
         ) : null}
       </div>
@@ -135,8 +147,8 @@ export const CarLoanDetails = ({ cardDetails }) => {
               <div className="left-bottom">
                 <h4 className="_title">Eligibility</h4>
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.salaried &&
-                moreDetails[0].eligibility.salaried.is_available ? (
+                  moreDetails[0].eligibility.salaried &&
+                  moreDetails[0].eligibility.salaried.is_available ? (
                   <div>
                     <p>
                       <b>Salaried</b> Person with minimum monthly income:{" "}
@@ -147,8 +159,8 @@ export const CarLoanDetails = ({ cardDetails }) => {
                   </div>
                 ) : null}
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.business &&
-                moreDetails[0].eligibility.business.is_available ? (
+                  moreDetails[0].eligibility.business &&
+                  moreDetails[0].eligibility.business.is_available ? (
                   <div>
                     <p>
                       <b>Businessman</b> with minimum monthly income:{" "}
@@ -159,8 +171,8 @@ export const CarLoanDetails = ({ cardDetails }) => {
                   </div>
                 ) : null}
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.doctor &&
-                moreDetails[0].eligibility.doctor.is_available ? (
+                  moreDetails[0].eligibility.doctor &&
+                  moreDetails[0].eligibility.doctor.is_available ? (
                   <div>
                     <p>
                       <b>Doctor</b> with minimum monthly income:{" "}
@@ -177,7 +189,7 @@ export const CarLoanDetails = ({ cardDetails }) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.essential_documents ? (
+                moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -198,7 +210,7 @@ export const CarLoanDetails = ({ cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.reference_documents ? (
+                moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -220,7 +232,7 @@ export const CarLoanDetails = ({ cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.notes ? (
+                moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">

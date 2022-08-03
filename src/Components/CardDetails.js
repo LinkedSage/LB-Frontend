@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
-export const CardDetails = ({ title, data, cardDetails, addToCompare }) => {
+export const CardDetails = ({ title, data, cardDetails, addToCompare, compareList, removeCompareItem }) => {
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -28,6 +28,10 @@ export const CardDetails = ({ title, data, cardDetails, addToCompare }) => {
     setPopupStatus(false);
   }
 
+  const isItemInCompareList = id => {
+    return compareList.some(item => item._id === id);
+  }
+
   return (
     <>
       <div>
@@ -39,16 +43,12 @@ export const CardDetails = ({ title, data, cardDetails, addToCompare }) => {
           />
         </div>
         <div className="text-center">
-          <button className="btn" onClick={() => addToCompare(cardDetails)}>Add to Compare</button>
-          {/* <Link
-            className="btn mb-2 glow-on-hover"
-            to={{
-              pathname: `/card-application/${cardDetails._id}`,
-              state: { cardDetails },
-            }}
-          >
-            Apply Now
-          </Link> */}
+          {
+            isItemInCompareList(cardDetails._id) ?
+              <button className="btn btn-warning" onClick={() => removeCompareItem(cardDetails._id)}>Remove from Compare</button>
+              :
+              <button className="btn" onClick={() => addToCompare(cardDetails)}>Add to Compare</button>
+          }
         </div>
       </div>
       <div className="vl-line"></div>

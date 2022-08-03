@@ -259,9 +259,6 @@ export default function CreditCard(data) {
     setCompareList(newArr);
   }
 
-
-
-
   return (
     <section id="credit-card-page">
       {preloader ? <PreloaderPage /> : null}
@@ -562,6 +559,8 @@ export default function CreditCard(data) {
                               data={feesData}
                               cardDetails={item}
                               addToCompare={addToCompare}
+                              compareList={compareList}
+                              removeCompareItem={removeCompareItem}
                             />
                           </div>
                           <div
@@ -572,6 +571,9 @@ export default function CreditCard(data) {
                               title={anualFeesKey}
                               data={anualFeesData}
                               cardDetails={item}
+                              addToCompare={addToCompare}
+                              compareList={compareList}
+                              removeCompareItem={removeCompareItem}
                             />
                           </div>
                           <div
@@ -582,6 +584,9 @@ export default function CreditCard(data) {
                               title={withdrawalKey}
                               data={withdrawalData}
                               cardDetails={item}
+                              addToCompare={addToCompare}
+                              compareList={compareList}
+                              removeCompareItem={removeCompareItem}
                             />
                           </div>
                         </div>

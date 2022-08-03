@@ -86,16 +86,16 @@
     text-align: center;
 }
 
-.compare-list-modal-body .details div:first-child{
+/* .compare-list-modal-body .details div:first-child{
     padding: 5px 20px;
     text-align: center;
-    border:1px dashed rgb(145, 145, 145) !important;
-}
+    border:1px dashed rgb(177, 177, 177) !important;
+} */
 
 .compare-list-modal-body .details div {
     padding: 5px 20px;
-    border: 1px dashed rgb(145, 145, 145);
-    border-top:0;
+        text-align: center;
+        border: 1px dashed rgb(177, 177, 177) !important;
 }
 
 .compare-list-modal-body .details div:first-child img {

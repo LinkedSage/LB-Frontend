@@ -1,8 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 import CompareListDetails from './CompareListDetails';
 import './CSS/CompareList.css';
 
 export default function CompareList({ compareList, removeCompareList, removeCompareItem }) {
+    const [openCompareListDetails, setOpenCompareListDetails] = useState(false);
+    const handleOpenCompareListDetails = () => setOpenCompareListDetails(true);
+    const handleCloseCompareListDetails = () => setOpenCompareListDetails(false);
     console.log(compareList)
     return (
         <>
@@ -70,12 +74,16 @@ export default function CompareList({ compareList, removeCompareList, removeComp
                 </div>
                 <div className='col-md-2'>
                     <div className='d-flex justify-content-center align-items-center compare-now-btn'>
-                        <button className='btn glow-on-hover'>Compare Now</button>
+                        <button className='btn glow-on-hover' disabled={compareList.length >= 2 ? false : true} onClick={handleOpenCompareListDetails}>Compare Now</button>
                     </div>
                 </div>
 
             </div>
-            <CompareListDetails />
+            {
+                openCompareListDetails &&
+                <CompareListDetails handleCloseCompareListDetails={handleCloseCompareListDetails} />
+            }
+
         </>
     );
 };

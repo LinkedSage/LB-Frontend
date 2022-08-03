@@ -6,6 +6,7 @@ import "../Components/CSS/CreditCard.css";
 import { CarLoanPhone } from "../Components/CarLoanPhone";
 import { useLocation } from "react-router-dom";
 import PreloaderPage from "../Components/PreloaderPage";
+import CompareList from "../Components/CompareList";
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -18,6 +19,7 @@ export default function CreditCard(data) {
   const [profession, setProfession] = useState("salaried");
   const [professionSalary, setProfessionSalary] = useState(false);
   const [preloader, setPreloader] = useState(false);
+  const [compareList, setCompareList] = useState([]);
 
   useEffect(async () => {
     window.scroll(0, 0);
@@ -161,6 +163,26 @@ export default function CreditCard(data) {
     }
   }
 
+  // add to compare
+  const addToCompare = (cardDetails) => {
+    if (compareList.length === 4) {
+      return alert("You Cannot Compare More Than 4 Items At Once");
+    }
+    setCompareList([...compareList, cardDetails]);
+  }
+
+  // remove compare list
+  const removeCompareList = () => {
+    setCompareList([]);
+  }
+
+
+  // remove compare item
+  const removeCompareItem = (id) => {
+    const newArr = compareList.filter((item) => item._id !== id);
+    setCompareList(newArr);
+  }
+
   return (
     <section id="credit-card-page">
       {preloader ? <PreloaderPage /> : null}
@@ -293,21 +315,21 @@ export default function CreditCard(data) {
                 <div className="row card-section-pc group-card pb-50 pt-3">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        return (
-                          <div
-                            key={key}
-                            className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
-                          >
-                            <p className="h4 text-center mb-3 text-uppercase">
-                              {item.name}
-                            </p>
+                      return (
+                        <div
+                          key={key}
+                          className="single-card card-shadow w-100 d-flex flex-column justify-content-center mb-4"
+                        >
+                          <p className="h4 text-center mb-3 text-uppercase">
+                            {item.name}
+                          </p>
 
-                            <div className="description d-flex">
-                              <CarLoanDetails cardDetails={item} />
-                            </div>
+                          <div className="description d-flex">
+                            <CarLoanDetails cardDetails={item} addToCompare={addToCompare} compareList={compareList} removeCompareItem={removeCompareItem} />
                           </div>
-                        );
-                      })
+                        </div>
+                      );
+                    })
                     : null}
                 </div>
               </div>
@@ -316,8 +338,8 @@ export default function CreditCard(data) {
                 <div className="phone-card-group">
                   {cardShow
                     ? cardShow.map((item, key) => {
-                        return <CarLoanPhone cardDetails={item} key={key} />;
-                      })
+                      return <CarLoanPhone cardDetails={item} key={key} />;
+                    })
                     : null}
                   {/* <CardDetailsPhone data = 'hi' /> */}
                 </div>
@@ -340,6 +362,10 @@ export default function CreditCard(data) {
           )}
         </>
       )}
+      {
+        compareList.length &&
+        <CompareList compareList={compareList} removeCompareList={removeCompareList} removeCompareItem={removeCompareItem} />
+      }
     </section>
   );
 }

@@ -7,6 +7,7 @@ import "../Components/CSS/CreditCard.css";
 import { HomeLoanPhone } from "../Components/HomeLoanPhone";
 import { useLocation } from "react-router-dom";
 import PreloaderPage from "../Components/PreloaderPage";
+import CompareList from "../Components/CompareList";
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -19,6 +20,7 @@ export default function CreditCard(data) {
   const [profession, setProfession] = useState("salaried");
   const [professionSalary, setProfessionSalary] = useState(false);
   const [preloader, setPreloader] = useState(false);
+  const [compareList, setCompareList] = useState([]);
 
   useEffect(async () => {
     window.scroll(0, 0);
@@ -156,6 +158,26 @@ export default function CreditCard(data) {
     }
   }
 
+  // add to compare
+  const addToCompare = (cardDetails) => {
+    if (compareList.length === 4) {
+      return alert("You Cannot Compare More Than 4 Items At Once");
+    }
+    setCompareList([...compareList, cardDetails]);
+  }
+
+  // remove compare list
+  const removeCompareList = () => {
+    setCompareList([]);
+  }
+
+
+  // remove compare item
+  const removeCompareItem = (id) => {
+    const newArr = compareList.filter((item) => item._id !== id);
+    setCompareList(newArr);
+  }
+
   return (
     <section id="credit-card-page">
       {preloader ? <PreloaderPage /> : null}
@@ -232,7 +254,9 @@ export default function CreditCard(data) {
                           </p>
 
                           <div className="description d-flex">
-                            <HomeLoanDetails cardDetails={item} />
+                            <HomeLoanDetails cardDetails={item} addToCompare={addToCompare}
+                              compareList={compareList}
+                              removeCompareItem={removeCompareItem} />
                           </div>
                         </div>
                       );
@@ -270,6 +294,10 @@ export default function CreditCard(data) {
           )}
         </>
       )}
+      {
+        compareList.length &&
+        <CompareList compareList={compareList} removeCompareList={removeCompareList} removeCompareItem={removeCompareItem} />
+      }
     </section>
   );
 }

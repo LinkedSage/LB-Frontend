@@ -72,7 +72,7 @@
 }
 
 .compare-list-modal{
-    max-width: 800px;
+    max-width: 1200px;
     position: relative;
     padding: 1.9rem 3rem;
     background: #ffffff;
@@ -86,16 +86,18 @@
     text-align: center;
 }
 
-/* .compare-list-modal-body .details div:first-child{
+.compare-list-modal-body .row {
+    border: 1px dashed rgb(177, 177, 177) !important;
+}
+
+.compare-list-modal-body .details{
     padding: 5px 20px;
     text-align: center;
-    border:1px dashed rgb(177, 177, 177) !important;
-} */
+    border-right: 1px dashed rgb(177, 177, 177) !important;
+}
 
-.compare-list-modal-body .details div {
-    padding: 5px 20px;
-        text-align: center;
-        border: 1px dashed rgb(177, 177, 177) !important;
+.compare-list-modal-body .row .details:last-child{
+    border-right: none !important;
 }
 
 .compare-list-modal-body .details div:first-child img {

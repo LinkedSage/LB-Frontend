@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
 export const PersonalLoanPhone = ({ cardDetails }) => {
-  console.log("sssssss", cardDetails);
-
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 
@@ -58,23 +56,23 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
           <p className="h4">Eligibility</p>
           <p className="mb-0">
             {cardDetails.eligibility &&
-            cardDetails.eligibility.business &&
-            cardDetails.eligibility.business.is_available ? (
+              cardDetails.eligibility.business &&
+              cardDetails.eligibility.business.is_available ? (
               <span className="pr-2">Businessman</span>
             ) : null}
             {cardDetails.eligibility &&
-            cardDetails.eligibility.doctor &&
-            cardDetails.eligibility.doctor.is_available ? (
+              cardDetails.eligibility.doctor &&
+              cardDetails.eligibility.doctor.is_available ? (
               <span className="pr-2">Doctor</span>
             ) : null}
             {cardDetails.eligibility &&
-            cardDetails.eligibility.landlord &&
-            cardDetails.eligibility.landlord.is_available ? (
+              cardDetails.eligibility.landlord &&
+              cardDetails.eligibility.landlord.is_available ? (
               <span className="pr-2">Landlord</span>
             ) : null}
             {cardDetails.eligibility &&
-            cardDetails.eligibility.salaried &&
-            cardDetails.eligibility.salaried.is_available ? (
+              cardDetails.eligibility.salaried &&
+              cardDetails.eligibility.salaried.is_available ? (
               <span className="pr-2">Salaried</span>
             ) : null}
           </p>
@@ -136,8 +134,8 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
               <div className="left-bottom">
                 <h4 className="_title">Eligibility</h4>
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.salaried &&
-                moreDetails[0].eligibility.salaried.is_available ? (
+                  moreDetails[0].eligibility.salaried &&
+                  moreDetails[0].eligibility.salaried.is_available ? (
                   <div>
                     <p>
                       <b>Salaried</b> Person with minimum monthly income:{" "}
@@ -148,8 +146,8 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
                   </div>
                 ) : null}
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.business &&
-                moreDetails[0].eligibility.business.is_available ? (
+                  moreDetails[0].eligibility.business &&
+                  moreDetails[0].eligibility.business.is_available ? (
                   <div>
                     <p>
                       <b>Businessman</b> with minimum monthly income:{" "}
@@ -160,8 +158,8 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
                   </div>
                 ) : null}
                 {moreDetails[0].eligibility &&
-                moreDetails[0].eligibility.doctor &&
-                moreDetails[0].eligibility.doctor.is_available ? (
+                  moreDetails[0].eligibility.doctor &&
+                  moreDetails[0].eligibility.doctor.is_available ? (
                   <div>
                     <p>
                       <b>Doctor</b> with minimum monthly income:{" "}
@@ -188,7 +186,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
             <div className="right-details">
               <h4 className="_title">Required Documents</h4>
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.essential_documents ? (
+                moreDetails[0].required_documents.essential_documents ? (
                 <>
                   <h5>Essential Documents</h5>
                   <div className="_sub-title">
@@ -209,7 +207,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
                 </>
               ) : null}
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.reference_documents ? (
+                moreDetails[0].required_documents.reference_documents ? (
                 <>
                   <h5 className="mt-3">Reference Documents</h5>
                   <div className="_sub-title">
@@ -231,7 +229,7 @@ export const PersonalLoanPhone = ({ cardDetails }) => {
               ) : null}
 
               {moreDetails[0].required_documents &&
-              moreDetails[0].required_documents.notes ? (
+                moreDetails[0].required_documents.notes ? (
                 <>
                   <h5 className="mt-3">Reference DocumentNotess</h5>
                   <div className="_sub-title">

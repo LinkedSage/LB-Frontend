@@ -8,7 +8,7 @@ import { CardDetails } from "../Components/CardDetails";
 import { PersonalLoanPhone } from "../Components/PersonalLoanPhone";
 import { useLocation } from "react-router-dom";
 import PreloaderPage from "../Components/PreloaderPage";
-import CompareList from "../Components/CompareList";
+import PersonalLoanCompareList from "../Components/PersonalLoanCompareList";
 
 export default function CreditCard(data) {
   let location = useLocation();
@@ -379,7 +379,7 @@ export default function CreditCard(data) {
       )}
       {
         compareList.length &&
-        <CompareList compareList={compareList} removeCompareList={removeCompareList} removeCompareItem={removeCompareItem} />
+        <PersonalLoanCompareList compareList={compareList} removeCompareList={removeCompareList} removeCompareItem={removeCompareItem} />
       }
     </section>
   );

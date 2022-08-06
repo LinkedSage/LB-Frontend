@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Axios from "../Axios";
 
 export const PersonalLoanDetails = ({ cardDetails, addToCompare, compareList, removeCompareItem }) => {
-  console.log("aaaa", cardDetails);
   const [popupStatus, setPopupStatus] = useState(false);
   const [moreDetails, setMoreDetails] = useState();
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import CompareListDetails from './CompareListDetails';
 import './CSS/CompareList.css';
+import PersonalLoanCompareListDetails from './PersonalLoanCompareListDetails';
 
-export default function CompareList({ compareList, removeCompareList, removeCompareItem }) {
+export default function PersonalLoanCompareList({ compareList, removeCompareList, removeCompareItem }) {
     const [openCompareListDetails, setOpenCompareListDetails] = useState(false);
     const handleOpenCompareListDetails = () => setOpenCompareListDetails(true);
     const handleCloseCompareListDetails = () => setOpenCompareListDetails(false);
@@ -81,7 +81,7 @@ export default function CompareList({ compareList, removeCompareList, removeComp
             </div>
             {
                 openCompareListDetails &&
-                <CompareListDetails handleCloseCompareListDetails={handleCloseCompareListDetails} />
+                <PersonalLoanCompareListDetails handleCloseCompareListDetails={handleCloseCompareListDetails} compareList={compareList} />
             }
 
         </>

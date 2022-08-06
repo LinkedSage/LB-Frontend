@@ -38,7 +38,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
             alt="card image"
           />
         </div>
-        <div>
+        {/* <div>
           <Link
             className="mb-2 glow-on-hover"
             to={{
@@ -48,7 +48,7 @@ export const CadrDetails = ({ title, data, cardDetails }) => {
           >
             Apply Now
           </Link>
-        </div>
+        </div> */}
       </div>
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">

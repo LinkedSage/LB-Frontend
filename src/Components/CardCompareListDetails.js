@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const CardCompareListDetails = ({ handleCloseCompareListDetails, compareList }) => {
-
+    console.log(compareList)
     const [newCompareList, setNewCompareList] = useState([{ image_url: "https://backend.loanerbazar.com/public/uploads/1654329074988_1.jpeg", name: "Details", free_anual_fee: "Free Annual Fee", regular_anual_fee: "Regular Annual Fee", anual_fee_waived_rewards: "Rewards Points", interest_free_period: "Interest Free Period", free_supplementary_card: "Free Supplementary Card", max_supplementary_card: "Max Supplementary Card", own_bank_atm_fee: "ATM Fee (own)", other_bank_atm_fee: "ATM Fee (other)", lounge_access_fee: "Lounge Facility (Local)", int_lounge_access_fee: "Lounge Facility (Int.)", _id: "" }]);
     useEffect(() => {
         const newArr = compareList.map(item => {
@@ -41,7 +41,7 @@ const CardCompareListDetails = ({ handleCloseCompareListDetails, compareList }) 
                 </div>
                 <div className='compare-list-modal-body'>
                     {
-                        Array(10).fill(0).map((_, index) =>
+                        Array(12).fill(0).map((_, index) =>
                             index === 0 ?
                                 <div className='row' key={index}>
                                     {
@@ -59,15 +59,21 @@ const CardCompareListDetails = ({ handleCloseCompareListDetails, compareList }) 
                                                 <div className='col details px-0'>
                                                     <div className='h-100'>
                                                         <img src={Object.values(item)[index]} className='img-fluid' />
-                                                        <Link
-                                                            className="btn btn-warning mt-1 btn-sm"
-                                                            to={{
-                                                                pathname: `/card-application/${item._id}`,
-                                                                state: { item },
-                                                            }}
-                                                        >
-                                                            Apply Now
-                                                        </Link>
+                                                        {
+                                                            item._id === "" ?
+                                                                <h5 className='mt-2'>Your Existing Card</h5>
+                                                                :
+                                                                <Link
+                                                                    className="btn btn-warning mt-1 btn-sm"
+                                                                    to={{
+                                                                        pathname: `/card-application/${item._id}`,
+                                                                        state: { item },
+                                                                    }}
+                                                                >
+                                                                    Apply Now
+                                                                </Link>
+                                                        }
+
                                                     </div>
                                                 </div>
                                         )

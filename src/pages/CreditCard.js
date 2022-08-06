@@ -626,7 +626,7 @@ export default function CreditCard(data) {
       )}
       {
         compareList.length &&
-        <CardCompareList compareList={compareList} removeCompareList={removeCompareList} removeCompareItem={removeCompareItem} />
+        <CardCompareList compareList={compareList} removeCompareList={removeCompareList} removeCompareItem={removeCompareItem} setCompareList={setCompareList} />
       }
     </section>
   );

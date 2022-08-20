@@ -21,6 +21,7 @@ import UserDashboard from "../pages/UserDashboard";
 import UpdateUserProfile from "../pages/UpdateUserProfile";
 import { bake_cookie } from "sfcookies";
 import { useLocation } from "react-router-dom";
+import DBRCalculator from "../pages/DBRCalculator";
 
 export default function Section() {
   let location = useLocation();
@@ -71,6 +72,8 @@ export default function Section() {
         path="/auto-loan-application/:id"
         component={AutoLoanApplication}
       />
+
+      <Route exact path="/dbr-calculator" component={DBRCalculator} />
 
       <Route exact path="/coming-soon" component={ComingSoon} />
 

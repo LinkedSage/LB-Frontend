@@ -35,17 +35,21 @@ export const CarLoanDetails = ({ cardDetails, addToCompare, compareList, removeC
   return (
     <>
       <div className="text-center">
-        <img
-          className="fst-child w-220 pl-2 pr-2"
-          src={cardDetails.image_url}
-          alt="card image"
-        />
-        {
-          isItemInCompareList(cardDetails._id) ?
-            <button className="btn btn-warning" onClick={() => removeCompareItem(cardDetails._id)}>Remove from Compare</button>
-            :
-            <button className="btn" onClick={() => addToCompare(cardDetails)}>Add to Compare</button>
-        }
+        <div>
+          <img
+            className="fst-child w-220 pl-2 pr-2"
+            src={cardDetails.image_url}
+            alt="card image"
+          />
+        </div>
+        <div>
+          {
+            isItemInCompareList(cardDetails._id) ?
+              <button className="btn btn-warning" onClick={() => removeCompareItem(cardDetails._id)}>Remove from Compare</button>
+              :
+              <button className="btn" onClick={() => addToCompare(cardDetails)}>Add to Compare</button>
+          }
+        </div>
       </div>
       <div className="vl-line"></div>
       <div className="text-center w-220 pl-2 pr-2">

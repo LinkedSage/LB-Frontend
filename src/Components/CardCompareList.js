@@ -21,16 +21,16 @@ export default function CardCompareList({ compareList, removeCompareList, remove
         const newObj = {
             image_url: "https://i.postimg.cc/W3pxshNQ/fake-cradit-card.png",
             name: "Your existing card",
-            free_anual_fee: `1st Year ${e.target.free_anual_fee.value}% Free`,
-            regular_anual_fee: e.target.regular_anual_fee.value + " BDT",
-            anual_fee_waived_rewards: e.target.anual_fee_waived_rewards.value + " Points",
-            interest_free_period: e.target.interest_free_period.value + " Days",
-            free_supplementary_card: e.target.free_supplementary_card.value + " Cards",
-            max_supplementary_card: e.target.max_supplementary_card.value + " Cards",
-            own_bank_atm_fee: e.target.own_bank_atm_fee.value + " %",
-            other_bank_atm_fee: e.target.other_bank_atm_fee.value + " %",
-            lounge_access_fee: e.target.lounge_access_fee.value + " USD",
-            int_lounge_access_fee: e.target.int_lounge_access_fee.value + " USD",
+            free_anual_fee: e.target.free_anual_fee.value ? `1st Year ${e.target.free_anual_fee.value}% Free` : "",
+            regular_anual_fee: e.target.regular_anual_fee.value ? e.target.regular_anual_fee.value + " BDT" : "",
+            anual_fee_waived_rewards: e.target.anual_fee_waived_rewards.value ? e.target.anual_fee_waived_rewards.value + " Points" : "",
+            interest_free_period: e.target.interest_free_period.value ? e.target.interest_free_period.value + " Days" : "",
+            free_supplementary_card: e.target.free_supplementary_card.value ? e.target.free_supplementary_card.value + " Cards" : "",
+            max_supplementary_card: e.target.max_supplementary_card.value ? e.target.max_supplementary_card.value + " Cards" : "",
+            own_bank_atm_fee: e.target.own_bank_atm_fee.value ? e.target.own_bank_atm_fee.value + " %" : "",
+            other_bank_atm_fee: e.target.other_bank_atm_fee.value ? e.target.other_bank_atm_fee.value + " %" : "",
+            lounge_access_fee: e.target.lounge_access_fee.value ? e.target.lounge_access_fee.value + " USD" : "",
+            int_lounge_access_fee: e.target.int_lounge_access_fee.value ? e.target.int_lounge_access_fee.value + " USD" : "",
             _id: ""
         }
 

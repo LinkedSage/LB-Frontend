@@ -2,6 +2,7 @@ import Axios from "../../Axios";
 import axios from "axios";
 
 export const cardApplicationAdd = async (values) => {
+
   console.log("application1", values);
   let temp = {
     cardId: values.cardId,
